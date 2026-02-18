@@ -18,6 +18,21 @@ export default function HeroScroll() {
     const scrollYRef = useRef(0);
     const animationDoneRef = useRef(false);
 
+    // ─── Lock scroll immediately on mount (before loading even starts) ────────
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.top = '0px';
+        document.body.style.width = '100%';
+        // Cleanup: unlock if component unmounts unexpectedly
+        return () => {
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+        };
+    }, []);
+
     // ─── Draw a frame with COVER fit ─────────────────────────────────────────
     const drawFrame = (frameIdx: number) => {
         const canvas = canvasRef.current;
