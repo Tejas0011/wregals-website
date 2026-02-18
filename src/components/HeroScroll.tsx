@@ -1,45 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 
-// Use every other frame to halve load time (96 frames instead of 192)
-// Still smooth enough at typical scroll speeds
-const TOTAL_FRAMES = 192;
-const STEP = 2; // use every 2nd frame
-const FRAME_COUNT = Math.ceil(TOTAL_FRAMES / STEP); // 96
+const FRAME_COUNT = 192;
 const ANIMATION_PATH = '/Animations/_MConverter.eu_Animation-';
 const DOT_COUNT = 5;
 
 export default function HeroScroll() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const imagesRef = useRef<HTMLImageElement[]>(new Array(FRAME_COUNT));
-    const loadedCountRef = useRef(0);
 
-    const [loadProgress, setLoadProgress] = useState(0); // 0-100
+    const [loadProgress, setLoadProgress] = useState(0); // 0–100
     const [isReady, setIsReady] = useState(false);
-    const [activeDot, setActiveDot] = useState(0);
 
+    const [activeDot, setActiveDot] = useState(0);
     const currentFrameRef = useRef(0);
     const displayFrameRef = useRef(0);
     const rafRef = useRef<number | null>(null);
     const scrollYRef = useRef(0);
     const animationDoneRef = useRef(false);
-    const isReadyRef = useRef(false);
-
-    // ─── Lock scroll IMMEDIATELY on mount, before any images load ────────────
-    useEffect(() => {
-        const lockScroll = () => {
-            document.body.style.overflow = 'hidden';
-            document.body.style.position = 'fixed';
-            document.body.style.top = '0px';
-            document.body.style.width = '100%';
-        };
-        lockScroll();
-        return () => {
-            document.body.style.overflow = '';
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.width = '';
-        };
-    }, []);
 
     // ─── Draw a frame with COVER fit ─────────────────────────────────────────
     const drawFrame = (frameIdx: number) => {
@@ -83,15 +60,13 @@ export default function HeroScroll() {
         ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
     };
 
-    // ─── Smooth render loop (lerp) ────────────────────────────────────────────
+    // ─── Smooth lerp render loop ──────────────────────────────────────────────
     const startRenderLoop = () => {
         const loop = () => {
             const target = currentFrameRef.current;
             const current = displayFrameRef.current;
-            const targetImg = imagesRef.current[Math.round(target)];
-            if (!targetImg) return;
-
             const next = current + (target - current) * 0.12;
+
             if (Math.abs(next - target) > 0.1) {
                 displayFrameRef.current = next;
                 drawFrame(next);
@@ -106,60 +81,59 @@ export default function HeroScroll() {
         rafRef.current = requestAnimationFrame(loop);
     };
 
-    // ─── Progressive image loading ────────────────────────────────────────────
+    // ─── Load ALL 192 frames, show progress, then reveal ─────────────────────
     useEffect(() => {
+        let loaded = 0;
         const imgs = imagesRef.current;
 
-        const loadImage = (frameNum: number, idx: number): Promise<void> =>
-            new Promise((resolve) => {
-                const img = new Image();
-                img.src = `${ANIMATION_PATH}${frameNum}.png`;
-                img.onload = img.onerror = () => {
-                    imgs[idx] = img;
-                    loadedCountRef.current++;
-                    const pct = Math.round((loadedCountRef.current / FRAME_COUNT) * 100);
-                    setLoadProgress(pct);
-                    resolve();
-                };
-            });
+        const BATCH = 24; // load 24 at a time to avoid overwhelming the browser
+
+        const loadBatch = (start: number): Promise<void> => {
+            const end = Math.min(start + BATCH, FRAME_COUNT);
+            const promises: Promise<void>[] = [];
+
+            for (let i = start; i < end; i++) {
+                promises.push(
+                    new Promise<void>((resolve) => {
+                        const img = new Image();
+                        img.src = `${ANIMATION_PATH}${i + 1}.png`;
+                        img.onload = img.onerror = () => {
+                            imgs[i] = img;
+                            loaded++;
+                            setLoadProgress(Math.floor((loaded / FRAME_COUNT) * 100));
+                            resolve();
+                        };
+                    })
+                );
+            }
+            return Promise.all(promises).then(() => { });
+        };
 
         const run = async () => {
-            // Load first frame immediately and draw it
-            await loadImage(1, 0);
+            for (let start = 0; start < FRAME_COUNT; start += BATCH) {
+                await loadBatch(start);
+            }
+            // All frames loaded — draw first frame then reveal
+            imagesRef.current = imgs;
             drawFrame(0);
-
-            // Load next 9 frames (frames 1-9 at step 2 = source frames 3,5,7...19)
-            // This gives us 10 frames total before enabling scroll
-            const PRIORITY = 10;
-            const priorityBatch: Promise<void>[] = [];
-            for (let i = 1; i < PRIORITY; i++) {
-                priorityBatch.push(loadImage(1 + i * STEP, i));
-            }
-            await Promise.all(priorityBatch);
-
-            // Unlock scroll — enough frames to start
-            isReadyRef.current = true;
             setIsReady(true);
-
-            // Load remaining frames in background batches of 16
-            const BATCH = 16;
-            for (let i = PRIORITY; i < FRAME_COUNT; i += BATCH) {
-                const end = Math.min(i + BATCH, FRAME_COUNT);
-                const batch: Promise<void>[] = [];
-                for (let j = i; j < end; j++) {
-                    batch.push(loadImage(1 + j * STEP, j));
-                }
-                await Promise.all(batch);
-            }
         };
 
         run();
     }, []);
 
-    // ─── Scroll event handling (always active, gated by isReadyRef) ──────────
+    // ─── Scroll lock + frame scrubbing (only active after fully loaded) ───────
     useEffect(() => {
+        if (!isReady) return;
+
         const totalScrollRange = window.innerHeight * 2;
 
+        const lockScroll = () => {
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.top = '0px';
+            document.body.style.width = '100%';
+        };
         const unlockScroll = () => {
             document.body.style.overflow = '';
             document.body.style.position = '';
@@ -167,17 +141,14 @@ export default function HeroScroll() {
             document.body.style.width = '';
         };
 
+        lockScroll();
+
         const handleScroll = (delta: number) => {
-            // Don't allow scrolling past animation until ready
-            if (!isReadyRef.current || animationDoneRef.current) return;
+            if (animationDoneRef.current) return;
 
             scrollYRef.current = Math.max(0, Math.min(scrollYRef.current + delta, totalScrollRange));
             const progress = scrollYRef.current / totalScrollRange;
-
-            // Cap to loaded frames
-            const maxFrame = loadedCountRef.current - 1;
-            const idealFrame = progress * (FRAME_COUNT - 1);
-            const frameIdx = Math.min(Math.max(idealFrame, 0), maxFrame);
+            const frameIdx = Math.min(Math.max(progress * (FRAME_COUNT - 1), 0), FRAME_COUNT - 1);
 
             currentFrameRef.current = frameIdx;
 
@@ -195,10 +166,7 @@ export default function HeroScroll() {
             }
         };
 
-        const onWheel = (e: WheelEvent) => {
-            e.preventDefault();
-            handleScroll(e.deltaY);
-        };
+        const onWheel = (e: WheelEvent) => { e.preventDefault(); handleScroll(e.deltaY); };
 
         let lastTouchY = 0;
         const onTouchStart = (e: TouchEvent) => { lastTouchY = e.touches[0].clientY; };
@@ -221,29 +189,47 @@ export default function HeroScroll() {
         window.addEventListener('resize', onResize);
 
         return () => {
+            unlockScroll();
             window.removeEventListener('wheel', onWheel, { capture: true } as EventListenerOptions);
             window.removeEventListener('touchstart', onTouchStart);
             window.removeEventListener('touchmove', onTouchMove, { capture: true } as EventListenerOptions);
             window.removeEventListener('resize', onResize);
             if (rafRef.current) cancelAnimationFrame(rafRef.current);
         };
-    }, []);
+    }, [isReady]);
 
     return (
         <div className="relative w-full h-screen bg-[#080808]">
+            {/* Canvas — always mounted so first frame can draw into it */}
             <canvas
                 ref={canvasRef}
                 className="absolute inset-0 block"
                 style={{ width: '100%', height: '100%' }}
             />
 
-            {/* Loading progress bar — thin line at bottom, fades out when ready */}
+            {/* Full-screen loading overlay — covers canvas until all frames ready */}
             {!isReady && (
-                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/5 z-30">
-                    <div
-                        className="h-full bg-[#C0392B] transition-all duration-300"
-                        style={{ width: `${loadProgress}%` }}
-                    />
+                <div className="absolute inset-0 z-30 bg-[#080808] flex flex-col items-center justify-center gap-8">
+                    {/* WREGALS wordmark */}
+                    <span
+                        className="text-white/80 uppercase tracking-[0.5em] text-sm font-light"
+                        style={{ fontFamily: "'Cormorant Garamond', serif" }}
+                    >
+                        WREGALS
+                    </span>
+
+                    {/* Progress bar */}
+                    <div className="w-48 h-[1px] bg-white/10 relative overflow-hidden">
+                        <div
+                            className="absolute left-0 top-0 h-full bg-[#C0392B] transition-all duration-150"
+                            style={{ width: `${loadProgress}%` }}
+                        />
+                    </div>
+
+                    {/* Percentage */}
+                    <span className="text-white/30 text-[10px] uppercase tracking-[0.3em]">
+                        {loadProgress}%
+                    </span>
                 </div>
             )}
 
