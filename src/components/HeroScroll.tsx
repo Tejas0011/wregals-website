@@ -1,18 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 
-const FRAME_COUNT = 192;
+// Use every other frame to halve load time (96 frames instead of 192)
+// Still smooth enough at typical scroll speeds
+const TOTAL_FRAMES = 192;
+const STEP = 2; // use every 2nd frame
+const FRAME_COUNT = Math.ceil(TOTAL_FRAMES / STEP); // 96
 const ANIMATION_PATH = '/Animations/_MConverter.eu_Animation-';
 const DOT_COUNT = 5;
-
-// Priority batches: load first few frames immediately, rest in background
-const PRIORITY_FRAMES = 5; // frames to load before enabling scroll
 
 export default function HeroScroll() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const imagesRef = useRef<HTMLImageElement[]>(new Array(FRAME_COUNT));
     const loadedCountRef = useRef(0);
 
-    // Ready to scroll once priority frames are loaded
+    const [loadProgress, setLoadProgress] = useState(0); // 0-100
     const [isReady, setIsReady] = useState(false);
     const [activeDot, setActiveDot] = useState(0);
 
@@ -21,6 +22,24 @@ export default function HeroScroll() {
     const rafRef = useRef<number | null>(null);
     const scrollYRef = useRef(0);
     const animationDoneRef = useRef(false);
+    const isReadyRef = useRef(false);
+
+    // ─── Lock scroll IMMEDIATELY on mount, before any images load ────────────
+    useEffect(() => {
+        const lockScroll = () => {
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.top = '0px';
+            document.body.style.width = '100%';
+        };
+        lockScroll();
+        return () => {
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+        };
+    }, []);
 
     // ─── Draw a frame with COVER fit ─────────────────────────────────────────
     const drawFrame = (frameIdx: number) => {
@@ -69,13 +88,10 @@ export default function HeroScroll() {
         const loop = () => {
             const target = currentFrameRef.current;
             const current = displayFrameRef.current;
-
-            // Only draw if the target frame is actually loaded
             const targetImg = imagesRef.current[Math.round(target)];
             if (!targetImg) return;
 
             const next = current + (target - current) * 0.12;
-
             if (Math.abs(next - target) > 0.1) {
                 displayFrameRef.current = next;
                 drawFrame(next);
@@ -86,7 +102,6 @@ export default function HeroScroll() {
                 rafRef.current = null;
             }
         };
-
         if (rafRef.current) cancelAnimationFrame(rafRef.current);
         rafRef.current = requestAnimationFrame(loop);
     };
@@ -95,39 +110,44 @@ export default function HeroScroll() {
     useEffect(() => {
         const imgs = imagesRef.current;
 
-        const loadImage = (i: number): Promise<void> =>
+        const loadImage = (frameNum: number, idx: number): Promise<void> =>
             new Promise((resolve) => {
                 const img = new Image();
-                img.src = `${ANIMATION_PATH}${i + 1}.png`;
+                img.src = `${ANIMATION_PATH}${frameNum}.png`;
                 img.onload = img.onerror = () => {
-                    imgs[i] = img;
+                    imgs[idx] = img;
                     loadedCountRef.current++;
+                    const pct = Math.round((loadedCountRef.current / FRAME_COUNT) * 100);
+                    setLoadProgress(pct);
                     resolve();
                 };
             });
 
         const run = async () => {
-            // Step 1: Load first frame immediately, draw it
-            await loadImage(0);
+            // Load first frame immediately and draw it
+            await loadImage(1, 0);
             drawFrame(0);
 
-            // Step 2: Load next PRIORITY_FRAMES-1 frames, then unlock scroll
-            const priorityPromises = [];
-            for (let i = 1; i < PRIORITY_FRAMES; i++) {
-                priorityPromises.push(loadImage(i));
+            // Load next 9 frames (frames 1-9 at step 2 = source frames 3,5,7...19)
+            // This gives us 10 frames total before enabling scroll
+            const PRIORITY = 10;
+            const priorityBatch: Promise<void>[] = [];
+            for (let i = 1; i < PRIORITY; i++) {
+                priorityBatch.push(loadImage(1 + i * STEP, i));
             }
-            await Promise.all(priorityPromises);
+            await Promise.all(priorityBatch);
 
-            // Scroll is now enabled — user can start interacting
+            // Unlock scroll — enough frames to start
+            isReadyRef.current = true;
             setIsReady(true);
 
-            // Step 3: Load remaining frames in background batches of 20
-            const BATCH = 20;
-            for (let start = PRIORITY_FRAMES; start < FRAME_COUNT; start += BATCH) {
-                const end = Math.min(start + BATCH, FRAME_COUNT);
-                const batch = [];
-                for (let i = start; i < end; i++) {
-                    batch.push(loadImage(i));
+            // Load remaining frames in background batches of 16
+            const BATCH = 16;
+            for (let i = PRIORITY; i < FRAME_COUNT; i += BATCH) {
+                const end = Math.min(i + BATCH, FRAME_COUNT);
+                const batch: Promise<void>[] = [];
+                for (let j = i; j < end; j++) {
+                    batch.push(loadImage(1 + j * STEP, j));
                 }
                 await Promise.all(batch);
             }
@@ -136,18 +156,9 @@ export default function HeroScroll() {
         run();
     }, []);
 
-    // ─── Scroll lock + frame scrubbing ───────────────────────────────────────
+    // ─── Scroll event handling (always active, gated by isReadyRef) ──────────
     useEffect(() => {
-        if (!isReady) return;
-
         const totalScrollRange = window.innerHeight * 2;
-
-        const lockScroll = () => {
-            document.body.style.overflow = 'hidden';
-            document.body.style.position = 'fixed';
-            document.body.style.top = '0px';
-            document.body.style.width = '100%';
-        };
 
         const unlockScroll = () => {
             document.body.style.overflow = '';
@@ -156,18 +167,17 @@ export default function HeroScroll() {
             document.body.style.width = '';
         };
 
-        lockScroll();
-
         const handleScroll = (delta: number) => {
-            if (animationDoneRef.current) return;
+            // Don't allow scrolling past animation until ready
+            if (!isReadyRef.current || animationDoneRef.current) return;
 
             scrollYRef.current = Math.max(0, Math.min(scrollYRef.current + delta, totalScrollRange));
             const progress = scrollYRef.current / totalScrollRange;
 
-            // Only advance to frames that are actually loaded
+            // Cap to loaded frames
+            const maxFrame = loadedCountRef.current - 1;
             const idealFrame = progress * (FRAME_COUNT - 1);
-            const maxLoaded = loadedCountRef.current - 1;
-            const frameIdx = Math.min(Math.max(idealFrame, 0), maxLoaded);
+            const frameIdx = Math.min(Math.max(idealFrame, 0), maxFrame);
 
             currentFrameRef.current = frameIdx;
 
@@ -211,14 +221,13 @@ export default function HeroScroll() {
         window.addEventListener('resize', onResize);
 
         return () => {
-            unlockScroll();
             window.removeEventListener('wheel', onWheel, { capture: true } as EventListenerOptions);
             window.removeEventListener('touchstart', onTouchStart);
             window.removeEventListener('touchmove', onTouchMove, { capture: true } as EventListenerOptions);
             window.removeEventListener('resize', onResize);
             if (rafRef.current) cancelAnimationFrame(rafRef.current);
         };
-    }, [isReady]);
+    }, []);
 
     return (
         <div className="relative w-full h-screen bg-[#080808]">
@@ -228,14 +237,13 @@ export default function HeroScroll() {
                 style={{ width: '100%', height: '100%' }}
             />
 
-            {/* Loading indicator — shown until first frame ready */}
+            {/* Loading progress bar — thin line at bottom, fades out when ready */}
             {!isReady && (
-                <div className="absolute inset-0 flex items-center justify-center bg-[#080808]">
-                    <div className="flex flex-col items-center gap-4">
-                        <div className="w-12 h-[1px] bg-gradient-to-r from-transparent via-[#C0392B] to-transparent animate-pulse" />
-                        <span className="text-white/40 text-[10px] uppercase tracking-[0.3em]">Loading</span>
-                        <div className="w-12 h-[1px] bg-gradient-to-r from-transparent via-[#C0392B] to-transparent animate-pulse" />
-                    </div>
+                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/5 z-30">
+                    <div
+                        className="h-full bg-[#C0392B] transition-all duration-300"
+                        style={{ width: `${loadProgress}%` }}
+                    />
                 </div>
             )}
 
