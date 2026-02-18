@@ -1,12 +1,14 @@
 // @ts-nocheck
+import HeroScroll from './components/HeroScroll';
+
 function App() {
   return (
     <div className="bg-[#080808] overflow-x-hidden selection:bg-[#D4AF37] selection:text-black text-white min-h-screen">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 mix-blend-difference bg-[#080808]/80 backdrop-blur-md border-b border-white/5">
+      <nav className="fixed top-0 w-full z-50 bg-[#080808]/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           {/* Logo */}
-          <a href="/" className="hover:opacity-80 transition-opacity duration-300">
+          <a href="/">
             <img src="/wregals-logo-new.png" alt="WREGALS" className="h-16 w-auto object-contain" />
           </a>
 
@@ -59,47 +61,7 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <header className="min-h-screen flex flex-col velvet-bg text-center pt-20 pr-6 pl-6 relative items-center justify-center overflow-hidden">
-        {/* Decorative Lines - Left Side */}
-        <div className="absolute left-0 top-24 opacity-50 pointer-events-none hidden md:block">
-          <div className="w-[1px] h-64 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent transform -rotate-45 origin-top-left mb-8"></div>
-          <div className="w-[1px] h-96 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent transform -rotate-45 origin-top-left mb-8 ml-12"></div>
-          <div className="w-[1px] h-48 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent transform -rotate-45 origin-top-left mb-8 ml-6"></div>
-          <div className="w-[1px] h-80 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent transform -rotate-45 origin-top-left mb-8 ml-16"></div>
-          <div className="w-[1px] h-56 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent transform -rotate-45 origin-top-left mb-8 ml-10"></div>
-          <div className="w-[1px] h-72 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent transform -rotate-45 origin-top-left mb-8 ml-4"></div>
-          <div className="w-[1px] h-60 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent transform -rotate-45 origin-top-left ml-14"></div>
-        </div>
-
-        {/* Decorative Lines - Right Side */}
-        <div className="absolute right-0 top-32 opacity-50 pointer-events-none hidden md:block">
-          <div className="w-[1px] h-72 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent transform rotate-45 origin-top-right mb-8"></div>
-          <div className="w-[1px] h-88 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent transform rotate-45 origin-top-right mb-8 mr-14"></div>
-          <div className="w-[1px] h-56 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent transform rotate-45 origin-top-right mb-8 mr-8"></div>
-          <div className="w-[1px] h-104 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent transform rotate-45 origin-top-right mb-8 mr-16"></div>
-          <div className="w-[1px] h-64 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent transform rotate-45 origin-top-right mb-8 mr-10"></div>
-          <div className="w-[1px] h-76 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent transform rotate-45 origin-top-right mb-8 mr-6"></div>
-          <div className="w-[1px] h-68 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent transform rotate-45 origin-top-right mr-12"></div>
-        </div>
-
-        <div className="max-w-4xl mx-auto space-y-8 fade-in-up">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-alta font-light tracking-tight leading-[1.1] text-white">
-            Where Icons Become <br /><span className="italic text-neutral-400">Collectibles.</span>
-          </h1>
-          <p className="text-base md:text-lg font-light max-w-xl mx-auto leading-relaxed delay-100 fade-in-up text-neutral-400">
-            A modern auction house for celebrity-owned, rare, and meaningful assets. Authenticated by heritage, secured by technology.
-          </p>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 pt-4 delay-200 fade-in-up">
-            <button className="w-full md:w-auto border px-8 py-3.5 text-xs uppercase tracking-widest transition-colors duration-300 rounded-sm border-white/20 text-white hover:border-white">
-              Explore Auctions
-            </button>
-            <button className="w-full md:w-auto border px-8 py-3.5 text-xs uppercase tracking-widest transition-colors duration-300 rounded-sm border-white/20 text-white hover:border-white">
-              View Celebrity Drops
-            </button>
-          </div>
-        </div>
-
-      </header>
+      <HeroScroll />
 
       {/* Featured Celebrity Auctions */}
       <section className="py-24 md:py-32 px-6 max-w-7xl mx-auto">
