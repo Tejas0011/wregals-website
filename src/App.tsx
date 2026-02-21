@@ -1,11 +1,23 @@
 // @ts-nocheck
+import { useState } from 'react';
 import HeroScroll from './components/HeroScroll';
+import AuthModal from './components/AuthModal';
 
 function App() {
+  const [authOpen, setAuthOpen] = useState(false);
+  const [heroReady, setHeroReady] = useState(false);
+
   return (
     <div className="bg-[#080808] overflow-x-hidden selection:bg-[#D4AF37] selection:text-black text-white min-h-screen">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-[#080808]/80 backdrop-blur-md border-b border-white/5">
+      <nav
+        className="fixed top-0 w-full z-50 bg-[#080808]/80 backdrop-blur-md border-b border-white/5"
+        style={{
+          opacity: heroReady ? 1 : 0,
+          pointerEvents: heroReady ? 'auto' : 'none',
+          transition: 'opacity 0.8s ease',
+        }}
+      >
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           {/* Logo */}
           <a href="/">
@@ -48,7 +60,10 @@ function App() {
 
           {/* Sign In / Action */}
           <div className="hidden md:flex items-center gap-6">
-            <button className="border px-5 py-2 text-xs uppercase tracking-wider transition-all duration-500 rounded-sm border-white/20 hover:bg-white hover:text-black">
+            <button
+              onClick={() => setAuthOpen(true)}
+              className="border px-5 py-2 text-xs uppercase tracking-wider transition-all duration-500 rounded-sm border-white/20 hover:bg-white hover:text-black"
+            >
               Sign In
             </button>
           </div>
@@ -60,8 +75,11 @@ function App() {
         </div>
       </nav>
 
+      {/* Auth Modal */}
+      <AuthModal isOpen={authOpen} onClose={() => setAuthOpen(false)} />
+
       {/* Hero Section */}
-      <HeroScroll />
+      <HeroScroll onReady={() => setHeroReady(true)} />
 
       {/* Featured Celebrity Auctions */}
       <section className="py-24 md:py-32 px-6 max-w-7xl mx-auto">

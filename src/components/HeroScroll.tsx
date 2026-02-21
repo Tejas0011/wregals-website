@@ -4,7 +4,7 @@ const FRAME_COUNT = 192;
 const ANIMATION_PATH = '/Animations/_MConverter.eu_Animation-';
 const DOT_COUNT = 5;
 
-export default function HeroScroll() {
+export default function HeroScroll({ onReady }: { onReady?: () => void }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const imagesRef = useRef<HTMLImageElement[]>(new Array(FRAME_COUNT));
 
@@ -132,6 +132,7 @@ export default function HeroScroll() {
             imagesRef.current = imgs;
             drawFrame(0);
             setIsReady(true);
+            onReady?.();
         };
 
         run();
