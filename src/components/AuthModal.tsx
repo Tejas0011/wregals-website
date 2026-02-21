@@ -8,8 +8,6 @@ interface AuthModalProps {
 }
 
 export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
-    const [signupName, setSignupName] = useState('');
-    const [signupPhone, setSignupPhone] = useState('');
     const [signupEmail, setSignupEmail] = useState('');
     const [signupPassword, setSignupPassword] = useState('');
     const [loginEmail, setLoginEmail] = useState('');
@@ -50,26 +48,18 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     // ── Email Sign Up ─────────────────────────────────────────────────────────
     const handleSignUp = async (e) => {
         e.preventDefault();
-        if (!signupName || !signupPhone || !signupEmail || !signupPassword) return;
+        if (!signupEmail || !signupPassword) return;
         setLoading('signup');
         setMessage(null);
         const { error } = await supabase.auth.signUp({
             email: signupEmail,
             password: signupPassword,
-            options: {
-                data: {
-                    full_name: signupName,
-                    phone: signupPhone,
-                },
-            },
         });
         setLoading(null);
         if (error) {
             setMessage({ type: 'error', text: error.message });
         } else {
             setMessage({ type: 'success', text: 'Check your email to confirm your account.' });
-            setSignupName('');
-            setSignupPhone('');
             setSignupEmail('');
             setSignupPassword('');
         }
@@ -150,34 +140,6 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
                     {/* Email Sign Up Form */}
                     <form className="auth-form" onSubmit={handleSignUp}>
-                        <div className="auth-input-group">
-                            <label className="auth-label">Full Name <span className="auth-label-note">(As per PAN Card)</span></label>
-                            <input
-                                type="text"
-                                className="auth-input"
-                                placeholder="e.g. Tejas Vardhan"
-                                value={signupName}
-                                onChange={(e) => setSignupName(e.target.value)}
-                                disabled={!!loading}
-                                required
-                            />
-                        </div>
-                        <div className="auth-input-group">
-                            <label className="auth-label">Mobile Number</label>
-                            <div className="auth-phone-wrap">
-                                <span className="auth-phone-prefix">+91</span>
-                                <input
-                                    type="tel"
-                                    className="auth-input auth-input--phone"
-                                    placeholder="98765 43210"
-                                    value={signupPhone}
-                                    onChange={(e) => setSignupPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
-                                    disabled={!!loading}
-                                    pattern="[0-9]{10}"
-                                    required
-                                />
-                            </div>
-                        </div>
                         <div className="auth-input-group">
                             <label className="auth-label">Email Address</label>
                             <input
