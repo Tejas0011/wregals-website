@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
 
-const CATEGORIES = ['Watches', 'Fine Art', 'Memorabilia', 'Jewellery', 'Real Estate', 'Automobiles', 'Wine & Spirits', 'Others'];
+const HEARD_SOURCES = ['Instagram', 'LinkedIn', 'Twitter / X', 'Facebook', 'Friend / Referral', 'Google Search', 'Press / Media', 'Event', 'Other'];
 
 const COUNTRIES = [
     'India', 'United States', 'United Kingdom', 'United Arab Emirates',
@@ -12,27 +12,35 @@ const COUNTRIES = [
 interface ProfileSetupProps {
     user: any;
     onNext: () => void;
+    onDismiss: () => void;
+    displayName: string;
+    setDisplayName: (v: string) => void;
+    phone: string;
+    setPhone: (v: string) => void;
+    country: string;
+    setCountry: (v: string) => void;
+    heardSource: string[];
+    setHeardSource: (v: string[]) => void;
 }
 
-export default function ProfileSetup({ user, onNext }: ProfileSetupProps) {
-    const [displayName, setDisplayName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [country, setCountry] = useState('');
-    const [categories, setCategories] = useState<string[]>([]);
+export default function ProfileSetup({ user, onNext, onDismiss, displayName, setDisplayName, phone, setPhone, country, setCountry, heardSource, setHeardSource }: ProfileSetupProps) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-    const toggleCategory = (cat: string) =>
-        setCategories(prev =>
-            prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]
+    const toggleSource = (src: string) =>
+        setHeardSource(
+            heardSource.includes(src)
+                ? heardSource.filter(s => s !== src)
+                : [...heardSource, src]
         );
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!displayName.trim()) { setError('Please enter your name.'); return; }
         if (!phone.trim()) { setError('Please enter your phone number.'); return; }
+        if (phone.length !== 10) { setError('Please enter a valid 10-digit phone number.'); return; }
         if (!country) { setError('Please select your country.'); return; }
-        if (categories.length === 0) { setError('Please select at least one interest.'); return; }
+        if (heardSource.length === 0) { setError('Please let us know how you heard about us.'); return; }
         setError('');
         setLoading(true);
 
@@ -41,7 +49,7 @@ export default function ProfileSetup({ user, onNext }: ProfileSetupProps) {
                 full_name: displayName.trim(),
                 phone,
                 country,
-                preferred_categories: categories,
+                heard_from: heardSource,
             },
         });
 
@@ -52,6 +60,9 @@ export default function ProfileSetup({ user, onNext }: ProfileSetupProps) {
 
     return (
         <div className="profile-setup-overlay">
+            <button className="profile-setup-close" onClick={onDismiss} aria-label="Close">
+                ×
+            </button>
             <div className="profile-setup-container">
                 {/* Wordmark */}
                 <div className="profile-setup-brand">
@@ -103,9 +114,11 @@ export default function ProfileSetup({ user, onNext }: ProfileSetupProps) {
                         <input
                             type="tel"
                             className="profile-setup-input"
-                            placeholder="+91 98765 43210"
+                            placeholder="10-digit mobile number"
                             value={phone}
-                            onChange={e => setPhone(e.target.value)}
+                            onChange={e => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
+                            maxLength={10}
+                            inputMode="numeric"
                             disabled={loading}
                         />
                     </div>
@@ -118,6 +131,7 @@ export default function ProfileSetup({ user, onNext }: ProfileSetupProps) {
                             value={country}
                             onChange={e => setCountry(e.target.value)}
                             disabled={loading}
+                            required
                         >
                             <option value="" disabled>Select your country</option>
                             {COUNTRIES.map(c => (
@@ -126,19 +140,19 @@ export default function ProfileSetup({ user, onNext }: ProfileSetupProps) {
                         </select>
                     </div>
 
-                    {/* Interests */}
+                    {/* Heard about us */}
                     <div className="profile-setup-field">
-                        <label className="profile-setup-label">Interests</label>
+                        <label className="profile-setup-label">Where did you hear about Wregals?</label>
                         <div className="profile-setup-chips">
-                            {CATEGORIES.map(cat => (
+                            {HEARD_SOURCES.map(src => (
                                 <button
-                                    key={cat}
+                                    key={src}
                                     type="button"
-                                    onClick={() => toggleCategory(cat)}
+                                    onClick={() => toggleSource(src)}
                                     disabled={loading}
-                                    className={`profile-setup-chip ${categories.includes(cat) ? 'profile-setup-chip--active' : ''}`}
+                                    className={`profile-setup-chip ${heardSource.includes(src) ? 'profile-setup-chip--active' : ''}`}
                                 >
-                                    {cat}
+                                    {src}
                                 </button>
                             ))}
                         </div>

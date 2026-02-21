@@ -20,9 +20,10 @@ interface ProfileSetup2Props {
     user: any;
     onComplete: () => void;
     onBack: () => void;
+    onDismiss: () => void;
 }
 
-export default function ProfileSetup2({ user, onComplete, onBack }: ProfileSetup2Props) {
+export default function ProfileSetup2({ user, onComplete, onBack, onDismiss }: ProfileSetup2Props) {
     const [addressLine1, setAddressLine1] = useState('');
     const [addressLine2, setAddressLine2] = useState('');
     const [city, setCity] = useState('');
@@ -68,14 +69,17 @@ export default function ProfileSetup2({ user, onComplete, onBack }: ProfileSetup
 
     return (
         <div className="profile-setup-overlay">
-            <div className="profile-setup-container">
+            <button className="profile-setup-close" onClick={onDismiss} aria-label="Close">
+                ×
+            </button>
+            <div className="profile-setup-container profile-setup-container--compact">
                 {/* Wordmark */}
-                <div className="profile-setup-brand">
+                <div className="profile-setup-brand profile-setup-brand--compact">
                     <img src="/wregals-logo-new.png" alt="WREGALS" className="h-16 w-auto object-contain" />
                 </div>
 
                 {/* Step indicator */}
-                <div className="profile-setup-steps">
+                <div className="profile-setup-steps profile-setup-steps--compact">
                     <div className="profile-setup-step profile-setup-step--done">
                         <span className="profile-setup-step-dot">✓</span>
                         <span>Profile</span>
@@ -88,7 +92,7 @@ export default function ProfileSetup2({ user, onComplete, onBack }: ProfileSetup
                 </div>
 
                 {/* Heading */}
-                <div className="profile-setup-heading-block">
+                <div className="profile-setup-heading-block profile-setup-heading-block--compact">
                     <span className="profile-setup-eyebrow">Step 2 of 2</span>
                     <h1 className="profile-setup-title">Address & KYC</h1>
                     <p className="profile-setup-subtitle">
@@ -97,7 +101,7 @@ export default function ProfileSetup2({ user, onComplete, onBack }: ProfileSetup
                 </div>
 
                 {/* Form */}
-                <form className="profile-setup-form" onSubmit={handleSubmit}>
+                <form className="profile-setup-form profile-setup-form--compact" onSubmit={handleSubmit}>
                     {error && <div className="profile-setup-error">{error}</div>}
 
                     {/* Address Line 1 */}

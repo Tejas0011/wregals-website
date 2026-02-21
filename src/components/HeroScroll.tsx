@@ -182,11 +182,16 @@ export default function HeroScroll({ onReady }: { onReady?: () => void }) {
             }
         };
 
-        const onWheel = (e: WheelEvent) => { e.preventDefault(); handleScroll(e.deltaY); };
+        const onWheel = (e: WheelEvent) => {
+            if ((e.target as Element).closest?.('.auth-modal-overlay, .profile-setup-overlay')) return;
+            e.preventDefault();
+            handleScroll(e.deltaY);
+        };
 
         let lastTouchY = 0;
         const onTouchStart = (e: TouchEvent) => { lastTouchY = e.touches[0].clientY; };
         const onTouchMove = (e: TouchEvent) => {
+            if ((e.target as Element).closest?.('.auth-modal-overlay, .profile-setup-overlay')) return;
             e.preventDefault();
             const delta = lastTouchY - e.touches[0].clientY;
             lastTouchY = e.touches[0].clientY;

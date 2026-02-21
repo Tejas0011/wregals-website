@@ -14,6 +14,12 @@ function App() {
   const [showProfileSetup, setShowProfileSetup] = useState(false);
   const [setupStep, setSetupStep] = useState(1);
 
+  // Step-1 form state — lifted here so it survives navigation to/from Step 2
+  const [profileName, setProfileName] = useState('');
+  const [profilePhone, setProfilePhone] = useState('');
+  const [profileCountry, setProfileCountry] = useState('');
+  const [profileHeardSource, setProfileHeardSource] = useState<string[]>([]);
+
   // Lock body scroll when profile setup is open
   useEffect(() => {
     if (showProfileSetup) {
@@ -52,6 +58,15 @@ function App() {
         <ProfileSetup
           user={user}
           onNext={() => setSetupStep(2)}
+          onDismiss={() => setShowProfileSetup(false)}
+          displayName={profileName}
+          setDisplayName={setProfileName}
+          phone={profilePhone}
+          setPhone={setProfilePhone}
+          country={profileCountry}
+          setCountry={setProfileCountry}
+          heardSource={profileHeardSource}
+          setHeardSource={setProfileHeardSource}
         />
       )}
       {showProfileSetup && user && setupStep === 2 && (
@@ -59,6 +74,7 @@ function App() {
           user={user}
           onComplete={() => setShowProfileSetup(false)}
           onBack={() => setSetupStep(1)}
+          onDismiss={() => setShowProfileSetup(false)}
         />
       )}
 
