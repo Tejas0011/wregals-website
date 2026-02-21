@@ -415,3 +415,52 @@ a[href*="spline"] {
 .auth-fine-print a:hover {
     color: rgba(255, 255, 255, 0.6);
 }
+
+/* Spinner */
+.auth-spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-top-color: #000;
+    border-radius: 50%;
+    animation: authSpin 0.6s linear infinite;
+    flex-shrink: 0;
+}
+
+.auth-spinner--dark {
+    border-color: rgba(0, 0, 0, 0.2);
+    border-top-color: #000;
+}
+
+.auth-spinner--light {
+    border-color: rgba(255, 255, 255, 0.2);
+    border-top-color: #fff;
+}
+
+@keyframes authSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Message banner */
+.auth-message {
+    padding: 10px 14px;
+    border-radius: 2px;
+    font-size: 11px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.auth-message--success {
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: #D4AF37;
+}
+
+.auth-message--error {
+    background: rgba(192, 57, 43, 0.1);
+    border: 1px solid rgba(192, 57, 43, 0.3);
+    color: #e57368;
+}

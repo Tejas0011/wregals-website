@@ -1,11 +1,26 @@
 // @ts-nocheck
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import HeroScroll from './components/HeroScroll';
 import AuthModal from './components/AuthModal';
+import { supabase } from './lib/supabase';
 
 function App() {
   const [authOpen, setAuthOpen] = useState(false);
   const [heroReady, setHeroReady] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+    // Listen for auth changes (login, logout, OAuth redirect)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      if (session?.user) setAuthOpen(false); // close modal on successful login
+    });
+    return () => subscription.unsubscribe();
+  }, []);
 
   return (
     <div className="bg-[#080808] overflow-x-hidden selection:bg-[#D4AF37] selection:text-black text-white min-h-screen">
@@ -58,14 +73,35 @@ function App() {
             <a href="#" className="transition-colors duration-300 hover:text-white">Gallery</a>
           </div>
 
-          {/* Sign In / Action */}
+          {/* Sign In / User */}
           <div className="hidden md:flex items-center gap-6">
-            <button
-              onClick={() => setAuthOpen(true)}
-              className="border px-5 py-2 text-xs uppercase tracking-wider transition-all duration-500 rounded-sm border-white/20 hover:bg-white hover:text-black"
-            >
-              Sign In
-            </button>
+            {user ? (
+              <div className="flex items-center gap-3">
+                {user.user_metadata?.avatar_url && (
+                  <img
+                    src={user.user_metadata.avatar_url}
+                    alt="avatar"
+                    className="w-8 h-8 rounded-full object-cover border border-white/20"
+                  />
+                )}
+                <span className="text-xs text-neutral-400 uppercase tracking-wider">
+                  {user.user_metadata?.full_name?.split(' ')[0] || user.email?.split('@')[0]}
+                </span>
+                <button
+                  onClick={() => supabase.auth.signOut()}
+                  className="text-xs uppercase tracking-wider text-neutral-500 hover:text-white transition-colors"
+                >
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => setAuthOpen(true)}
+                className="border px-5 py-2 text-xs uppercase tracking-wider transition-all duration-500 rounded-sm border-white/20 hover:bg-white hover:text-black"
+              >
+                Sign In
+              </button>
+            )}
           </div>
 
           {/* Mobile Menu Icon */}
