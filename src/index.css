@@ -867,3 +867,106 @@ a[href*="spline"] {
     margin-top: 20px;
     font-family: 'Manrope', sans-serif;
 }
+
+/* Step indicator */
+.profile-setup-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 28px;
+}
+
+.profile-setup-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.25);
+    font-family: 'Manrope', sans-serif;
+}
+
+.profile-setup-step--active {
+    color: #D4AF37;
+}
+
+.profile-setup-step--done {
+    color: rgba(212, 175, 55, 0.5);
+}
+
+.profile-setup-step-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.25);
+}
+
+.profile-setup-step--active .profile-setup-step-dot {
+    border-color: #D4AF37;
+    color: #D4AF37;
+    background: rgba(212, 175, 55, 0.08);
+}
+
+.profile-setup-step--done .profile-setup-step-dot {
+    border-color: rgba(212, 175, 55, 0.4);
+    color: rgba(212, 175, 55, 0.6);
+}
+
+.profile-setup-step-line {
+    flex: 0 0 40px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0 10px;
+}
+
+/* Two-column row layout */
+.profile-setup-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* Hint text under input */
+.profile-setup-hint {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.2);
+    font-family: 'Manrope', sans-serif;
+    margin-top: 2px;
+}
+
+/* Actions row (back + submit) */
+.profile-setup-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.profile-setup-back-btn {
+    padding: 12px 18px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    font-family: 'Manrope', sans-serif;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.4);
+    border-radius: 2px;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+}
+
+.profile-setup-back-btn:hover {
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.profile-setup-submit--flex {
+    flex: 1;
+}

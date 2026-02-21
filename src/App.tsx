@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import HeroScroll from './components/HeroScroll';
 import AuthModal from './components/AuthModal';
 import ProfileSetup from './components/ProfileSetup';
+import ProfileSetup2 from './components/ProfileSetup2';
 import { supabase } from './lib/supabase';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [signOutConfirm, setSignOutConfirm] = useState(false);
   const [showProfileSetup, setShowProfileSetup] = useState(false);
+  const [setupStep, setSetupStep] = useState(1);
 
   useEffect(() => {
     // Get initial session
@@ -36,10 +38,17 @@ function App() {
   return (
     <>
       {/* Profile Setup — shown on first login */}
-      {showProfileSetup && user && (
+      {showProfileSetup && user && setupStep === 1 && (
         <ProfileSetup
           user={user}
+          onNext={() => setSetupStep(2)}
+        />
+      )}
+      {showProfileSetup && user && setupStep === 2 && (
+        <ProfileSetup2
+          user={user}
           onComplete={() => setShowProfileSetup(false)}
+          onBack={() => setSetupStep(1)}
         />
       )}
 

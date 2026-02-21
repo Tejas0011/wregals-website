@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
 
-const CATEGORIES = ['Watches', 'Fine Art', 'Memorabilia', 'Jewellery', 'Real Estate', 'Automobiles', 'Wine & Spirits'];
+const CATEGORIES = ['Watches', 'Fine Art', 'Memorabilia', 'Jewellery', 'Real Estate', 'Automobiles', 'Wine & Spirits', 'Others'];
 
 const COUNTRIES = [
     'India', 'United States', 'United Kingdom', 'United Arab Emirates',
@@ -11,11 +11,11 @@ const COUNTRIES = [
 
 interface ProfileSetupProps {
     user: any;
-    onComplete: () => void;
+    onNext: () => void;
 }
 
-export default function ProfileSetup({ user, onComplete }: ProfileSetupProps) {
-    const [displayName, setDisplayName] = useState(user?.user_metadata?.full_name || '');
+export default function ProfileSetup({ user, onNext }: ProfileSetupProps) {
+    const [displayName, setDisplayName] = useState('');
     const [phone, setPhone] = useState('');
     const [country, setCountry] = useState('');
     const [categories, setCategories] = useState<string[]>([]);
@@ -30,7 +30,9 @@ export default function ProfileSetup({ user, onComplete }: ProfileSetupProps) {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!displayName.trim()) { setError('Please enter your name.'); return; }
+        if (!phone.trim()) { setError('Please enter your phone number.'); return; }
         if (!country) { setError('Please select your country.'); return; }
+        if (categories.length === 0) { setError('Please select at least one interest.'); return; }
         setError('');
         setLoading(true);
 
@@ -46,7 +48,7 @@ export default function ProfileSetup({ user, onComplete }: ProfileSetupProps) {
 
         setLoading(false);
         if (updateError) { setError(updateError.message); return; }
-        onComplete();
+        onNext();
     };
 
     return (
@@ -57,9 +59,22 @@ export default function ProfileSetup({ user, onComplete }: ProfileSetupProps) {
                     <img src="/wregals-logo-new.png" alt="WREGALS" className="h-12 w-auto object-contain" />
                 </div>
 
+                {/* Step indicator */}
+                <div className="profile-setup-steps">
+                    <div className="profile-setup-step profile-setup-step--active">
+                        <span className="profile-setup-step-dot">1</span>
+                        <span>Profile</span>
+                    </div>
+                    <div className="profile-setup-step-line" />
+                    <div className="profile-setup-step">
+                        <span className="profile-setup-step-dot">2</span>
+                        <span>KYC Details</span>
+                    </div>
+                </div>
+
                 {/* Heading */}
                 <div className="profile-setup-heading-block">
-                    <span className="profile-setup-eyebrow">Welcome to Wregals</span>
+                    <span className="profile-setup-eyebrow">Step 1 of 2</span>
                     <h1 className="profile-setup-title">Complete Your Profile</h1>
                     <p className="profile-setup-subtitle">
                         Tell us a little about yourself to personalise your experience.
@@ -85,7 +100,7 @@ export default function ProfileSetup({ user, onComplete }: ProfileSetupProps) {
 
                     {/* Phone */}
                     <div className="profile-setup-field">
-                        <label className="profile-setup-label">Phone Number <span className="profile-setup-optional">(optional)</span></label>
+                        <label className="profile-setup-label">Phone Number</label>
                         <input
                             type="tel"
                             className="profile-setup-input"
@@ -114,9 +129,7 @@ export default function ProfileSetup({ user, onComplete }: ProfileSetupProps) {
 
                     {/* Preferred categories */}
                     <div className="profile-setup-field">
-                        <label className="profile-setup-label">
-                            Interests <span className="profile-setup-optional">(select all that apply)</span>
-                        </label>
+                        <label className="profile-setup-label">Interests</label>
                         <div className="profile-setup-chips">
                             {CATEGORIES.map(cat => (
                                 <button
@@ -138,7 +151,7 @@ export default function ProfileSetup({ user, onComplete }: ProfileSetupProps) {
                         ) : (
                             <iconify-icon icon="solar:arrow-right-linear" width="16" />
                         )}
-                        {loading ? 'Saving…' : 'Enter Wregals'}
+                        {loading ? 'Saving…' : 'Continue'}
                     </button>
                 </form>
 
