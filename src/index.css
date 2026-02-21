@@ -681,9 +681,9 @@ a[href*="spline"] {
     z-index: 10000;
     background: #080808;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    padding: 16px;
+    padding: 28px 16px 16px;
     animation: authOverlayIn 0.4s ease forwards;
     overflow: hidden;
 }
