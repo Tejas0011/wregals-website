@@ -989,3 +989,97 @@ a[href*="spline"] {
 .profile-setup-submit--flex {
     flex: 1;
 }
+
+/* ── Custom Select Dropdown ─────────────────────────────── */
+.cselect {
+    position: relative;
+    width: 100%;
+    user-select: none;
+}
+
+.cselect--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.cselect-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    padding: 7px 10px;
+    font-size: 12px;
+    font-family: 'Manrope', sans-serif;
+    color: #fff;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.cselect-trigger:focus,
+.cselect--open .cselect-trigger {
+    border-color: rgba(212, 175, 55, 0.5);
+    background: rgba(255, 255, 255, 0.05);
+    outline: none;
+}
+
+.cselect-placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.cselect-value {
+    color: #fff;
+}
+
+.cselect-arrow {
+    flex-shrink: 0;
+    color: rgba(255, 255, 255, 0.3);
+    transition: transform 0.2s;
+}
+
+.cselect--open .cselect-arrow {
+    transform: rotate(180deg);
+}
+
+.cselect-list {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: #111;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    max-height: 200px;
+    overflow-y: auto;
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+.cselect-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-family: 'Manrope', sans-serif;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s;
+}
+
+.cselect-option:hover {
+    background: rgba(212, 175, 55, 0.08);
+    color: #fff;
+}
+
+.cselect-option--selected {
+    color: #D4AF37;
+}
