@@ -73,26 +73,76 @@ function App() {
             <a href="#" className="transition-colors duration-300 hover:text-white">Gallery</a>
           </div>
 
-          {/* Sign In / User */}
+          {/* Sign In / User Dropdown */}
           <div className="hidden md:flex items-center gap-6">
             {user ? (
-              <div className="flex items-center gap-3">
-                {user.user_metadata?.avatar_url && (
-                  <img
-                    src={user.user_metadata.avatar_url}
-                    alt="avatar"
-                    className="w-8 h-8 rounded-full object-cover border border-white/20"
-                  />
-                )}
-                <span className="text-xs text-neutral-400 uppercase tracking-wider">
-                  {user.user_metadata?.full_name?.split(' ')[0] || user.email?.split('@')[0]}
-                </span>
-                <button
-                  onClick={() => supabase.auth.signOut()}
-                  className="text-xs uppercase tracking-wider text-neutral-500 hover:text-white transition-colors"
-                >
-                  Sign Out
+              <div className="relative group/user">
+                {/* Trigger — user avatar or generic icon */}
+                <button className="user-avatar-btn">
+                  {user.user_metadata?.avatar_url ? (
+                    <img
+                      src={user.user_metadata.avatar_url}
+                      alt="avatar"
+                      className="w-8 h-8 rounded-full object-cover"
+                    />
+                  ) : (
+                    <span className="user-avatar-initials">
+                      {(user.user_metadata?.full_name || user.email || 'U')[0].toUpperCase()}
+                    </span>
+                  )}
                 </button>
+
+                {/* Dropdown panel */}
+                <div className="user-dropdown">
+                  {/* Header — name + email */}
+                  <div className="user-dropdown-header">
+                    <div className="user-dropdown-avatar">
+                      {user.user_metadata?.avatar_url ? (
+                        <img src={user.user_metadata.avatar_url} alt="avatar" className="w-10 h-10 rounded-full object-cover" />
+                      ) : (
+                        <span className="user-avatar-initials user-avatar-initials--lg">
+                          {(user.user_metadata?.full_name || user.email || 'U')[0].toUpperCase()}
+                        </span>
+                      )}
+                    </div>
+                    <div className="user-dropdown-identity">
+                      <p className="user-dropdown-name">
+                        {user.user_metadata?.full_name || user.email?.split('@')[0]}
+                      </p>
+                      <p className="user-dropdown-email">{user.email}</p>
+                    </div>
+                  </div>
+
+                  <div className="user-dropdown-divider" />
+
+                  {/* Menu items */}
+                  <a href="#" className="user-dropdown-item">
+                    <iconify-icon icon="solar:user-circle-linear" width="16" />
+                    My Profile
+                  </a>
+                  <a href="#" className="user-dropdown-item">
+                    <iconify-icon icon="solar:hammer-bold" width="16" />
+                    My Bids
+                  </a>
+                  <a href="#" className="user-dropdown-item">
+                    <iconify-icon icon="solar:heart-linear" width="16" />
+                    Watchlist
+                  </a>
+                  <a href="#" className="user-dropdown-item">
+                    <iconify-icon icon="solar:bell-linear" width="16" />
+                    Notifications
+                  </a>
+
+                  <div className="user-dropdown-divider" />
+
+                  <button
+                    onClick={() => supabase.auth.signOut()}
+                    className="user-dropdown-item user-dropdown-signout"
+                  >
+                    <iconify-icon icon="solar:logout-2-linear" width="16" />
+                    Sign Out
+                  </button>
+                </div>
               </div>
             ) : (
               <button
@@ -478,7 +528,7 @@ function App() {
           </div>
         </div>
       </footer>
-    </div>
+    </div >
   );
 }
 
