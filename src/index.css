@@ -280,6 +280,36 @@ a[href*="spline"] {
     color: rgba(255, 255, 255, 0.35);
 }
 
+.auth-label-note {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: none;
+    margin-left: 4px;
+}
+
+/* Phone field */
+.auth-phone-wrap {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.auth-phone-prefix {
+    position: absolute;
+    left: 12px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+    font-family: 'Manrope', sans-serif;
+    pointer-events: none;
+    user-select: none;
+}
+
+.auth-input--phone {
+    padding-left: 42px;
+}
+
+
 .auth-input {
     width: 100%;
     background: rgba(255, 255, 255, 0.03);

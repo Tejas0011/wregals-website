@@ -121,7 +121,7 @@ function App() {
                     My Profile
                   </a>
                   <a href="#" className="user-dropdown-item">
-                    <iconify-icon icon="solar:hammer-bold" width="16" />
+                    <iconify-icon icon="solar:sledge-hammer-linear" width="16" />
                     My Bids
                   </a>
                   <a href="#" className="user-dropdown-item">
