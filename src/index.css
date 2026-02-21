@@ -687,7 +687,7 @@ a[href*="spline"] {
 }
 
 .profile-setup-brand {
-    margin-bottom: 10px;
+    margin-bottom: 16px;
     display: flex;
     justify-content: center;
 }
@@ -726,11 +726,11 @@ a[href*="spline"] {
 .profile-setup-form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 14px;
     background: #0E0E0E;
     border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: 4px;
-    padding: 16px 20px;
+    padding: 20px 24px;
 }
 
 .profile-setup-error {
@@ -769,8 +769,8 @@ a[href*="spline"] {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 2px;
-    padding: 7px 10px;
-    font-size: 12px;
+    padding: 9px 12px;
+    font-size: 13px;
     color: #ffffff;
     font-family: 'Manrope', sans-serif;
     outline: none;
