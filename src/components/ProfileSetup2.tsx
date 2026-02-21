@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
+import CustomSelect from './CustomSelect';
 
 const INDIAN_STATES = [
     'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh',
@@ -140,17 +141,13 @@ export default function ProfileSetup2({ user, onComplete, onBack }: ProfileSetup
                         </div>
                         <div className="profile-setup-field">
                             <label className="profile-setup-label">State</label>
-                            <select
-                                className="profile-setup-input profile-setup-select"
+                            <CustomSelect
                                 value={state}
-                                onChange={e => setState(e.target.value)}
+                                onChange={setState}
+                                options={INDIAN_STATES}
+                                placeholder="Select state"
                                 disabled={loading}
-                            >
-                                <option value="" disabled>Select state</option>
-                                {INDIAN_STATES.map(s => (
-                                    <option key={s} value={s}>{s}</option>
-                                ))}
-                            </select>
+                            />
                         </div>
                     </div>
 
