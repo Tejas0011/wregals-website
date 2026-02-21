@@ -2,6 +2,17 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
 
+const INDIAN_STATES = [
+    'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh',
+    'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka',
+    'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram',
+    'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu',
+    'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal',
+    // Union Territories
+    'Andaman & Nicobar Islands', 'Chandigarh', 'Dadra & Nagar Haveli and Daman & Diu',
+    'Delhi (NCT)', 'Jammu & Kashmir', 'Ladakh', 'Lakshadweep', 'Puducherry',
+];
+
 interface ProfileSetup2Props {
     user: any;
     onComplete: () => void;
@@ -24,6 +35,7 @@ export default function ProfileSetup2({ user, onComplete, onBack }: ProfileSetup
         if (!city.trim()) { setError('Please enter your city.'); return; }
         if (!state.trim()) { setError('Please enter your state.'); return; }
         if (!pincode.trim()) { setError('Please enter your pincode.'); return; }
+        if (pincode.length !== 6) { setError('Pincode must be exactly 6 digits.'); return; }
         if (!pan.trim()) { setError('Please enter your PAN card number.'); return; }
         if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pan.toUpperCase())) {
             setError('Invalid PAN format. Should be like ABCDE1234F.');
@@ -128,14 +140,17 @@ export default function ProfileSetup2({ user, onComplete, onBack }: ProfileSetup
                         </div>
                         <div className="profile-setup-field">
                             <label className="profile-setup-label">State</label>
-                            <input
-                                type="text"
-                                className="profile-setup-input"
-                                placeholder="Maharashtra"
+                            <select
+                                className="profile-setup-input profile-setup-select"
                                 value={state}
                                 onChange={e => setState(e.target.value)}
                                 disabled={loading}
-                            />
+                            >
+                                <option value="" disabled>Select state</option>
+                                {INDIAN_STATES.map(s => (
+                                    <option key={s} value={s}>{s}</option>
+                                ))}
+                            </select>
                         </div>
                     </div>
 
