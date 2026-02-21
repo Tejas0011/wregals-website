@@ -679,7 +679,7 @@ a[href*="spline"] {
 
 .profile-setup-container {
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
     max-height: 100vh;
     overflow-y: auto;
     scrollbar-width: none;
@@ -726,11 +726,11 @@ a[href*="spline"] {
 .profile-setup-form {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
     background: #0E0E0E;
     border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: 4px;
-    padding: 20px 24px;
+    padding: 24px 32px;
 }
 
 .profile-setup-error {
