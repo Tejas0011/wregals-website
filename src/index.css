@@ -681,9 +681,9 @@ a[href*="spline"] {
     z-index: 10000;
     background: #080808;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-    padding: 28px 16px 16px;
+    padding: 16px;
     animation: authOverlayIn 0.4s ease forwards;
     overflow: hidden;
 }
@@ -698,6 +698,7 @@ a[href*="spline"] {
 }
 
 .profile-setup-brand {
+    margin-top: -40px;
     margin-bottom: 10px;
     display: flex;
     justify-content: center;
