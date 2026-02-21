@@ -42,7 +42,6 @@ export default function ProfileSetup({ user, onNext }: ProfileSetupProps) {
                 phone,
                 country,
                 preferred_categories: categories,
-                profile_completed: true,
             },
         });
 
@@ -127,7 +126,7 @@ export default function ProfileSetup({ user, onNext }: ProfileSetupProps) {
                         </select>
                     </div>
 
-                    {/* Preferred categories */}
+                    {/* Interests */}
                     <div className="profile-setup-field">
                         <label className="profile-setup-label">Interests</label>
                         <div className="profile-setup-chips">
