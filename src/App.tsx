@@ -14,6 +14,16 @@ function App() {
   const [showProfileSetup, setShowProfileSetup] = useState(false);
   const [setupStep, setSetupStep] = useState(1);
 
+  // Lock body scroll when profile setup is open
+  useEffect(() => {
+    if (showProfileSetup) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [showProfileSetup]);
+
   useEffect(() => {
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
