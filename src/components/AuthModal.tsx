@@ -110,10 +110,18 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
             return;
         }
         setLoading('signup'); setMessage(null);
-        const { error } = await supabase.auth.signUp({ email: signupEmail, password: signupPassword });
+        const { data, error } = await supabase.auth.signUp({ email: signupEmail, password: signupPassword });
         setLoading(null);
-        if (error) { setMessage({ type: 'error', text: error.message }); }
-        else { setMessage({ type: 'success', text: 'Check your email to confirm your account.' }); setSignupEmail(''); setSignupPassword(''); setSignupConfirm(''); }
+        if (error) {
+            setMessage({ type: 'error', text: error.message });
+        }
+        else if (data?.session) {
+            onClose(); // Instantly logged in, App.tsx will show profile setup
+        }
+        else {
+            setMessage({ type: 'success', text: 'Check your email to confirm your account.' });
+            setSignupEmail(''); setSignupPassword(''); setSignupConfirm('');
+        }
     };
 
     const handleLogin = async (e) => {
