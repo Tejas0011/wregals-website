@@ -79,7 +79,15 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     }, [isOpen]);
 
     useEffect(() => {
-        if (isOpen) setMessage(null);
+        if (isOpen) {
+            setMessage(null);
+            setSignupEmail('');
+            setSignupPassword('');
+            setSignupConfirm('');
+            setLoginEmail('');
+            setLoginPassword('');
+            setLoading(null);
+        }
     }, [isOpen]);
 
     if (!isOpen) return null;
