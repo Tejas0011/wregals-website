@@ -19,7 +19,7 @@ label,
 }
 
 body {
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
     background-color: #080808;
     /* Deep Matte Black */
     color: #F5F5F5;
@@ -31,11 +31,11 @@ h3,
 h4,
 h5,
 .serif {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 .font-alta {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-weight: 300;
 }
 
@@ -225,7 +225,7 @@ a[href*="spline"] {
 }
 
 .auth-heading {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 26px;
     font-weight: 300;
     color: #ffffff;
@@ -257,7 +257,7 @@ a[href*="spline"] {
     color: rgba(255, 255, 255, 0.75);
     font-size: 12px;
     letter-spacing: 0.06em;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
     transition: background 0.25s, border-color 0.25s, color 0.25s;
 }
 
@@ -326,7 +326,7 @@ a[href*="spline"] {
     padding: 10px 12px;
     font-size: 13px;
     color: #ffffff;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
     outline: none;
     transition: border-color 0.2s, background 0.2s;
     box-sizing: border-box;
@@ -371,7 +371,7 @@ a[href*="spline"] {
     background: #D4AF37;
     color: #000000;
     font-size: 11px;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     border: none;
@@ -397,7 +397,7 @@ a[href*="spline"] {
     background: transparent;
     color: #ffffff;
     font-size: 11px;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -526,7 +526,7 @@ a[href*="spline"] {
     font-size: 13px;
     font-weight: 600;
     color: #D4AF37;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
     line-height: 1;
 }
 
@@ -591,7 +591,7 @@ a[href*="spline"] {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 .user-dropdown-email {
@@ -601,7 +601,7 @@ a[href*="spline"] {
     overflow: hidden;
     text-overflow: ellipsis;
     margin-top: 1px;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 /* Divider */
@@ -621,7 +621,7 @@ a[href*="spline"] {
     font-size: 11px;
     letter-spacing: 0.06em;
     color: rgba(255, 255, 255, 0.55);
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
     text-decoration: none;
     background: none;
     border: none;
@@ -653,7 +653,7 @@ a[href*="spline"] {
     display: block;
     font-size: 11px;
     color: rgba(255, 255, 255, 0.6);
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
     letter-spacing: 0.04em;
     margin-bottom: 10px;
 }
@@ -669,7 +669,7 @@ a[href*="spline"] {
     font-size: 10px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
     background: rgba(192, 57, 43, 0.15);
     border: 1px solid rgba(192, 57, 43, 0.4);
     color: #e57368;
@@ -688,7 +688,7 @@ a[href*="spline"] {
     font-size: 10px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.4);
@@ -742,11 +742,11 @@ a[href*="spline"] {
     text-transform: uppercase;
     color: #D4AF37;
     margin-bottom: 4px;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 .profile-setup-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 22px;
     font-weight: 300;
     color: #ffffff;
@@ -758,7 +758,7 @@ a[href*="spline"] {
     font-size: 11px;
     color: rgba(255, 255, 255, 0.35);
     margin: 0;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 .profile-setup-form {
@@ -778,7 +778,7 @@ a[href*="spline"] {
     background: rgba(192, 57, 43, 0.1);
     border: 1px solid rgba(192, 57, 43, 0.3);
     color: #e57368;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 .profile-setup-field {
@@ -792,7 +792,7 @@ a[href*="spline"] {
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.35);
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 .profile-setup-optional {
@@ -810,7 +810,7 @@ a[href*="spline"] {
     padding: 11px 14px;
     font-size: 13px;
     color: #ffffff;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
     outline: none;
     transition: border-color 0.2s, background 0.2s;
     box-sizing: border-box;
@@ -857,7 +857,7 @@ a[href*="spline"] {
     font-size: 9px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.4);
@@ -888,7 +888,7 @@ a[href*="spline"] {
     background: #D4AF37;
     color: #000;
     font-size: 11px;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     font-weight: 700;
@@ -911,7 +911,7 @@ a[href*="spline"] {
     font-size: 9px;
     color: rgba(255, 255, 255, 0.15);
     margin-top: 8px;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 /* Step indicator */
@@ -933,7 +933,7 @@ a[href*="spline"] {
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.25);
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
     white-space: nowrap;
 }
 
@@ -989,7 +989,7 @@ a[href*="spline"] {
 .profile-setup-hint {
     font-size: 10px;
     color: rgba(255, 255, 255, 0.2);
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
     margin-top: 2px;
 }
 
@@ -1004,7 +1004,7 @@ a[href*="spline"] {
     padding: 12px 18px;
     font-size: 11px;
     letter-spacing: 0.08em;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.4);
@@ -1068,7 +1068,7 @@ a[href*="spline"] {
     border-radius: 2px;
     padding: 11px 14px;
     font-size: 13px;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
     color: #fff;
     text-align: left;
     cursor: pointer;
@@ -1124,7 +1124,7 @@ a[href*="spline"] {
     gap: 8px;
     padding: 8px 12px;
     font-size: 12px;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
     color: rgba(255, 255, 255, 0.6);
     cursor: pointer;
     transition: background 0.12s, color 0.12s;
