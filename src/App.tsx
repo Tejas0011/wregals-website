@@ -7,6 +7,8 @@ import ProfileSetup from './components/ProfileSetup';
 import ProfileSetup2 from './components/ProfileSetup2';
 import WalletModal from './components/WalletModal';
 import LiveAuctions from './pages/LiveAuctions';
+import UpcomingAuctions from './pages/UpcomingAuctions';
+import AuctionResults from './pages/AuctionResults';
 import { supabase } from './lib/supabase';
 
 function App() {
@@ -59,6 +61,12 @@ function App() {
     <Routes>
       <Route path="/auctions/live" element={
         <LiveAuctions user={user} walletBalance={50000} onSignInClick={() => setAuthOpen(true)} />
+      } />
+      <Route path="/auctions/upcoming" element={
+        <UpcomingAuctions user={user} onSignInClick={() => setAuthOpen(true)} />
+      } />
+      <Route path="/auctions/results" element={
+        <AuctionResults user={user} onSignInClick={() => setAuthOpen(true)} />
       } />
       <Route path="/*" element={<>
         {/* Profile Setup — shown on first login */}
@@ -117,14 +125,14 @@ function App() {
                             <h3 className="text-sm font-semibold mb-1 text-white group-hover/item:text-[#D4AF37] transition-colors">Live Auctions</h3>
                             <p className="text-xs text-neutral-500 normal-case tracking-normal">Current active auctions</p>
                           </Link>
-                          <a href="#" className="group/item py-3 border-b border-white/5 hover:border-white/20 transition-colors">
+                          <Link to="/auctions/upcoming" className="group/item py-3 border-b border-white/5 hover:border-white/20 transition-colors">
                             <h3 className="text-sm font-semibold mb-1 text-white group-hover/item:text-[#D4AF37] transition-colors">Upcoming Auctions</h3>
                             <p className="text-xs text-neutral-500 normal-case tracking-normal">Preview future events</p>
-                          </a>
-                          <a href="#" className="group/item py-3 border-b border-white/5 hover:border-white/20 transition-colors">
+                          </Link>
+                          <Link to="/auctions/results" className="group/item py-3 border-b border-white/5 hover:border-white/20 transition-colors">
                             <h3 className="text-sm font-semibold mb-1 text-white group-hover/item:text-[#D4AF37] transition-colors">Auction Results</h3>
                             <p className="text-xs text-neutral-500 normal-case tracking-normal">Past auction outcomes</p>
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
