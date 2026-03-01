@@ -1,15 +1,19 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
+// In production (Vercel), route through our serverless proxy so Indian ISPs
+// never see a direct connection to supabase.co.
+// In local dev, connect directly.
+const supabaseUrl = import.meta.env.PROD
+    ? `${window.location.origin}/api/supabase`
+    : (import.meta.env.VITE_SUPABASE_URL as string) || 'https://ddedmbzxjpymdbbfxacn.supabase.co';
+
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
 
-if (!supabaseUrl || !supabaseAnonKey) {
-    console.warn(
-        'Missing Supabase environment variables. Make sure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set.'
-    );
+if (!supabaseAnonKey) {
+    console.warn('Missing VITE_SUPABASE_ANON_KEY environment variable.');
 }
 
 export const supabase = createClient(
-    supabaseUrl || 'https://placeholder.supabase.co',
+    supabaseUrl,
     supabaseAnonKey || 'placeholder-key'
 );
