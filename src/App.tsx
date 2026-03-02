@@ -9,6 +9,7 @@ import WalletModal from './components/WalletModal';
 import LiveAuctions from './pages/LiveAuctions';
 import UpcomingAuctions from './pages/UpcomingAuctions';
 import AuctionResults from './pages/AuctionResults';
+import About from './pages/About';
 import { supabase } from './lib/supabase';
 
 function App() {
@@ -67,6 +68,9 @@ function App() {
       } />
       <Route path="/auctions/results" element={
         <AuctionResults user={user} onSignInClick={() => setAuthOpen(true)} />
+      } />
+      <Route path="/about" element={
+        <About user={user} onSignInClick={() => setAuthOpen(true)} />
       } />
       <Route path="/*" element={<>
         {/* Profile Setup — shown on first login */}
@@ -139,9 +143,38 @@ function App() {
                   </div>
                 </div>
 
-                <a href="#" className="transition-colors duration-300 hover:text-white">About</a>
                 <a href="#how-it-works" className="transition-colors duration-300 hover:text-white">How It Works</a>
                 <a href="#" className="transition-colors duration-300 hover:text-white">Gallery</a>
+
+                {/* Company dropdown */}
+                <div className="relative group">
+                  <Link to="/about" className="transition-colors duration-300 hover:text-white">Company</Link>
+
+                  <div className="fixed left-0 right-0 top-20 opacity-0 invisible group-hover:opacity-100 group-hover:visible hover:opacity-100 hover:visible transition-all duration-300 z-40">
+                    <div className="bg-[#0A0A0A] border-t border-white/10 py-8 px-6">
+                      <div className="max-w-7xl mx-auto">
+                        <div className="flex flex-col gap-6">
+                          <Link to="/about" className="group/item py-3 border-b border-white/5 hover:border-white/20 transition-colors">
+                            <h3 className="text-sm font-semibold mb-1 text-white group-hover/item:text-[#D4AF37] transition-colors">About Us</h3>
+                            <p className="text-xs text-neutral-500 normal-case tracking-normal">Our mission, story, and team</p>
+                          </Link>
+                          <a href="mailto:careers@wregals.com" className="group/item py-3 border-b border-white/5 hover:border-white/20 transition-colors">
+                            <h3 className="text-sm font-semibold mb-1 text-white group-hover/item:text-[#D4AF37] transition-colors">Careers</h3>
+                            <p className="text-xs text-neutral-500 normal-case tracking-normal">Join the WREGALS team</p>
+                          </a>
+                          <a href="mailto:press@wregals.com" className="group/item py-3 border-b border-white/5 hover:border-white/20 transition-colors">
+                            <h3 className="text-sm font-semibold mb-1 text-white group-hover/item:text-[#D4AF37] transition-colors">Press</h3>
+                            <p className="text-xs text-neutral-500 normal-case tracking-normal">Media resources and enquiries</p>
+                          </a>
+                          <a href="mailto:hello@wregals.com" className="group/item py-3 border-white/5 hover:border-white/20 transition-colors">
+                            <h3 className="text-sm font-semibold mb-1 text-white group-hover/item:text-[#D4AF37] transition-colors">Contact</h3>
+                            <p className="text-xs text-neutral-500 normal-case tracking-normal">Get in touch with us</p>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Sign In / User Dropdown */}
