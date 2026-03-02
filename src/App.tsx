@@ -155,7 +155,7 @@ function App() {
                     onClick={() => setOpenNav(v => v === 'auctions' ? null : 'auctions')}
                     className={`transition-colors duration-300 hover:text-white ${openNav === 'auctions' ? 'text-white' : ''}`}
                   >
-                    Auctions
+                    AUCTIONS
                   </button>
 
                   {/* Full-width Dropdown */}
@@ -190,7 +190,7 @@ function App() {
                     onClick={() => setOpenNav(v => v === 'company' ? null : 'company')}
                     className={`transition-colors duration-300 hover:text-white ${openNav === 'company' ? 'text-white' : ''}`}
                   >
-                    Company
+                    COMPANY
                   </button>
 
                   <div className={`fixed left-0 right-0 top-20 transition-all duration-300 z-40 ${openNav === 'company' ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
