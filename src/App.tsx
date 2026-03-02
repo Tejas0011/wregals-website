@@ -10,6 +10,9 @@ import LiveAuctions from './pages/LiveAuctions';
 import UpcomingAuctions from './pages/UpcomingAuctions';
 import AuctionResults from './pages/AuctionResults';
 import About from './pages/About';
+import Careers from './pages/Careers';
+import Press from './pages/Press';
+import Contact from './pages/Contact';
 import { supabase } from './lib/supabase';
 
 function App() {
@@ -71,6 +74,15 @@ function App() {
       } />
       <Route path="/about" element={
         <About user={user} onSignInClick={() => setAuthOpen(true)} />
+      } />
+      <Route path="/careers" element={
+        <Careers user={user} onSignInClick={() => setAuthOpen(true)} />
+      } />
+      <Route path="/press" element={
+        <Press user={user} onSignInClick={() => setAuthOpen(true)} />
+      } />
+      <Route path="/contact" element={
+        <Contact user={user} onSignInClick={() => setAuthOpen(true)} />
       } />
       <Route path="/*" element={<>
         {/* Profile Setup — shown on first login */}
@@ -158,18 +170,18 @@ function App() {
                             <h3 className="text-sm font-semibold mb-1 text-white group-hover/item:text-[#D4AF37] transition-colors">About Us</h3>
                             <p className="text-xs text-neutral-500 normal-case tracking-normal">Our mission, story, and team</p>
                           </Link>
-                          <a href="mailto:careers@wregals.com" className="group/item py-3 border-b border-white/5 hover:border-white/20 transition-colors">
+                          <Link to="/careers" className="group/item py-3 border-b border-white/5 hover:border-white/20 transition-colors">
                             <h3 className="text-sm font-semibold mb-1 text-white group-hover/item:text-[#D4AF37] transition-colors">Careers</h3>
                             <p className="text-xs text-neutral-500 normal-case tracking-normal">Join the WREGALS team</p>
-                          </a>
-                          <a href="mailto:press@wregals.com" className="group/item py-3 border-b border-white/5 hover:border-white/20 transition-colors">
+                          </Link>
+                          <Link to="/press" className="group/item py-3 border-b border-white/5 hover:border-white/20 transition-colors">
                             <h3 className="text-sm font-semibold mb-1 text-white group-hover/item:text-[#D4AF37] transition-colors">Press</h3>
                             <p className="text-xs text-neutral-500 normal-case tracking-normal">Media resources and enquiries</p>
-                          </a>
-                          <a href="mailto:hello@wregals.com" className="group/item py-3 border-white/5 hover:border-white/20 transition-colors">
+                          </Link>
+                          <Link to="/contact" className="group/item py-3 border-white/5 hover:border-white/20 transition-colors">
                             <h3 className="text-sm font-semibold mb-1 text-white group-hover/item:text-[#D4AF37] transition-colors">Contact</h3>
                             <p className="text-xs text-neutral-500 normal-case tracking-normal">Get in touch with us</p>
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
