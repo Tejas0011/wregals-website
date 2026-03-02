@@ -142,7 +142,7 @@ export default function UpcomingAuctions({ user, onSignInClick }: UpcomingAuctio
                 <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                     <Link to="/"><img src="/wregals-logo-new.png" alt="WREGALS" className="h-12 w-auto object-contain" /></Link>
                     <div className="flex items-center gap-6 text-xs tracking-widest uppercase text-neutral-400">
-                        <Link to="/" className="hover:text-white transition-colors hidden md:block">Home</Link>
+                        <Link to="/" className="hover:text-white transition-colors">Home</Link>
                         <Link to="/auctions/live" className="hover:text-white transition-colors hidden md:block">Live</Link>
                         <span className="text-[#D4AF37]">Upcoming</span>
                         {user ? (

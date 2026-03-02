@@ -149,7 +149,7 @@ export default function LiveAuctions({ user, walletBalance = 0, onSignInClick }:
                         <img src="/wregals-logo-new.png" alt="WREGALS" className="h-12 w-auto object-contain" />
                     </Link>
                     <div className="flex items-center gap-6 text-xs tracking-widest uppercase text-neutral-400">
-                        <Link to="/" className="hover:text-white transition-colors hidden md:block">Home</Link>
+                        <Link to="/" className="hover:text-white transition-colors">Home</Link>
                         <span className="text-[#D4AF37]">Live Auctions</span>
                         {user ? (
                             <span className="text-neutral-300 hidden md:block">{user.email?.split('@')[0]}</span>
@@ -228,8 +228,8 @@ export default function LiveAuctions({ user, walletBalance = 0, onSignInClick }:
                                         key={c}
                                         onClick={() => setCategory(c)}
                                         className={`w-full text-left text-sm px-3 py-2 rounded-sm transition-all ${category === c
-                                                ? 'bg-white/5 text-[#D4AF37] border-l-2 border-[#D4AF37]'
-                                                : 'text-neutral-400 hover:text-white'
+                                            ? 'bg-white/5 text-[#D4AF37] border-l-2 border-[#D4AF37]'
+                                            : 'text-neutral-400 hover:text-white'
                                             }`}
                                     >
                                         {c}
@@ -247,8 +247,8 @@ export default function LiveAuctions({ user, walletBalance = 0, onSignInClick }:
                                         key={s}
                                         onClick={() => setStatus(s)}
                                         className={`w-full text-left text-sm px-3 py-2 rounded-sm transition-all ${status === s
-                                                ? 'bg-white/5 text-[#D4AF37] border-l-2 border-[#D4AF37]'
-                                                : 'text-neutral-400 hover:text-white'
+                                            ? 'bg-white/5 text-[#D4AF37] border-l-2 border-[#D4AF37]'
+                                            : 'text-neutral-400 hover:text-white'
                                             }`}
                                     >
                                         {s}
