@@ -13,6 +13,8 @@ import About from './pages/About';
 import Careers from './pages/Careers';
 import Press from './pages/Press';
 import Contact from './pages/Contact';
+import HowItWorks from './pages/HowItWorks';
+import Gallery from './pages/Gallery';
 import { supabase } from './lib/supabase';
 
 function App() {
@@ -83,6 +85,12 @@ function App() {
       } />
       <Route path="/contact" element={
         <Contact user={user} onSignInClick={() => setAuthOpen(true)} />
+      } />
+      <Route path="/how-it-works" element={
+        <HowItWorks user={user} onSignInClick={() => setAuthOpen(true)} />
+      } />
+      <Route path="/gallery" element={
+        <Gallery user={user} onSignInClick={() => setAuthOpen(true)} />
       } />
       <Route path="/*" element={<>
         {/* Profile Setup — shown on first login */}
@@ -155,8 +163,8 @@ function App() {
                   </div>
                 </div>
 
-                <a href="#how-it-works" className="transition-colors duration-300 hover:text-white">How It Works</a>
-                <a href="#" className="transition-colors duration-300 hover:text-white">Gallery</a>
+                <Link to="/how-it-works" className="transition-colors duration-300 hover:text-white">How It Works</Link>
+                <Link to="/gallery" className="transition-colors duration-300 hover:text-white">Gallery</Link>
 
                 {/* Company dropdown */}
                 <div className="relative group">
