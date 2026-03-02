@@ -240,10 +240,10 @@ function App() {
                       <div className="user-dropdown-divider" />
 
                       {/* Menu items */}
-                      <a href="#" className="user-dropdown-item">
+                      <button className="user-dropdown-item w-full text-left">
                         <iconify-icon icon="solar:user-circle-linear" width="16" />
                         My Profile
-                      </a>
+                      </button>
                       <button
                         onClick={() => setWalletOpen(true)}
                         className="user-dropdown-item w-full text-left"
@@ -251,18 +251,18 @@ function App() {
                         <iconify-icon icon="solar:wallet-linear" width="16" />
                         Wallet
                       </button>
-                      <a href="#" className="user-dropdown-item">
+                      <button className="user-dropdown-item w-full text-left">
                         <iconify-icon icon="mdi:gavel" width="16" />
                         My Bids
-                      </a>
-                      <a href="#" className="user-dropdown-item">
+                      </button>
+                      <button className="user-dropdown-item w-full text-left">
                         <iconify-icon icon="solar:heart-linear" width="16" />
                         Watchlist
-                      </a>
-                      <a href="#" className="user-dropdown-item">
+                      </button>
+                      <button className="user-dropdown-item w-full text-left">
                         <iconify-icon icon="solar:bell-linear" width="16" />
                         Notifications
-                      </a>
+                      </button>
 
                       <div className="user-dropdown-divider" />
 
@@ -627,7 +627,7 @@ function App() {
             <div className="max-w-7xl mx-auto px-6">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
                 <div className="md:col-span-1">
-                  <a href="#" className="text-xl serif tracking-tighter uppercase mb-6 block text-white">WREGALS</a>
+                  <Link to="/about" className="text-xl serif tracking-tighter uppercase mb-6 block text-white">WREGALS</Link>
                   <p className="text-xs text-neutral-500 leading-relaxed font-light">
                     The definitive digital auction house for the world's most significant assets.
                   </p>
@@ -636,20 +636,20 @@ function App() {
                 <div className="md:col-span-1">
                   <h5 className="text-xs font-semibold uppercase tracking-widest mb-6 text-white">Platform</h5>
                   <ul className="space-y-4 text-xs text-neutral-500 font-light">
-                    <li><a href="#" className="transition-colors hover:text-white">About Wregals</a></li>
-                    <li><a href="#" className="transition-colors hover:text-white">Celebrity Partners</a></li>
-                    <li><a href="#" className="transition-colors hover:text-white">Careers</a></li>
-                    <li><a href="#" className="transition-colors hover:text-white">Press Room</a></li>
+                    <li><Link to="/about" className="transition-colors hover:text-white">About Wregals</Link></li>
+                    <li><Link to="/gallery" className="transition-colors hover:text-white">Celebrity Partners</Link></li>
+                    <li><Link to="/careers" className="transition-colors hover:text-white">Careers</Link></li>
+                    <li><Link to="/press" className="transition-colors hover:text-white">Press Room</Link></li>
                   </ul>
                 </div>
 
                 <div className="md:col-span-1">
                   <h5 className="text-xs font-semibold uppercase tracking-widest mb-6 text-white">Support</h5>
                   <ul className="space-y-4 text-xs text-neutral-500 font-light">
-                    <li><a href="#" className="transition-colors hover:text-white">Trust & Safety</a></li>
-                    <li><a href="#" className="transition-colors hover:text-white">Authentication</a></li>
-                    <li><a href="#" className="transition-colors hover:text-white">Shipping & Returns</a></li>
-                    <li><a href="#" className="transition-colors hover:text-white">Concierge</a></li>
+                    <li><Link to="/how-it-works" className="transition-colors hover:text-white">Trust & Safety</Link></li>
+                    <li><Link to="/how-it-works" className="transition-colors hover:text-white">Authentication</Link></li>
+                    <li><Link to="/contact" className="transition-colors hover:text-white">Shipping & Returns</Link></li>
+                    <li><Link to="/contact" className="transition-colors hover:text-white">Concierge</Link></li>
                   </ul>
                 </div>
 
@@ -676,8 +676,8 @@ function App() {
                   </a>
                 </div>
                 <div className="flex gap-6 mt-4 md:mt-0 text-[10px] uppercase tracking-wider text-neutral-600">
-                  <a href="#" className="hover:text-neutral-400">Privacy</a>
-                  <a href="#" className="hover:text-neutral-400">Terms</a>
+                  <span className="text-neutral-500 cursor-not-allowed">Privacy</span>
+                  <span className="text-neutral-500 cursor-not-allowed">Terms</span>
                 </div>
               </div>
             </div>
