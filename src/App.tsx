@@ -150,16 +150,16 @@ function App() {
               {/* Desktop Menu */}
               <div ref={navRef} onMouseLeave={() => setOpenNav(null)} className="hidden md:flex items-center gap-8 text-xs tracking-widest uppercase font-medium text-neutral-400">
                 {/* Auctions with Dropdown */}
-                <div className="relative" onMouseEnter={() => setOpenNav('auctions')}>
+                <div className="relative group" onMouseEnter={() => setOpenNav(null)}>
                   <button
                     onClick={() => setOpenNav(v => v === 'auctions' ? null : 'auctions')}
-                    className={`transition-colors duration-300 hover:text-white ${openNav === 'auctions' ? 'text-white' : ''}`}
+                    className={`transition-colors duration-300 hover:text-white group-hover:text-white ${openNav === 'auctions' ? 'text-white' : ''}`}
                   >
                     AUCTIONS
                   </button>
 
                   {/* Full-width Dropdown */}
-                  <div className={`fixed left-0 right-0 top-20 transition-all duration-300 z-40 ${openNav === 'auctions' ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'}`}>
+                  <div className={`fixed left-0 right-0 top-20 transition-all duration-300 z-40 ${openNav === 'auctions' ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto'}`}>
                     <div className="bg-[#0A0A0A] border-t border-white/10 py-8 px-6">
                       <div className="max-w-7xl mx-auto">
                         <div className="flex flex-col gap-6">
@@ -185,15 +185,15 @@ function App() {
                 <Link to="/gallery" className="transition-colors duration-300 hover:text-white">Gallery</Link>
 
                 {/* Company dropdown */}
-                <div className="relative" onMouseEnter={() => setOpenNav('company')}>
+                <div className="relative group" onMouseEnter={() => setOpenNav(null)}>
                   <button
                     onClick={() => setOpenNav(v => v === 'company' ? null : 'company')}
-                    className={`transition-colors duration-300 hover:text-white ${openNav === 'company' ? 'text-white' : ''}`}
+                    className={`transition-colors duration-300 hover:text-white group-hover:text-white ${openNav === 'company' ? 'text-white' : ''}`}
                   >
                     COMPANY
                   </button>
 
-                  <div className={`fixed left-0 right-0 top-20 transition-all duration-300 z-40 ${openNav === 'company' ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'}`}>
+                  <div className={`fixed left-0 right-0 top-20 transition-all duration-300 z-40 ${openNav === 'company' ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto'}`}>
                     <div className="bg-[#0A0A0A] border-t border-white/10 py-8 px-6">
                       <div className="max-w-7xl mx-auto">
                         <div className="flex flex-col gap-6">
