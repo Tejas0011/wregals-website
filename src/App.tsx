@@ -130,9 +130,9 @@ function App() {
           >
             <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
               {/* Logo */}
-              <a href="/">
+              <Link to="/">
                 <img src="/wregals-logo-new.png" alt="WREGALS" className="h-16 w-auto object-contain" />
-              </a>
+              </Link>
 
               {/* Desktop Menu */}
               <div className="hidden md:flex items-center gap-8 text-xs tracking-widest uppercase font-medium text-neutral-400">
