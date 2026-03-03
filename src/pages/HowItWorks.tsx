@@ -177,12 +177,17 @@ export default function HowItWorks({ user, onSignInClick }: HowItWorksProps) {
                     <div className="space-y-0">
                         {STEPS.map((step, i) => (
                             <div key={step.n}
-                                className={`grid md:grid-cols-2 gap-10 py-12 ${i < STEPS.length - 1 ? 'border-b border-white/5' : ''}`}>
+                                className={`group grid md:grid-cols-2 gap-10 py-12 transition-colors duration-300 ${i < STEPS.length - 1 ? 'border-b border-white/5' : ''}`}>
 
                                 {/* Left */}
                                 <div className="flex gap-6">
                                     <div className="flex-shrink-0">
-                                        <span className="font-mono text-[#D4AF37]/30 text-5xl font-light leading-none">{step.n}</span>
+                                        <span
+                                            className="font-mono text-[#D4AF37]/30 group-hover:text-[#D4AF37] text-5xl font-light leading-none transition-all duration-500"
+                                            style={{ textShadow: 'none' }}
+                                            onMouseEnter={e => (e.currentTarget.style.textShadow = '0 0 30px rgba(212,175,55,0.8), 0 0 60px rgba(212,175,55,0.4)')}
+                                            onMouseLeave={e => (e.currentTarget.style.textShadow = 'none')}
+                                        >{step.n}</span>
                                     </div>
                                     <div>
                                         <div className="flex items-center gap-3 mb-4">

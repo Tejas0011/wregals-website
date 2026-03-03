@@ -167,8 +167,8 @@ export default function Gallery({ user, onSignInClick }: GalleryProps) {
                             {CATS.map(c => (
                                 <button key={c} onClick={() => setActive(c)}
                                     className={`text-[10px] uppercase tracking-widest px-3 py-1.5 border rounded-sm transition-all whitespace-nowrap ${active === c
-                                            ? 'border-[#D4AF37] text-[#D4AF37]'
-                                            : 'border-white/10 text-neutral-500 hover:border-white/30 hover:text-white'
+                                        ? 'border-[#D4AF37] text-[#D4AF37]'
+                                        : 'border-white/10 text-neutral-500 hover:border-white/30 hover:text-white'
                                         }`}>
                                     {c}
                                 </button>
@@ -218,8 +218,8 @@ export default function Gallery({ user, onSignInClick }: GalleryProps) {
 
                                     {/* Hammer badge */}
                                     <div className={`absolute top-3 right-3 backdrop-blur-sm border rounded-sm px-2.5 py-1.5 transition-all ${item.hammer === 'Unsold'
-                                            ? 'bg-red-500/10 border-red-500/20'
-                                            : 'bg-[#D4AF37]/10 border-[#D4AF37]/20'
+                                        ? 'bg-red-500/10 border-red-500/20'
+                                        : 'bg-[#D4AF37]/10 border-[#D4AF37]/20'
                                         }`}>
                                         <span className={`text-[9px] uppercase tracking-widest font-mono ${item.hammer === 'Unsold' ? 'text-red-400' : 'text-[#D4AF37]'
                                             }`}>{item.hammer}</span>

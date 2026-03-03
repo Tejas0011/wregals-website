@@ -15,6 +15,7 @@ import Press from './pages/Press';
 import Contact from './pages/Contact';
 import HowItWorks from './pages/HowItWorks';
 import Gallery from './pages/Gallery';
+import Social from './pages/Social';
 import { supabase } from './lib/supabase';
 
 function App() {
@@ -27,6 +28,15 @@ function App() {
   const [walletOpen, setWalletOpen] = useState(false);
   const [openNav, setOpenNav] = useState<'auctions' | 'company' | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
+  const navCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const openNavMenu = (menu: 'auctions' | 'company') => {
+    if (navCloseTimer.current) clearTimeout(navCloseTimer.current);
+    setOpenNav(menu);
+  };
+  const closeNavMenu = () => {
+    navCloseTimer.current = setTimeout(() => setOpenNav(null), 100);
+  };
 
   // Close dropdown when clicking outside the nav
   useEffect(() => {
@@ -105,6 +115,9 @@ function App() {
       <Route path="/gallery" element={
         <Gallery user={user} onSignInClick={() => setAuthOpen(true)} />
       } />
+      <Route path="/social" element={
+        <Social user={user} onSignInClick={() => setAuthOpen(true)} />
+      } />
       <Route path="/*" element={<>
         {/* Profile Setup — shown on first login */}
         {showProfileSetup && user && setupStep === 1 && (
@@ -148,9 +161,9 @@ function App() {
               </Link>
 
               {/* Desktop Menu */}
-              <div ref={navRef} onMouseLeave={() => setOpenNav(null)} className="hidden md:flex items-center gap-8 text-xs tracking-widest uppercase font-medium text-neutral-400">
+              <div ref={navRef} className="hidden md:flex items-center gap-8 text-xs tracking-widest uppercase font-medium text-neutral-400">
                 {/* Auctions with Dropdown */}
-                <div className="relative group" onMouseEnter={() => setOpenNav(null)}>
+                <div className="relative group" onMouseEnter={() => openNavMenu('auctions')} onMouseLeave={closeNavMenu}>
                   <button
                     onClick={() => setOpenNav(v => v === 'auctions' ? null : 'auctions')}
                     className={`transition-colors duration-300 hover:text-white group-hover:text-white ${openNav === 'auctions' ? 'text-white' : ''}`}
@@ -159,7 +172,7 @@ function App() {
                   </button>
 
                   {/* Full-width Dropdown */}
-                  <div className={`fixed left-0 right-0 top-20 transition-all duration-300 z-40 ${openNav === 'auctions' ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto'}`}>
+                  <div onMouseEnter={() => openNavMenu('auctions')} onMouseLeave={closeNavMenu} className={`fixed left-0 right-0 top-20 transition-all duration-300 z-40 ${openNav === 'auctions' ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'}`}>
                     <div className="bg-[#0A0A0A] border-t border-white/10 py-8 px-6">
                       <div className="max-w-7xl mx-auto">
                         <div className="flex flex-col gap-6">
@@ -181,11 +194,12 @@ function App() {
                   </div>
                 </div>
 
+                <Link to="/social" className="transition-colors duration-300 hover:text-white">Social</Link>
                 <Link to="/how-it-works" className="transition-colors duration-300 hover:text-white">How It Works</Link>
                 <Link to="/gallery" className="transition-colors duration-300 hover:text-white">Gallery</Link>
 
                 {/* Company dropdown */}
-                <div className="relative group" onMouseEnter={() => setOpenNav(null)}>
+                <div className="relative group" onMouseEnter={() => openNavMenu('company')} onMouseLeave={closeNavMenu}>
                   <button
                     onClick={() => setOpenNav(v => v === 'company' ? null : 'company')}
                     className={`transition-colors duration-300 hover:text-white group-hover:text-white ${openNav === 'company' ? 'text-white' : ''}`}
@@ -193,7 +207,7 @@ function App() {
                     COMPANY
                   </button>
 
-                  <div className={`fixed left-0 right-0 top-20 transition-all duration-300 z-40 ${openNav === 'company' ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto'}`}>
+                  <div onMouseEnter={() => openNavMenu('company')} onMouseLeave={closeNavMenu} className={`fixed left-0 right-0 top-20 transition-all duration-300 z-40 ${openNav === 'company' ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'}`}>
                     <div className="bg-[#0A0A0A] border-t border-white/10 py-8 px-6">
                       <div className="max-w-7xl mx-auto">
                         <div className="flex flex-col gap-6">
