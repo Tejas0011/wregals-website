@@ -16,6 +16,7 @@ import Contact from './pages/Contact';
 import HowItWorks from './pages/HowItWorks';
 import Gallery from './pages/Gallery';
 import Social from './pages/Social';
+import AIChatbot from './components/AIChatbot';
 import { supabase } from './lib/supabase';
 
 function App() {
@@ -27,6 +28,8 @@ function App() {
   const [setupStep, setSetupStep] = useState(1);
   const [walletOpen, setWalletOpen] = useState(false);
   const [openNav, setOpenNav] = useState<'auctions' | 'company' | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [heroScrolled, setHeroScrolled] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
   const navCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -343,20 +346,175 @@ function App() {
               </div>
 
               {/* Mobile Menu Icon */}
-              <button className="md:hidden text-white">
+              <button
+                className="md:hidden text-white"
+                onClick={() => setMobileMenuOpen((prev) => !prev)}
+                aria-label="Toggle navigation menu"
+              >
                 <iconify-icon icon="solar:hamburger-menu-linear" width="24"></iconify-icon>
               </button>
             </div>
           </nav>
 
+          {/* Mobile Menu Overlay */}
+          {mobileMenuOpen && (
+            <div className="fixed inset-0 z-40 bg-black/90 backdrop-blur-md md:hidden">
+              <div className="flex justify-between items-center px-6 h-20 border-b border-white/10">
+                <Link to="/" onClick={() => setMobileMenuOpen(false)}>
+                  <img src="/wregals-logo-new.png" alt="WREGALS" className="h-12 w-auto object-contain" />
+                </Link>
+                <button
+                  className="text-white"
+                  onClick={() => setMobileMenuOpen(false)}
+                  aria-label="Close navigation menu"
+                >
+                  <iconify-icon icon="solar:close-square-linear" width="24"></iconify-icon>
+                </button>
+              </div>
+
+              <div className="px-6 py-8 space-y-8 text-sm tracking-widest uppercase">
+                {/* Auctions */}
+                <div className="space-y-3">
+                  <p className="text-neutral-500 text-[11px] font-semibold">Auctions</p>
+                  <div className="flex flex-col space-y-3">
+                    <Link
+                      to="/auctions/live"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-white/80 hover:text-white"
+                    >
+                      Live Auctions
+                    </Link>
+                    <Link
+                      to="/auctions/upcoming"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-white/80 hover:text-white"
+                    >
+                      Upcoming Auctions
+                    </Link>
+                    <Link
+                      to="/auctions/results"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-white/80 hover:text-white"
+                    >
+                      Auction Results
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Primary links */}
+                <div className="space-y-3">
+                  <p className="text-neutral-500 text-[11px] font-semibold">Explore</p>
+                  <div className="flex flex-col space-y-3">
+                    <Link
+                      to="/social"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-white/80 hover:text-white"
+                    >
+                      Social
+                    </Link>
+                    <Link
+                      to="/how-it-works"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-white/80 hover:text-white"
+                    >
+                      How It Works
+                    </Link>
+                    <Link
+                      to="/gallery"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-white/80 hover:text-white"
+                    >
+                      Gallery
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Company */}
+                <div className="space-y-3">
+                  <p className="text-neutral-500 text-[11px] font-semibold">Company</p>
+                  <div className="flex flex-col space-y-3">
+                    <Link
+                      to="/about"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-white/80 hover:text-white"
+                    >
+                      About Us
+                    </Link>
+                    <Link
+                      to="/careers"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-white/80 hover:text-white"
+                    >
+                      Careers
+                    </Link>
+                    <Link
+                      to="/press"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-white/80 hover:text-white"
+                    >
+                      Press
+                    </Link>
+                    <Link
+                      to="/contact"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-white/80 hover:text-white"
+                    >
+                      Contact
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Auth / User actions */}
+                <div className="pt-6 border-t border-white/10">
+                  {user ? (
+                    <div className="space-y-4">
+                      <p className="text-[11px] text-neutral-500 font-semibold">Account</p>
+                      <button
+                        onClick={() => {
+                          setWalletOpen(true);
+                          setMobileMenuOpen(false);
+                        }}
+                        className="w-full border px-4 py-2 text-xs uppercase tracking-wider border-white/20 text-white hover:bg-white hover:text-black transition-colors"
+                      >
+                        Wallet
+                      </button>
+                      <button
+                        onClick={() => {
+                          setSignOutConfirm(true);
+                          setMobileMenuOpen(false);
+                        }}
+                        className="w-full text-xs uppercase tracking-wider text-red-400 hover:text-red-300"
+                      >
+                        Sign Out
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        setAuthOpen(true);
+                        setMobileMenuOpen(false);
+                      }}
+                      className="w-full border px-4 py-2 text-xs uppercase tracking-wider border-white/20 text-white hover:bg-white hover:text-black transition-colors"
+                    >
+                      Sign In
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Auth Modal */}
           <AuthModal isOpen={authOpen} onClose={() => setAuthOpen(false)} />
+
+          {/* AI Chatbot — appears after hero scroll completes */}
+          <AIChatbot visible={heroScrolled} user={user} onSignInClick={() => setAuthOpen(true)} />
 
           {/* Wallet Modal */}
           <WalletModal isOpen={walletOpen} onClose={() => setWalletOpen(false)} user={user} />
 
           {/* Hero Section */}
-          <HeroScroll onReady={() => setHeroReady(true)} />
+          <HeroScroll onReady={() => setHeroReady(true)} onAnimationDone={() => setHeroScrolled(true)} />
 
           {/* Featured Celebrity Auctions */}
           <section className="py-24 md:py-32 px-6 max-w-7xl mx-auto">

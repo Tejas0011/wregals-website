@@ -4,7 +4,7 @@ const FRAME_COUNT = 192;
 const ANIMATION_PATH = '/Animations/_MConverter.eu_Animation-';
 const DOT_COUNT = 5;
 
-export default function HeroScroll({ onReady }: { onReady?: () => void }) {
+export default function HeroScroll({ onReady, onAnimationDone }: { onReady?: () => void; onAnimationDone?: () => void }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const imagesRef = useRef<HTMLImageElement[]>(new Array(FRAME_COUNT));
 
@@ -177,6 +177,7 @@ export default function HeroScroll({ onReady }: { onReady?: () => void }) {
                 animationDoneRef.current = true;
                 setActiveDot(DOT_COUNT - 1);
                 unlockScroll();
+                onAnimationDone?.();
                 window.removeEventListener('wheel', onWheel, { capture: true } as EventListenerOptions);
                 window.removeEventListener('touchmove', onTouchMove, { capture: true } as EventListenerOptions);
             }
