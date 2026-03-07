@@ -348,11 +348,16 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                             <div className="flex items-center absolute left-0 w-full h-full">
                                 {/* 8-Pointed Star Icon */}
                                 <div className="w-[57px] h-[57px] flex items-center justify-center flex-shrink-0 relative">
-                                    <IIcon 
-                                        icon="mdi:star-eight-points" 
+                                    <svg 
+                                        xmlns="http://www.w3.org/2000/svg" 
+                                        viewBox="0 0 24 24" 
                                         width="26" 
-                                        class="text-[#D4AF37] relative z-20 drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] group-hover:rotate-12 group-hover:scale-110 transition-transform duration-500" 
-                                    />
+                                        height="26" 
+                                        fill="currentColor" 
+                                        className="text-[#D4AF37] relative z-20 drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] group-hover:rotate-12 group-hover:scale-110 transition-transform duration-500"
+                                    >
+                                        <path d="M12,2L14.24,5.92L18.78,5.06L18.84,9.66L22.61,12L18.84,14.34L18.78,18.94L14.24,18.08L12,22L9.76,18.08L5.22,18.94L5.16,14.34L1.39,12L5.16,9.66L5.22,5.06L9.76,5.92L12,2Z" />
+                                    </svg>
                                     {/* Pulse Ring Behind Icon */}
                                     <div className="absolute inset-0 rounded-full border border-[#D4AF37] opacity-0 group-hover:animate-[wren-ping_1.5s_cubic-bezier(0,0,0.2,1)_infinite] scale-50"></div>
                                 </div>
