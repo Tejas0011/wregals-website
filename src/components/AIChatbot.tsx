@@ -57,18 +57,8 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
     const [loading, setLoading] = useState(false);
     const [chatSession, setChatSession] = useState<any>(null);
     const [hasGreeted, setHasGreeted] = useState(false);
-    const [fabPulse, setFabPulse] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-
-    // Pulse the FAB once when it first appears
-    useEffect(() => {
-        if (visible) {
-            const t = setTimeout(() => setFabPulse(true), 400);
-            const t2 = setTimeout(() => setFabPulse(false), 3000);
-            return () => { clearTimeout(t); clearTimeout(t2); };
-        }
-    }, [visible]);
 
     // Initialise Gemini chat session
     useEffect(() => {
@@ -331,23 +321,50 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
             {/* ── FAB Button ─────────────────────────────────────────────────────── */}
             <button
                 onClick={open ? () => setOpen(false) : handleOpen}
-                className="fixed bottom-5 right-5 z-50 w-14 h-14 flex items-center justify-center transition-all duration-300"
+                className={`fixed bottom-6 right-6 z-50 flex items-center justify-center outline-none transition-all duration-300 ${open ? 'w-14 h-14 rounded-full' : 'w-16 h-16 rounded-full group'}`}
                 style={{
-                    background: open ? '#0A0A0A' : '#D4AF37',
-                    border: open ? '1px solid rgba(212,175,55,0.4)' : '1px solid #D4AF37',
+                    background: open ? '#0A0A0A' : 'transparent',
+                    border: open ? '1px solid rgba(212,175,55,0.4)' : 'none',
                     color: open ? '#D4AF37' : '#000',
-                    boxShadow: fabPulse
-                        ? '0 0 0 8px rgba(212,175,55,0.15), 0 8px 24px rgba(212,175,55,0.3)'
-                        : '0 8px 24px rgba(0,0,0,0.5)',
-                    transform: fabPulse ? 'scale(1.08)' : 'scale(1)',
+                    boxShadow: open ? '0 8px 24px rgba(0,0,0,0.5)' : 'none',
                     animation: 'wren-fab-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
                 }}
                 title={open ? 'Close WREN' : 'Chat with WREN'}
             >
-                {open
-                    ? <IIcon icon="solar:close-square-linear" width="22" class="text-inherit" />
-                    : <IIcon icon="solar:star-shine-bold" width="22" class="text-inherit" />
-                }
+                {open ? (
+                    <IIcon icon="solar:close-square-linear" width="22" class="text-[#D4AF37]" />
+                ) : (
+                    <div className="relative flex items-center justify-center w-full h-full">
+                        {/* Ambient glow that breathes */}
+                        <div 
+                            className="absolute inset-0 rounded-full bg-[#D4AF37] blur-[14px] opacity-40 group-hover:opacity-70 transition-opacity duration-700"
+                            style={{ animation: 'wren-breathe 3s ease-in-out infinite' }}
+                        ></div>
+                        
+                        {/* Spinning golden gradient border */}
+                        <div 
+                            className="absolute inset-0 rounded-full" 
+                            style={{ 
+                                background: 'conic-gradient(from 0deg, transparent 0%, rgba(212,175,55,0.8) 25%, transparent 50%, rgba(212,175,55,0.8) 75%, transparent 100%)', 
+                                padding: '1.5px', 
+                                animation: 'wren-spin 4s linear infinite' 
+                            }}
+                        >
+                            {/* Solid inner core */}
+                            <div className="w-full h-full bg-[#0A0A0A] rounded-full flex items-center justify-center relative overflow-hidden transition-all duration-500 shadow-[inset_0_0_10px_rgba(212,175,55,0.15)] group-hover:bg-[#121212]">
+                                {/* Subtle inner radial glow on hover */}
+                                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.25)_0%,transparent_70%)]"></div>
+                                
+                                {/* Dynamic Magic Icon */}
+                                <IIcon 
+                                    icon="solar:magic-stick-3-bold" 
+                                    width="28" 
+                                    class="text-[#D4AF37] relative z-10 drop-shadow-[0_0_10px_rgba(212,175,55,0.8)] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6" 
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )}
             </button>
 
             {/* ── Keyframe styles ─────────────────────────────────────────────────── */}
@@ -363,6 +380,14 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
         @keyframes wren-dot {
           0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
           40%            { opacity: 1;   transform: scale(1.2); }
+        }
+        @keyframes wren-breathe {
+          0%, 100% { transform: scale(1); opacity: 0.35; }
+          50% { transform: scale(1.1); opacity: 0.6; }
+        }
+        @keyframes wren-spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
       `}</style>
         </>
