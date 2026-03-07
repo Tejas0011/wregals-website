@@ -346,11 +346,11 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                             <div className="absolute inset-0 -translate-x-full group-hover:animate-[wren-shimmer_1.5s_ease-out_infinite] bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.08)] to-transparent skew-x-[-20deg]" />
 
                             <div className="flex items-center absolute left-0 w-full h-full">
-                                {/* Icon Container (Fixed Width) */}
+                                {/* 8-Pointed Star Icon */}
                                 <div className="w-[57px] h-[57px] flex items-center justify-center flex-shrink-0 relative">
                                     <IIcon 
-                                        icon="solar:stars-minimalistic-bold" 
-                                        width="24" 
+                                        icon="mdi:star-eight-points" 
+                                        width="26" 
                                         class="text-[#D4AF37] relative z-20 drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] group-hover:rotate-12 group-hover:scale-110 transition-transform duration-500" 
                                     />
                                     {/* Pulse Ring Behind Icon */}
