@@ -76,7 +76,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
         try {
             const genAI = new GoogleGenerativeAI(API_KEY);
             const model = genAI.getGenerativeModel({
-                model: 'gemini-1.5-flash',
+                model: 'gemini-2.5-flash',
                 systemInstruction: buildSystemPrompt(user),
             });
             const session = model.startChat({ history: [] });
@@ -92,7 +92,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
         try {
             const genAI = new GoogleGenerativeAI(API_KEY);
             const model = genAI.getGenerativeModel({
-                model: 'gemini-1.5-flash',
+                model: 'gemini-2.5-flash',
                 systemInstruction: buildSystemPrompt(user),
             });
             const session = model.startChat({ history: [] });
