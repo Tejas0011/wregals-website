@@ -349,7 +349,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                                 {/* Icon Container (Fixed Width) */}
                                 <div className="w-[57px] h-[57px] flex items-center justify-center flex-shrink-0 relative">
                                     <IIcon 
-                                        icon="solar:magic-stick-3-bold" 
+                                        icon="solar:stars-minimalistic-bold" 
                                         width="24" 
                                         class="text-[#D4AF37] relative z-20 drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] group-hover:rotate-12 group-hover:scale-110 transition-transform duration-500" 
                                     />
