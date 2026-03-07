@@ -39,6 +39,19 @@ BEHAVIOUR RULES:
 - If asked something outside your scope, gently redirect to the relevant page or suggest contacting support at contact@wregals.com.`;
 }
 
+const StarEightPointsIcon = ({ width = 16, className = "" }: { width?: number; className?: string }) => (
+    <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        viewBox="0 0 24 24" 
+        width={width} 
+        height={width} 
+        fill="currentColor" 
+        className={className}
+    >
+        <path d="M12,2L14.24,5.92L18.78,5.06L18.84,9.66L22.61,12L18.84,14.34L18.78,18.94L14.24,18.08L12,22L9.76,18.08L5.22,18.94L5.16,14.34L1.39,12L5.16,9.66L5.22,5.06L9.76,5.92L12,2Z" />
+    </svg>
+);
+
 interface Message {
     role: 'user' | 'model';
     text: string;
@@ -178,7 +191,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                                 className="w-8 h-8 flex items-center justify-center flex-shrink-0"
                                 style={{ background: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.3)' }}
                             >
-                                <IIcon icon="solar:star-shine-bold" width="16" class="text-[#D4AF37]" />
+                                <StarEightPointsIcon width={16} className="text-[#D4AF37]" />
                             </div>
                             <div>
                                 <p className="text-white text-sm font-semibold tracking-wide" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '15px' }}>WREN</p>
@@ -202,7 +215,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                                         className="w-6 h-6 flex-shrink-0 flex items-center justify-center mr-2 mt-0.5"
                                         style={{ background: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.2)' }}
                                     >
-                                        <IIcon icon="solar:star-shine-bold" width="10" class="text-[#D4AF37]" />
+                                        <StarEightPointsIcon width={10} className="text-[#D4AF37]" />
                                     </div>
                                 )}
                                 <div
@@ -229,7 +242,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                                     className="w-6 h-6 flex-shrink-0 flex items-center justify-center"
                                     style={{ background: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.2)' }}
                                 >
-                                    <IIcon icon="solar:star-shine-bold" width="10" class="text-[#D4AF37]" />
+                                    <StarEightPointsIcon width={10} className="text-[#D4AF37]" />
                                 </div>
                                 <div
                                     className="px-3 py-2 flex items-center gap-1"
@@ -348,16 +361,10 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                             <div className="flex items-center absolute left-0 w-full h-full">
                                 {/* 8-Pointed Star Icon */}
                                 <div className="w-[57px] h-[57px] flex items-center justify-center flex-shrink-0 relative">
-                                    <svg 
-                                        xmlns="http://www.w3.org/2000/svg" 
-                                        viewBox="0 0 24 24" 
-                                        width="26" 
-                                        height="26" 
-                                        fill="currentColor" 
+                                    <StarEightPointsIcon 
+                                        width={26} 
                                         className="text-[#D4AF37] relative z-20 drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] group-hover:rotate-12 group-hover:scale-110 transition-transform duration-500"
-                                    >
-                                        <path d="M12,2L14.24,5.92L18.78,5.06L18.84,9.66L22.61,12L18.84,14.34L18.78,18.94L14.24,18.08L12,22L9.76,18.08L5.22,18.94L5.16,14.34L1.39,12L5.16,9.66L5.22,5.06L9.76,5.92L12,2Z" />
-                                    </svg>
+                                    />
                                     {/* Pulse Ring Behind Icon */}
                                     <div className="absolute inset-0 rounded-full border border-[#D4AF37] opacity-0 group-hover:animate-[wren-ping_1.5s_cubic-bezier(0,0,0.2,1)_infinite] scale-50"></div>
                                 </div>
