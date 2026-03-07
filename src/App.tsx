@@ -613,6 +613,107 @@ function App() {
             </div>
           </section>
 
+          {/* Social / High-Profile Activity Section */}
+          <section className="py-24 bg-[#0A0A0A] relative overflow-hidden border-t border-white/5">
+            <div className="max-w-7xl mx-auto px-6 relative z-10">
+              <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                <span className="text-[#D4AF37] text-xs tracking-[0.2em] uppercase">The Inner Circle</span>
+                <h2 className="text-3xl md:text-5xl serif tracking-tight font-light text-white">Who's Trading on Wregals</h2>
+                <p className="text-neutral-400 font-light text-sm md:text-base leading-relaxed tracking-wide">
+                  See what collectors, dignitaries, and cultural icons are discovering. Follow verified portfolios to stay updated on the rarest acquisitions.
+                </p>
+              </div>
+
+              {/* Social Feed Grid (3 Posts) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 relative pb-32">
+                {/* Post 1 */}
+                <div className="bg-[#111] border border-white/5 rounded-2xl p-5 space-y-4 hover:border-white/10 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" alt="Avatar" className="w-10 h-10 rounded-full object-cover" />
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-white text-sm font-medium">Marcus Chen</span>
+                        <IIcon icon="solar:verified-check-bold" class="text-[#D4AF37] text-sm" />
+                      </div>
+                      <span className="text-neutral-500 text-xs">@m_chen_collection</span>
+                    </div>
+                  </div>
+                  <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=600&auto=format&fit=crop" alt="Post Image" className="w-full aspect-square object-cover rounded-xl border border-white/5" />
+                  <p className="text-neutral-300 text-sm font-light leading-relaxed">
+                    Thrilled to add this pristine 1950s Patek to the vault. The provenance verification on <span className="text-[#D4AF37]">@wregals</span> is truly unmatched. 🕰️✨
+                  </p>
+                  <div className="flex items-center gap-4 pt-2 text-neutral-500 text-xs">
+                    <div className="flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer"><IIcon icon="solar:heart-linear" width="16" /> 1.2k</div>
+                    <div className="flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer"><IIcon icon="solar:chat-line-linear" width="16" /> 84</div>
+                  </div>
+                </div>
+
+                {/* Post 2 */}
+                <div className="bg-[#111] border border-white/5 rounded-2xl p-5 space-y-4 hover:border-white/10 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="Avatar" className="w-10 h-10 rounded-full object-cover" />
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-white text-sm font-medium">Elena Rodriguez</span>
+                        <IIcon icon="solar:verified-check-bold" class="text-[#D4AF37] text-sm" />
+                      </div>
+                      <span className="text-neutral-500 text-xs">@elena_art_advisors</span>
+                    </div>
+                  </div>
+                  <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=600&auto=format&fit=crop" alt="Post Image" className="w-full aspect-square object-cover rounded-xl border border-white/5" />
+                  <p className="text-neutral-300 text-sm font-light leading-relaxed">
+                    Just secured this masterpiece for a private client. The smart-escrow system made cross-border settlement completely frictionless.
+                  </p>
+                  <div className="flex items-center gap-4 pt-2 text-neutral-500 text-xs">
+                    <div className="flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer"><IIcon icon="solar:heart-linear" width="16" /> 3.4k</div>
+                    <div className="flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer"><IIcon icon="solar:chat-line-linear" width="16" /> 156</div>
+                  </div>
+                </div>
+
+                {/* Post 3 */}
+                <div className="bg-[#111] border border-white/5 rounded-2xl p-5 space-y-4 hover:border-white/10 transition-colors hidden md:block">
+                  <div className="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" alt="Avatar" className="w-10 h-10 rounded-full object-cover" />
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-white text-sm font-medium">James Sterling</span>
+                        <IIcon icon="solar:verified-check-bold" class="text-[#D4AF37] text-sm" />
+                      </div>
+                      <span className="text-neutral-500 text-xs">@sterling_motors</span>
+                    </div>
+                  </div>
+                  <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=600&auto=format&fit=crop" alt="Post Image" className="w-full aspect-[4/5] object-cover rounded-xl border border-white/5 bg-neutral-900" />
+                  <p className="text-neutral-300 text-sm font-light leading-relaxed">
+                    Saying goodbye to an old friend today. Heading to its new owner via <span className="text-[#D4AF37]">@wregals</span>. 🏎️💨
+                  </p>
+                  <div className="flex items-center gap-4 pt-2 text-neutral-500 text-xs">
+                    <div className="flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer"><IIcon icon="solar:heart-linear" width="16" /> 5.8k</div>
+                    <div className="flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer"><IIcon icon="solar:chat-line-linear" width="16" /> 241</div>
+                  </div>
+                </div>
+
+                {/* Fade Out & CTA Overlay */}
+                <div className="absolute bottom-0 left-0 w-full h-[350px] bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent flex flex-col items-center justify-end pb-8">
+                  <div className="backdrop-blur-md bg-black/40 border border-[#D4AF37]/30 p-8 rounded-2xl text-center max-w-md w-[90%] shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+                    <div className="w-12 h-12 rounded-full border border-[#D4AF37]/30 flex items-center justify-center mx-auto mb-4 bg-black/50 text-[#D4AF37]">
+                      <IIcon icon="solar:lock-keyhole-minimalistic-linear" width="24" />
+                    </div>
+                    <h4 className="text-white text-xl serif mb-2 tracking-tight">Unlock The Inner Circle</h4>
+                    <p className="text-neutral-400 text-xs mb-6 px-4">
+                      Create an account or sign in to explore the full social feed, follow collectors, and participate in discussions.
+                    </p>
+                    <button 
+                      onClick={() => setAuthOpen(true)}
+                      className="w-full py-3 bg-[#D4AF37] text-black text-xs font-bold uppercase tracking-widest hover:bg-white transition-colors transition-duration-300"
+                    >
+                      Sign In to Continue
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* Why WREGALS (Trust Section) */}
           <section className="py-24 bg-[#0B0B0B] border-y border-white/5">
             <div className="max-w-7xl mx-auto px-6">
