@@ -321,12 +321,8 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
             {/* ── FAB Button ─────────────────────────────────────────────────────── */}
             <button
                 onClick={open ? () => setOpen(false) : handleOpen}
-                className={`fixed bottom-6 right-6 z-50 flex items-center justify-center outline-none transition-all duration-300 ${open ? 'w-14 h-14 rounded-full' : 'w-16 h-16 rounded-full group'}`}
+                className={`fixed bottom-6 right-6 z-50 flex items-center justify-center outline-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${open ? 'w-14 h-14 rounded-full bg-[#0A0A0A] border border-[rgba(212,175,55,0.4)] shadow-[0_8px_24px_rgba(0,0,0,0.6)]' : 'group h-[60px] w-[60px] hover:w-[160px] rounded-[30px] shadow-[0_12px_36px_rgba(0,0,0,0.8)]'}`}
                 style={{
-                    background: open ? '#0A0A0A' : 'transparent',
-                    border: open ? '1px solid rgba(212,175,55,0.4)' : 'none',
-                    color: open ? '#D4AF37' : '#000',
-                    boxShadow: open ? '0 8px 24px rgba(0,0,0,0.5)' : 'none',
                     animation: 'wren-fab-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
                 }}
                 title={open ? 'Close WREN' : 'Chat with WREN'}
@@ -334,34 +330,42 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                 {open ? (
                     <IIcon icon="solar:close-square-linear" width="22" class="text-[#D4AF37]" />
                 ) : (
-                    <div className="relative flex items-center justify-center w-full h-full">
-                        {/* Ambient glow that breathes */}
-                        <div 
-                            className="absolute inset-0 rounded-full bg-[#D4AF37] blur-[14px] opacity-40 group-hover:opacity-70 transition-opacity duration-700"
-                            style={{ animation: 'wren-breathe 3s ease-in-out infinite' }}
+                    <div className="relative w-full h-full rounded-[30px] p-[1.5px] overflow-hidden">
+                        {/* Animated Border Gradient */}
+                        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] -translate-x-1/2 -translate-y-1/2 animate-[wren-spin_4s_linear_infinite]" 
+                             style={{ background: 'conic-gradient(from 90deg at 50% 50%, transparent 0%, rgba(212,175,55,0.05) 30%, #D4AF37 50%, rgba(212,175,55,0.05) 70%, transparent 100%)' }}
                         ></div>
                         
-                        {/* Spinning golden gradient border */}
-                        <div 
-                            className="absolute inset-0 rounded-full" 
-                            style={{ 
-                                background: 'conic-gradient(from 0deg, transparent 0%, rgba(212,175,55,0.8) 25%, transparent 50%, rgba(212,175,55,0.8) 75%, transparent 100%)', 
-                                padding: '1.5px', 
-                                animation: 'wren-spin 4s linear infinite' 
-                            }}
-                        >
-                            {/* Solid inner core */}
-                            <div className="w-full h-full bg-[#0A0A0A] rounded-full flex items-center justify-center relative overflow-hidden transition-all duration-500 shadow-[inset_0_0_10px_rgba(212,175,55,0.15)] group-hover:bg-[#121212]">
-                                {/* Subtle inner radial glow on hover */}
-                                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.25)_0%,transparent_70%)]"></div>
+                        {/* Inner Glass Core */}
+                        <div className="relative flex items-center w-full h-full bg-[#080808] rounded-[30px] overflow-hidden transition-all duration-500 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] group-hover:bg-[#0C0C0C]">
+                            
+                            {/* Ambient background glow */}
+                            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.15)_0%,transparent_60%)] opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                            {/* Light Sweep Effect on Hover */}
+                            <div className="absolute inset-0 -translate-x-full group-hover:animate-[wren-shimmer_1.5s_ease-out_infinite] bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.08)] to-transparent skew-x-[-20deg]" />
+
+                            <div className="flex items-center absolute left-0 w-full h-full">
+                                {/* Icon Container (Fixed Width) */}
+                                <div className="w-[57px] h-[57px] flex items-center justify-center flex-shrink-0 relative">
+                                    <IIcon 
+                                        icon="solar:magic-stick-3-bold" 
+                                        width="24" 
+                                        class="text-[#D4AF37] relative z-20 drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] group-hover:rotate-12 group-hover:scale-110 transition-transform duration-500" 
+                                    />
+                                    {/* Pulse Ring Behind Icon */}
+                                    <div className="absolute inset-0 rounded-full border border-[#D4AF37] opacity-0 group-hover:animate-[wren-ping_1.5s_cubic-bezier(0,0,0.2,1)_infinite] scale-50"></div>
+                                </div>
                                 
-                                {/* Dynamic Magic Icon */}
-                                <IIcon 
-                                    icon="solar:magic-stick-3-bold" 
-                                    width="28" 
-                                    class="text-[#D4AF37] relative z-10 drop-shadow-[0_0_10px_rgba(212,175,55,0.8)] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6" 
-                                />
+                                {/* Expanding Text */}
+                                <span 
+                                    className="whitespace-nowrap font-medium text-[11px] tracking-[0.2em] uppercase opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-75"
+                                    style={{ fontFamily: "'Inter', sans-serif", color: '#D4AF37' }}
+                                >
+                                    Ask Wren
+                                </span>
                             </div>
+
                         </div>
                     </div>
                 )}
@@ -381,13 +385,15 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
           0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
           40%            { opacity: 1;   transform: scale(1.2); }
         }
-        @keyframes wren-breathe {
-          0%, 100% { transform: scale(1); opacity: 0.35; }
-          50% { transform: scale(1.1); opacity: 0.6; }
-        }
         @keyframes wren-spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
+          from { transform: rotate(0deg) translate(-50%, -50%); transform-origin: 0 0; }
+          to { transform: rotate(360deg) translate(-50%, -50%); transform-origin: 0 0; }
+        }
+        @keyframes wren-shimmer {
+          100% { transform: translateX(100%); }
+        }
+        @keyframes wren-ping {
+          75%, 100% { transform: scale(1.2); opacity: 0; }
         }
       `}</style>
         </>
