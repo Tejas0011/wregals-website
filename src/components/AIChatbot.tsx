@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Link } from 'react-router-dom';
+import IIcon from './IIcon';
 
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || '';
 
@@ -187,7 +188,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                                 className="w-8 h-8 flex items-center justify-center flex-shrink-0"
                                 style={{ background: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.3)' }}
                             >
-                                <iconify-icon icon="solar:star-shine-bold" width="16" class="text-[#D4AF37]" />
+                                <IIcon icon="solar:star-shine-bold" width="16" class="text-[#D4AF37]" />
                             </div>
                             <div>
                                 <p className="text-white text-sm font-semibold tracking-wide" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '15px' }}>WREN</p>
@@ -198,7 +199,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                             onClick={() => setOpen(false)}
                             className="text-neutral-500 hover:text-white transition-colors"
                         >
-                            <iconify-icon icon="solar:close-square-linear" width="20" class="text-neutral-500" />
+                            <IIcon icon="solar:close-square-linear" width="20" class="text-neutral-500" />
                         </button>
                     </div>
 
@@ -211,7 +212,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                                         className="w-6 h-6 flex-shrink-0 flex items-center justify-center mr-2 mt-0.5"
                                         style={{ background: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.2)' }}
                                     >
-                                        <iconify-icon icon="solar:star-shine-bold" width="10" class="text-[#D4AF37]" />
+                                        <IIcon icon="solar:star-shine-bold" width="10" class="text-[#D4AF37]" />
                                     </div>
                                 )}
                                 <div
@@ -238,7 +239,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                                     className="w-6 h-6 flex-shrink-0 flex items-center justify-center"
                                     style={{ background: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.2)' }}
                                 >
-                                    <iconify-icon icon="solar:star-shine-bold" width="10" class="text-[#D4AF37]" />
+                                    <IIcon icon="solar:star-shine-bold" width="10" class="text-[#D4AF37]" />
                                 </div>
                                 <div
                                     className="px-3 py-2 flex items-center gap-1"
@@ -321,7 +322,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                                 color: input.trim() ? '#000' : '#555',
                             }}
                         >
-                            <iconify-icon icon="solar:arrow-up-bold" width="14" class="text-inherit" />
+                            <IIcon icon="solar:arrow-up-bold" width="14" class="text-inherit" />
                         </button>
                     </div>
                 </div>
@@ -344,8 +345,8 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                 title={open ? 'Close WREN' : 'Chat with WREN'}
             >
                 {open
-                    ? <iconify-icon icon="solar:close-square-linear" width="22" class="text-inherit" />
-                    : <iconify-icon icon="solar:star-shine-bold" width="22" class="text-inherit" />
+                    ? <IIcon icon="solar:close-square-linear" width="22" class="text-inherit" />
+                    : <IIcon icon="solar:star-shine-bold" width="22" class="text-inherit" />
                 }
             </button>
 

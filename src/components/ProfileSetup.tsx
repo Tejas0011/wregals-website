@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
+import IIcon from './IIcon';
 
 const HEARD_SOURCES = ['Instagram', 'LinkedIn', 'Twitter / X', 'Facebook', 'Friend / Referral', 'Google Search', 'Press / Media', 'Event', 'Other'];
 
@@ -162,7 +163,7 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
                         {loading ? (
                             <span className="auth-spinner auth-spinner--dark" />
                         ) : (
-                            <iconify-icon icon="solar:arrow-right-linear" width="16" />
+                            <IIcon icon="solar:arrow-right-linear" width="16" />
                         )}
                         {loading ? 'Saving…' : 'Continue'}
                     </button>

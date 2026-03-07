@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useState } from 'react';
+import IIcon from './IIcon';
 
 export interface AuctionItem {
     id: string;
@@ -66,13 +67,13 @@ export default function BidModal({ isOpen, onClose, item, user, walletBalance = 
                         <h2 className="text-sm font-medium text-white leading-snug max-w-xs">{item.title}</h2>
                     </div>
                     <button onClick={handleClose} className="text-neutral-500 hover:text-white transition-colors mt-0.5">
-                        <iconify-icon icon="solar:close-circle-linear" width="20" />
+                        <IIcon icon="solar:close-circle-linear" width="20" />
                     </button>
                 </div>
 
                 {success ? (
                     <div className="px-6 py-10 text-center space-y-3">
-                        <iconify-icon icon="solar:check-circle-linear" width="40" class="text-emerald-400 mx-auto block" />
+                        <IIcon icon="solar:check-circle-linear" width="40" class="text-emerald-400 mx-auto block" />
                         <p className="text-white font-medium">{isBuyout ? 'Buyout Placed!' : 'Bid Placed!'}</p>
                         <p className="text-xs text-neutral-500">
                             {isBuyout

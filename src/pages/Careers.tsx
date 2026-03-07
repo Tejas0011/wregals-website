@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import IIcon from '../components/IIcon';
 
 const ROLES = [
     {
@@ -116,7 +117,7 @@ export default function Careers({ user, onSignInClick }: CareersProps) {
                         {PERKS.map(p => (
                             <div key={p.label} className="flex gap-4 p-5 border border-white/5 bg-[#0C0C0C] hover:bg-[#111] hover:border-white/10 transition-all rounded-sm">
                                 <div className="flex-shrink-0 w-9 h-9 border border-white/10 rounded-sm flex items-center justify-center">
-                                    <iconify-icon icon={p.icon} width="16" class="text-[#D4AF37]" />
+                                    <IIcon icon={p.icon} width="16" class="text-[#D4AF37]" />
                                 </div>
                                 <div>
                                     <h3 className="text-sm font-medium text-white mb-1">{p.label}</h3>
@@ -159,7 +160,7 @@ export default function Careers({ user, onSignInClick }: CareersProps) {
                                             <span className={role.type === 'Contract' ? 'text-amber-500' : 'text-emerald-500'}>{role.type}</span>
                                         </div>
                                     </div>
-                                    <iconify-icon icon={expanded === role.id ? 'solar:alt-arrow-up-linear' : 'solar:alt-arrow-down-linear'} width="16" class="text-neutral-500 flex-shrink-0 ml-4" />
+                                    <IIcon icon={expanded === role.id ? 'solar:alt-arrow-up-linear' : 'solar:alt-arrow-down-linear'} width="16" class="text-neutral-500 flex-shrink-0 ml-4" />
                                 </button>
                                 {expanded === role.id && (
                                     <div className="px-6 pb-6 border-t border-white/5 pt-4">
@@ -167,7 +168,7 @@ export default function Careers({ user, onSignInClick }: CareersProps) {
                                         <a href={`mailto:careers@wregals.com?subject=Application — ${role.title}`}
                                             className="inline-flex items-center gap-2 text-xs uppercase tracking-widest px-5 py-2.5 bg-[#D4AF37] text-black font-semibold hover:bg-[#c49f2e] transition-colors">
                                             Apply for This Role
-                                            <iconify-icon icon="solar:arrow-right-linear" width="13" />
+                                            <IIcon icon="solar:arrow-right-linear" width="13" />
                                         </a>
                                     </div>
                                 )}

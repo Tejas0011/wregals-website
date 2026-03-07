@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import IIcon from '../components/IIcon';
 
 const STEPS = [
     {
@@ -192,7 +193,7 @@ export default function HowItWorks({ user, onSignInClick }: HowItWorksProps) {
                                     <div>
                                         <div className="flex items-center gap-3 mb-4">
                                             <div className="w-9 h-9 border border-white/10 rounded-sm flex items-center justify-center">
-                                                <iconify-icon icon={step.icon} width="16" class="text-[#D4AF37]" />
+                                                <IIcon icon={step.icon} width="16" class="text-[#D4AF37]" />
                                             </div>
                                             <h3 className="text-lg font-medium text-white">{step.title}</h3>
                                         </div>
@@ -231,7 +232,7 @@ export default function HowItWorks({ user, onSignInClick }: HowItWorksProps) {
                                     onClick={() => setOpenFaq(openFaq === i ? null : i)}
                                     className="w-full flex items-center justify-between px-6 py-5 text-left gap-4">
                                     <span className="text-sm font-medium text-white">{faq.q}</span>
-                                    <iconify-icon
+                                    <IIcon
                                         icon={openFaq === i ? 'solar:alt-arrow-up-linear' : 'solar:alt-arrow-down-linear'}
                                         width="16"
                                         class="text-neutral-500 flex-shrink-0"

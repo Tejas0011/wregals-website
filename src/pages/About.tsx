@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { Link } from 'react-router-dom';
+import IIcon from '../components/IIcon';
 
 interface AboutPageProps {
     user: any;
@@ -152,7 +153,7 @@ export default function About({ user, onSignInClick }: AboutPageProps) {
                             {VALUES.map(v => (
                                 <div key={v.title} className="flex gap-4 p-5 border border-white/5 bg-[#0C0C0C] hover:bg-[#111] hover:border-white/10 transition-all rounded-sm">
                                     <div className="flex-shrink-0 w-9 h-9 border border-white/10 rounded-sm flex items-center justify-center">
-                                        <iconify-icon icon={v.icon} width="16" class="text-[#D4AF37]" />
+                                        <IIcon icon={v.icon} width="16" class="text-[#D4AF37]" />
                                     </div>
                                     <div>
                                         <h3 className="text-sm font-medium text-white mb-1">{v.title}</h3>

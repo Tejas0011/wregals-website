@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import IIcon from './IIcon';
 
 interface AuthModalProps {
     isOpen: boolean;
@@ -207,7 +208,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                             <button type="submit" className="auth-primary-btn" disabled={!!loading}>
                                 {loading === 'signup' ? <span className="auth-spinner auth-spinner--dark" /> : null}
                                 {loading === 'signup' ? 'Creating account…' : 'Create Account'}
-                                {!loading && <iconify-icon icon="solar:arrow-right-linear" width="16" />}
+                                {!loading && <IIcon icon="solar:arrow-right-linear" width="16" />}
                             </button>
                         </form>
                     </div>
@@ -277,7 +278,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                             <button type="submit" className="auth-secondary-btn" disabled={!!loading}>
                                 {loading === 'login' ? <span className="auth-spinner auth-spinner--light" /> : null}
                                 {loading === 'login' ? 'Logging in…' : 'Log In'}
-                                {!loading && <iconify-icon icon="solar:arrow-right-linear" width="16" />}
+                                {!loading && <IIcon icon="solar:arrow-right-linear" width="16" />}
                             </button>
                         </form>
                     </div>

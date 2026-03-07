@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import IIcon from './IIcon';
 
 interface WalletModalProps {
     isOpen: boolean;
@@ -57,11 +58,11 @@ export default function WalletModal({ isOpen, onClose, user }: WalletModalProps)
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 py-5 border-b border-white/5">
                     <div className="flex items-center gap-3">
-                        <iconify-icon icon="solar:wallet-linear" width="20" class="text-[#D4AF37]" />
+                        <IIcon icon="solar:wallet-linear" width="20" class="text-[#D4AF37]" />
                         <h2 className="text-sm font-semibold uppercase tracking-widest text-white">My Wallet</h2>
                     </div>
                     <button onClick={onClose} className="text-neutral-500 hover:text-white transition-colors">
-                        <iconify-icon icon="solar:close-circle-linear" width="20" />
+                        <IIcon icon="solar:close-circle-linear" width="20" />
                     </button>
                 </div>
 
@@ -186,7 +187,7 @@ export default function WalletModal({ isOpen, onClose, user }: WalletModalProps)
                                     return (
                                         <div key={tx.id} className="flex items-center justify-between py-3 border-b border-white/5 last:border-0">
                                             <div className="flex items-center gap-3">
-                                                <iconify-icon icon={cfg.icon} width="14" class={cfg.color} />
+                                                <IIcon icon={cfg.icon} width="14" class={cfg.color} />
                                                 <div>
                                                     <p className="text-xs text-neutral-300">{tx.note}</p>
                                                     <p className="text-[10px] text-neutral-600">{tx.date}</p>

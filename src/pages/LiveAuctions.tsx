@@ -3,6 +3,7 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import AuctionCard from '../components/AuctionCard';
 import type { AuctionCardData } from '../components/AuctionCard';
+import IIcon from '../components/IIcon';
 
 // ─── Placeholder auction data ──────────────────────────────────────────────
 const now = Date.now();
@@ -204,7 +205,7 @@ export default function LiveAuctions({ user, walletBalance = 0, onSignInClick }:
                                 onClick={() => setShowFilters(f => !f)}
                                 className="md:hidden flex items-center gap-2 text-xs border border-white/10 px-3 py-2 rounded-sm"
                             >
-                                <iconify-icon icon="solar:filter-linear" width="14" />
+                                <IIcon icon="solar:filter-linear" width="14" />
                                 Filters
                             </button>
                         </div>
@@ -325,7 +326,7 @@ export default function LiveAuctions({ user, walletBalance = 0, onSignInClick }:
 
                         {filtered.length === 0 ? (
                             <div className="py-24 text-center">
-                                <iconify-icon icon="solar:box-minimalistic-linear" width="40" class="text-neutral-700 mx-auto block mb-4" />
+                                <IIcon icon="solar:box-minimalistic-linear" width="40" class="text-neutral-700 mx-auto block mb-4" />
                                 <p className="text-neutral-500 text-sm">No auctions match your filters.</p>
                                 <button
                                     onClick={() => { setCategory('All'); setStatus('All'); setMinPrice(''); setMaxPrice(''); }}

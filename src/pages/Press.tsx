@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { Link } from 'react-router-dom';
+import IIcon from '../components/IIcon';
 
 const COVERAGE = [
     {
@@ -103,7 +104,7 @@ export default function Press({ user, onSignInClick }: PressProps) {
                     </p>
                     <a href="mailto:press@wregals.com"
                         className="inline-flex items-center gap-2 text-xs uppercase tracking-widest px-6 py-3 border border-white/20 hover:border-white text-neutral-300 hover:text-white transition-all">
-                        <iconify-icon icon="solar:letter-linear" width="14" />
+                        <IIcon icon="solar:letter-linear" width="14" />
                         Contact Press Team
                     </a>
                 </div>
@@ -166,12 +167,12 @@ export default function Press({ user, onSignInClick }: PressProps) {
                         {ASSETS.map(a => (
                             <div key={a.label}
                                 className="flex items-center gap-4 p-4 border border-white/5 bg-[#0C0C0C] hover:bg-[#111] hover:border-white/10 transition-all rounded-sm cursor-pointer group">
-                                <iconify-icon icon={a.icon} width="18" class="text-neutral-500 group-hover:text-[#D4AF37] transition-colors flex-shrink-0" />
+                                <IIcon icon={a.icon} width="18" class="text-neutral-500 group-hover:text-[#D4AF37] transition-colors flex-shrink-0" />
                                 <div className="flex-1 min-w-0">
                                     <p className="text-sm text-neutral-300 group-hover:text-white transition-colors">{a.label}</p>
                                     <p className="text-[10px] text-neutral-600">{a.size}</p>
                                 </div>
-                                <iconify-icon icon="solar:download-linear" width="14" class="text-neutral-600 group-hover:text-white transition-colors flex-shrink-0" />
+                                <IIcon icon="solar:download-linear" width="14" class="text-neutral-600 group-hover:text-white transition-colors flex-shrink-0" />
                             </div>
                         ))}
                     </div>

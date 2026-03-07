@@ -2,6 +2,7 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import CountdownTimer from '../components/CountdownTimer';
+import IIcon from '../components/IIcon';
 
 const now = Date.now();
 const days = (n: number) => new Date(now + n * 24 * 60 * 60 * 1000);
@@ -245,7 +246,7 @@ export default function UpcomingAuctions({ user, onSignInClick }: UpcomingAuctio
 
                                             {/* Interest badge */}
                                             <div className="absolute bottom-3 right-3 backdrop-blur-sm bg-black/60 border border-white/10 rounded-sm px-2.5 py-1.5 flex items-center gap-1.5">
-                                                <iconify-icon icon="solar:heart-linear" width="11" class="text-rose-400" />
+                                                <IIcon icon="solar:heart-linear" width="11" class="text-rose-400" />
                                                 <span className="text-[10px] text-neutral-300">{lot.interested}</span>
                                             </div>
                                         </div>
@@ -276,7 +277,7 @@ export default function UpcomingAuctions({ user, onSignInClick }: UpcomingAuctio
                                                         : 'border-white/10 text-neutral-500 hover:border-white/30 hover:text-white'
                                                         }`}
                                                 >
-                                                    <iconify-icon icon={isReminded ? 'solar:bell-bing-linear' : 'solar:bell-linear'} width="12" />
+                                                    <IIcon icon={isReminded ? 'solar:bell-bing-linear' : 'solar:bell-linear'} width="12" />
                                                     {isReminded ? 'Reminded' : 'Remind Me'}
                                                 </button>
                                             </div>

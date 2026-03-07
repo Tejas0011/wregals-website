@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import IIcon from '../components/IIcon';
 
 /* ─── Mock data ─────────────────────────────────────────────────────────── */
 const CREATORS = [
@@ -73,11 +74,11 @@ function ShareSheet({ postId, onClose }: { postId: string; onClose: () => void }
                 { label: 'Instagram', icon: 'mdi:instagram', href: '#' },
             ].map(o => (
                 <a key={o.label} href={o.href} target="_blank" rel="noreferrer" className="flex items-center gap-3 px-4 py-2.5 hover:bg-white/5 text-sm text-neutral-300 transition-colors">
-                    <iconify-icon icon={o.icon} width="15" class="text-neutral-400" />{o.label}
+                    <IIcon icon={o.icon} width="15" class="text-neutral-400" />{o.label}
                 </a>
             ))}
             <button onClick={() => { navigator.clipboard?.writeText(url); onClose(); }} className="flex items-center gap-3 px-4 py-2.5 hover:bg-white/5 text-sm text-neutral-300 w-full border-t border-white/5 transition-colors">
-                <iconify-icon icon="solar:copy-linear" width="15" class="text-neutral-400" />Copy Link
+                <IIcon icon="solar:copy-linear" width="15" class="text-neutral-400" />Copy Link
             </button>
         </div>
     );
@@ -132,7 +133,7 @@ function PostCard({ post, liked, reshared, shareOpen, onLike, onReshare, onShare
                 {/* Name row */}
                 <div className="flex items-center gap-1.5 flex-wrap mb-1">
                     <span className="text-sm font-bold text-white">{post.name}</span>
-                    <iconify-icon icon="solar:verified-check-bold" width="14" class="text-[#D4AF37]" />
+                    <IIcon icon="solar:verified-check-bold" width="14" class="text-[#D4AF37]" />
                     <span className="text-sm text-neutral-600">{post.handle}</span>
                     <span className="text-neutral-700">·</span>
                     <span className="text-sm text-neutral-600">{post.time}</span>
@@ -157,7 +158,7 @@ function PostCard({ post, liked, reshared, shareOpen, onLike, onReshare, onShare
                     <button onClick={() => { setLc(l => liked ? l - 1 : l + 1); onLike(post.id); }}
                         className={`flex items-center gap-1.5 text-xs group transition-colors ${liked ? 'text-pink-500' : 'text-neutral-600 hover:text-pink-500'}`}>
                         <span className="w-8 h-8 flex items-center justify-center group-hover:bg-pink-500/10 transition-colors">
-                            <iconify-icon icon={liked ? 'solar:heart-bold' : 'solar:heart-linear'} width="17" />
+                            <IIcon icon={liked ? 'solar:heart-bold' : 'solar:heart-linear'} width="17" />
                         </span>
                         <span>{fmt(lc)}</span>
                     </button>
@@ -166,7 +167,7 @@ function PostCard({ post, liked, reshared, shareOpen, onLike, onReshare, onShare
                     <button onClick={() => { setRc(r => reshared ? r - 1 : r + 1); onReshare(post.id); }}
                         className={`flex items-center gap-1.5 text-xs group transition-colors ${reshared ? 'text-[#D4AF37]' : 'text-neutral-600 hover:text-[#D4AF37]'}`}>
                         <span className="w-8 h-8 flex items-center justify-center group-hover:bg-[#D4AF37]/10 transition-colors">
-                            <iconify-icon icon="solar:reorder-linear" width="17" />
+                            <IIcon icon="solar:reorder-linear" width="17" />
                         </span>
                         <span>{fmt(rc)}</span>
                     </button>
@@ -176,7 +177,7 @@ function PostCard({ post, liked, reshared, shareOpen, onLike, onReshare, onShare
                         <button onClick={() => onShare(post.id)}
                             className="flex items-center gap-1.5 text-xs text-neutral-600 hover:text-sky-400 group transition-colors">
                             <span className="w-8 h-8 flex items-center justify-center group-hover:bg-sky-400/10 transition-colors">
-                                <iconify-icon icon="solar:share-linear" width="17" />
+                                <IIcon icon="solar:share-linear" width="17" />
                             </span>
                         </button>
                         {shareOpen === post.id && <ShareSheet postId={post.id} onClose={() => onShare(null)} />}
@@ -240,7 +241,7 @@ export default function Social({ user, onSignInClick }: SocialProps) {
                         {NAV_ITEMS.map(item => (
                             <Link key={item.label} to={item.to}
                                 className={`flex items-center gap-4 px-4 py-3 transition-all group ${item.active ? 'text-white font-bold' : 'text-neutral-400 hover:text-white hover:bg-white/5'}`}>
-                                <iconify-icon icon={item.active ? item.iconActive : item.icon} width="22" />
+                                <IIcon icon={item.active ? item.iconActive : item.icon} width="22" />
                                 <span className="text-lg">{item.label}</span>
                             </Link>
                         ))}
@@ -256,7 +257,7 @@ export default function Social({ user, onSignInClick }: SocialProps) {
                                 <p className="text-sm font-semibold text-white truncate">{user.user_metadata?.full_name || user.email?.split('@')[0]}</p>
                                 <p className="text-xs text-neutral-600 truncate">@{user.email?.split('@')[0]}</p>
                             </div>
-                            <iconify-icon icon="solar:menu-dots-bold" width="16" class="text-neutral-600" />
+                            <IIcon icon="solar:menu-dots-bold" width="16" class="text-neutral-600" />
                         </div>
                     ) : (
                         <button onClick={onSignInClick} className="mt-4 w-full py-3 bg-[#D4AF37] text-black text-sm font-bold hover:bg-[#c49f2e] transition-colors uppercase tracking-widest">
@@ -294,7 +295,7 @@ export default function Social({ user, onSignInClick }: SocialProps) {
                         ))}
                         {posts.length === 0 && (
                             <div className="flex flex-col items-center justify-center py-24 text-center px-8">
-                                <iconify-icon icon="solar:user-plus-linear" width="40" class="text-neutral-700 mb-4" />
+                                <IIcon icon="solar:user-plus-linear" width="40" class="text-neutral-700 mb-4" />
                                 <p className="text-lg font-bold text-white mb-1">Follow creators to see their broadcasts</p>
                                 <p className="text-sm text-neutral-600">Follow verified creators from the sidebar to build your personalised feed.</p>
                             </div>
@@ -306,7 +307,7 @@ export default function Social({ user, onSignInClick }: SocialProps) {
                 <aside className="hidden lg:block w-80 xl:w-96 flex-shrink-0 px-4 py-4 sticky top-0 h-screen overflow-y-auto">
                     {/* Search bar */}
                     <div className="flex items-center gap-3 bg-[#111] border border-white/10 px-4 py-2.5 mb-5 mt-2">
-                        <iconify-icon icon="solar:magnifer-linear" width="15" class="text-neutral-500" />
+                        <IIcon icon="solar:magnifer-linear" width="15" class="text-neutral-500" />
                         <span className="text-sm text-neutral-600">Search creators & lots</span>
                     </div>
 
@@ -341,7 +342,7 @@ export default function Social({ user, onSignInClick }: SocialProps) {
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-1">
                                         <span className="text-sm font-semibold text-white truncate">{c.name}</span>
-                                        <iconify-icon icon="solar:verified-check-bold" width="12" class="text-[#D4AF37] flex-shrink-0" />
+                                        <IIcon icon="solar:verified-check-bold" width="12" class="text-[#D4AF37] flex-shrink-0" />
                                     </div>
                                     <p className="text-xs text-neutral-600 truncate">{c.handle}</p>
                                 </div>
@@ -359,7 +360,7 @@ export default function Social({ user, onSignInClick }: SocialProps) {
                     {/* Policy note */}
                     <div className="bg-[#0C0C0C] border border-white/5 px-4 py-4">
                         <div className="flex items-center gap-2 mb-2">
-                            <iconify-icon icon="solar:shield-check-linear" width="14" class="text-[#D4AF37]" />
+                            <IIcon icon="solar:shield-check-linear" width="14" class="text-[#D4AF37]" />
                             <span className="text-xs font-bold text-[#D4AF37] uppercase tracking-widest">Broadcast Policy</span>
                         </div>
                         <p className="text-xs text-neutral-600 leading-relaxed">Only verified creators post. No public comments in Phase 1. Content is auction-centric and editorially reviewed by WREGALS.</p>

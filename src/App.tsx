@@ -17,6 +17,7 @@ import HowItWorks from './pages/HowItWorks';
 import Gallery from './pages/Gallery';
 import Social from './pages/Social';
 import AIChatbot from './components/AIChatbot';
+import IIcon from './components/IIcon';
 import { supabase } from './lib/supabase';
 
 function App() {
@@ -281,26 +282,26 @@ function App() {
 
                       {/* Menu items */}
                       <button className="user-dropdown-item w-full text-left">
-                        <iconify-icon icon="solar:user-circle-linear" width="16" />
+                        <IIcon icon="solar:user-circle-linear" width="16" />
                         My Profile
                       </button>
                       <button
                         onClick={() => setWalletOpen(true)}
                         className="user-dropdown-item w-full text-left"
                       >
-                        <iconify-icon icon="solar:wallet-linear" width="16" />
+                        <IIcon icon="solar:wallet-linear" width="16" />
                         Wallet
                       </button>
                       <button className="user-dropdown-item w-full text-left">
-                        <iconify-icon icon="mdi:gavel" width="16" />
+                        <IIcon icon="mdi:gavel" width="16" />
                         My Bids
                       </button>
                       <button className="user-dropdown-item w-full text-left">
-                        <iconify-icon icon="solar:heart-linear" width="16" />
+                        <IIcon icon="solar:heart-linear" width="16" />
                         Watchlist
                       </button>
                       <button className="user-dropdown-item w-full text-left">
-                        <iconify-icon icon="solar:bell-linear" width="16" />
+                        <IIcon icon="solar:bell-linear" width="16" />
                         Notifications
                       </button>
 
@@ -329,7 +330,7 @@ function App() {
                           onClick={() => setSignOutConfirm(true)}
                           className="user-dropdown-item user-dropdown-signout"
                         >
-                          <iconify-icon icon="solar:logout-2-linear" width="16" />
+                          <IIcon icon="solar:logout-2-linear" width="16" />
                           Sign Out
                         </button>
                       )}
@@ -351,7 +352,7 @@ function App() {
                 onClick={() => setMobileMenuOpen((prev) => !prev)}
                 aria-label="Toggle navigation menu"
               >
-                <iconify-icon icon="solar:hamburger-menu-linear" width="24"></iconify-icon>
+                <IIcon icon="solar:hamburger-menu-linear" width="24"></IIcon>
               </button>
             </div>
           </nav>
@@ -368,7 +369,7 @@ function App() {
                   onClick={() => setMobileMenuOpen(false)}
                   aria-label="Close navigation menu"
                 >
-                  <iconify-icon icon="solar:close-square-linear" width="24"></iconify-icon>
+                  <IIcon icon="solar:close-square-linear" width="24"></IIcon>
                 </button>
               </div>
 
@@ -525,7 +526,7 @@ function App() {
               </div>
               <a href="#" className="hidden md:flex items-center gap-2 text-xs transition-colors uppercase tracking-widest mt-4 md:mt-0 text-neutral-400 hover:text-white">
                 View All
-                <iconify-icon icon="solar:arrow-right-linear" width="16"></iconify-icon>
+                <IIcon icon="solar:arrow-right-linear" width="16"></IIcon>
               </a>
             </div>
 
@@ -619,7 +620,7 @@ function App() {
                 {/* Trust 1 */}
                 <div className="space-y-6">
                   <div className="w-12 h-12 flex items-center justify-center rounded-full border text-[#D4AF37] border-white/10">
-                    <iconify-icon icon="solar:verified-check-linear" width="24" stroke-width="1.5"></iconify-icon>
+                    <IIcon icon="solar:verified-check-linear" width="24" stroke-width="1.5"></IIcon>
                   </div>
                   <h3 className="serif text-2xl font-light text-white">Authenticity Guaranteed</h3>
                   <p className="text-sm leading-relaxed font-light text-neutral-400">
@@ -630,7 +631,7 @@ function App() {
                 {/* Trust 2 */}
                 <div className="space-y-6">
                   <div className="w-12 h-12 flex items-center justify-center rounded-full border text-[#D4AF37] border-white/10">
-                    <iconify-icon icon="solar:graph-up-linear" width="24" stroke-width="1.5"></iconify-icon>
+                    <IIcon icon="solar:graph-up-linear" width="24" stroke-width="1.5"></IIcon>
                   </div>
                   <h3 className="serif text-2xl font-light text-white">True Price Discovery</h3>
                   <p className="text-sm leading-relaxed font-light text-neutral-400">
@@ -641,7 +642,7 @@ function App() {
                 {/* Trust 3 */}
                 <div className="space-y-6">
                   <div className="w-12 h-12 flex items-center justify-center rounded-full border text-[#D4AF37] border-white/10">
-                    <iconify-icon icon="solar:shield-check-linear" width="24" stroke-width="1.5"></iconify-icon>
+                    <IIcon icon="solar:shield-check-linear" width="24" stroke-width="1.5"></IIcon>
                   </div>
                   <h3 className="serif text-2xl font-light text-white">Secure Escrow</h3>
                   <p className="text-sm leading-relaxed font-light text-neutral-400">
@@ -664,7 +665,7 @@ function App() {
                   <label className="custom-checkbox flex items-center gap-3 cursor-pointer group">
                     <input type="checkbox" className="peer hidden" defaultChecked />
                     <div className="w-4 h-4 border rounded-sm flex items-center justify-center transition-all group-hover:border-white border-white/20">
-                      <iconify-icon icon="solar:check-read-linear" class="text-[10px] text-black"></iconify-icon>
+                      <IIcon icon="solar:check-read-linear" class="text-[10px] text-black"></IIcon>
                     </div>
                     <span className="text-sm group-hover:text-white transition-colors text-neutral-300">Watches</span>
                   </label>
@@ -701,7 +702,7 @@ function App() {
                   <div className="flex items-center gap-4">
                     <button className="text-xs uppercase tracking-wider flex items-center gap-1 text-neutral-400 hover:text-white">
                       Sort by: Ending Soon
-                      <iconify-icon icon="solar:alt-arrow-down-linear"></iconify-icon>
+                      <IIcon icon="solar:alt-arrow-down-linear"></IIcon>
                     </button>
                   </div>
                 </div>
@@ -861,13 +862,13 @@ function App() {
                 <p className="text-[10px] uppercase tracking-wider text-neutral-600">© 2023 Wregals Inc. All rights reserved.</p>
                 <div className="flex gap-6 mt-4 md:mt-0">
                   <a href="#" className="text-neutral-500 transition-colors hover:text-white">
-                    <iconify-icon icon="solar:instagram-linear" width="18"></iconify-icon>
+                    <IIcon icon="solar:instagram-linear" width="18"></IIcon>
                   </a>
                   <a href="#" className="text-neutral-500 transition-colors hover:text-white">
-                    <iconify-icon icon="solar:twitter-linear" width="18"></iconify-icon>
+                    <IIcon icon="solar:twitter-linear" width="18"></IIcon>
                   </a>
                   <a href="#" className="text-neutral-500 transition-colors hover:text-white">
-                    <iconify-icon icon="solar:linkedin-linear" width="18"></iconify-icon>
+                    <IIcon icon="solar:linkedin-linear" width="18"></IIcon>
                   </a>
                 </div>
                 <div className="flex gap-6 mt-4 md:mt-0 text-[10px] uppercase tracking-wider text-neutral-600">

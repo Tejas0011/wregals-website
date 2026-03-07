@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import IIcon from '../components/IIcon';
 
 const TOPICS = [
     { icon: 'solar:tag-linear', label: 'Consign an Item', email: 'consign@wregals.com', desc: 'Sell your asset with WREGALS' },
@@ -72,13 +73,13 @@ export default function Contact({ user, onSignInClick }: ContactProps) {
                             <a key={t.label} href={`mailto:${t.email}`}
                                 className="group flex items-center gap-4 p-4 border border-white/5 bg-[#0C0C0C] hover:bg-[#111] hover:border-white/10 transition-all rounded-sm">
                                 <div className="flex-shrink-0 w-9 h-9 border border-white/10 rounded-sm flex items-center justify-center group-hover:border-[#D4AF37]/40 transition-colors">
-                                    <iconify-icon icon={t.icon} width="16" class="text-neutral-500 group-hover:text-[#D4AF37] transition-colors" />
+                                    <IIcon icon={t.icon} width="16" class="text-neutral-500 group-hover:text-[#D4AF37] transition-colors" />
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <p className="text-sm text-white font-medium group-hover:text-[#D4AF37] transition-colors">{t.label}</p>
                                     <p className="text-[10px] text-neutral-600 truncate">{t.email}</p>
                                 </div>
-                                <iconify-icon icon="solar:arrow-right-up-linear" width="14" class="text-neutral-700 group-hover:text-white transition-colors flex-shrink-0" />
+                                <IIcon icon="solar:arrow-right-up-linear" width="14" class="text-neutral-700 group-hover:text-white transition-colors flex-shrink-0" />
                             </a>
                         ))}
                     </div>
@@ -96,7 +97,7 @@ export default function Contact({ user, onSignInClick }: ContactProps) {
 
                             {sent ? (
                                 <div className="py-16 text-center">
-                                    <iconify-icon icon="solar:check-circle-linear" width="40" class="text-emerald-400 block mx-auto mb-4" />
+                                    <IIcon icon="solar:check-circle-linear" width="40" class="text-emerald-400 block mx-auto mb-4" />
                                     <p className="text-white font-medium mb-2">Message Received</p>
                                     <p className="text-sm text-neutral-500">We'll get back to you within one business day.</p>
                                     <button onClick={() => { setSent(false); setForm({ name: '', email: '', subject: '', message: '' }); }}
@@ -143,7 +144,7 @@ export default function Contact({ user, onSignInClick }: ContactProps) {
                                 <div className="space-y-6">
                                     <div className="flex gap-4">
                                         <div className="flex-shrink-0 w-9 h-9 border border-white/10 rounded-sm flex items-center justify-center">
-                                            <iconify-icon icon="solar:map-point-linear" width="16" class="text-[#D4AF37]" />
+                                            <IIcon icon="solar:map-point-linear" width="16" class="text-[#D4AF37]" />
                                         </div>
                                         <div>
                                             <p className="text-sm font-medium text-white mb-0.5">Mumbai (HQ)</p>
@@ -156,7 +157,7 @@ export default function Contact({ user, onSignInClick }: ContactProps) {
                                     </div>
                                     <div className="flex gap-4">
                                         <div className="flex-shrink-0 w-9 h-9 border border-white/10 rounded-sm flex items-center justify-center">
-                                            <iconify-icon icon="solar:clock-circle-linear" width="16" class="text-[#D4AF37]" />
+                                            <IIcon icon="solar:clock-circle-linear" width="16" class="text-[#D4AF37]" />
                                         </div>
                                         <div>
                                             <p className="text-sm font-medium text-white mb-0.5">Office Hours</p>
@@ -169,7 +170,7 @@ export default function Contact({ user, onSignInClick }: ContactProps) {
                                     </div>
                                     <div className="flex gap-4">
                                         <div className="flex-shrink-0 w-9 h-9 border border-white/10 rounded-sm flex items-center justify-center">
-                                            <iconify-icon icon="solar:phone-linear" width="16" class="text-[#D4AF37]" />
+                                            <IIcon icon="solar:phone-linear" width="16" class="text-[#D4AF37]" />
                                         </div>
                                         <div>
                                             <p className="text-sm font-medium text-white mb-0.5">Phone</p>

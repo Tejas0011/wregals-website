@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
 import CustomSelect from './CustomSelect';
+import IIcon from './IIcon';
 
 const INDIAN_STATES = [
     'Andaman & Nicobar Islands', 'Andhra Pradesh', 'Arunachal Pradesh', 'Assam',
@@ -201,7 +202,7 @@ export default function ProfileSetup2({ user, onComplete, onBack, onDismiss }: P
                             {loading ? (
                                 <span className="auth-spinner auth-spinner--dark" />
                             ) : (
-                                <iconify-icon icon="solar:arrow-right-linear" width="16" />
+                                <IIcon icon="solar:arrow-right-linear" width="16" />
                             )}
                             {loading ? 'Saving…' : 'Enter Wregals'}
                         </button>
