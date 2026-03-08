@@ -44,8 +44,11 @@ export default function HomeHero() {
     const nextImage4 = () => setCurrentImage4((prev) => (prev + 1) % lot4Images.length);
     const prevImage4 = () => setCurrentImage4((prev) => (prev - 1 + lot4Images.length) % lot4Images.length);
     return (
-        <section className="relative w-full min-h-screen bg-[#080808] pt-20">
-            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-80px)] mx-auto border-b border-white/5 snap-start">
+        <section className="relative w-full min-h-screen bg-[#080808] pt-20 pb-20">
+            <div className="max-w-[1800px] mx-auto flex flex-col gap-20 py-10 px-6 md:px-12">
+            
+            {/* LOT 01 */}
+            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-200px)] min-h-[600px] border border-white/10 rounded-sm overflow-hidden shadow-2xl snap-start bg-[#0A0A0A]">
                 
                 {/* ── Left Column: Featured Auction ──────────────────────────────── */}
                 <div className="relative flex-1 bg-[#111] overflow-hidden">
@@ -287,7 +290,7 @@ export default function HomeHero() {
             </div>
 
             {/* LOT 02 */}
-            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-80px)] mx-auto snap-start">
+            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-200px)] min-h-[600px] border border-white/10 rounded-sm overflow-hidden shadow-2xl snap-start bg-[#0A0A0A]">
                 
                 {/* ── Left Column: Featured Auction ──────────────────────────────── */}
                 <div className="relative flex-1 bg-[#111] overflow-hidden">
@@ -528,7 +531,7 @@ export default function HomeHero() {
         </div>
 
         {/* LOT 03 */}
-            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-80px)] mx-auto border-b border-white/5 snap-start">
+            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-200px)] min-h-[600px] border border-white/10 rounded-sm overflow-hidden shadow-2xl snap-start bg-[#0A0A0A]">
                 
                 {/* ── Left Column: Featured Auction ──────────────────────────────── */}
                 <div className="relative flex-1 bg-[#111] overflow-hidden">
@@ -768,7 +771,7 @@ export default function HomeHero() {
             </div>
 
             {/* LOT 04 */}
-            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-80px)] mx-auto snap-start">
+            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-200px)] min-h-[600px] border border-white/10 rounded-sm overflow-hidden shadow-2xl snap-start bg-[#0A0A0A]">
                 
                 {/* ── Left Column: Featured Auction ──────────────────────────────── */}
                 <div className="relative flex-1 bg-[#111] overflow-hidden">
@@ -1003,18 +1006,19 @@ export default function HomeHero() {
                     </div>
                 </div>
             </div>
+            </div>
 
             {/* Navigation Arrows */}
             <div className="fixed right-6 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-50">
                 <button 
-                    onClick={() => window.scrollBy({ top: -(window.innerHeight - 80), left: 0, behavior: 'smooth' })}
+                    onClick={() => window.scrollBy({ top: -(window.innerHeight - 120), behavior: 'smooth' })}
                     className="w-10 h-10 bg-black/50 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black hover:scale-110 transition-all duration-300 shadow-xl"
                     aria-label="Previous Lot"
                 >
                     <IIcon icon="solar:alt-arrow-up-linear" width="20" />
                 </button>
                 <button 
-                    onClick={() => window.scrollBy({ top: window.innerHeight - 80, left: 0, behavior: 'smooth' })}
+                    onClick={() => window.scrollBy({ top: window.innerHeight - 120, behavior: 'smooth' })}
                     className="w-10 h-10 bg-black/50 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black hover:scale-110 transition-all duration-300 shadow-xl"
                     aria-label="Next Lot"
                 >
