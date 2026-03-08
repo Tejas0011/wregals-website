@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useState, useEffect, useRef } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-import HeroScroll from './components/HeroScroll';
+import HomeHero from './components/HomeHero';
 import AuthModal from './components/AuthModal';
 import ProfileSetup from './components/ProfileSetup';
 import ProfileSetup2 from './components/ProfileSetup2';
@@ -22,7 +22,7 @@ import { supabase } from './lib/supabase';
 
 function App() {
   const [authOpen, setAuthOpen] = useState(false);
-  const [heroReady, setHeroReady] = useState(false);
+
   const [user, setUser] = useState(null);
   const [signOutConfirm, setSignOutConfirm] = useState(false);
   const [showProfileSetup, setShowProfileSetup] = useState(false);
@@ -30,7 +30,7 @@ function App() {
   const [walletOpen, setWalletOpen] = useState(false);
   const [openNav, setOpenNav] = useState<'auctions' | 'company' | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [heroScrolled, setHeroScrolled] = useState(false);
+
   const navRef = useRef<HTMLDivElement>(null);
   const navCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -152,11 +152,6 @@ function App() {
           {/* Navigation */}
           <nav
             className="fixed top-0 w-full z-50 bg-[#080808]/80 backdrop-blur-md border-b border-white/5"
-            style={{
-              opacity: heroReady ? 1 : 0,
-              pointerEvents: heroReady ? 'auto' : 'none',
-              transition: 'opacity 0.8s ease',
-            }}
           >
             <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
               {/* Logo */}
@@ -508,110 +503,14 @@ function App() {
           {/* Auth Modal */}
           <AuthModal isOpen={authOpen} onClose={() => setAuthOpen(false)} />
 
-          {/* AI Chatbot — appears after hero scroll completes */}
-          <AIChatbot visible={heroScrolled} user={user} onSignInClick={() => setAuthOpen(true)} />
+          {/* AI Chatbot — visible immediately */}
+          <AIChatbot visible={true} user={user} onSignInClick={() => setAuthOpen(true)} />
 
           {/* Wallet Modal */}
           <WalletModal isOpen={walletOpen} onClose={() => setWalletOpen(false)} user={user} />
 
           {/* Hero Section */}
-          <HeroScroll onReady={() => setHeroReady(true)} onAnimationDone={() => setHeroScrolled(true)} />
-
-          {/* Featured Celebrity Auctions */}
-          <section className="py-24 md:py-32 px-6 max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b pb-6 border-white/10">
-              <div>
-                <span className="text-[#D4AF37] text-xs tracking-[0.2em] uppercase mb-2 block">Curated Collection</span>
-                <h2 className="text-3xl md:text-4xl serif tracking-tight font-light">Celebrity Archives</h2>
-              </div>
-              <a href="#" className="hidden md:flex items-center gap-2 text-xs transition-colors uppercase tracking-widest mt-4 md:mt-0 text-neutral-400 hover:text-white">
-                View All
-                <IIcon icon="solar:arrow-right-linear" width="16"></IIcon>
-              </a>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-y-12 gap-x-8">
-              {/* Card 1 */}
-              <article className="group cursor-pointer">
-                <div className="relative aspect-[3/4] overflow-hidden bg-[#111] mb-6 rounded-sm">
-                  <img src="https://images.unsplash.com/photo-1617317376997-8748e6862c01?q=80&w=2070&auto=format&fit=crop" alt="Luxury Watch" className="w-full h-full object-cover img-reveal transform group-hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute top-4 left-4 backdrop-blur-sm px-3 py-1 border rounded-sm bg-black/60 border-white/10">
-                    <span className="text-[10px] uppercase tracking-widest flex items-center gap-2 text-white">
-                      <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span> Live
-                    </span>
-                  </div>
-                </div>
-                <div className="space-y-1">
-                  <div className="flex justify-between items-start">
-                    <h3 className="text-xl md:text-2xl tracking-tight group-hover:text-[#D4AF37] transition-colors text-white">1968 Daytona "Paul Newman"</h3>
-                  </div>
-                  <p className="text-xs uppercase tracking-wider text-neutral-500">Ex-Collection: John Legend</p>
-                  <div className="flex justify-between items-end pt-3 border-t mt-3 border-white/5">
-                    <div>
-                      <p className="text-[10px] text-neutral-500 uppercase">Current Bid</p>
-                      <p className="font-mono text-sm text-neutral-300">$450,000</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-[10px] text-neutral-500 uppercase">Ends In</p>
-                      <p className="font-mono text-sm text-neutral-300">04h 21m</p>
-                    </div>
-                  </div>
-                </div>
-              </article>
-
-              {/* Card 2 */}
-              <article className="group cursor-pointer">
-                <div className="relative aspect-[3/4] overflow-hidden bg-[#111] mb-6 rounded-sm">
-                  <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" alt="Vintage Car" className="w-full h-full object-cover img-reveal transform group-hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute top-4 left-4 backdrop-blur-sm px-3 py-1 border rounded-sm bg-black/60 border-white/10">
-                    <span className="text-[10px] uppercase tracking-widest text-neutral-300">Upcoming</span>
-                  </div>
-                </div>
-                <div className="space-y-1">
-                  <div className="flex justify-between items-start">
-                    <h3 className="text-xl md:text-2xl tracking-tight group-hover:text-[#D4AF37] transition-colors text-white">1955 Porsche 550 Spyder</h3>
-                  </div>
-                  <p className="text-xs uppercase tracking-wider text-neutral-500">Ex-Collection: Steve McQueen Estate</p>
-                  <div className="flex justify-between items-end pt-3 border-t mt-3 border-white/5">
-                    <div>
-                      <p className="text-[10px] text-neutral-500 uppercase">Starting Bid</p>
-                      <p className="font-mono text-sm text-neutral-300">$3,200,000</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-[10px] text-neutral-500 uppercase">Opens In</p>
-                      <p className="font-mono text-sm text-neutral-300">2 Days</p>
-                    </div>
-                  </div>
-                </div>
-              </article>
-
-              {/* Card 3 */}
-              <article className="group cursor-pointer">
-                <div className="relative aspect-[3/4] overflow-hidden bg-[#111] mb-6 rounded-sm">
-                  <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=2070&auto=format&fit=crop" alt="Diamond Ring" className="w-full h-full object-cover img-reveal transform group-hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute top-4 left-4 backdrop-blur-sm px-3 py-1 border rounded-sm bg-black/60 border-white/10">
-                    <span className="text-[10px] uppercase tracking-widest text-neutral-300">Reserve Met</span>
-                  </div>
-                </div>
-                <div className="space-y-1">
-                  <div className="flex justify-between items-start">
-                    <h3 className="text-xl md:text-2xl tracking-tight group-hover:text-[#D4AF37] transition-colors text-white">Cartier Panthère Ring</h3>
-                  </div>
-                  <p className="text-xs uppercase tracking-wider text-neutral-500">Ex-Collection: Elizabeth Taylor</p>
-                  <div className="flex justify-between items-end pt-3 border-t mt-3 border-white/5">
-                    <div>
-                      <p className="text-[10px] text-neutral-500 uppercase">Current Bid</p>
-                      <p className="font-mono text-sm text-neutral-300">$185,000</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-[10px] text-neutral-500 uppercase">Ends In</p>
-                      <p className="font-mono text-sm text-neutral-300">12m 30s</p>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </section>
+          <HomeHero />
 
           {/* Social / High-Profile Activity Section */}
           <section className="py-24 bg-[#0A0A0A] relative overflow-hidden border-t border-white/5">

@@ -352,21 +352,13 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                         {/* Inner Glass Core */}
                         <div className="relative flex items-center w-full h-full bg-[#080808] rounded-[30px] overflow-hidden transition-all duration-500 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] group-hover:bg-[#0C0C0C]">
                             
-                            {/* Ambient background glow */}
-                            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.15)_0%,transparent_60%)] opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                            {/* Light Sweep Effect on Hover */}
-                            <div className="absolute inset-0 -translate-x-full group-hover:animate-[wren-shimmer_1.5s_ease-out_infinite] bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.08)] to-transparent skew-x-[-20deg]" />
-
                             <div className="flex items-center absolute left-0 w-full h-full">
                                 {/* 8-Pointed Star Icon */}
                                 <div className="w-[57px] h-[57px] flex items-center justify-center flex-shrink-0 relative">
                                     <StarEightPointsIcon 
                                         width={26} 
-                                        className="text-[#D4AF37] relative z-20 drop-shadow-[0_0_8px_rgba(212,175,55,0.6)] group-hover:rotate-12 group-hover:scale-110 transition-transform duration-500"
+                                        className="text-[#D4AF37] relative z-20 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-500"
                                     />
-                                    {/* Pulse Ring Behind Icon */}
-                                    <div className="absolute inset-0 rounded-full border border-[#D4AF37] opacity-0 group-hover:animate-[wren-ping_1.5s_cubic-bezier(0,0,0.2,1)_infinite] scale-50"></div>
                                 </div>
                                 
                                 {/* Expanding Text */}
