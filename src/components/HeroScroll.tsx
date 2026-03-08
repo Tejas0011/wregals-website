@@ -96,12 +96,12 @@ export default function HeroScroll({ onReady, onAnimationDone }: { onReady?: () 
         rafRef.current = requestAnimationFrame(loop);
     };
 
-    // ─── Load ALL 192 frames, show progress, then reveal ─────────────────────
+    // ─── Load initially, show, then load rest ──────────────────────────────────
     useEffect(() => {
         let loaded = 0;
         const imgs = imagesRef.current;
 
-        const BATCH = 24; // load 24 at a time to avoid overwhelming the browser
+        const BATCH = 24; // load 24 at a time
 
         const loadBatch = (start: number): Promise<void> => {
             const end = Math.min(start + BATCH, FRAME_COUNT);
@@ -115,7 +115,9 @@ export default function HeroScroll({ onReady, onAnimationDone }: { onReady?: () 
                         img.onload = img.onerror = () => {
                             imgs[i] = img;
                             loaded++;
-                            setLoadProgress(Math.floor((loaded / FRAME_COUNT) * 100));
+                            // Scale progress so the first batch reaching BATCH represents 100%
+                            const progress = Math.min(100, Math.floor((loaded / BATCH) * 100));
+                            setLoadProgress(progress);
                             resolve();
                         };
                     })
@@ -125,14 +127,19 @@ export default function HeroScroll({ onReady, onAnimationDone }: { onReady?: () 
         };
 
         const run = async () => {
-            for (let start = 0; start < FRAME_COUNT; start += BATCH) {
-                await loadBatch(start);
-            }
-            // All frames loaded — draw first frame then reveal
+            // 1) Load the first batch to get initial frames ready quickly
+            await loadBatch(0);
+            
+            // 2) Reveal the animation (hide loading screen)
             imagesRef.current = imgs;
             drawFrame(0);
             setIsReady(true);
             onReady?.();
+
+            // 3) Load the remaining frames in the background
+            for (let start = BATCH; start < FRAME_COUNT; start += BATCH) {
+                await loadBatch(start);
+            }
         };
 
         run();
