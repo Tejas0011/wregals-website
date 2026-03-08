@@ -171,50 +171,50 @@ export default function HomeHero() {
                 <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#0A0A0A] border-l border-white/5 flex flex-col pt-8 overflow-y-auto custom-scrollbar">
                     
                     {/* Curator Profile */}
-                    <div className="px-8 pb-8 border-b border-white/5">
-                        <div className="flex items-center gap-4 mb-8">
+                    <div className="px-6 pb-6 border-b border-white/5">
+                        <div className="flex items-center gap-3 mb-6">
                             <div className="relative">
-                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" alt="Virat Kohli" className="w-16 h-16 rounded-full object-cover border border-white/10 shadow-xl" />
-                                <div className="absolute right-0 bottom-0 w-4 h-4 bg-blue-500 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
-                                    <span className="text-white text-[8px] font-bold">✓</span>
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" alt="Virat Kohli" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
+                                <div className="absolute right-0 bottom-0 w-3 h-3 bg-blue-500 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
+                                    <span className="text-white text-[6px] font-bold">✓</span>
                                 </div>
                             </div>
                             <div>
-                                <h3 className="text-white text-lg font-medium tracking-tight">Virat Kohli</h3>
-                                <p className="text-neutral-500 text-sm">@virat.kohli</p>
+                                <h3 className="text-white text-base font-medium tracking-tight">Virat Kohli</h3>
+                                <p className="text-neutral-500 text-xs">@virat.kohli</p>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-4 mb-4">
+                        <div className="grid grid-cols-3 gap-3 mb-2">
                             <div className="text-center">
-                                <div className="text-white font-mono text-xl mb-1 truncate">12</div>
-                                <div className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold">Posts</div>
+                                <div className="text-white font-mono text-lg mb-0.5 truncate">12</div>
+                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Posts</div>
                             </div>
                             <div className="text-center border-l border-white/10">
-                                <div className="text-white font-mono text-xl mb-1 truncate">4</div>
-                                <div className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold">Lots</div>
+                                <div className="text-white font-mono text-lg mb-0.5 truncate">4</div>
+                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Lots</div>
                             </div>
                             <div className="text-center border-l border-white/10">
-                                <div className="text-white font-mono text-xl mb-1 truncate">8.2M</div>
-                                <div className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold">Followers</div>
+                                <div className="text-white font-mono text-lg mb-0.5 truncate">8.2M</div>
+                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Followers</div>
                             </div>
                         </div>
                     </div>
 
                     {/* Curator Bio */}
-                    <div className="px-8 py-6 border-b border-white/5">
-                        <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold mb-3 block">About</h4>
-                        <p className="text-neutral-300 text-[13px] leading-relaxed mb-3">
+                    <div className="px-6 py-4 border-b border-white/5">
+                        <h4 className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold mb-2 block">About</h4>
+                        <p className="text-neutral-300 text-[12px] leading-relaxed mb-2">
                             Virat Kohli is widely regarded as one of the greatest batsmen in the history of cricket. Known for his aggressive batting style and unyielding passion on the field, he has set numerous records across all formats of the game.
                         </p>
-                        <p className="text-neutral-400 text-[11px] leading-relaxed">
+                        <p className="text-neutral-400 text-[10px] leading-relaxed">
                             This exclusive collection features match-worn gear, signed memorabilia, and personal items directly from his personal archives.
                         </p>
                     </div>
 
                     {/* Live Bidding Feed */}
-                    <div className="p-8 flex-1 bg-[#080808]/50">
-                        <div className="flex items-center gap-2 mb-6">
+                    <div className="p-6 flex-1 bg-[#080808]/50 overflow-y-auto no-scrollbar">
+                        <div className="flex items-center gap-2 mb-4">
                             <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold block">Live Bidding</h4>
                             <div className="w-2 h-2 bg-neutral-500 rounded-full"></div>
                         </div>
@@ -222,66 +222,76 @@ export default function HomeHero() {
                         <div className="flex flex-col gap-6">
                             {/* Bidder 1 (Highest) */}
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-3">
                                     <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/10" />
                                     <div>
-                                        <h5 className="text-white text-[13px] font-medium">@marcus_t</h5>
-                                        <p className="text-[#D4AF37] text-base font-mono mt-0.5">₹84,000</p>
+                                        <h5 className="text-white text-[12px] font-medium">@marcus_t</h5>
+                                        <p className="text-neutral-500 text-[9px] uppercase font-semibold mt-0.5">Just now</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-600 text-[10px] uppercase font-semibold">Just now</span>
+                                <div className="text-right">
+                                    <p className="text-[#D4AF37] text-sm font-mono">₹84,000</p>
+                                </div>
                             </div>
 
                             {/* Bidder 2 */}
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-3">
                                     <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/5">
-                                        <span className="text-neutral-400 text-sm">S</span>
+                                        <span className="text-neutral-400 text-xs text-base">S</span>
                                     </div>
                                     <div>
-                                        <h5 className="text-neutral-300 text-[13px] font-medium">@sarah_kl</h5>
-                                        <p className="text-white text-base font-mono mt-0.5">₹82,500</p>
+                                        <h5 className="text-neutral-300 text-[12px] font-medium">@sarah_kl</h5>
+                                        <p className="text-neutral-500 text-[9px] uppercase font-semibold mt-0.5">2m ago</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-600 text-[10px] uppercase font-semibold">2m ago</span>
+                                <div className="text-right">
+                                    <p className="text-white text-sm font-mono">₹82,500</p>
+                                </div>
                             </div>
 
                             {/* Bidder 3 */}
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-3">
                                     <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/5 opacity-80" />
                                     <div>
-                                        <h5 className="text-neutral-400 text-[13px] font-medium">@james_w</h5>
-                                        <p className="text-neutral-300 text-base font-mono mt-0.5">₹80,000</p>
+                                        <h5 className="text-neutral-400 text-[12px] font-medium">@james_w</h5>
+                                        <p className="text-neutral-600 text-[9px] uppercase font-semibold mt-0.5">15m ago</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-700 text-[10px] uppercase font-semibold">15m ago</span>
+                                <div className="text-right">
+                                    <p className="text-neutral-300 text-sm font-mono">₹80,000</p>
+                                </div>
                             </div>
 
-                            {/* Bidder 4 (Faded) */}
-                            <div className="flex items-center justify-between opacity-50 grayscale">
-                                <div className="flex items-center gap-4">
+                            {/* Bidder 4 */}
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
                                     <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/5">
-                                        <span className="text-neutral-500 text-sm">M</span>
+                                        <span className="text-neutral-500 text-xs text-base">M</span>
                                     </div>
                                     <div>
-                                        <h5 className="text-neutral-500 text-[13px] font-medium">@mike_r</h5>
-                                        <p className="text-neutral-500 text-base font-mono mt-0.5">₹78,500</p>
+                                        <h5 className="text-neutral-500 text-[12px] font-medium">@mike_r</h5>
+                                        <p className="text-neutral-600 text-[9px] uppercase font-semibold mt-0.5">1h ago</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-700 text-[10px] uppercase font-semibold">1h ago</span>
+                                <div className="text-right">
+                                    <p className="text-neutral-500 text-sm font-mono">₹78,500</p>
+                                </div>
                             </div>
 
                             {/* Bidder 5 (Faded) */}
                             <div className="flex items-center justify-between opacity-30 grayscale">
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-3">
                                     <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/5" />
                                     <div>
-                                        <h5 className="text-neutral-600 text-[13px] font-medium">@laura_v</h5>
-                                        <p className="text-neutral-600 text-base font-mono mt-0.5">₹75,000</p>
+                                        <h5 className="text-neutral-600 text-[12px] font-medium">@laura_v</h5>
+                                        <p className="text-neutral-700 text-[9px] uppercase font-semibold mt-0.5">3h ago</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-700 text-[10px] uppercase font-semibold">3h ago</span>
+                                <div className="text-right">
+                                    <p className="text-neutral-600 text-sm font-mono">₹75,000</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -413,50 +423,50 @@ export default function HomeHero() {
                 <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#0A0A0A] border-l border-white/5 flex flex-col pt-8 overflow-y-auto custom-scrollbar">
                     
                     {/* Curator Profile */}
-                    <div className="px-8 pb-8 border-b border-white/5">
-                        <div className="flex items-center gap-4 mb-8">
+                    <div className="px-6 pb-6 border-b border-white/5">
+                        <div className="flex items-center gap-3 mb-6">
                             <div className="relative">
-                                <img src="https://images.unsplash.com/photo-1516280440502-d2fdaa0bf5e2?q=80&w=200&auto=format&fit=crop" alt="Jane Doe" className="w-16 h-16 rounded-full object-cover border border-white/10 shadow-xl" />
-                                <div className="absolute right-0 bottom-0 w-4 h-4 bg-blue-500 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
-                                    <span className="text-white text-[8px] font-bold">✓</span>
+                                <img src="https://images.unsplash.com/photo-1516280440502-d2fdaa0bf5e2?q=80&w=200&auto=format&fit=crop" alt="Jane Doe" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
+                                <div className="absolute right-0 bottom-0 w-3 h-3 bg-blue-500 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
+                                    <span className="text-white text-[6px] font-bold">✓</span>
                                 </div>
                             </div>
                             <div>
-                                <h3 className="text-white text-lg font-medium tracking-tight">Jane Doe</h3>
-                                <p className="text-neutral-500 text-sm">@jane_doe</p>
+                                <h3 className="text-white text-base font-medium tracking-tight">Jane Doe</h3>
+                                <p className="text-neutral-500 text-xs">@jane_doe</p>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-4 mb-4">
+                        <div className="grid grid-cols-3 gap-3 mb-2">
                             <div className="text-center">
-                                <div className="text-white font-mono text-xl mb-1 truncate">84</div>
-                                <div className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold">Posts</div>
+                                <div className="text-white font-mono text-lg mb-0.5 truncate">84</div>
+                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Posts</div>
                             </div>
                             <div className="text-center border-l border-white/10">
-                                <div className="text-white font-mono text-xl mb-1 truncate">31</div>
-                                <div className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold">Lots</div>
+                                <div className="text-white font-mono text-lg mb-0.5 truncate">31</div>
+                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Lots</div>
                             </div>
                             <div className="text-center border-l border-white/10">
-                                <div className="text-white font-mono text-xl mb-1 truncate">4.1M</div>
-                                <div className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold">Followers</div>
+                                <div className="text-white font-mono text-lg mb-0.5 truncate">4.1M</div>
+                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Followers</div>
                             </div>
                         </div>
                     </div>
 
                     {/* Curator Bio */}
-                    <div className="px-8 py-6 border-b border-white/5">
-                        <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold mb-3 block">About</h4>
-                        <p className="text-neutral-300 text-[13px] leading-relaxed mb-3">
+                    <div className="px-6 py-4 border-b border-white/5">
+                        <h4 className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold mb-2 block">About</h4>
+                        <p className="text-neutral-300 text-[12px] leading-relaxed mb-2">
                             Jane Doe is an internationally recognized session guitarist who has collaborated with top names in the rock and blues industries over her 25-year career.
                         </p>
-                        <p className="text-neutral-400 text-[11px] leading-relaxed">
+                        <p className="text-neutral-400 text-[10px] leading-relaxed">
                             Her curated vault offers a rare glimpse into studio-used instruments, custom pedalboards, and historically significant musical artifacts.
                         </p>
                     </div>
 
                     {/* Live Bidding Feed */}
-                    <div className="p-8 flex-1 bg-[#080808]/50">
-                        <div className="flex items-center gap-2 mb-6">
+                    <div className="p-6 flex-1 bg-[#080808]/50 overflow-y-auto no-scrollbar">
+                        <div className="flex items-center gap-2 mb-4">
                             <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold block">Live Bidding</h4>
                             <div className="w-2 h-2 bg-neutral-500 rounded-full"></div>
                         </div>
@@ -464,73 +474,83 @@ export default function HomeHero() {
                         <div className="flex flex-col gap-6">
                             {/* Bidder 1 (Highest) */}
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-3">
                                     <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/10" />
                                     <div>
-                                        <h5 className="text-white text-[13px] font-medium">@alex_b</h5>
-                                        <p className="text-[#D4AF37] text-base font-mono mt-0.5">₹210,000</p>
+                                        <h5 className="text-white text-[12px] font-medium">@alex_b</h5>
+                                        <p className="text-neutral-500 text-[9px] uppercase font-semibold mt-0.5">Just now</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-600 text-[10px] uppercase font-semibold">Just now</span>
+                                <div className="text-right">
+                                    <p className="text-[#D4AF37] text-sm font-mono">₹210,000</p>
+                                </div>
                             </div>
 
                             {/* Bidder 2 */}
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-3">
                                     <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/5">
-                                        <span className="text-neutral-400 text-sm">J</span>
+                                        <span className="text-neutral-400 text-xs text-base">J</span>
                                     </div>
                                     <div>
-                                        <h5 className="text-neutral-300 text-[13px] font-medium">@jason_k</h5>
-                                        <p className="text-white text-base font-mono mt-0.5">₹205,500</p>
+                                        <h5 className="text-neutral-300 text-[12px] font-medium">@jason_k</h5>
+                                        <p className="text-neutral-500 text-[9px] uppercase font-semibold mt-0.5">4m ago</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-600 text-[10px] uppercase font-semibold">4m ago</span>
+                                <div className="text-right">
+                                    <p className="text-white text-sm font-mono">₹205,500</p>
+                                </div>
                             </div>
 
                             {/* Bidder 3 */}
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-3">
                                     <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/5 opacity-80" />
                                     <div>
-                                        <h5 className="text-neutral-400 text-[13px] font-medium">@emily_r</h5>
-                                        <p className="text-neutral-300 text-base font-mono mt-0.5">₹200,000</p>
+                                        <h5 className="text-neutral-400 text-[12px] font-medium">@emily_r</h5>
+                                        <p className="text-neutral-600 text-[9px] uppercase font-semibold mt-0.5">12m ago</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-700 text-[10px] uppercase font-semibold">12m ago</span>
+                                <div className="text-right">
+                                    <p className="text-neutral-300 text-sm font-mono">₹200,000</p>
+                                </div>
                             </div>
 
-                            {/* Bidder 4 (Faded) */}
-                            <div className="flex items-center justify-between opacity-50 grayscale">
-                                <div className="flex items-center gap-4">
+                            {/* Bidder 4 */}
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
                                     <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/5">
-                                        <span className="text-neutral-500 text-sm">C</span>
+                                        <span className="text-neutral-500 text-xs text-base">C</span>
                                     </div>
                                     <div>
-                                        <h5 className="text-neutral-500 text-[13px] font-medium">@chris_89</h5>
-                                        <p className="text-neutral-500 text-base font-mono mt-0.5">₹195,000</p>
+                                        <h5 className="text-neutral-500 text-[12px] font-medium">@chris_89</h5>
+                                        <p className="text-neutral-600 text-[9px] uppercase font-semibold mt-0.5">28m ago</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-700 text-[10px] uppercase font-semibold">28m ago</span>
+                                <div className="text-right">
+                                    <p className="text-neutral-500 text-sm font-mono">₹195,000</p>
+                                </div>
                             </div>
 
                             {/* Bidder 5 (Faded) */}
                             <div className="flex items-center justify-between opacity-30 grayscale">
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-3">
                                     <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/5" />
                                     <div>
-                                        <h5 className="text-neutral-600 text-[13px] font-medium">@david_m</h5>
-                                        <p className="text-neutral-600 text-base font-mono mt-0.5">₹190,000</p>
+                                        <h5 className="text-neutral-600 text-[12px] font-medium">@david_m</h5>
+                                        <p className="text-neutral-700 text-[9px] uppercase font-semibold mt-0.5">2h ago</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-700 text-[10px] uppercase font-semibold">2h ago</span>
+                                <div className="text-right">
+                                    <p className="text-neutral-600 text-sm font-mono">₹190,000</p>
+                                </div>
                             </div>
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
 
-        {/* LOT 03 */}
+            {/* LOT 03 */}
             <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-200px)] min-h-[600px] border border-white/10 rounded-sm overflow-hidden shadow-2xl snap-start bg-[#0A0A0A]">
                 
                 {/* ── Left Column: Featured Auction ──────────────────────────────── */}
@@ -654,47 +674,47 @@ export default function HomeHero() {
                 <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#0A0A0A] border-l border-white/5 flex flex-col pt-8 overflow-y-auto custom-scrollbar">
                     
                     {/* Curator Profile */}
-                    <div className="px-8 pb-8 border-b border-white/5">
-                        <div className="flex items-center gap-4 mb-8">
+                    <div className="px-6 pb-6 border-b border-white/5">
+                        <div className="flex items-center gap-3 mb-6">
                             <div className="relative">
-                                <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=200&auto=format&fit=crop" alt="Mark Studio" className="w-16 h-16 rounded-full object-cover border border-white/10 shadow-xl" />
-                                <div className="absolute right-0 bottom-0 w-4 h-4 bg-blue-500 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
-                                    <span className="text-white text-[8px] font-bold">✓</span>
+                                <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=200&auto=format&fit=crop" alt="Mark Studio" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
+                                <div className="absolute right-0 bottom-0 w-3 h-3 bg-blue-500 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
+                                    <span className="text-white text-[6px] font-bold">✓</span>
                                 </div>
                             </div>
                             <div>
-                                <h3 className="text-white text-lg font-medium tracking-tight">Mark Studio</h3>
-                                <p className="text-neutral-500 text-sm">@mark_antiques</p>
+                                <h3 className="text-white text-base font-medium tracking-tight">Mark Studio</h3>
+                                <p className="text-neutral-500 text-xs">@mark_antiques</p>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-4 mb-4">
+                        <div className="grid grid-cols-3 gap-3 mb-2">
                             <div className="text-center">
-                                <div className="text-white font-mono text-xl mb-1 truncate">340</div>
-                                <div className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold">Posts</div>
+                                <div className="text-white font-mono text-lg mb-0.5 truncate">340</div>
+                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Posts</div>
                             </div>
                             <div className="text-center border-l border-white/10">
-                                <div className="text-white font-mono text-xl mb-1 truncate">88</div>
-                                <div className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold">Lots</div>
+                                <div className="text-white font-mono text-lg mb-0.5 truncate">88</div>
+                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Lots</div>
                             </div>
                             <div className="text-center border-l border-white/10">
-                                <div className="text-white font-mono text-xl mb-1 truncate">12.4K</div>
-                                <div className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold">Followers</div>
+                                <div className="text-white font-mono text-lg mb-0.5 truncate">12.4K</div>
+                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Followers</div>
                             </div>
                         </div>
                     </div>
 
                     {/* Curator Bio */}
-                    <div className="px-8 py-6 border-b border-white/5">
-                        <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold mb-3 block">About</h4>
-                        <p className="text-neutral-300 text-[13px] leading-relaxed mb-3">
+                    <div className="px-6 py-4 border-b border-white/5">
+                        <h4 className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold mb-2 block">About</h4>
+                        <p className="text-neutral-300 text-[12px] leading-relaxed mb-2">
                             Specializing in mid-century artifacts and industrial design history. We restore items to gallery condition while maintaining their original character.
                         </p>
                     </div>
 
                     {/* Live Bidding Feed */}
-                    <div className="p-8 flex-1 bg-[#080808]/50">
-                        <div className="flex items-center gap-2 mb-6">
+                    <div className="p-6 flex-1 bg-[#080808]/50 overflow-y-auto no-scrollbar">
+                        <div className="flex items-center gap-2 mb-4">
                             <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold block">Live Bidding</h4>
                             <div className="w-2 h-2 bg-neutral-500 rounded-full"></div>
                         </div>
@@ -702,68 +722,78 @@ export default function HomeHero() {
                         <div className="flex flex-col gap-6">
                             {/* Bidder 1 (Highest) */}
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-3">
                                     <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/10">
-                                        <span className="text-white text-sm">R</span>
+                                        <span className="text-white text-xs">R</span>
                                     </div>
                                     <div>
-                                        <h5 className="text-white text-[13px] font-medium">@retro_man</h5>
-                                        <p className="text-[#D4AF37] text-base font-mono mt-0.5">₹22,000</p>
+                                        <h5 className="text-white text-[12px] font-medium">@retro_man</h5>
+                                        <p className="text-neutral-600 text-[9px] uppercase font-semibold mt-0.5">Just now</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-600 text-[10px] uppercase font-semibold">Just now</span>
+                                <div className="text-right">
+                                    <p className="text-[#D4AF37] text-sm font-mono">₹22,000</p>
+                                </div>
                             </div>
 
                             {/* Bidder 2 */}
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-3">
                                     <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/5 opacity-80" />
                                     <div>
-                                        <h5 className="text-neutral-300 text-[13px] font-medium">@susan_w</h5>
-                                        <p className="text-white text-base font-mono mt-0.5">₹20,500</p>
+                                        <h5 className="text-neutral-300 text-[12px] font-medium">@susan_w</h5>
+                                        <p className="text-neutral-600 text-[9px] uppercase font-semibold mt-0.5">5m ago</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-600 text-[10px] uppercase font-semibold">5m ago</span>
+                                <div className="text-right">
+                                    <p className="text-white text-sm font-mono">₹20,500</p>
+                                </div>
                             </div>
 
                             {/* Bidder 3 */}
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-3">
                                     <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/5">
-                                        <span className="text-neutral-400 text-sm">T</span>
+                                        <span className="text-neutral-400 text-xs text-base">T</span>
                                     </div>
                                     <div>
-                                        <h5 className="text-neutral-400 text-[13px] font-medium">@thomas_builds</h5>
-                                        <p className="text-neutral-300 text-base font-mono mt-0.5">₹18,000</p>
+                                        <h5 className="text-neutral-400 text-[12px] font-medium">@thomas_builds</h5>
+                                        <p className="text-neutral-700 text-[9px] uppercase font-semibold mt-0.5">22m ago</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-700 text-[10px] uppercase font-semibold">22m ago</span>
+                                <div className="text-right">
+                                    <p className="text-neutral-300 text-sm font-mono">₹18,000</p>
+                                </div>
                             </div>
 
-                            {/* Bidder 4 (Faded) */}
-                            <div className="flex items-center justify-between opacity-50 grayscale">
-                                <div className="flex items-center gap-4">
+                            {/* Bidder 4 */}
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
                                     <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/5">
-                                        <span className="text-neutral-500 text-sm">E</span>
+                                        <span className="text-neutral-700 text-xs text-base">E</span>
                                     </div>
                                     <div>
-                                        <h5 className="text-neutral-500 text-[13px] font-medium">@erica_99</h5>
-                                        <p className="text-neutral-500 text-base font-mono mt-0.5">₹15,000</p>
+                                        <h5 className="text-neutral-500 text-[12px] font-medium">@erica_99</h5>
+                                        <p className="text-neutral-700 text-[9px] uppercase font-semibold mt-0.5">1h ago</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-700 text-[10px] uppercase font-semibold">1h ago</span>
+                                <div className="text-right">
+                                    <p className="text-neutral-500 text-sm font-mono">₹15,000</p>
+                                </div>
                             </div>
 
                             {/* Bidder 5 (Faded) */}
                             <div className="flex items-center justify-between opacity-30 grayscale">
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-3">
                                     <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/5" />
                                     <div>
-                                        <h5 className="text-neutral-600 text-[13px] font-medium">@john_doe</h5>
-                                        <p className="text-neutral-600 text-base font-mono mt-0.5">₹12,500</p>
+                                        <h5 className="text-neutral-600 text-[12px] font-medium">@john_doe</h5>
+                                        <p className="text-neutral-700 text-[9px] uppercase font-semibold mt-0.5">4h ago</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-700 text-[10px] uppercase font-semibold">4h ago</span>
+                                <div className="text-right">
+                                    <p className="text-neutral-600 text-sm font-mono">₹12,500</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -894,44 +924,44 @@ export default function HomeHero() {
                 <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#0A0A0A] border-l border-white/5 flex flex-col pt-8 overflow-y-auto custom-scrollbar">
                     
                     {/* Curator Profile */}
-                    <div className="px-8 pb-8 border-b border-white/5">
-                        <div className="flex items-center gap-4 mb-8">
+                    <div className="px-6 pb-6 border-b border-white/5">
+                        <div className="flex items-center gap-3 mb-6">
                             <div className="relative">
-                                <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=200&auto=format&fit=crop" alt="Artisan Crafts" className="w-16 h-16 rounded-full object-cover border border-white/10 shadow-xl" />
+                                <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=200&auto=format&fit=crop" alt="Artisan Crafts" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
                             </div>
                             <div>
-                                <h3 className="text-white text-lg font-medium tracking-tight">Artisan Crafts</h3>
-                                <p className="text-neutral-500 text-sm">@artisan_leather</p>
+                                <h3 className="text-white text-base font-medium tracking-tight">Artisan Crafts</h3>
+                                <p className="text-neutral-500 text-xs">@artisan_leather</p>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-4 mb-4">
+                        <div className="grid grid-cols-3 gap-3 mb-2">
                             <div className="text-center">
-                                <div className="text-white font-mono text-xl mb-1 truncate">89</div>
-                                <div className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold">Posts</div>
+                                <div className="text-white font-mono text-lg mb-0.5 truncate">89</div>
+                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Posts</div>
                             </div>
                             <div className="text-center border-l border-white/10">
-                                <div className="text-white font-mono text-xl mb-1 truncate">12</div>
-                                <div className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold">Lots</div>
+                                <div className="text-white font-mono text-lg mb-0.5 truncate">12</div>
+                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Lots</div>
                             </div>
                             <div className="text-center border-l border-white/10">
-                                <div className="text-white font-mono text-xl mb-1 truncate">45K</div>
-                                <div className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold">Followers</div>
+                                <div className="text-white font-mono text-lg mb-0.5 truncate">45K</div>
+                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Followers</div>
                             </div>
                         </div>
                     </div>
 
                     {/* Curator Bio */}
-                    <div className="px-8 py-6 border-b border-white/5">
-                        <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold mb-3 block">About</h4>
-                        <p className="text-neutral-300 text-[13px] leading-relaxed mb-3">
+                    <div className="px-6 py-4 border-b border-white/5">
+                        <h4 className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold mb-2 block">About</h4>
+                        <p className="text-neutral-300 text-[12px] leading-relaxed mb-2">
                             A collective of independent leatherworkers crafting bespoke, heirloom-quality goods. We use traditional techniques and ethically sourced materials for every piece.
                         </p>
                     </div>
 
                     {/* Live Bidding Feed */}
-                    <div className="p-8 flex-1 bg-[#080808]/50">
-                        <div className="flex items-center gap-2 mb-6">
+                    <div className="p-6 flex-1 bg-[#080808]/50 overflow-y-auto no-scrollbar">
+                        <div className="flex items-center gap-2 mb-4">
                             <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold block">Live Bidding</h4>
                             <div className="w-2 h-2 bg-neutral-500 rounded-full"></div>
                         </div>
@@ -939,76 +969,86 @@ export default function HomeHero() {
                         <div className="flex flex-col gap-6">
                             {/* Bidder 1 (Highest) */}
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-3">
                                     <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/10" />
                                     <div>
-                                        <h5 className="text-white text-[13px] font-medium">@jessica_p</h5>
-                                        <p className="text-[#D4AF37] text-base font-mono mt-0.5">₹35,500</p>
+                                        <h5 className="text-white text-[12px] font-medium">@jessica_p</h5>
+                                        <p className="text-neutral-500 text-[9px] uppercase font-semibold mt-0.5">Just now</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-600 text-[10px] uppercase font-semibold">Just now</span>
+                                <div className="text-right">
+                                    <p className="text-[#D4AF37] text-sm font-mono">₹35,500</p>
+                                </div>
                             </div>
 
                             {/* Bidder 2 */}
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-3">
                                     <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/5">
-                                        <span className="text-neutral-400 text-sm">G</span>
+                                        <span className="text-neutral-400 text-xs text-base">G</span>
                                     </div>
                                     <div>
-                                        <h5 className="text-neutral-300 text-[13px] font-medium">@greg_style</h5>
-                                        <p className="text-white text-base font-mono mt-0.5">₹34,000</p>
+                                        <h5 className="text-neutral-300 text-[12px] font-medium">@greg_style</h5>
+                                        <p className="text-neutral-500 text-[9px] uppercase font-semibold mt-0.5">12m ago</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-600 text-[10px] uppercase font-semibold">12m ago</span>
+                                <div className="text-right">
+                                    <p className="text-white text-sm font-mono">₹34,000</p>
+                                </div>
                             </div>
 
                             {/* Bidder 3 */}
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-3">
                                     <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/5 opacity-80" />
                                     <div>
-                                        <h5 className="text-neutral-400 text-[13px] font-medium">@mark_ryan</h5>
-                                        <p className="text-neutral-300 text-base font-mono mt-0.5">₹31,500</p>
+                                        <h5 className="text-neutral-400 text-[12px] font-medium">@mark_ryan</h5>
+                                        <p className="text-neutral-600 text-[9px] uppercase font-semibold mt-0.5">34m ago</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-700 text-[10px] uppercase font-semibold">34m ago</span>
+                                <div className="text-right">
+                                    <p className="text-neutral-300 text-sm font-mono">₹31,500</p>
+                                </div>
                             </div>
 
-                            {/* Bidder 4 (Faded) */}
-                            <div className="flex items-center justify-between opacity-50 grayscale">
-                                <div className="flex items-center gap-4">
+                            {/* Bidder 4 */}
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
                                     <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/5">
-                                        <span className="text-neutral-500 text-sm">A</span>
+                                        <span className="text-neutral-500 text-xs text-base">A</span>
                                     </div>
                                     <div>
-                                        <h5 className="text-neutral-500 text-[13px] font-medium">@anna_leather</h5>
-                                        <p className="text-neutral-500 text-base font-mono mt-0.5">₹29,000</p>
+                                        <h5 className="text-neutral-500 text-[12px] font-medium">@anna_leather</h5>
+                                        <p className="text-neutral-600 text-[9px] uppercase font-semibold mt-0.5">2h ago</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-700 text-[10px] uppercase font-semibold">2h ago</span>
+                                <div className="text-right">
+                                    <p className="text-neutral-500 text-sm font-mono">₹29,000</p>
+                                </div>
                             </div>
 
                             {/* Bidder 5 (Faded) */}
                             <div className="flex items-center justify-between opacity-30 grayscale">
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-3">
                                     <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/5">
-                                        <span className="text-neutral-500 text-sm">K</span>
+                                        <span className="text-neutral-500 text-xs text-base">K</span>
                                     </div>
                                     <div>
-                                        <h5 className="text-neutral-600 text-[13px] font-medium">@kevin_p</h5>
-                                        <p className="text-neutral-600 text-base font-mono mt-0.5">₹25,000</p>
+                                        <h5 className="text-neutral-600 text-[12px] font-medium">@kevin_p</h5>
+                                        <p className="text-neutral-700 text-[9px] uppercase font-semibold mt-0.5">5h ago</p>
                                     </div>
                                 </div>
-                                <span className="text-neutral-700 text-[10px] uppercase font-semibold">5h ago</span>
+                                <div className="text-right">
+                                    <p className="text-neutral-600 text-sm font-mono">₹25,000</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
 
-            {/* Navigation Arrows */}
+        {/* Navigation Arrows */}
             <div className="fixed right-6 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-50">
                 <button 
                     onClick={() => window.scrollBy({ top: -(window.innerHeight - 120), behavior: 'smooth' })}
