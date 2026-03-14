@@ -110,15 +110,6 @@ export default function HomeHero() {
                             </div>
                         </div>
 
-                        {/* Bottom Action Bar */}
-                        <div className="flex items-center justify-end pt-6">
-                            <Link 
-                                to="/auctions/live" 
-                                className="bg-white text-black px-10 py-3.5 text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center shadow-lg"
-                            >
-                                Place Bid
-                            </Link>
-                        </div>
                     </div>
                 </div>
 
@@ -192,9 +183,17 @@ export default function HomeHero() {
 
                     {/* Live Bidding Feed */}
                     <div className="p-6 flex-1 bg-[#080808]/50 overflow-y-auto no-scrollbar">
-                        <div className="flex items-center gap-2 mb-4">
-                            <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold block">Live Bidding</h4>
-                            <div className="w-2 h-2 bg-neutral-500 rounded-full"></div>
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-2">
+                                <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold block">Live Bidding</h4>
+                                <div className="w-2 h-2 bg-neutral-500 rounded-full"></div>
+                            </div>
+                            <Link 
+                                to="/auctions/live" 
+                                className="bg-white text-black px-6 py-1.5 text-[9px] font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center"
+                            >
+                                Place Bid
+                            </Link>
                         </div>
 
                         <div className="flex flex-col gap-6">
@@ -340,15 +339,6 @@ export default function HomeHero() {
                             </div>
                         </div>
 
-                        {/* Bottom Action Bar */}
-                        <div className="flex items-center justify-end pt-6">
-                            <Link 
-                                to="/auctions/live" 
-                                className="bg-white text-black px-10 py-3.5 text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center shadow-lg"
-                            >
-                                Place Bid
-                            </Link>
-                        </div>
                     </div>
                 </div>
 
@@ -422,9 +412,17 @@ export default function HomeHero() {
 
                     {/* Live Bidding Feed */}
                     <div className="p-6 flex-1 bg-[#080808]/50 overflow-y-auto no-scrollbar">
-                        <div className="flex items-center gap-2 mb-4">
-                            <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold block">Live Bidding</h4>
-                            <div className="w-2 h-2 bg-neutral-500 rounded-full"></div>
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-2">
+                                <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold block">Live Bidding</h4>
+                                <div className="w-2 h-2 bg-neutral-500 rounded-full"></div>
+                            </div>
+                            <Link 
+                                to="/auctions/live" 
+                                className="bg-white text-black px-6 py-1.5 text-[9px] font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center"
+                            >
+                                Place Bid
+                            </Link>
                         </div>
 
                         <div className="flex flex-col gap-6">
@@ -569,15 +567,6 @@ export default function HomeHero() {
                             </div>
                         </div>
 
-                        {/* Bottom Action Bar */}
-                        <div className="flex items-center justify-end pt-6">
-                            <Link 
-                                to="/auctions/live" 
-                                className="bg-white text-black px-10 py-3.5 text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center shadow-lg"
-                            >
-                                Place Bid
-                            </Link>
-                        </div>
                     </div>
                 </div>
 
@@ -651,9 +640,17 @@ export default function HomeHero() {
 
                     {/* Live Bidding Feed */}
                     <div className="p-6 flex-1 bg-[#080808]/50 overflow-y-auto no-scrollbar">
-                        <div className="flex items-center gap-2 mb-4">
-                            <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold block">Live Bidding</h4>
-                            <div className="w-2 h-2 bg-neutral-500 rounded-full"></div>
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-2">
+                                <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold block">Live Bidding</h4>
+                                <div className="w-2 h-2 bg-neutral-500 rounded-full"></div>
+                            </div>
+                            <Link 
+                                to="/auctions/live" 
+                                className="bg-white text-black px-6 py-1.5 text-[9px] font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center"
+                            >
+                                Place Bid
+                            </Link>
                         </div>
 
                         <div className="flex flex-col gap-6">
@@ -800,15 +797,6 @@ export default function HomeHero() {
                             </div>
                         </div>
 
-                        {/* Bottom Action Bar */}
-                        <div className="flex items-center justify-end pt-6">
-                            <Link 
-                                to="/auctions/live" 
-                                className="bg-white text-black px-10 py-3.5 text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center shadow-lg"
-                            >
-                                Place Bid
-                            </Link>
-                        </div>
                     </div>
                 </div>
 
@@ -879,9 +867,17 @@ export default function HomeHero() {
 
                     {/* Live Bidding Feed */}
                     <div className="p-6 flex-1 bg-[#080808]/50 overflow-y-auto no-scrollbar">
-                        <div className="flex items-center gap-2 mb-4">
-                            <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold block">Live Bidding</h4>
-                            <div className="w-2 h-2 bg-neutral-500 rounded-full"></div>
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-2">
+                                <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold block">Live Bidding</h4>
+                                <div className="w-2 h-2 bg-neutral-500 rounded-full"></div>
+                            </div>
+                            <Link 
+                                to="/auctions/live" 
+                                className="bg-white text-black px-6 py-1.5 text-[9px] font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center"
+                            >
+                                Place Bid
+                            </Link>
                         </div>
 
                         <div className="flex flex-col gap-6">
