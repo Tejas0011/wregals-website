@@ -154,10 +154,6 @@ export default function HomeHero() {
 
                     {/* Interaction & Timer */}
                     <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
-                        <div className="flex items-center gap-2 text-neutral-300">
-                            <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
-                            <span className="font-mono text-sm tracking-tight text-white/90">04h 12m 39s</span>
-                        </div>
                         <div className="flex items-center gap-4 text-neutral-400">
                             <button className="flex items-center gap-2 hover:text-white transition-colors">
                                 <IIcon icon="solar:heart-linear" width="18" />
@@ -166,6 +162,10 @@ export default function HomeHero() {
                             <button className="flex items-center hover:text-white transition-colors">
                                 <IIcon icon="solar:share-circle-linear" width="18" />
                             </button>
+                        </div>
+                        <div className="flex items-center gap-2 text-neutral-300">
+                            <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
+                            <span className="font-mono text-sm tracking-tight text-white/90">04h 12m 39s</span>
                         </div>
                     </div>
 
@@ -384,10 +384,6 @@ export default function HomeHero() {
 
                     {/* Interaction & Timer */}
                     <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
-                        <div className="flex items-center gap-2 text-neutral-300">
-                            <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
-                            <span className="font-mono text-sm tracking-tight text-white/90">01h 45m 12s</span>
-                        </div>
                         <div className="flex items-center gap-4 text-neutral-400">
                             <button className="flex items-center gap-2 hover:text-white transition-colors">
                                 <IIcon icon="solar:heart-linear" width="18" />
@@ -396,6 +392,10 @@ export default function HomeHero() {
                             <button className="flex items-center hover:text-white transition-colors">
                                 <IIcon icon="solar:share-circle-linear" width="18" />
                             </button>
+                        </div>
+                        <div className="flex items-center gap-2 text-neutral-300">
+                            <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
+                            <span className="font-mono text-sm tracking-tight text-white/90">01h 45m 12s</span>
                         </div>
                     </div>
 
@@ -613,10 +613,6 @@ export default function HomeHero() {
 
                     {/* Interaction & Timer */}
                     <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
-                        <div className="flex items-center gap-2 text-neutral-300">
-                            <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
-                            <span className="font-mono text-sm tracking-tight text-white/90">06h 20m 15s</span>
-                        </div>
                         <div className="flex items-center gap-4 text-neutral-400">
                             <button className="flex items-center gap-2 hover:text-white transition-colors">
                                 <IIcon icon="solar:heart-linear" width="18" />
@@ -625,6 +621,10 @@ export default function HomeHero() {
                             <button className="flex items-center hover:text-white transition-colors">
                                 <IIcon icon="solar:share-circle-linear" width="18" />
                             </button>
+                        </div>
+                        <div className="flex items-center gap-2 text-neutral-300">
+                            <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
+                            <span className="font-mono text-sm tracking-tight text-white/90">06h 20m 15s</span>
                         </div>
                     </div>
 
@@ -841,10 +841,6 @@ export default function HomeHero() {
 
                     {/* Interaction & Timer */}
                     <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
-                        <div className="flex items-center gap-2 text-neutral-300">
-                            <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
-                            <span className="font-mono text-sm tracking-tight text-white/90">11h 05m 12s</span>
-                        </div>
                         <div className="flex items-center gap-4 text-neutral-400">
                             <button className="flex items-center gap-2 hover:text-white transition-colors">
                                 <IIcon icon="solar:heart-linear" width="18" />
@@ -853,6 +849,10 @@ export default function HomeHero() {
                             <button className="flex items-center hover:text-white transition-colors">
                                 <IIcon icon="solar:share-circle-linear" width="18" />
                             </button>
+                        </div>
+                        <div className="flex items-center gap-2 text-neutral-300">
+                            <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
+                            <span className="font-mono text-sm tracking-tight text-white/90">11h 05m 12s</span>
                         </div>
                     </div>
 
