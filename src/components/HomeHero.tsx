@@ -43,6 +43,11 @@ export default function HomeHero() {
 
     const nextImage4 = () => setCurrentImage4((prev) => (prev + 1) % lot4Images.length);
     const prevImage4 = () => setCurrentImage4((prev) => (prev - 1 + lot4Images.length) % lot4Images.length);
+
+    const [isFollowed1, setIsFollowed1] = useState(false);
+    const [isFollowed2, setIsFollowed2] = useState(false);
+    const [isFollowed3, setIsFollowed3] = useState(false);
+    const [isFollowed4, setIsFollowed4] = useState(false);
     return (
         <section className="relative w-full min-h-screen bg-[#080808] pt-20 pb-20">
             <div className="max-w-[1800px] mx-auto flex flex-col gap-20 py-10 px-6 md:px-12">
@@ -118,17 +123,29 @@ export default function HomeHero() {
                     
                     {/* Curator Profile */}
                     <div className="px-6 pb-4 border-b border-white/5">
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="relative">
-                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" alt="Virat Kohli" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
-                                <div className="absolute right-0 bottom-0 w-3 h-3 bg-blue-500 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
-                                    <span className="text-white text-[6px] font-bold">✓</span>
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-3">
+                                <div className="relative">
+                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" alt="Virat Kohli" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
+                                    <div className="absolute right-0 bottom-0 w-3 h-3 bg-blue-500 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
+                                        <span className="text-white text-[6px] font-bold">✓</span>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col">
+                                    <h3 className="text-white text-base font-medium tracking-tight">Virat Kohli</h3>
+                                    <p className="text-neutral-500 text-xs">@virat.kohli</p>
                                 </div>
                             </div>
-                            <div>
-                                <h3 className="text-white text-base font-medium tracking-tight">Virat Kohli</h3>
-                                <p className="text-neutral-500 text-xs">@virat.kohli</p>
-                            </div>
+                            <button 
+                                onClick={() => setIsFollowed1(!isFollowed1)}
+                                className={`px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ${
+                                    isFollowed1 
+                                    ? 'bg-neutral-800 text-neutral-400 border border-white/10' 
+                                    : 'bg-white text-black hover:bg-neutral-200'
+                                }`}
+                            >
+                                {isFollowed1 ? 'Remove' : 'Follow'}
+                            </button>
                         </div>
                     </div>
 
@@ -346,17 +363,29 @@ export default function HomeHero() {
                     
                     {/* Curator Profile */}
                     <div className="px-6 pb-4 border-b border-white/5">
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="relative">
-                                <img src="https://images.unsplash.com/photo-1516280440502-d2fdaa0bf5e2?q=80&w=200&auto=format&fit=crop" alt="Jane Doe" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
-                                <div className="absolute right-0 bottom-0 w-3 h-3 bg-blue-500 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
-                                    <span className="text-white text-[6px] font-bold">✓</span>
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-3">
+                                <div className="relative">
+                                    <img src="https://images.unsplash.com/photo-1516280440502-d2fdaa0bf5e2?q=80&w=200&auto=format&fit=crop" alt="Jane Doe" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
+                                    <div className="absolute right-0 bottom-0 w-3 h-3 bg-blue-500 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
+                                        <span className="text-white text-[6px] font-bold">✓</span>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col">
+                                    <h3 className="text-white text-base font-medium tracking-tight">Jane Doe</h3>
+                                    <p className="text-neutral-500 text-xs">@jane_doe</p>
                                 </div>
                             </div>
-                            <div>
-                                <h3 className="text-white text-base font-medium tracking-tight">Jane Doe</h3>
-                                <p className="text-neutral-500 text-xs">@jane_doe</p>
-                            </div>
+                            <button 
+                                onClick={() => setIsFollowed2(!isFollowed2)}
+                                className={`px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ${
+                                    isFollowed2 
+                                    ? 'bg-neutral-800 text-neutral-400 border border-white/10' 
+                                    : 'bg-white text-black hover:bg-neutral-200'
+                                }`}
+                            >
+                                {isFollowed2 ? 'Remove' : 'Follow'}
+                            </button>
                         </div>
                     </div>
 
@@ -573,17 +602,29 @@ export default function HomeHero() {
                     
                     {/* Curator Profile */}
                     <div className="px-6 pb-4 border-b border-white/5">
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="relative">
-                                <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=200&auto=format&fit=crop" alt="Mark Studio" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
-                                <div className="absolute right-0 bottom-0 w-3 h-3 bg-blue-500 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
-                                    <span className="text-white text-[6px] font-bold">✓</span>
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-3">
+                                <div className="relative">
+                                    <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=200&auto=format&fit=crop" alt="Mark Studio" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
+                                    <div className="absolute right-0 bottom-0 w-3 h-3 bg-blue-500 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
+                                        <span className="text-white text-[6px] font-bold">✓</span>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col">
+                                    <h3 className="text-white text-base font-medium tracking-tight">Mark Studio</h3>
+                                    <p className="text-neutral-500 text-xs">@mark_antiques</p>
                                 </div>
                             </div>
-                            <div>
-                                <h3 className="text-white text-base font-medium tracking-tight">Mark Studio</h3>
-                                <p className="text-neutral-500 text-xs">@mark_antiques</p>
-                            </div>
+                            <button 
+                                onClick={() => setIsFollowed3(!isFollowed3)}
+                                className={`px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ${
+                                    isFollowed3 
+                                    ? 'bg-neutral-800 text-neutral-400 border border-white/10' 
+                                    : 'bg-white text-black hover:bg-neutral-200'
+                                }`}
+                            >
+                                {isFollowed3 ? 'Remove' : 'Follow'}
+                            </button>
                         </div>
                     </div>
 
@@ -802,14 +843,26 @@ export default function HomeHero() {
                     
                     {/* Curator Profile */}
                     <div className="px-6 pb-4 border-b border-white/5">
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="relative">
-                                <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=200&auto=format&fit=crop" alt="Artisan Crafts" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-3">
+                                <div className="relative">
+                                    <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=200&auto=format&fit=crop" alt="Artisan Crafts" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
+                                </div>
+                                <div className="flex flex-col">
+                                    <h3 className="text-white text-base font-medium tracking-tight">Artisan Crafts</h3>
+                                    <p className="text-neutral-500 text-xs">@artisan_leather</p>
+                                </div>
                             </div>
-                            <div>
-                                <h3 className="text-white text-base font-medium tracking-tight">Artisan Crafts</h3>
-                                <p className="text-neutral-500 text-xs">@artisan_leather</p>
-                            </div>
+                            <button 
+                                onClick={() => setIsFollowed4(!isFollowed4)}
+                                className={`px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ${
+                                    isFollowed4 
+                                    ? 'bg-neutral-800 text-neutral-400 border border-white/10' 
+                                    : 'bg-white text-black hover:bg-neutral-200'
+                                }`}
+                            >
+                                {isFollowed4 ? 'Remove' : 'Follow'}
+                            </button>
                         </div>
                     </div>
 
