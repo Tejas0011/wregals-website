@@ -111,29 +111,13 @@ export default function HomeHero() {
                         </div>
 
                         {/* Bottom Action Bar */}
-                        <div className="flex flex-col md:flex-row items-center justify-between pt-6 gap-6">
-                            <div className="flex items-center gap-6 text-neutral-400">
-                                <button className="flex items-center gap-2 hover:text-white transition-colors">
-                                    <IIcon icon="solar:heart-linear" width="20" />
-                                    <span className="text-xs font-medium">1.2k</span>
-                                </button>
-                                <button className="flex items-center hover:text-white transition-colors">
-                                    <IIcon icon="solar:share-circle-linear" width="20" />
-                                </button>
-                            </div>
-
-                            <div className="flex items-center justify-between w-full md:w-auto gap-8">
-                                <div className="flex items-center gap-2 text-neutral-300">
-                                    <IIcon icon="solar:clock-circle-linear" width="18" />
-                                    <span className="font-mono text-sm">04h 12m 39s</span>
-                                </div>
-                                <Link 
-                                    to="/auctions/live" 
-                                    className="bg-white text-black px-10 py-3.5 text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center shadow-lg"
-                                >
-                                    Place Bid
-                                </Link>
-                            </div>
+                        <div className="flex items-center justify-end pt-6">
+                            <Link 
+                                to="/auctions/live" 
+                                className="bg-white text-black px-10 py-3.5 text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center shadow-lg"
+                            >
+                                Place Bid
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -166,6 +150,23 @@ export default function HomeHero() {
                         <p className="text-neutral-300 text-[12px] leading-relaxed">
                             An exceptionally rare, match-worn example of the 2023 Cricket World Cup jersey. Featuring Virat Kohli's authentic signature on the front. Accompanied by original authentication papers and photographic proof.
                         </p>
+                    </div>
+
+                    {/* Interaction & Timer */}
+                    <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+                        <div className="flex items-center gap-2 text-neutral-300">
+                            <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
+                            <span className="font-mono text-sm tracking-tight text-white/90">04h 12m 39s</span>
+                        </div>
+                        <div className="flex items-center gap-4 text-neutral-400">
+                            <button className="flex items-center gap-2 hover:text-white transition-colors">
+                                <IIcon icon="solar:heart-linear" width="18" />
+                                <span className="text-[10px] font-bold uppercase tracking-wider">1.2k</span>
+                            </button>
+                            <button className="flex items-center hover:text-white transition-colors">
+                                <IIcon icon="solar:share-circle-linear" width="18" />
+                            </button>
+                        </div>
                     </div>
 
                     {/* Bidding Info */}
@@ -340,29 +341,13 @@ export default function HomeHero() {
                         </div>
 
                         {/* Bottom Action Bar */}
-                        <div className="flex flex-col md:flex-row items-center justify-between pt-6 gap-6">
-                            <div className="flex items-center gap-6 text-neutral-400">
-                                <button className="flex items-center gap-2 hover:text-white transition-colors">
-                                    <IIcon icon="solar:heart-linear" width="20" />
-                                    <span className="text-xs font-medium">8.4k</span>
-                                </button>
-                                <button className="flex items-center hover:text-white transition-colors">
-                                    <IIcon icon="solar:share-circle-linear" width="20" />
-                                </button>
-                            </div>
-
-                            <div className="flex items-center justify-between w-full md:w-auto gap-8">
-                                <div className="flex items-center gap-2 text-neutral-300">
-                                    <IIcon icon="solar:clock-circle-linear" width="18" />
-                                    <span className="font-mono text-sm">01h 45m 12s</span>
-                                </div>
-                                <Link 
-                                    to="/auctions/live" 
-                                    className="bg-white text-black px-10 py-3.5 text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center shadow-lg"
-                                >
-                                    Place Bid
-                                </Link>
-                            </div>
+                        <div className="flex items-center justify-end pt-6">
+                            <Link 
+                                to="/auctions/live" 
+                                className="bg-white text-black px-10 py-3.5 text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center shadow-lg"
+                            >
+                                Place Bid
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -395,6 +380,23 @@ export default function HomeHero() {
                         <p className="text-neutral-300 text-[12px] leading-relaxed">
                             Played extensively during the recording sessions for their multi-platinum album. Body features custom hand-painted artwork. Comes fully authenticated by the artist's estate.
                         </p>
+                    </div>
+
+                    {/* Interaction & Timer */}
+                    <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+                        <div className="flex items-center gap-2 text-neutral-300">
+                            <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
+                            <span className="font-mono text-sm tracking-tight text-white/90">01h 45m 12s</span>
+                        </div>
+                        <div className="flex items-center gap-4 text-neutral-400">
+                            <button className="flex items-center gap-2 hover:text-white transition-colors">
+                                <IIcon icon="solar:heart-linear" width="18" />
+                                <span className="text-[10px] font-bold uppercase tracking-wider">8.4k</span>
+                            </button>
+                            <button className="flex items-center hover:text-white transition-colors">
+                                <IIcon icon="solar:share-circle-linear" width="18" />
+                            </button>
+                        </div>
                     </div>
 
                     {/* Bidding Info */}
@@ -568,29 +570,13 @@ export default function HomeHero() {
                         </div>
 
                         {/* Bottom Action Bar */}
-                        <div className="flex flex-col md:flex-row items-center justify-between pt-6 gap-6">
-                            <div className="flex items-center gap-6 text-neutral-400">
-                                <button className="flex items-center gap-2 hover:text-white transition-colors">
-                                    <IIcon icon="solar:heart-linear" width="20" />
-                                    <span className="text-xs font-medium">942</span>
-                                </button>
-                                <button className="flex items-center hover:text-white transition-colors">
-                                    <IIcon icon="solar:share-circle-linear" width="20" />
-                                </button>
-                            </div>
-
-                            <div className="flex items-center justify-between w-full md:w-auto gap-8">
-                                <div className="flex items-center gap-2 text-neutral-300">
-                                    <IIcon icon="solar:clock-circle-linear" width="18" />
-                                    <span className="font-mono text-sm">06h 20m 15s</span>
-                                </div>
-                                <Link 
-                                    to="/auctions/live" 
-                                    className="bg-white text-black px-10 py-3.5 text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center shadow-lg"
-                                >
-                                    Place Bid
-                                </Link>
-                            </div>
+                        <div className="flex items-center justify-end pt-6">
+                            <Link 
+                                to="/auctions/live" 
+                                className="bg-white text-black px-10 py-3.5 text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center shadow-lg"
+                            >
+                                Place Bid
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -623,6 +609,23 @@ export default function HomeHero() {
                         <p className="text-neutral-300 text-[12px] leading-relaxed">
                             An original restored piece from the early 1960s. Features a distinct brass finish and minimalist industrial design, completely rewired for modern safety standards.
                         </p>
+                    </div>
+
+                    {/* Interaction & Timer */}
+                    <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+                        <div className="flex items-center gap-2 text-neutral-300">
+                            <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
+                            <span className="font-mono text-sm tracking-tight text-white/90">06h 20m 15s</span>
+                        </div>
+                        <div className="flex items-center gap-4 text-neutral-400">
+                            <button className="flex items-center gap-2 hover:text-white transition-colors">
+                                <IIcon icon="solar:heart-linear" width="18" />
+                                <span className="text-[10px] font-bold uppercase tracking-wider">942</span>
+                            </button>
+                            <button className="flex items-center hover:text-white transition-colors">
+                                <IIcon icon="solar:share-circle-linear" width="18" />
+                            </button>
+                        </div>
                     </div>
 
                     {/* Bidding Info */}
@@ -798,29 +801,13 @@ export default function HomeHero() {
                         </div>
 
                         {/* Bottom Action Bar */}
-                        <div className="flex flex-col md:flex-row items-center justify-between pt-6 gap-6">
-                            <div className="flex items-center gap-6 text-neutral-400">
-                                <button className="flex items-center gap-2 hover:text-white transition-colors">
-                                    <IIcon icon="solar:heart-linear" width="20" />
-                                    <span className="text-xs font-medium">1.8k</span>
-                                </button>
-                                <button className="flex items-center hover:text-white transition-colors">
-                                    <IIcon icon="solar:share-circle-linear" width="20" />
-                                </button>
-                            </div>
-
-                            <div className="flex items-center justify-between w-full md:w-auto gap-8">
-                                <div className="flex items-center gap-2 text-neutral-300">
-                                    <IIcon icon="solar:clock-circle-linear" width="18" />
-                                    <span className="font-mono text-sm">11h 05m 12s</span>
-                                </div>
-                                <Link 
-                                    to="/auctions/live" 
-                                    className="bg-white text-black px-10 py-3.5 text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center shadow-lg"
-                                >
-                                    Place Bid
-                                </Link>
-                            </div>
+                        <div className="flex items-center justify-end pt-6">
+                            <Link 
+                                to="/auctions/live" 
+                                className="bg-white text-black px-10 py-3.5 text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center shadow-lg"
+                            >
+                                Place Bid
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -850,6 +837,23 @@ export default function HomeHero() {
                         <p className="text-neutral-300 text-[12px] leading-relaxed">
                             Precision hand-stitched from premium Italian full-grain leather. Designed for durability and timeless style, featuring solid brass hardware and meticulous detailing.
                         </p>
+                    </div>
+
+                    {/* Interaction & Timer */}
+                    <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+                        <div className="flex items-center gap-2 text-neutral-300">
+                            <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
+                            <span className="font-mono text-sm tracking-tight text-white/90">11h 05m 12s</span>
+                        </div>
+                        <div className="flex items-center gap-4 text-neutral-400">
+                            <button className="flex items-center gap-2 hover:text-white transition-colors">
+                                <IIcon icon="solar:heart-linear" width="18" />
+                                <span className="text-[10px] font-bold uppercase tracking-wider">1.8k</span>
+                            </button>
+                            <button className="flex items-center hover:text-white transition-colors">
+                                <IIcon icon="solar:share-circle-linear" width="18" />
+                            </button>
+                        </div>
                     </div>
 
                     {/* Bidding Info */}
