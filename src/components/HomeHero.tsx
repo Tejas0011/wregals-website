@@ -166,7 +166,7 @@ export default function HomeHero() {
                             <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1 font-semibold">
                                 Next Bid
                             </p>
-                            <div className="text-white font-mono text-lg font-light">
+                            <div className="text-white font-mono text-xl font-bold">
                                 ₹85,000
                             </div>
                         </div>
@@ -174,7 +174,7 @@ export default function HomeHero() {
                             <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end font-mono">
                                 Starting Bid
                             </p>
-                            <div className="text-white font-mono text-lg font-light">
+                            <div className="text-white font-mono text-xl font-bold">
                                 ₹50,000
                             </div>
                         </div>
@@ -394,7 +394,7 @@ export default function HomeHero() {
                             <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1 font-semibold">
                                 Next Bid
                             </p>
-                            <div className="text-white font-mono text-lg font-light">
+                            <div className="text-white font-mono text-xl font-bold">
                                 ₹215,000
                             </div>
                         </div>
@@ -402,7 +402,7 @@ export default function HomeHero() {
                             <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end font-mono">
                                 Starting Bid
                             </p>
-                            <div className="text-white font-mono text-lg font-light">
+                            <div className="text-white font-mono text-xl font-bold">
                                 ₹150,000
                             </div>
                         </div>
@@ -621,7 +621,7 @@ export default function HomeHero() {
                             <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1 font-semibold">
                                 Next Bid
                             </p>
-                            <div className="text-white font-mono text-lg font-light">
+                            <div className="text-white font-mono text-xl font-bold">
                                 ₹22,500
                             </div>
                         </div>
@@ -629,7 +629,7 @@ export default function HomeHero() {
                             <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end font-mono">
                                 Starting Bid
                             </p>
-                            <div className="text-white font-mono text-lg font-light">
+                            <div className="text-white font-mono text-xl font-bold">
                                 ₹10,000
                             </div>
                         </div>
@@ -847,7 +847,7 @@ export default function HomeHero() {
                             <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1 font-semibold">
                                 Next Bid
                             </p>
-                            <div className="text-white font-mono text-lg font-light">
+                            <div className="text-white font-mono text-xl font-bold">
                                 ₹36,000
                             </div>
                         </div>
@@ -855,7 +855,7 @@ export default function HomeHero() {
                             <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end font-mono">
                                 Starting Bid
                             </p>
-                            <div className="text-white font-mono text-lg font-light">
+                            <div className="text-white font-mono text-xl font-bold">
                                 ₹18,000
                             </div>
                         </div>
