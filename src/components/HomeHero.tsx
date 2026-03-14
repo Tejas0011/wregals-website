@@ -98,16 +98,7 @@ export default function HomeHero() {
                     <div className="absolute top-8 left-8 right-8 flex items-center justify-between z-20">
                         
                         
-                        {/* Badges */}
-                        <div className="flex items-center gap-3">
-                            <div className="bg-white text-[#002f5d] px-4 py-1.5 rounded-full flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest shadow-md">
-                                <span className="w-1.5 h-1.5 bg-[#FF3B30] rounded-full animate-pulse"></span>
-                                LIVE
-                            </div>
-                            <div className="bg-[#2a2a2a] border border-white/10 text-white px-4 py-1.5 rounded-full text-[10px] font-medium tracking-widest shadow-md">
-                                Lot 01
-                            </div>
-                        </div>
+                        {/* Badges removed */}
                     </div>
 
                     {/* Content */}
@@ -336,16 +327,7 @@ export default function HomeHero() {
                     <div className="absolute top-8 left-8 right-8 flex items-center justify-between z-20">
                         
                         
-                        {/* Badges */}
-                        <div className="flex items-center gap-3">
-                            <div className="bg-white text-[#002f5d] px-4 py-1.5 rounded-full flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest shadow-md">
-                                <span className="w-1.5 h-1.5 bg-[#FF3B30] rounded-full animate-pulse"></span>
-                                LIVE
-                            </div>
-                            <div className="bg-[#2a2a2a] border border-white/10 text-white px-4 py-1.5 rounded-full text-[10px] font-medium tracking-widest shadow-md">
-                                Lot 02
-                            </div>
-                        </div>
+                        {/* Badges removed */}
                     </div>
 
                     {/* Content */}
@@ -573,16 +555,7 @@ export default function HomeHero() {
                     <div className="absolute top-8 left-8 right-8 flex items-center justify-between z-20">
                         
                         
-                        {/* Badges */}
-                        <div className="flex items-center gap-3">
-                            <div className="bg-white text-[#002f5d] px-4 py-1.5 rounded-full flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest shadow-md">
-                                <span className="w-1.5 h-1.5 bg-[#FF3B30] rounded-full animate-pulse"></span>
-                                LIVE
-                            </div>
-                            <div className="bg-[#2a2a2a] border border-white/10 text-white px-4 py-1.5 rounded-full text-[10px] font-medium tracking-widest shadow-md">
-                                Lot 03
-                            </div>
-                        </div>
+                        {/* Badges removed */}
                     </div>
 
                     {/* Content */}
@@ -812,16 +785,7 @@ export default function HomeHero() {
                     <div className="absolute top-8 left-8 right-8 flex items-center justify-between z-20">
                         
                         
-                        {/* Badges */}
-                        <div className="flex items-center gap-3">
-                            <div className="bg-white text-[#002f5d] px-4 py-1.5 rounded-full flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest shadow-md">
-                                <span className="w-1.5 h-1.5 bg-[#FF3B30] rounded-full animate-pulse"></span>
-                                LIVE
-                            </div>
-                            <div className="bg-[#2a2a2a] border border-white/10 text-white px-4 py-1.5 rounded-full text-[10px] font-medium tracking-widest shadow-md">
-                                Lot 04
-                            </div>
-                        </div>
+                        {/* Badges removed */}
                     </div>
 
                     {/* Content */}
