@@ -144,7 +144,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Interaction & Timer */}
-                    <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+                    <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between">
                         <div className="flex items-center gap-4 text-neutral-400">
                             <button className="flex items-center gap-2 hover:text-white transition-colors">
                                 <IIcon icon="solar:heart-linear" width="18" />
@@ -373,7 +373,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Interaction & Timer */}
-                    <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+                    <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between">
                         <div className="flex items-center gap-4 text-neutral-400">
                             <button className="flex items-center gap-2 hover:text-white transition-colors">
                                 <IIcon icon="solar:heart-linear" width="18" />
@@ -601,7 +601,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Interaction & Timer */}
-                    <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+                    <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between">
                         <div className="flex items-center gap-4 text-neutral-400">
                             <button className="flex items-center gap-2 hover:text-white transition-colors">
                                 <IIcon icon="solar:heart-linear" width="18" />
@@ -828,7 +828,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Interaction & Timer */}
-                    <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+                    <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between">
                         <div className="flex items-center gap-4 text-neutral-400">
                             <button className="flex items-center gap-2 hover:text-white transition-colors">
                                 <IIcon icon="solar:heart-linear" width="18" />
