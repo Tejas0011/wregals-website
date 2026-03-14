@@ -147,11 +147,11 @@ export default function HomeHero() {
                     <div className="px-6 py-4 flex items-center justify-between">
                         <div className="flex items-center gap-4 text-neutral-400">
                             <button className="flex items-center gap-2 hover:text-white transition-colors">
-                                <IIcon icon="solar:heart-linear" width="18" />
-                                <span className="text-[10px] font-bold uppercase tracking-wider">1.2k</span>
+                                <IIcon icon="solar:heart-linear" width="22" />
+                                <span className="text-[13px] font-bold uppercase tracking-wider">1.2k</span>
                             </button>
                             <button className="flex items-center hover:text-white transition-colors">
-                                <IIcon icon="solar:share-circle-linear" width="18" />
+                                <IIcon icon="solar:share-circle-linear" width="22" />
                             </button>
                         </div>
                         <div className="flex items-center gap-2 text-neutral-300">
@@ -376,11 +376,11 @@ export default function HomeHero() {
                     <div className="px-6 py-4 flex items-center justify-between">
                         <div className="flex items-center gap-4 text-neutral-400">
                             <button className="flex items-center gap-2 hover:text-white transition-colors">
-                                <IIcon icon="solar:heart-linear" width="18" />
-                                <span className="text-[10px] font-bold uppercase tracking-wider">8.4k</span>
+                                <IIcon icon="solar:heart-linear" width="22" />
+                                <span className="text-[13px] font-bold uppercase tracking-wider">8.4k</span>
                             </button>
                             <button className="flex items-center hover:text-white transition-colors">
-                                <IIcon icon="solar:share-circle-linear" width="18" />
+                                <IIcon icon="solar:share-circle-linear" width="22" />
                             </button>
                         </div>
                         <div className="flex items-center gap-2 text-neutral-300">
@@ -604,11 +604,11 @@ export default function HomeHero() {
                     <div className="px-6 py-4 flex items-center justify-between">
                         <div className="flex items-center gap-4 text-neutral-400">
                             <button className="flex items-center gap-2 hover:text-white transition-colors">
-                                <IIcon icon="solar:heart-linear" width="18" />
-                                <span className="text-[10px] font-bold uppercase tracking-wider">942</span>
+                                <IIcon icon="solar:heart-linear" width="22" />
+                                <span className="text-[13px] font-bold uppercase tracking-wider">942</span>
                             </button>
                             <button className="flex items-center hover:text-white transition-colors">
-                                <IIcon icon="solar:share-circle-linear" width="18" />
+                                <IIcon icon="solar:share-circle-linear" width="22" />
                             </button>
                         </div>
                         <div className="flex items-center gap-2 text-neutral-300">
@@ -831,11 +831,11 @@ export default function HomeHero() {
                     <div className="px-6 py-4 flex items-center justify-between">
                         <div className="flex items-center gap-4 text-neutral-400">
                             <button className="flex items-center gap-2 hover:text-white transition-colors">
-                                <IIcon icon="solar:heart-linear" width="18" />
-                                <span className="text-[10px] font-bold uppercase tracking-wider">1.8k</span>
+                                <IIcon icon="solar:heart-linear" width="22" />
+                                <span className="text-[13px] font-bold uppercase tracking-wider">1.8k</span>
                             </button>
                             <button className="flex items-center hover:text-white transition-colors">
-                                <IIcon icon="solar:share-circle-linear" width="18" />
+                                <IIcon icon="solar:share-circle-linear" width="22" />
                             </button>
                         </div>
                         <div className="flex items-center gap-2 text-neutral-300">
