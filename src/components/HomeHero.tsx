@@ -80,7 +80,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Image Indicators */}
-                    <div className="absolute top-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-black/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
+                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-black/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
                         {lot1Images.map((_, index) => (
                             <button 
                                 key={index}
@@ -92,15 +92,11 @@ export default function HomeHero() {
                     </div>
                     
                     {/* Gradient Overlay for Text Readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/40 to-transparent pointer-events-none"></div>
+                    
 
                     {/* Top Elements */}
                     <div className="absolute top-8 left-8 right-8 flex items-center justify-between z-20">
-                        {/* Uploader Profile */}
-                        <div className="flex items-center gap-3 cursor-pointer">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" alt="Virat Kohli" className="w-12 h-12 rounded-full object-cover shadow-lg transition-transform" />
-                            <span className="text-white text-sm font-semibold tracking-wide drop-shadow-md">Virat Kohli</span>
-                        </div>
+                        
                         
                         {/* Badges */}
                         <div className="flex items-center gap-3">
@@ -118,29 +114,13 @@ export default function HomeHero() {
                     <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 z-20 flex flex-col justify-end">
                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-8">
                             <div className="max-w-2xl">
-                                <h1 className="serif text-white text-4xl md:text-5xl tracking-tight leading-tight mb-4 uppercase">
-                                    Match-Worn 2023 World Cup Jersey — Signed
-                                </h1>
-                                <p className="text-neutral-400 text-sm md:text-base leading-relaxed hidden md:block">
-                                    An exceptionally rare, match-worn example of the 2023 Cricket World Cup jersey. Featuring Virat Kohli's authentic signature on the front. Accompanied by original authentication papers and photographic proof.
-                                </p>
                             </div>
                             <div className="text-left md:text-right shrink-0">
-                                <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1">
-                                    Current Bid
-                                </p>
-                                <div className="text-white font-mono text-4xl md:text-5xl font-light mb-1.5">
-                                    ₹84,000
-                                </div>
-                                <p className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold flex items-center justify-start md:justify-end gap-1.5">
-                                    <span className="w-1 h-1 bg-neutral-500 rounded-full"></span>
-                                    Starting Bid ₹50,000
-                                </p>
                             </div>
                         </div>
 
                         {/* Bottom Action Bar */}
-                        <div className="flex flex-col md:flex-row items-center justify-between border-t border-white/10 pt-6 gap-6">
+                        <div className="flex flex-col md:flex-row items-center justify-between pt-6 gap-6">
                             <div className="flex items-center gap-6 text-neutral-400">
                                 <button className="flex items-center gap-2 hover:text-white transition-colors">
                                     <IIcon icon="solar:heart-linear" width="20" />
@@ -171,8 +151,8 @@ export default function HomeHero() {
                 <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#0A0A0A] border-l border-white/5 flex flex-col pt-8 overflow-y-auto custom-scrollbar">
                     
                     {/* Curator Profile */}
-                    <div className="px-6 pb-6 border-b border-white/5">
-                        <div className="flex items-center gap-3 mb-6">
+                    <div className="px-6 pb-4 border-b border-white/5">
+                        <div className="flex items-center gap-3 mb-4">
                             <div className="relative">
                                 <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" alt="Virat Kohli" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
                                 <div className="absolute right-0 bottom-0 w-3 h-3 bg-blue-500 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
@@ -184,32 +164,38 @@ export default function HomeHero() {
                                 <p className="text-neutral-500 text-xs">@virat.kohli</p>
                             </div>
                         </div>
-
-                        <div className="grid grid-cols-3 gap-3 mb-2">
-                            <div className="text-center">
-                                <div className="text-white font-mono text-lg mb-0.5 truncate">12</div>
-                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Posts</div>
-                            </div>
-                            <div className="text-center border-l border-white/10">
-                                <div className="text-white font-mono text-lg mb-0.5 truncate">4</div>
-                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Lots</div>
-                            </div>
-                            <div className="text-center border-l border-white/10">
-                                <div className="text-white font-mono text-lg mb-0.5 truncate">8.2M</div>
-                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Followers</div>
-                            </div>
-                        </div>
                     </div>
 
-                    {/* Curator Bio */}
+                    {/* Item Details */}
                     <div className="px-6 py-4 border-b border-white/5">
-                        <h4 className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold mb-2 block">About</h4>
-                        <p className="text-neutral-300 text-[12px] leading-relaxed mb-2">
-                            Virat Kohli is widely regarded as one of the greatest batsmen in the history of cricket. Known for his aggressive batting style and unyielding passion on the field, he has set numerous records across all formats of the game.
+                        <h2 className="serif text-white text-xl tracking-tight leading-snug mb-3 uppercase">
+                            Match-Worn 2023 World Cup Jersey — Signed
+                        </h2>
+                        <h4 className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold mb-2 block">Item Details</h4>
+                        <p className="text-neutral-300 text-[12px] leading-relaxed">
+                            An exceptionally rare, match-worn example of the 2023 Cricket World Cup jersey. Featuring Virat Kohli's authentic signature on the front. Accompanied by original authentication papers and photographic proof.
                         </p>
-                        <p className="text-neutral-400 text-[10px] leading-relaxed">
-                            This exclusive collection features match-worn gear, signed memorabilia, and personal items directly from his personal archives.
-                        </p>
+                    </div>
+
+                    {/* Bidding Info */}
+                    <div className="px-6 py-4 border-b border-white/5 flex items-end justify-between">
+                        <div>
+                            <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1 font-semibold">
+                                Next Bid
+                            </p>
+                            <div className="text-white font-mono text-xl font-light">
+                                ₹85,000
+                            </div>
+                        </div>
+                        <div className="text-right">
+                            <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end gap-1.5 font-mono">
+                                <span className="w-1 h-1 bg-neutral-500 rounded-full"></span>
+                                Starting Bid
+                            </p>
+                            <div className="text-neutral-400 font-mono text-xl font-light">
+                                ₹50,000
+                            </div>
+                        </div>
                     </div>
 
                     {/* Live Bidding Feed */}
@@ -332,7 +318,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Image Indicators */}
-                    <div className="absolute top-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-black/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
+                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-black/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
                         {lot2Images.map((_, index) => (
                             <button 
                                 key={index}
@@ -344,15 +330,11 @@ export default function HomeHero() {
                     </div>
                     
                     {/* Gradient Overlay for Text Readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/40 to-transparent pointer-events-none"></div>
+                    
 
                     {/* Top Elements */}
                     <div className="absolute top-8 left-8 right-8 flex items-center justify-between z-20">
-                        {/* Uploader Profile */}
-                        <div className="flex items-center gap-3 cursor-pointer">
-                            <img src="https://images.unsplash.com/photo-1516280440502-d2fdaa0bf5e2?q=80&w=200&auto=format&fit=crop" alt="Jane Doe" className="w-12 h-12 rounded-full object-cover shadow-lg transition-transform" />
-                            <span className="text-white text-sm font-semibold tracking-wide drop-shadow-md">Jane Doe</span>
-                        </div>
+                        
                         
                         {/* Badges */}
                         <div className="flex items-center gap-3">
@@ -370,29 +352,13 @@ export default function HomeHero() {
                     <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 z-20 flex flex-col justify-end">
                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-8">
                             <div className="max-w-2xl">
-                                <h1 className="serif text-white text-4xl md:text-5xl tracking-tight leading-tight mb-4 uppercase">
-                                    1998 Custom Stratocaster — Studio Used
-                                </h1>
-                                <p className="text-neutral-400 text-sm md:text-base leading-relaxed hidden md:block">
-                                    Played extensively during the recording sessions for their multi-platinum album. Body features custom hand-painted artwork. Comes fully authenticated by the artist's estate.
-                                </p>
                             </div>
                             <div className="text-left md:text-right shrink-0">
-                                <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1">
-                                    Current Bid
-                                </p>
-                                <div className="text-white font-mono text-4xl md:text-5xl font-light mb-1.5">
-                                    ₹210,000
-                                </div>
-                                <p className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold flex items-center justify-start md:justify-end gap-1.5">
-                                    <span className="w-1 h-1 bg-neutral-500 rounded-full"></span>
-                                    Starting Bid ₹150,000
-                                </p>
                             </div>
                         </div>
 
                         {/* Bottom Action Bar */}
-                        <div className="flex flex-col md:flex-row items-center justify-between border-t border-white/10 pt-6 gap-6">
+                        <div className="flex flex-col md:flex-row items-center justify-between pt-6 gap-6">
                             <div className="flex items-center gap-6 text-neutral-400">
                                 <button className="flex items-center gap-2 hover:text-white transition-colors">
                                     <IIcon icon="solar:heart-linear" width="20" />
@@ -423,8 +389,8 @@ export default function HomeHero() {
                 <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#0A0A0A] border-l border-white/5 flex flex-col pt-8 overflow-y-auto custom-scrollbar">
                     
                     {/* Curator Profile */}
-                    <div className="px-6 pb-6 border-b border-white/5">
-                        <div className="flex items-center gap-3 mb-6">
+                    <div className="px-6 pb-4 border-b border-white/5">
+                        <div className="flex items-center gap-3 mb-4">
                             <div className="relative">
                                 <img src="https://images.unsplash.com/photo-1516280440502-d2fdaa0bf5e2?q=80&w=200&auto=format&fit=crop" alt="Jane Doe" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
                                 <div className="absolute right-0 bottom-0 w-3 h-3 bg-blue-500 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
@@ -436,32 +402,38 @@ export default function HomeHero() {
                                 <p className="text-neutral-500 text-xs">@jane_doe</p>
                             </div>
                         </div>
-
-                        <div className="grid grid-cols-3 gap-3 mb-2">
-                            <div className="text-center">
-                                <div className="text-white font-mono text-lg mb-0.5 truncate">84</div>
-                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Posts</div>
-                            </div>
-                            <div className="text-center border-l border-white/10">
-                                <div className="text-white font-mono text-lg mb-0.5 truncate">31</div>
-                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Lots</div>
-                            </div>
-                            <div className="text-center border-l border-white/10">
-                                <div className="text-white font-mono text-lg mb-0.5 truncate">4.1M</div>
-                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Followers</div>
-                            </div>
-                        </div>
                     </div>
 
-                    {/* Curator Bio */}
+                    {/* Item Details */}
                     <div className="px-6 py-4 border-b border-white/5">
-                        <h4 className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold mb-2 block">About</h4>
-                        <p className="text-neutral-300 text-[12px] leading-relaxed mb-2">
-                            Jane Doe is an internationally recognized session guitarist who has collaborated with top names in the rock and blues industries over her 25-year career.
+                        <h2 className="serif text-white text-xl tracking-tight leading-snug mb-3 uppercase">
+                            1998 Custom Stratocaster — Studio Used
+                        </h2>
+                        <h4 className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold mb-2 block">Item Details</h4>
+                        <p className="text-neutral-300 text-[12px] leading-relaxed">
+                            Played extensively during the recording sessions for their multi-platinum album. Body features custom hand-painted artwork. Comes fully authenticated by the artist's estate.
                         </p>
-                        <p className="text-neutral-400 text-[10px] leading-relaxed">
-                            Her curated vault offers a rare glimpse into studio-used instruments, custom pedalboards, and historically significant musical artifacts.
-                        </p>
+                    </div>
+
+                    {/* Bidding Info */}
+                    <div className="px-6 py-4 border-b border-white/5 flex items-end justify-between">
+                        <div>
+                            <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1 font-semibold">
+                                Next Bid
+                            </p>
+                            <div className="text-white font-mono text-xl font-light">
+                                ₹215,000
+                            </div>
+                        </div>
+                        <div className="text-right">
+                            <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end gap-1.5 font-mono">
+                                <span className="w-1 h-1 bg-neutral-500 rounded-full"></span>
+                                Starting Bid
+                            </p>
+                            <div className="text-neutral-400 font-mono text-xl font-light">
+                                ₹150,000
+                            </div>
+                        </div>
                     </div>
 
                     {/* Live Bidding Feed */}
@@ -545,9 +517,9 @@ export default function HomeHero() {
                                     <p className="text-neutral-600 text-sm font-mono">₹190,000</p>
                                 </div>
                             </div>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
 
             {/* LOT 03 */}
@@ -583,7 +555,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Image Indicators */}
-                    <div className="absolute top-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-black/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
+                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-black/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
                         {lot3Images.map((_, index) => (
                             <button 
                                 key={index}
@@ -595,15 +567,11 @@ export default function HomeHero() {
                     </div>
                     
                     {/* Gradient Overlay for Text Readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/40 to-transparent pointer-events-none"></div>
+                    
 
                     {/* Top Elements */}
                     <div className="absolute top-8 left-8 right-8 flex items-center justify-between z-20">
-                        {/* Uploader Profile */}
-                        <div className="flex items-center gap-3 cursor-pointer">
-                            <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=200&auto=format&fit=crop" alt="Mark Studio" className="w-12 h-12 rounded-full object-cover shadow-lg transition-transform" />
-                            <span className="text-white text-sm font-semibold tracking-wide drop-shadow-md">Mark Studio</span>
-                        </div>
+                        
                         
                         {/* Badges */}
                         <div className="flex items-center gap-3">
@@ -621,29 +589,13 @@ export default function HomeHero() {
                     <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 z-20 flex flex-col justify-end">
                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-8">
                             <div className="max-w-2xl">
-                                <h1 className="serif text-white text-4xl md:text-5xl tracking-tight leading-tight mb-4 uppercase">
-                                    Mid-Century Modern Desk Lamp
-                                </h1>
-                                <p className="text-neutral-400 text-sm md:text-base leading-relaxed hidden md:block">
-                                    An original restored piece from the early 1960s. Features a distinct brass finish and minimalist industrial design, completely rewired for modern safety standards.
-                                </p>
                             </div>
                             <div className="text-left md:text-right shrink-0">
-                                <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1">
-                                    Current Bid
-                                </p>
-                                <div className="text-white font-mono text-4xl md:text-5xl font-light mb-1.5">
-                                    ₹22,000
-                                </div>
-                                <p className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold flex items-center justify-start md:justify-end gap-1.5">
-                                    <span className="w-1 h-1 bg-neutral-500 rounded-full"></span>
-                                    Starting Bid ₹10,000
-                                </p>
                             </div>
                         </div>
 
                         {/* Bottom Action Bar */}
-                        <div className="flex flex-col md:flex-row items-center justify-between border-t border-white/10 pt-6 gap-6">
+                        <div className="flex flex-col md:flex-row items-center justify-between pt-6 gap-6">
                             <div className="flex items-center gap-6 text-neutral-400">
                                 <button className="flex items-center gap-2 hover:text-white transition-colors">
                                     <IIcon icon="solar:heart-linear" width="20" />
@@ -674,8 +626,8 @@ export default function HomeHero() {
                 <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#0A0A0A] border-l border-white/5 flex flex-col pt-8 overflow-y-auto custom-scrollbar">
                     
                     {/* Curator Profile */}
-                    <div className="px-6 pb-6 border-b border-white/5">
-                        <div className="flex items-center gap-3 mb-6">
+                    <div className="px-6 pb-4 border-b border-white/5">
+                        <div className="flex items-center gap-3 mb-4">
                             <div className="relative">
                                 <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=200&auto=format&fit=crop" alt="Mark Studio" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
                                 <div className="absolute right-0 bottom-0 w-3 h-3 bg-blue-500 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
@@ -687,29 +639,38 @@ export default function HomeHero() {
                                 <p className="text-neutral-500 text-xs">@mark_antiques</p>
                             </div>
                         </div>
-
-                        <div className="grid grid-cols-3 gap-3 mb-2">
-                            <div className="text-center">
-                                <div className="text-white font-mono text-lg mb-0.5 truncate">340</div>
-                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Posts</div>
-                            </div>
-                            <div className="text-center border-l border-white/10">
-                                <div className="text-white font-mono text-lg mb-0.5 truncate">88</div>
-                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Lots</div>
-                            </div>
-                            <div className="text-center border-l border-white/10">
-                                <div className="text-white font-mono text-lg mb-0.5 truncate">12.4K</div>
-                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Followers</div>
-                            </div>
-                        </div>
                     </div>
 
-                    {/* Curator Bio */}
+                    {/* Item Details */}
                     <div className="px-6 py-4 border-b border-white/5">
-                        <h4 className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold mb-2 block">About</h4>
-                        <p className="text-neutral-300 text-[12px] leading-relaxed mb-2">
-                            Specializing in mid-century artifacts and industrial design history. We restore items to gallery condition while maintaining their original character.
+                        <h2 className="serif text-white text-xl tracking-tight leading-snug mb-3 uppercase">
+                            Mid-Century Modern Desk Lamp
+                        </h2>
+                        <h4 className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold mb-2 block">Item Details</h4>
+                        <p className="text-neutral-300 text-[12px] leading-relaxed">
+                            An original restored piece from the early 1960s. Features a distinct brass finish and minimalist industrial design, completely rewired for modern safety standards.
                         </p>
+                    </div>
+
+                    {/* Bidding Info */}
+                    <div className="px-6 py-4 border-b border-white/5 flex items-end justify-between">
+                        <div>
+                            <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1 font-semibold">
+                                Next Bid
+                            </p>
+                            <div className="text-white font-mono text-xl font-light">
+                                ₹22,500
+                            </div>
+                        </div>
+                        <div className="text-right">
+                            <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end gap-1.5 font-mono">
+                                <span className="w-1 h-1 bg-neutral-500 rounded-full"></span>
+                                Starting Bid
+                            </p>
+                            <div className="text-neutral-400 font-mono text-xl font-light">
+                                ₹10,000
+                            </div>
+                        </div>
                     </div>
 
                     {/* Live Bidding Feed */}
@@ -833,7 +794,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Image Indicators */}
-                    <div className="absolute top-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-black/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
+                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-black/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
                         {lot4Images.map((_, index) => (
                             <button 
                                 key={index}
@@ -845,15 +806,11 @@ export default function HomeHero() {
                     </div>
                     
                     {/* Gradient Overlay for Text Readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/40 to-transparent pointer-events-none"></div>
+                    
 
                     {/* Top Elements */}
                     <div className="absolute top-8 left-8 right-8 flex items-center justify-between z-20">
-                        {/* Uploader Profile */}
-                        <div className="flex items-center gap-3 cursor-pointer">
-                            <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=200&auto=format&fit=crop" alt="Artisan Crafts" className="w-12 h-12 rounded-full object-cover shadow-lg transition-transform" />
-                            <span className="text-white text-sm font-semibold tracking-wide drop-shadow-md">Artisan Crafts</span>
-                        </div>
+                        
                         
                         {/* Badges */}
                         <div className="flex items-center gap-3">
@@ -871,29 +828,13 @@ export default function HomeHero() {
                     <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 z-20 flex flex-col justify-end">
                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-8">
                             <div className="max-w-2xl">
-                                <h1 className="serif text-white text-4xl md:text-5xl tracking-tight leading-tight mb-4 uppercase">
-                                    Handcrafted Leather Messenger Bag
-                                </h1>
-                                <p className="text-neutral-400 text-sm md:text-base leading-relaxed hidden md:block">
-                                    Precision hand-stitched from premium Italian full-grain leather. Designed for durability and timeless style, featuring solid brass hardware and meticulous detailing.
-                                </p>
                             </div>
                             <div className="text-left md:text-right shrink-0">
-                                <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1">
-                                    Current Bid
-                                </p>
-                                <div className="text-white font-mono text-4xl md:text-5xl font-light mb-1.5">
-                                    ₹35,500
-                                </div>
-                                <p className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold flex items-center justify-start md:justify-end gap-1.5">
-                                    <span className="w-1 h-1 bg-neutral-500 rounded-full"></span>
-                                    Starting Bid ₹18,000
-                                </p>
                             </div>
                         </div>
 
                         {/* Bottom Action Bar */}
-                        <div className="flex flex-col md:flex-row items-center justify-between border-t border-white/10 pt-6 gap-6">
+                        <div className="flex flex-col md:flex-row items-center justify-between pt-6 gap-6">
                             <div className="flex items-center gap-6 text-neutral-400">
                                 <button className="flex items-center gap-2 hover:text-white transition-colors">
                                     <IIcon icon="solar:heart-linear" width="20" />
@@ -924,8 +865,8 @@ export default function HomeHero() {
                 <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#0A0A0A] border-l border-white/5 flex flex-col pt-8 overflow-y-auto custom-scrollbar">
                     
                     {/* Curator Profile */}
-                    <div className="px-6 pb-6 border-b border-white/5">
-                        <div className="flex items-center gap-3 mb-6">
+                    <div className="px-6 pb-4 border-b border-white/5">
+                        <div className="flex items-center gap-3 mb-4">
                             <div className="relative">
                                 <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=200&auto=format&fit=crop" alt="Artisan Crafts" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
                             </div>
@@ -934,29 +875,38 @@ export default function HomeHero() {
                                 <p className="text-neutral-500 text-xs">@artisan_leather</p>
                             </div>
                         </div>
-
-                        <div className="grid grid-cols-3 gap-3 mb-2">
-                            <div className="text-center">
-                                <div className="text-white font-mono text-lg mb-0.5 truncate">89</div>
-                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Posts</div>
-                            </div>
-                            <div className="text-center border-l border-white/10">
-                                <div className="text-white font-mono text-lg mb-0.5 truncate">12</div>
-                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Lots</div>
-                            </div>
-                            <div className="text-center border-l border-white/10">
-                                <div className="text-white font-mono text-lg mb-0.5 truncate">45K</div>
-                                <div className="text-neutral-500 text-[8px] uppercase tracking-widest font-semibold">Followers</div>
-                            </div>
-                        </div>
                     </div>
 
-                    {/* Curator Bio */}
+                    {/* Item Details */}
                     <div className="px-6 py-4 border-b border-white/5">
-                        <h4 className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold mb-2 block">About</h4>
-                        <p className="text-neutral-300 text-[12px] leading-relaxed mb-2">
-                            A collective of independent leatherworkers crafting bespoke, heirloom-quality goods. We use traditional techniques and ethically sourced materials for every piece.
+                        <h2 className="serif text-white text-xl tracking-tight leading-snug mb-3 uppercase">
+                            Handcrafted Leather Messenger Bag
+                        </h2>
+                        <h4 className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold mb-2 block">Item Details</h4>
+                        <p className="text-neutral-300 text-[12px] leading-relaxed">
+                            Precision hand-stitched from premium Italian full-grain leather. Designed for durability and timeless style, featuring solid brass hardware and meticulous detailing.
                         </p>
+                    </div>
+
+                    {/* Bidding Info */}
+                    <div className="px-6 py-4 border-b border-white/5 flex items-end justify-between">
+                        <div>
+                            <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1 font-semibold">
+                                Next Bid
+                            </p>
+                            <div className="text-white font-mono text-xl font-light">
+                                ₹36,000
+                            </div>
+                        </div>
+                        <div className="text-right">
+                            <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end gap-1.5 font-mono">
+                                <span className="w-1 h-1 bg-neutral-500 rounded-full"></span>
+                                Starting Bid
+                            </p>
+                            <div className="text-neutral-400 font-mono text-xl font-light">
+                                ₹18,000
+                            </div>
+                        </div>
                     </div>
 
                     {/* Live Bidding Feed */}
@@ -1048,23 +998,7 @@ export default function HomeHero() {
             </div>
         </div>
 
-        {/* Navigation Arrows */}
-            <div className="fixed right-6 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-50">
-                <button 
-                    onClick={() => window.scrollBy({ top: -(window.innerHeight - 120), behavior: 'smooth' })}
-                    className="w-10 h-10 bg-black/50 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black hover:scale-110 transition-all duration-300 shadow-xl"
-                    aria-label="Previous Lot"
-                >
-                    <IIcon icon="solar:alt-arrow-up-linear" width="20" />
-                </button>
-                <button 
-                    onClick={() => window.scrollBy({ top: window.innerHeight - 120, behavior: 'smooth' })}
-                    className="w-10 h-10 bg-black/50 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black hover:scale-110 transition-all duration-300 shadow-xl"
-                    aria-label="Next Lot"
-                >
-                    <IIcon icon="solar:alt-arrow-down-linear" width="20" />
-                </button>
-            </div>
+
         </section>
     );
 }

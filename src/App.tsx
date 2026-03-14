@@ -193,7 +193,6 @@ function App() {
                   </div>
                 </div>
 
-                <Link to="/social" className="transition-colors duration-300 hover:text-white">Social</Link>
                 <Link to="/how-it-works" className="transition-colors duration-300 hover:text-white">How It Works</Link>
                 <Link to="/gallery" className="transition-colors duration-300 hover:text-white">Gallery</Link>
 
@@ -401,13 +400,6 @@ function App() {
                 <div className="space-y-3">
                   <p className="text-neutral-500 text-[11px] font-semibold">Explore</p>
                   <div className="flex flex-col space-y-3">
-                    <Link
-                      to="/social"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="text-white/80 hover:text-white"
-                    >
-                      Social
-                    </Link>
                     <Link
                       to="/how-it-works"
                       onClick={() => setMobileMenuOpen(false)}
