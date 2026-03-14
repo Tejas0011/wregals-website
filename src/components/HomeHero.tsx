@@ -48,7 +48,7 @@ export default function HomeHero() {
             <div className="max-w-[1800px] mx-auto flex flex-col gap-20 py-10 px-6 md:px-12">
             
             {/* LOT 01 */}
-            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-200px)] min-h-[600px] border border-white/10 rounded-sm overflow-hidden shadow-2xl snap-start bg-[#0A0A0A]">
+            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-200px)] min-h-[600px] border border-white/10 rounded-sm overflow-hidden shadow-2xl snap-start bg-[#212121]">
                 
                 {/* ── Left Column: Featured Auction ──────────────────────────────── */}
                 <div className="relative flex-1 bg-[#111] overflow-hidden">
@@ -139,7 +139,7 @@ export default function HomeHero() {
                 </div>
 
                 {/* ── Right Column: Sidebar ────────────────────────────────────────── */}
-                <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#0A0A0A] border-l border-white/5 flex flex-col pt-8 overflow-y-auto custom-scrollbar">
+                <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#212121] border-l border-white/5 flex flex-col pt-8 overflow-y-auto custom-scrollbar">
                     
                     {/* Curator Profile */}
                     <div className="px-6 pb-4 border-b border-white/5">
@@ -277,7 +277,7 @@ export default function HomeHero() {
             </div>
 
             {/* LOT 02 */}
-            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-200px)] min-h-[600px] border border-white/10 rounded-sm overflow-hidden shadow-2xl snap-start bg-[#0A0A0A]">
+            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-200px)] min-h-[600px] border border-white/10 rounded-sm overflow-hidden shadow-2xl snap-start bg-[#212121]">
                 
                 {/* ── Left Column: Featured Auction ──────────────────────────────── */}
                 <div className="relative flex-1 bg-[#111] overflow-hidden">
@@ -368,7 +368,7 @@ export default function HomeHero() {
                 </div>
 
                 {/* ── Right Column: Sidebar ────────────────────────────────────────── */}
-                <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#0A0A0A] border-l border-white/5 flex flex-col pt-8 overflow-y-auto custom-scrollbar">
+                <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#212121] border-l border-white/5 flex flex-col pt-8 overflow-y-auto custom-scrollbar">
                     
                     {/* Curator Profile */}
                     <div className="px-6 pb-4 border-b border-white/5">
@@ -505,7 +505,7 @@ export default function HomeHero() {
             </div>
 
             {/* LOT 03 */}
-            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-200px)] min-h-[600px] border border-white/10 rounded-sm overflow-hidden shadow-2xl snap-start bg-[#0A0A0A]">
+            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-200px)] min-h-[600px] border border-white/10 rounded-sm overflow-hidden shadow-2xl snap-start bg-[#212121]">
                 
                 {/* ── Left Column: Featured Auction ──────────────────────────────── */}
                 <div className="relative flex-1 bg-[#111] overflow-hidden">
@@ -596,7 +596,7 @@ export default function HomeHero() {
                 </div>
 
                 {/* ── Right Column: Sidebar ────────────────────────────────────────── */}
-                <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#0A0A0A] border-l border-white/5 flex flex-col pt-8 overflow-y-auto custom-scrollbar">
+                <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#212121] border-l border-white/5 flex flex-col pt-8 overflow-y-auto custom-scrollbar">
                     
                     {/* Curator Profile */}
                     <div className="px-6 pb-4 border-b border-white/5">
@@ -735,7 +735,7 @@ export default function HomeHero() {
             </div>
 
             {/* LOT 04 */}
-            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-200px)] min-h-[600px] border border-white/10 rounded-sm overflow-hidden shadow-2xl snap-start bg-[#0A0A0A]">
+            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-200px)] min-h-[600px] border border-white/10 rounded-sm overflow-hidden shadow-2xl snap-start bg-[#212121]">
                 
                 {/* ── Left Column: Featured Auction ──────────────────────────────── */}
                 <div className="relative flex-1 bg-[#111] overflow-hidden">
@@ -826,7 +826,7 @@ export default function HomeHero() {
                 </div>
 
                 {/* ── Right Column: Sidebar ────────────────────────────────────────── */}
-                <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#0A0A0A] border-l border-white/5 flex flex-col pt-8 overflow-y-auto custom-scrollbar">
+                <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#212121] border-l border-white/5 flex flex-col pt-8 overflow-y-auto custom-scrollbar">
                     
                     {/* Curator Profile */}
                     <div className="px-6 pb-4 border-b border-white/5">
