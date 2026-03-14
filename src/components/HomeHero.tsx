@@ -163,7 +163,7 @@ export default function HomeHero() {
                     {/* Bidding Info */}
                     <div className="px-6 py-4 border-b border-white/5 flex items-end justify-between">
                         <div>
-                            <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1 font-semibold">
+                            <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-1 font-semibold">
                                 Next Bid
                             </p>
                             <div className="text-white font-mono text-xl font-bold">
@@ -171,7 +171,7 @@ export default function HomeHero() {
                             </div>
                         </div>
                         <div className="text-right">
-                            <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end font-mono">
+                            <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-1 font-semibold flex items-center justify-end">
                                 Starting Bid
                             </p>
                             <div className="text-white font-mono text-xl font-bold">
@@ -391,7 +391,7 @@ export default function HomeHero() {
                     {/* Bidding Info */}
                     <div className="px-6 py-4 border-b border-white/5 flex items-end justify-between">
                         <div>
-                            <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1 font-semibold">
+                            <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-1 font-semibold">
                                 Next Bid
                             </p>
                             <div className="text-white font-mono text-xl font-bold">
@@ -399,7 +399,7 @@ export default function HomeHero() {
                             </div>
                         </div>
                         <div className="text-right">
-                            <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end font-mono">
+                            <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-1 font-semibold flex items-center justify-end">
                                 Starting Bid
                             </p>
                             <div className="text-white font-mono text-xl font-bold">
@@ -618,7 +618,7 @@ export default function HomeHero() {
                     {/* Bidding Info */}
                     <div className="px-6 py-4 border-b border-white/5 flex items-end justify-between">
                         <div>
-                            <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1 font-semibold">
+                            <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-1 font-semibold">
                                 Next Bid
                             </p>
                             <div className="text-white font-mono text-xl font-bold">
@@ -626,7 +626,7 @@ export default function HomeHero() {
                             </div>
                         </div>
                         <div className="text-right">
-                            <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end font-mono">
+                            <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-1 font-semibold flex items-center justify-end">
                                 Starting Bid
                             </p>
                             <div className="text-white font-mono text-xl font-bold">
@@ -844,7 +844,7 @@ export default function HomeHero() {
                     {/* Bidding Info */}
                     <div className="px-6 py-4 border-b border-white/5 flex items-end justify-between">
                         <div>
-                            <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1 font-semibold">
+                            <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-1 font-semibold">
                                 Next Bid
                             </p>
                             <div className="text-white font-mono text-xl font-bold">
@@ -852,7 +852,7 @@ export default function HomeHero() {
                             </div>
                         </div>
                         <div className="text-right">
-                            <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end font-mono">
+                            <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-1 font-semibold flex items-center justify-end">
                                 Starting Bid
                             </p>
                             <div className="text-white font-mono text-xl font-bold">
