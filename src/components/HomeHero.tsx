@@ -174,7 +174,7 @@ export default function HomeHero() {
                             <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1 font-semibold">
                                 Next Bid
                             </p>
-                            <div className="text-white font-mono text-xl font-light">
+                            <div className="text-white font-mono text-lg font-light">
                                 ₹85,000
                             </div>
                         </div>
@@ -183,7 +183,7 @@ export default function HomeHero() {
                                 <span className="w-1 h-1 bg-neutral-500 rounded-full"></span>
                                 Starting Bid
                             </p>
-                            <div className="text-neutral-400 font-mono text-xl font-light">
+                            <div className="text-neutral-400 font-mono text-lg font-light">
                                 ₹50,000
                             </div>
                         </div>
@@ -403,7 +403,7 @@ export default function HomeHero() {
                             <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1 font-semibold">
                                 Next Bid
                             </p>
-                            <div className="text-white font-mono text-xl font-light">
+                            <div className="text-white font-mono text-lg font-light">
                                 ₹215,000
                             </div>
                         </div>
@@ -412,7 +412,7 @@ export default function HomeHero() {
                                 <span className="w-1 h-1 bg-neutral-500 rounded-full"></span>
                                 Starting Bid
                             </p>
-                            <div className="text-neutral-400 font-mono text-xl font-light">
+                            <div className="text-neutral-400 font-mono text-lg font-light">
                                 ₹150,000
                             </div>
                         </div>
@@ -631,7 +631,7 @@ export default function HomeHero() {
                             <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1 font-semibold">
                                 Next Bid
                             </p>
-                            <div className="text-white font-mono text-xl font-light">
+                            <div className="text-white font-mono text-lg font-light">
                                 ₹22,500
                             </div>
                         </div>
@@ -640,7 +640,7 @@ export default function HomeHero() {
                                 <span className="w-1 h-1 bg-neutral-500 rounded-full"></span>
                                 Starting Bid
                             </p>
-                            <div className="text-neutral-400 font-mono text-xl font-light">
+                            <div className="text-neutral-400 font-mono text-lg font-light">
                                 ₹10,000
                             </div>
                         </div>
@@ -858,7 +858,7 @@ export default function HomeHero() {
                             <p className="text-neutral-500 text-[10px] uppercase tracking-widest mb-1 font-semibold">
                                 Next Bid
                             </p>
-                            <div className="text-white font-mono text-xl font-light">
+                            <div className="text-white font-mono text-lg font-light">
                                 ₹36,000
                             </div>
                         </div>
@@ -867,7 +867,7 @@ export default function HomeHero() {
                                 <span className="w-1 h-1 bg-neutral-500 rounded-full"></span>
                                 Starting Bid
                             </p>
-                            <div className="text-neutral-400 font-mono text-xl font-light">
+                            <div className="text-neutral-400 font-mono text-lg font-light">
                                 ₹18,000
                             </div>
                         </div>
