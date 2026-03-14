@@ -133,7 +133,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Item Details */}
-                    <div className="px-6 py-4 border-b border-white/5">
+                    <div className="px-6 py-4">
                         <h2 className="serif text-white text-xl tracking-tight leading-snug mb-3 uppercase">
                             Match-Worn 2023 World Cup Jersey — Signed
                         </h2>
@@ -144,7 +144,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Interaction & Timer */}
-                    <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between">
+                    <div className="px-6 py-4 flex items-center justify-between">
                         <div className="flex items-center gap-4 text-neutral-400">
                             <button className="flex items-center gap-2 hover:text-white transition-colors">
                                 <IIcon icon="solar:heart-linear" width="18" />
@@ -362,7 +362,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Item Details */}
-                    <div className="px-6 py-4 border-b border-white/5">
+                    <div className="px-6 py-4">
                         <h2 className="serif text-white text-xl tracking-tight leading-snug mb-3 uppercase">
                             1998 Custom Stratocaster — Studio Used
                         </h2>
@@ -373,7 +373,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Interaction & Timer */}
-                    <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between">
+                    <div className="px-6 py-4 flex items-center justify-between">
                         <div className="flex items-center gap-4 text-neutral-400">
                             <button className="flex items-center gap-2 hover:text-white transition-colors">
                                 <IIcon icon="solar:heart-linear" width="18" />
@@ -590,7 +590,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Item Details */}
-                    <div className="px-6 py-4 border-b border-white/5">
+                    <div className="px-6 py-4">
                         <h2 className="serif text-white text-xl tracking-tight leading-snug mb-3 uppercase">
                             Mid-Century Modern Desk Lamp
                         </h2>
@@ -601,7 +601,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Interaction & Timer */}
-                    <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between">
+                    <div className="px-6 py-4 flex items-center justify-between">
                         <div className="flex items-center gap-4 text-neutral-400">
                             <button className="flex items-center gap-2 hover:text-white transition-colors">
                                 <IIcon icon="solar:heart-linear" width="18" />
@@ -817,7 +817,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Item Details */}
-                    <div className="px-6 py-4 border-b border-white/5">
+                    <div className="px-6 py-4">
                         <h2 className="serif text-white text-xl tracking-tight leading-snug mb-3 uppercase">
                             Handcrafted Leather Messenger Bag
                         </h2>
@@ -828,7 +828,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Interaction & Timer */}
-                    <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between">
+                    <div className="px-6 py-4 flex items-center justify-between">
                         <div className="flex items-center gap-4 text-neutral-400">
                             <button className="flex items-center gap-2 hover:text-white transition-colors">
                                 <IIcon icon="solar:heart-linear" width="18" />
