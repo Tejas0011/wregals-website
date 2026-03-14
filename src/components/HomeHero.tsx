@@ -171,11 +171,10 @@ export default function HomeHero() {
                             </div>
                         </div>
                         <div className="text-right">
-                            <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end gap-1.5 font-mono">
-                                <span className="w-1 h-1 bg-neutral-500 rounded-full"></span>
+                            <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end font-mono">
                                 Starting Bid
                             </p>
-                            <div className="text-neutral-400 font-mono text-lg font-light">
+                            <div className="text-white font-mono text-lg font-light">
                                 ₹50,000
                             </div>
                         </div>
@@ -400,11 +399,10 @@ export default function HomeHero() {
                             </div>
                         </div>
                         <div className="text-right">
-                            <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end gap-1.5 font-mono">
-                                <span className="w-1 h-1 bg-neutral-500 rounded-full"></span>
+                            <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end font-mono">
                                 Starting Bid
                             </p>
-                            <div className="text-neutral-400 font-mono text-lg font-light">
+                            <div className="text-white font-mono text-lg font-light">
                                 ₹150,000
                             </div>
                         </div>
@@ -628,11 +626,10 @@ export default function HomeHero() {
                             </div>
                         </div>
                         <div className="text-right">
-                            <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end gap-1.5 font-mono">
-                                <span className="w-1 h-1 bg-neutral-500 rounded-full"></span>
+                            <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end font-mono">
                                 Starting Bid
                             </p>
-                            <div className="text-neutral-400 font-mono text-lg font-light">
+                            <div className="text-white font-mono text-lg font-light">
                                 ₹10,000
                             </div>
                         </div>
@@ -855,11 +852,10 @@ export default function HomeHero() {
                             </div>
                         </div>
                         <div className="text-right">
-                            <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end gap-1.5 font-mono">
-                                <span className="w-1 h-1 bg-neutral-500 rounded-full"></span>
+                            <p className="text-neutral-500 text-[10px] uppercase font-semibold flex items-center justify-end font-mono">
                                 Starting Bid
                             </p>
-                            <div className="text-neutral-400 font-mono text-lg font-light">
+                            <div className="text-white font-mono text-lg font-light">
                                 ₹18,000
                             </div>
                         </div>
