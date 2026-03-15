@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import IIcon from './IIcon';
+import LotActions from './LotActions';
 
 export default function HomeHero() {
     const lot1Images = [
@@ -162,15 +163,7 @@ export default function HomeHero() {
 
                     {/* Interaction & Timer */}
                     <div className="px-6 py-2 flex items-center justify-between">
-                        <div className="flex items-center gap-4 text-neutral-400">
-                            <button className="flex items-center gap-2 hover:text-white transition-colors">
-                                <IIcon icon="solar:heart-linear" width="22" />
-                                <span className="text-[13px] font-bold uppercase tracking-wider">1.2k</span>
-                            </button>
-                            <button className="flex items-center hover:text-white transition-colors">
-                                <IIcon icon="solar:share-circle-linear" width="22" />
-                            </button>
-                        </div>
+                        <LotActions initialLikes={1200} url="https://wregals.com/lot/WC2023-VK" />
                         <div className="flex items-center gap-2 text-neutral-300">
                             <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
                             <span className="font-mono text-sm tracking-tight text-white/90">04h 12m 39s</span>
@@ -191,7 +184,7 @@ export default function HomeHero() {
                             <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-0.5 font-semibold flex items-center justify-end">
                                 Starting Bid
                             </p>
-                            <div className="text-white font-mono text-xl font-bold">
+                            <div className="text-neutral-400 font-mono text-xl font-bold">
                                 ₹50,000
                             </div>
                         </div>
@@ -406,15 +399,7 @@ export default function HomeHero() {
 
                     {/* Interaction & Timer */}
                     <div className="px-6 py-2 flex items-center justify-between">
-                        <div className="flex items-center gap-4 text-neutral-400">
-                            <button className="flex items-center gap-2 hover:text-white transition-colors">
-                                <IIcon icon="solar:heart-linear" width="22" />
-                                <span className="text-[13px] font-bold uppercase tracking-wider">8.4k</span>
-                            </button>
-                            <button className="flex items-center hover:text-white transition-colors">
-                                <IIcon icon="solar:share-circle-linear" width="22" />
-                            </button>
-                        </div>
+                        <LotActions initialLikes={843} url="https://wregals.com/lot/VS-1960" />
                         <div className="flex items-center gap-2 text-neutral-300">
                             <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
                             <span className="font-mono text-sm tracking-tight text-white/90">01h 45m 12s</span>
@@ -435,7 +420,7 @@ export default function HomeHero() {
                             <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-0.5 font-semibold flex items-center justify-end">
                                 Starting Bid
                             </p>
-                            <div className="text-white font-mono text-xl font-bold">
+                            <div className="text-neutral-400 font-mono text-xl font-bold">
                                 ₹150,000
                             </div>
                         </div>
@@ -649,15 +634,7 @@ export default function HomeHero() {
 
                     {/* Interaction & Timer */}
                     <div className="px-6 py-2 flex items-center justify-between">
-                        <div className="flex items-center gap-4 text-neutral-400">
-                            <button className="flex items-center gap-2 hover:text-white transition-colors">
-                                <IIcon icon="solar:heart-linear" width="22" />
-                                <span className="text-[13px] font-bold uppercase tracking-wider">942</span>
-                            </button>
-                            <button className="flex items-center hover:text-white transition-colors">
-                                <IIcon icon="solar:share-circle-linear" width="22" />
-                            </button>
-                        </div>
+                        <LotActions initialLikes={942} url="https://wregals.com/lot/MCL-1960" />
                         <div className="flex items-center gap-2 text-neutral-300">
                             <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
                             <span className="font-mono text-sm tracking-tight text-white/90">06h 20m 15s</span>
@@ -678,7 +655,7 @@ export default function HomeHero() {
                             <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-0.5 font-semibold flex items-center justify-end">
                                 Starting Bid
                             </p>
-                            <div className="text-white font-mono text-xl font-bold">
+                            <div className="text-neutral-400 font-mono text-xl font-bold">
                                 ₹10,000
                             </div>
                         </div>
@@ -891,15 +868,7 @@ export default function HomeHero() {
 
                     {/* Interaction & Timer */}
                     <div className="px-6 py-2 flex items-center justify-between">
-                        <div className="flex items-center gap-4 text-neutral-400">
-                            <button className="flex items-center gap-2 hover:text-white transition-colors">
-                                <IIcon icon="solar:heart-linear" width="22" />
-                                <span className="text-[13px] font-bold uppercase tracking-wider">1.8k</span>
-                            </button>
-                            <button className="flex items-center hover:text-white transition-colors">
-                                <IIcon icon="solar:share-circle-linear" width="22" />
-                            </button>
-                        </div>
+                        <LotActions initialLikes={1800} url="https://wregals.com/lot/SB-2024" />
                         <div className="flex items-center gap-2 text-neutral-300">
                             <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
                             <span className="font-mono text-sm tracking-tight text-white/90">11h 05m 12s</span>
@@ -920,7 +889,7 @@ export default function HomeHero() {
                             <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-0.5 font-semibold flex items-center justify-end">
                                 Starting Bid
                             </p>
-                            <div className="text-white font-mono text-xl font-bold">
+                            <div className="text-neutral-400 font-mono text-xl font-bold">
                                 ₹18,000
                             </div>
                         </div>

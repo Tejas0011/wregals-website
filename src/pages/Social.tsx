@@ -2,6 +2,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import IIcon from '../components/IIcon';
+import Footer from '../components/Footer';
+import ShareSheet from '../components/ShareSheet';
 
 /* ─── Mock data ─────────────────────────────────────────────────────────── */
 const CREATORS = [
@@ -54,35 +56,6 @@ const POSTS_FYP = [
 ];
 
 const POSTS_FOLLOWING = POSTS_FYP.filter(p => ['p1', 'p4'].includes(p.id));
-
-/* ─── Share sheet ─────────────────────────────────────────────────────── */
-function ShareSheet({ postId, onClose }: { postId: string; onClose: () => void }) {
-    const ref = useRef<HTMLDivElement>(null);
-    useEffect(() => {
-        const h = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) onClose(); };
-        document.addEventListener('mousedown', h);
-        return () => document.removeEventListener('mousedown', h);
-    }, [onClose]);
-    const url = `https://wregals.com/social/${postId}`;
-    return (
-        <div ref={ref} className="absolute bottom-8 right-0 z-50 w-52 bg-[#111] border border-white/10 shadow-2xl overflow-hidden">
-            <p className="text-[9px] uppercase tracking-widest text-neutral-600 px-4 pt-3 pb-1">Share via</p>
-            {[
-                { label: 'WhatsApp', icon: 'ic:baseline-whatsapp', href: `https://wa.me/?text=${encodeURIComponent(url)}` },
-                { label: 'Twitter / X', icon: 'ri:twitter-x-fill', href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}` },
-                { label: 'LinkedIn', icon: 'mdi:linkedin', href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}` },
-                { label: 'Instagram', icon: 'mdi:instagram', href: '#' },
-            ].map(o => (
-                <a key={o.label} href={o.href} target="_blank" rel="noreferrer" className="flex items-center gap-3 px-4 py-2.5 hover:bg-white/5 text-sm text-neutral-300 transition-colors">
-                    <IIcon icon={o.icon} width="15" class="text-neutral-400" />{o.label}
-                </a>
-            ))}
-            <button onClick={() => { navigator.clipboard?.writeText(url); onClose(); }} className="flex items-center gap-3 px-4 py-2.5 hover:bg-white/5 text-sm text-neutral-300 w-full border-t border-white/5 transition-colors">
-                <IIcon icon="solar:copy-linear" width="15" class="text-neutral-400" />Copy Link
-            </button>
-        </div>
-    );
-}
 
 /* ─── Auction mini-card ───────────────────────────────────────────────── */
 function AuctionCard({ card }) {
@@ -180,7 +153,7 @@ function PostCard({ post, liked, reshared, shareOpen, onLike, onReshare, onShare
                                 <IIcon icon="solar:share-linear" width="17" />
                             </span>
                         </button>
-                        {shareOpen === post.id && <ShareSheet postId={post.id} onClose={() => onShare(null)} />}
+                        {shareOpen === post.id && <ShareSheet url={`https://wregals.com/social/${post.id}`} onClose={() => onShare(null)} className="absolute bottom-10 right-0" />}
                     </div>
                 </div>
             </div>
@@ -301,6 +274,9 @@ export default function Social({ user, onSignInClick }: SocialProps) {
                             </div>
                         )}
                     </div>
+                    
+                    {/* Inject Footer inside the center feed column */}
+                    <Footer />
                 </main>
 
                 {/* ── RIGHT SIDEBAR ── */}

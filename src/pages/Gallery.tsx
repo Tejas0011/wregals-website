@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 const ITEMS = [
     {
@@ -253,9 +254,7 @@ export default function Gallery({ user, onSignInClick }: GalleryProps) {
                 </div>
             </section>
 
-            <footer className="py-8 border-t border-white/5 text-center">
-                <p className="text-[10px] uppercase tracking-wider text-neutral-700">© 2025 Wregals Inc. · All Rights Reserved.</p>
-            </footer>
+            <Footer />
         </div>
     );
 }

@@ -7,15 +7,9 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Global cursor consistency */
-a,
-button,
-select,
-option,
-label,
-[role="button"],
-[tabindex] {
-    cursor: pointer;
+/* Global cursor — hide native, use custom dot+ring */
+*, *::before, *::after {
+    cursor: none !important;
 }
 
 body {
@@ -43,14 +37,44 @@ h5,
 * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    cursor: url('/cursor.svg') 4 4, auto;
 }
 
-a,
-button,
-[role="button"] {
-    cursor: url('/cursor.svg') 4 4, pointer;
+/* ── Custom Cursor ──────────────────────────────────────── */
+.cursor-dot {
+    position: fixed;
+    top: 0; left: 0;
+    width: 8px; height: 8px;
+    background: #C49A42;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition: width .2s cubic-bezier(.16,1,.3,1),
+                height .2s cubic-bezier(.16,1,.3,1),
+                background .2s ease,
+                opacity .3s ease;
 }
+
+.cursor-ring {
+    position: fixed;
+    top: 0; left: 0;
+    width: 32px; height: 32px;
+    border: 1px solid rgba(196,154,66,0.45);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    transition: width .25s cubic-bezier(.16,1,.3,1),
+                height .25s cubic-bezier(.16,1,.3,1),
+                border-color .25s ease,
+                opacity .3s ease;
+}
+
+.cursor-dot.is-hover  { width: 12px; height: 12px; background: #D4AF62; }
+.cursor-ring.is-hover { width: 48px; height: 48px; border-color: rgba(196,154,66,0.8); }
+
+.cursor-dot.is-clicking  { width: 5px; height: 5px; background: #E3CB8E; }
+.cursor-ring.is-clicking { width: 24px; height: 24px; border-color: rgba(196,154,66,0.9); }
 
 /* Velvety Background Gradient */
 .velvet-bg {
