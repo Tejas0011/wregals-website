@@ -7,7 +7,7 @@
  * since the browser only ever talks to this Vercel domain.
  */
 
-const SUPABASE_URL = 'https://ddedmbzxjpymdbbfxacn.supabase.co';
+const SUPABASE_URL = process.env.SUPABASE_URL || 'https://elcrnjbftzncbrptqjgk.supabase.co';
 
 export default async function handler(req, res) {
     // Build the target URL: strip /api/supabase prefix, keep the rest
