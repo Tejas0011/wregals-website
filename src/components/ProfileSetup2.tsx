@@ -50,7 +50,7 @@ export default function ProfileSetup2({ user, onComplete, onBack, onDismiss }: P
         setError('');
         setLoading(true);
 
-        const { error: updateError } = await supabase.auth.updateUser({
+        const { data: userData, error: updateError } = await supabase.auth.updateUser({
             data: {
                 address_line1: addressLine1.trim(),
                 address_line2: addressLine2.trim(),
@@ -63,8 +63,28 @@ export default function ProfileSetup2({ user, onComplete, onBack, onDismiss }: P
             },
         });
 
+        if (updateError) { setLoading(false); setError(updateError.message); return; }
+
+        // Also persist KYC data to our public.users table
+        if (userData?.user) {
+            await supabase.from('users').upsert(
+                {
+                    id: userData.user.id,
+                    email: userData.user.email,
+                    address_line1: addressLine1.trim(),
+                    address_line2: addressLine2.trim(),
+                    city: city.trim(),
+                    state: state.trim(),
+                    pincode: pincode.trim(),
+                    pan_card: pan.toUpperCase().trim(),
+                    kyc_completed: true,
+                    profile_completed: true,
+                },
+                { onConflict: 'id' }
+            );
+        }
+
         setLoading(false);
-        if (updateError) { setError(updateError.message); return; }
         onComplete();
     };
 

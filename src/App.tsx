@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import HomeHero from './components/HomeHero';
-import AuthModal from './components/AuthModal';
+import AuthModal, { upsertUserRecord } from './components/AuthModal';
 import ProfileSetup from './components/ProfileSetup';
 import ProfileSetup2 from './components/ProfileSetup2';
 import WalletModal from './components/WalletModal';
@@ -80,6 +80,8 @@ function App() {
       setUser(session?.user ?? null);
       if (session?.user) {
         setAuthOpen(false);
+        // Ensure this user has a row in our public.users table
+        upsertUserRecord(session.user);
         // Show profile setup if profile hasn't been completed yet
         if (!session.user.user_metadata?.profile_completed) {
           setShowProfileSetup(true);

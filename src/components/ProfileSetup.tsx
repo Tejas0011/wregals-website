@@ -45,7 +45,7 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
         setError('');
         setLoading(true);
 
-        const { error: updateError } = await supabase.auth.updateUser({
+        const { data: userData, error: updateError } = await supabase.auth.updateUser({
             data: {
                 full_name: displayName.trim(),
                 phone,
@@ -54,8 +54,24 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
             },
         });
 
+        if (updateError) { setLoading(false); setError(updateError.message); return; }
+
+        // Also persist profile data to our public.users table
+        if (userData?.user) {
+            await supabase.from('users').upsert(
+                {
+                    id: userData.user.id,
+                    email: userData.user.email,
+                    full_name: displayName.trim(),
+                    phone,
+                    country,
+                    heard_source: heardSource,
+                },
+                { onConflict: 'id' }
+            );
+        }
+
         setLoading(false);
-        if (updateError) { setError(updateError.message); return; }
         onNext();
     };
 

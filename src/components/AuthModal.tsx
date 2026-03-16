@@ -8,6 +8,35 @@ interface AuthModalProps {
     onClose: () => void;
 }
 
+// Helper: check if an email already exists in auth.users via our serverless API
+async function checkEmailExists(email: string): Promise<boolean> {
+    try {
+        const res = await fetch('/api/users/check-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email.trim().toLowerCase() }),
+        });
+        if (!res.ok) return false; // fail open — let Supabase surface its own error
+        const data = await res.json();
+        return !!data.exists;
+    } catch {
+        return false; // fail open on network error
+    }
+}
+
+// Helper: upsert the user's basic record into our public.users table
+export async function upsertUserRecord(user: any) {
+    if (!user?.id || !user?.email) return;
+    await supabase.from('users').upsert(
+        {
+            id: user.id,
+            email: user.email,
+            full_name: user.user_metadata?.full_name ?? null,
+        },
+        { onConflict: 'id', ignoreDuplicates: true }
+    );
+}
+
 // Reusable eye-toggle password input
 function PasswordInput({ id, placeholder, value, onChange, disabled }: {
     id?: string;
@@ -110,16 +139,34 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
             setMessage({ type: 'error', text: 'Passwords do not match.' });
             return;
         }
+
         setLoading('signup'); setMessage(null);
+
+        // Check if email already exists before attempting sign-up
+        const exists = await checkEmailExists(signupEmail);
+        if (exists) {
+            setMessage({
+                type: 'error',
+                text: 'An account already exists with this email. Please log in instead.',
+            });
+            setLoading(null);
+            return;
+        }
+
         const { data, error } = await supabase.auth.signUp({ email: signupEmail, password: signupPassword });
         setLoading(null);
         if (error) {
-            setMessage({ type: 'error', text: error.message });
-        }
-        else if (data?.session) {
-            onClose(); // Instantly logged in, App.tsx will show profile setup
-        }
-        else {
+            // Supabase may also return a duplicate error — surface it clearly
+            if (error.message.toLowerCase().includes('already') || error.message.toLowerCase().includes('registered')) {
+                setMessage({ type: 'error', text: 'An account already exists with this email. Please log in instead.' });
+            } else {
+                setMessage({ type: 'error', text: error.message });
+            }
+        } else if (data?.session) {
+            // Immediately logged in — insert user record then close
+            await upsertUserRecord(data.session.user);
+            onClose();
+        } else {
             setMessage({ type: 'success', text: 'Check your email to confirm your account.' });
             setSignupEmail(''); setSignupPassword(''); setSignupConfirm('');
         }
@@ -128,11 +175,27 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     const handleLogin = async (e) => {
         e.preventDefault();
         if (!loginEmail || !loginPassword) return;
+
         setLoading('login'); setMessage(null);
+
+        // Check if email exists before attempting login
+        const exists = await checkEmailExists(loginEmail);
+        if (!exists) {
+            setMessage({
+                type: 'error',
+                text: 'No account found with this email. Please sign up first.',
+            });
+            setLoading(null);
+            return;
+        }
+
         const { error } = await supabase.auth.signInWithPassword({ email: loginEmail, password: loginPassword });
         setLoading(null);
-        if (error) { setMessage({ type: 'error', text: error.message }); }
-        else { onClose(); }
+        if (error) {
+            setMessage({ type: 'error', text: error.message });
+        } else {
+            onClose();
+        }
     };
 
     return (
