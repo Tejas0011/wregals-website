@@ -8,17 +8,15 @@ interface AuthModalProps {
     onClose: () => void;
 }
 
-// Helper: check if an email already exists in auth.users via our serverless API
-async function checkEmailExists(email: string): Promise<boolean> {
+// Helper: check if an email is registered, using a Supabase SQL RPC.
+// The function `check_email_exists` must be created in Supabase (see walkthrough SQL).
+async function checkEmailExistsViaRPC(email: string): Promise<boolean> {
     try {
-        const res = await fetch('/api/users/check-email', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: email.trim().toLowerCase() }),
+        const { data, error } = await supabase.rpc('check_email_exists', {
+            p_email: email.trim().toLowerCase(),
         });
-        if (!res.ok) return false; // fail open — let Supabase surface its own error
-        const data = await res.json();
-        return !!data.exists;
+        if (error) return false; // fail open
+        return !!data;
     } catch {
         return false; // fail open on network error
     }
@@ -142,28 +140,18 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
         setLoading('signup'); setMessage(null);
 
-        // Check if email already exists before attempting sign-up
-        const exists = await checkEmailExists(signupEmail);
-        if (exists) {
+        const { data, error } = await supabase.auth.signUp({ email: signupEmail, password: signupPassword });
+        setLoading(null);
+        if (error) {
+            setMessage({ type: 'error', text: error.message });
+        } else if (data?.user && (data.user.identities?.length === 0)) {
+            // Supabase returns an empty identities array when the email is already registered
             setMessage({
                 type: 'error',
                 text: 'An account already exists with this email. Please log in instead.',
             });
-            setLoading(null);
-            return;
-        }
-
-        const { data, error } = await supabase.auth.signUp({ email: signupEmail, password: signupPassword });
-        setLoading(null);
-        if (error) {
-            // Supabase may also return a duplicate error — surface it clearly
-            if (error.message.toLowerCase().includes('already') || error.message.toLowerCase().includes('registered')) {
-                setMessage({ type: 'error', text: 'An account already exists with this email. Please log in instead.' });
-            } else {
-                setMessage({ type: 'error', text: error.message });
-            }
         } else if (data?.session) {
-            // Immediately logged in — insert user record then close
+            // Immediately logged in (email confirmation disabled) — insert user record then close
             await upsertUserRecord(data.session.user);
             onClose();
         } else {
@@ -178,8 +166,8 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
         setLoading('login'); setMessage(null);
 
-        // Check if email exists before attempting login
-        const exists = await checkEmailExists(loginEmail);
+        // Check if email exists before attempting login via RPC
+        const exists = await checkEmailExistsViaRPC(loginEmail);
         if (!exists) {
             setMessage({
                 type: 'error',
