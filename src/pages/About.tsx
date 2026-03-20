@@ -68,10 +68,10 @@ const MILESTONES = [
 
 export default function About({ user, onSignInClick }: AboutPageProps) {
     return (
-        <div className="bg-[#080808] min-h-screen text-white">
+        <div className="bg-[#3D0808] min-h-screen text-white">
 
             {/* Nav */}
-            <nav className="fixed top-0 w-full z-50 bg-[#080808]/90 backdrop-blur-md border-b border-white/5">
+            <nav className="fixed top-0 w-full z-50 bg-[#3D0808]/90 backdrop-blur-md border-b border-white/5">
                 <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                     <Link to="/"><img src="/wregals-logo-new.png" alt="WREGALS" className="h-12 w-auto object-contain" /></Link>
                     <div className="flex items-center gap-6 text-xs tracking-widest uppercase text-neutral-400">
@@ -123,7 +123,7 @@ export default function About({ user, onSignInClick }: AboutPageProps) {
                             { label: 'Verified Bidders', value: '8,400+' },
                             { label: 'Seller Partners', value: '400+' },
                         ].map(s => (
-                            <div key={s.label} className="bg-[#080808] px-8 py-6">
+                            <div key={s.label} className="bg-[#3D0808] px-8 py-6">
                                 <p className="font-mono text-2xl md:text-3xl text-white mb-1">{s.value}</p>
                                 <p className="text-[10px] uppercase tracking-widest text-neutral-600">{s.label}</p>
                             </div>

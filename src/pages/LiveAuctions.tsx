@@ -141,10 +141,10 @@ export default function LiveAuctions({ user, walletBalance = 0, onSignInClick }:
     const liveCount = AUCTIONS.filter(a => a.status !== 'ended').length;
 
     return (
-        <div className="bg-[#080808] min-h-screen text-white">
+        <div className="bg-[#3D0808] min-h-screen text-white">
 
             {/* ── Nav ──────────────────────────────────────────────────────────── */}
-            <nav className="fixed top-0 w-full z-50 bg-[#080808]/90 backdrop-blur-md border-b border-white/5">
+            <nav className="fixed top-0 w-full z-50 bg-[#3D0808]/90 backdrop-blur-md border-b border-white/5">
                 <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                     <Link to="/">
                         <img src="/wregals-logo-new.png" alt="WREGALS" className="h-12 w-auto object-contain" />

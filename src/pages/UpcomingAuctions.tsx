@@ -136,10 +136,10 @@ export default function UpcomingAuctions({ user, onSignInClick }: UpcomingAuctio
     };
 
     return (
-        <div className="bg-[#080808] min-h-screen text-white">
+        <div className="bg-[#3D0808] min-h-screen text-white">
 
             {/* Nav */}
-            <nav className="fixed top-0 w-full z-50 bg-[#080808]/90 backdrop-blur-md border-b border-white/5">
+            <nav className="fixed top-0 w-full z-50 bg-[#3D0808]/90 backdrop-blur-md border-b border-white/5">
                 <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                     <Link to="/"><img src="/wregals-logo-new.png" alt="WREGALS" className="h-12 w-auto object-contain" /></Link>
                     <div className="flex items-center gap-6 text-xs tracking-widest uppercase text-neutral-400">
@@ -235,17 +235,17 @@ export default function UpcomingAuctions({ user, onSignInClick }: UpcomingAuctio
                                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale-[30%]" />
 
                                             {/* Upcoming badge */}
-                                            <div className="absolute top-3 left-3 flex items-center gap-1.5 backdrop-blur-sm bg-black/60 border border-white/10 rounded-sm px-2.5 py-1.5">
+                                            <div className="absolute top-3 left-3 flex items-center gap-1.5 backdrop-blur-sm bg-[#3D0808]/60 border border-white/10 rounded-sm px-2.5 py-1.5">
                                                 <span className="w-1.5 h-1.5 rounded-full bg-sky-400 flex-shrink-0" />
                                                 <span className="text-[10px] uppercase tracking-widest text-sky-400">Upcoming</span>
                                             </div>
 
-                                            <div className="absolute top-3 right-3 backdrop-blur-sm bg-black/60 border border-white/10 rounded-sm px-2.5 py-1.5">
+                                            <div className="absolute top-3 right-3 backdrop-blur-sm bg-[#3D0808]/60 border border-white/10 rounded-sm px-2.5 py-1.5">
                                                 <span className="text-[9px] uppercase tracking-widest text-neutral-400">Lot {lot.lot}</span>
                                             </div>
 
                                             {/* Interest badge */}
-                                            <div className="absolute bottom-3 right-3 backdrop-blur-sm bg-black/60 border border-white/10 rounded-sm px-2.5 py-1.5 flex items-center gap-1.5">
+                                            <div className="absolute bottom-3 right-3 backdrop-blur-sm bg-[#3D0808]/60 border border-white/10 rounded-sm px-2.5 py-1.5 flex items-center gap-1.5">
                                                 <IIcon icon="solar:heart-linear" width="11" class="text-rose-400" />
                                                 <span className="text-[10px] text-neutral-300">{lot.interested}</span>
                                             </div>

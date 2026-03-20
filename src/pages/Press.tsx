@@ -70,10 +70,10 @@ interface PressProps { user: any; onSignInClick: () => void; }
 
 export default function Press({ user, onSignInClick }: PressProps) {
     return (
-        <div className="bg-[#080808] min-h-screen text-white">
+        <div className="bg-[#3D0808] min-h-screen text-white">
 
             {/* Nav */}
-            <nav className="fixed top-0 w-full z-50 bg-[#080808]/90 backdrop-blur-md border-b border-white/5">
+            <nav className="fixed top-0 w-full z-50 bg-[#3D0808]/90 backdrop-blur-md border-b border-white/5">
                 <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                     <Link to="/"><img src="/wregals-logo-new.png" alt="WREGALS" className="h-12 w-auto object-contain" /></Link>
                     <div className="flex items-center gap-6 text-xs tracking-widest uppercase text-neutral-400">
@@ -117,7 +117,7 @@ export default function Press({ user, onSignInClick }: PressProps) {
                     <h2 className="text-[10px] uppercase tracking-widest text-neutral-500 mb-6">Key Facts</h2>
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px bg-white/5 border border-white/5">
                         {FACTS.map(f => (
-                            <div key={f.label} className="bg-[#080808] px-5 py-5 text-center">
+                            <div key={f.label} className="bg-[#3D0808] px-5 py-5 text-center">
                                 <p className="font-mono text-xl text-white mb-1">{f.stat}</p>
                                 <p className="text-[9px] uppercase tracking-widest text-neutral-600">{f.label}</p>
                             </div>

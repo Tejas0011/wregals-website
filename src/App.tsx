@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import HomeHero from './components/HomeHero';
-import AuthModal, { upsertUserRecord } from './components/AuthModal';
+import AuthModal from './components/AuthModal';
 import ProfileSetup from './components/ProfileSetup';
 import ProfileSetup2 from './components/ProfileSetup2';
 import WalletModal from './components/WalletModal';
@@ -19,6 +19,11 @@ import Social from './pages/Social';
 import AIChatbot from './components/AIChatbot';
 import IIcon from './components/IIcon';
 import CustomCursor from './components/CustomCursor';
+import MyProfile from './pages/MyProfile';
+import WalletPage from './pages/WalletPage';
+import MyBids from './pages/MyBids';
+import Watchlist from './pages/Watchlist';
+import Notifications from './pages/Notifications';
 import { supabase } from './lib/supabase';
 
 function App() {
@@ -80,8 +85,7 @@ function App() {
       setUser(session?.user ?? null);
       if (session?.user) {
         setAuthOpen(false);
-        // Ensure this user has a row in our public.users table
-        upsertUserRecord(session.user);
+        // Database triggers now handle public.users row creation.
         // Show profile setup if profile hasn't been completed yet
         if (!session.user.user_metadata?.profile_completed) {
           setShowProfileSetup(true);
@@ -127,6 +131,21 @@ function App() {
       <Route path="/social" element={
         <Social user={user} onSignInClick={() => setAuthOpen(true)} />
       } />
+      <Route path="/profile" element={
+        <MyProfile user={user} onSignInClick={() => setAuthOpen(true)} />
+      } />
+      <Route path="/wallet" element={
+        <WalletPage user={user} onSignInClick={() => setAuthOpen(true)} />
+      } />
+      <Route path="/my-bids" element={
+        <MyBids user={user} onSignInClick={() => setAuthOpen(true)} />
+      } />
+      <Route path="/watchlist" element={
+        <Watchlist user={user} onSignInClick={() => setAuthOpen(true)} />
+      } />
+      <Route path="/notifications" element={
+        <Notifications user={user} onSignInClick={() => setAuthOpen(true)} />
+      } />
       <Route path="/*" element={<>
         {/* Profile Setup — shown on first login */}
         {showProfileSetup && user && setupStep === 1 && (
@@ -153,10 +172,10 @@ function App() {
           />
         )}
 
-        <div className="bg-[#080808] overflow-x-hidden selection:bg-[#D4AF37] selection:text-black text-white min-h-screen">
+        <div className="bg-[#3D0808] overflow-x-hidden selection:bg-[#D4AF37] selection:text-black text-white min-h-screen">
           {/* Navigation */}
           <nav
-            className="fixed top-0 w-full z-50 bg-[#080808]/80 backdrop-blur-md border-b border-white/5"
+            className="fixed top-0 w-full z-50 bg-[#3D0808]/80 backdrop-blur-md border-b border-white/5"
           >
             <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
               {/* Logo */}
@@ -280,29 +299,26 @@ function App() {
                       <div className="user-dropdown-divider" />
 
                       {/* Menu items */}
-                      <button className="user-dropdown-item w-full text-left">
+                      <Link to="/profile" className="user-dropdown-item w-full text-left">
                         <IIcon icon="solar:user-circle-linear" width="16" />
                         My Profile
-                      </button>
-                      <button
-                        onClick={() => setWalletOpen(true)}
-                        className="user-dropdown-item w-full text-left"
-                      >
+                      </Link>
+                      <Link to="/wallet" className="user-dropdown-item w-full text-left">
                         <IIcon icon="solar:wallet-linear" width="16" />
                         Wallet
-                      </button>
-                      <button className="user-dropdown-item w-full text-left">
+                      </Link>
+                      <Link to="/my-bids" className="user-dropdown-item w-full text-left">
                         <IIcon icon="mdi:gavel" width="16" />
                         My Bids
-                      </button>
-                      <button className="user-dropdown-item w-full text-left">
+                      </Link>
+                      <Link to="/watchlist" className="user-dropdown-item w-full text-left">
                         <IIcon icon="solar:heart-linear" width="16" />
                         Watchlist
-                      </button>
-                      <button className="user-dropdown-item w-full text-left">
+                      </Link>
+                      <Link to="/notifications" className="user-dropdown-item w-full text-left">
                         <IIcon icon="solar:bell-linear" width="16" />
                         Notifications
-                      </button>
+                      </Link>
 
                       <div className="user-dropdown-divider" />
 
@@ -358,7 +374,7 @@ function App() {
 
           {/* Mobile Menu Overlay */}
           {mobileMenuOpen && (
-            <div className="fixed inset-0 z-40 bg-black/90 backdrop-blur-md md:hidden">
+            <div className="fixed inset-0 z-40 bg-[#3D0808]/90 backdrop-blur-md md:hidden">
               <div className="flex justify-between items-center px-6 h-20 border-b border-white/10">
                 <Link to="/" onClick={() => setMobileMenuOpen(false)}>
                   <img src="/wregals-logo-new.png" alt="WREGALS" className="h-12 w-auto object-contain" />

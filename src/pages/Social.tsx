@@ -189,9 +189,9 @@ export default function Social({ user, onSignInClick }: SocialProps) {
     ];
 
     return (
-        <div className="bg-[#080808] min-h-screen text-white">
+        <div className="bg-[#3D0808] min-h-screen text-white">
             {/* Mobile top nav */}
-            <nav className="fixed top-0 w-full z-50 bg-[#080808]/90 backdrop-blur-md border-b border-white/5 md:hidden">
+            <nav className="fixed top-0 w-full z-50 bg-[#3D0808]/90 backdrop-blur-md border-b border-white/5 md:hidden">
                 <div className="px-4 h-14 flex items-center justify-between">
                     <Link to="/"><img src="/wregals-logo-new.png" alt="WREGALS" className="h-9 w-auto object-contain" /></Link>
                     <span className="text-xs tracking-widest uppercase text-[#D4AF37]">Social</span>
@@ -242,7 +242,7 @@ export default function Social({ user, onSignInClick }: SocialProps) {
                 {/* ── CENTER FEED ── */}
                 <main className="flex-1 min-w-0 border-r border-white/5 mt-14 md:mt-0">
                     {/* Sticky header */}
-                    <div className="sticky top-0 z-30 bg-[#080808]/80 backdrop-blur-md border-b border-white/5">
+                    <div className="sticky top-0 z-30 bg-[#3D0808]/80 backdrop-blur-md border-b border-white/5">
                         <div className="px-4 py-3 hidden md:flex items-center gap-3">
                             <img src="/wregals-logo-new.png" alt="W" className="h-7 w-auto object-contain opacity-60" />
                             <h1 className="font-bold text-lg text-white">Social</h1>
