@@ -350,7 +350,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                         ></div>
                         
                         {/* Inner Glass Core */}
-                        <div className="relative flex items-center w-full h-full bg-[#080808] rounded-[30px] overflow-hidden transition-all duration-500 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] group-hover:bg-[#0C0C0C]">
+                        <div className="relative flex items-center w-full h-full bg-[#3D0808] rounded-[30px] overflow-hidden transition-all duration-500 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] group-hover:bg-[#0C0C0C]">
                             
                             <div className="flex items-center absolute left-0 w-full h-full">
                                 {/* 8-Pointed Star Icon */}

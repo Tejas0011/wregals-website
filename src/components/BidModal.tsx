@@ -56,7 +56,7 @@ export default function BidModal({ isOpen, onClose, item, user, walletBalance = 
 
     return (
         <div className="fixed inset-0 z-[300] flex items-end sm:items-center justify-center" onClick={e => e.target === e.currentTarget && handleClose()}>
-            <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={handleClose} />
+            <div className="absolute inset-0 bg-[#3D0808]/70 backdrop-blur-sm" onClick={handleClose} />
 
             <div className="relative z-10 w-full sm:max-w-md mx-4 mb-0 sm:mb-auto bg-[#0E0E0E] border border-white/10 rounded-t-lg sm:rounded-sm shadow-2xl overflow-hidden">
 

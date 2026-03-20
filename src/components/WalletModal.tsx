@@ -50,7 +50,7 @@ export default function WalletModal({ isOpen, onClose, user }: WalletModalProps)
             onClick={(e) => e.target === e.currentTarget && onClose()}
         >
             {/* Backdrop */}
-            <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
+            <div className="absolute inset-0 bg-[#3D0808]/70 backdrop-blur-sm" onClick={onClose} />
 
             {/* Panel */}
             <div className="relative z-10 w-full max-w-md mx-4 bg-[#0E0E0E] border border-white/10 rounded-sm shadow-2xl flex flex-col overflow-hidden">

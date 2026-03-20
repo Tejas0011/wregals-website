@@ -221,7 +221,7 @@ export default function HeroScroll({ onReady, onAnimationDone }: { onReady?: () 
     }, [isReady]);
 
     return (
-        <div className="relative w-full h-screen bg-[#080808]">
+        <div className="relative w-full h-screen bg-[#3D0808]">
             {/* Canvas — always mounted so first frame can draw into it */}
             <canvas
                 ref={canvasRef}
@@ -231,7 +231,7 @@ export default function HeroScroll({ onReady, onAnimationDone }: { onReady?: () 
 
             {/* Full-screen loading overlay — covers canvas until all frames ready */}
             {!isReady && (
-                <div className="absolute inset-0 z-30 bg-[#080808] flex flex-col items-center justify-center gap-8">
+                <div className="absolute inset-0 z-30 bg-[#3D0808] flex flex-col items-center justify-center gap-8">
                     {/* WREGALS wordmark */}
                     <span
                         className="text-white/80 uppercase tracking-[0.5em] text-sm font-light"

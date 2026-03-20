@@ -50,7 +50,7 @@ export default function HomeHero() {
     const [isFollowed3, setIsFollowed3] = useState(false);
     const [isFollowed4, setIsFollowed4] = useState(false);
     return (
-        <section className="relative w-full min-h-screen bg-[#080808] pt-20 pb-20">
+        <section className="relative w-full min-h-screen bg-[#3D0808] pt-20 pb-20">
             <div className="max-w-[1800px] mx-auto flex flex-col gap-20 py-10 px-6 md:px-12">
             
             {/* LOT 01 */}
@@ -70,7 +70,7 @@ export default function HomeHero() {
                         {currentImage1 > 0 ? (
                             <button 
                                 onClick={prevImage1}
-                                className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
+                                className="w-12 h-12 rounded-full bg-[#3D0808]/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
                             >
                                 <IIcon icon="solar:alt-arrow-left-linear" width="24" />
                             </button>
@@ -78,7 +78,7 @@ export default function HomeHero() {
                         {currentImage1 < lot1Images.length - 1 ? (
                             <button 
                                 onClick={nextImage1}
-                                className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
+                                className="w-12 h-12 rounded-full bg-[#3D0808]/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
                             >
                                 <IIcon icon="solar:alt-arrow-right-linear" width="24" />
                             </button>
@@ -86,7 +86,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Image Indicators */}
-                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-black/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
+                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-[#3D0808]/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
                         {lot1Images.map((_, index) => (
                             <button 
                                 key={index}
@@ -191,7 +191,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Live Bidding Feed */}
-                    <div className="flex-1 bg-[#080808]/50 flex flex-col min-h-0">
+                    <div className="flex-1 bg-[#3D0808]/50 flex flex-col min-h-0">
                         <div className="sticky top-0 z-10 bg-[#0e0e0e] px-6 py-4 border-b border-white/5">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
@@ -306,7 +306,7 @@ export default function HomeHero() {
                         {currentImage2 > 0 ? (
                             <button 
                                 onClick={prevImage2}
-                                className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
+                                className="w-12 h-12 rounded-full bg-[#3D0808]/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
                             >
                                 <IIcon icon="solar:alt-arrow-left-linear" width="24" />
                             </button>
@@ -314,7 +314,7 @@ export default function HomeHero() {
                         {currentImage2 < lot2Images.length - 1 ? (
                             <button 
                                 onClick={nextImage2}
-                                className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
+                                className="w-12 h-12 rounded-full bg-[#3D0808]/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
                             >
                                 <IIcon icon="solar:alt-arrow-right-linear" width="24" />
                             </button>
@@ -322,7 +322,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Image Indicators */}
-                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-black/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
+                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-[#3D0808]/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
                         {lot2Images.map((_, index) => (
                             <button 
                                 key={index}
@@ -427,7 +427,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Live Bidding Feed */}
-                    <div className="flex-1 bg-[#080808]/50 flex flex-col min-h-0">
+                    <div className="flex-1 bg-[#3D0808]/50 flex flex-col min-h-0">
                         <div className="sticky top-0 z-10 bg-[#0e0e0e] px-6 py-4 border-b border-white/5">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
@@ -541,7 +541,7 @@ export default function HomeHero() {
                         {currentImage3 > 0 ? (
                             <button 
                                 onClick={prevImage3}
-                                className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
+                                className="w-12 h-12 rounded-full bg-[#3D0808]/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
                             >
                                 <IIcon icon="solar:alt-arrow-left-linear" width="24" />
                             </button>
@@ -549,7 +549,7 @@ export default function HomeHero() {
                         {currentImage3 < lot3Images.length - 1 ? (
                             <button 
                                 onClick={nextImage3}
-                                className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
+                                className="w-12 h-12 rounded-full bg-[#3D0808]/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
                             >
                                 <IIcon icon="solar:alt-arrow-right-linear" width="24" />
                             </button>
@@ -557,7 +557,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Image Indicators */}
-                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-black/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
+                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-[#3D0808]/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
                         {lot3Images.map((_, index) => (
                             <button 
                                 key={index}
@@ -662,7 +662,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Live Bidding Feed */}
-                    <div className="flex-1 bg-[#080808]/50 flex flex-col min-h-0">
+                    <div className="flex-1 bg-[#3D0808]/50 flex flex-col min-h-0">
                         <div className="sticky top-0 z-10 bg-[#0e0e0e] px-6 py-4 border-b border-white/5">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
@@ -778,7 +778,7 @@ export default function HomeHero() {
                         {currentImage4 > 0 ? (
                             <button 
                                 onClick={prevImage4}
-                                className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
+                                className="w-12 h-12 rounded-full bg-[#3D0808]/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
                             >
                                 <IIcon icon="solar:alt-arrow-left-linear" width="24" />
                             </button>
@@ -786,7 +786,7 @@ export default function HomeHero() {
                         {currentImage4 < lot4Images.length - 1 ? (
                             <button 
                                 onClick={nextImage4}
-                                className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
+                                className="w-12 h-12 rounded-full bg-[#3D0808]/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
                             >
                                 <IIcon icon="solar:alt-arrow-right-linear" width="24" />
                             </button>
@@ -794,7 +794,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Image Indicators */}
-                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-black/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
+                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-[#3D0808]/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
                         {lot4Images.map((_, index) => (
                             <button 
                                 key={index}
@@ -896,7 +896,7 @@ export default function HomeHero() {
                     </div>
 
                     {/* Live Bidding Feed */}
-                    <div className="flex-1 bg-[#080808]/50 flex flex-col min-h-0">
+                    <div className="flex-1 bg-[#3D0808]/50 flex flex-col min-h-0">
                         <div className="sticky top-0 z-10 bg-[#0e0e0e] px-6 py-4 border-b border-white/5">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">

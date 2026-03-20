@@ -45,13 +45,13 @@ export default function AuctionCard({ auction, user, walletBalance = 0 }: Auctio
                     />
 
                     {/* Status badge */}
-                    <div className="absolute top-3 left-3 flex items-center gap-1.5 backdrop-blur-sm bg-black/60 border border-white/10 rounded-sm px-2.5 py-1.5">
+                    <div className="absolute top-3 left-3 flex items-center gap-1.5 backdrop-blur-sm bg-[#3D0808]/60 border border-white/10 rounded-sm px-2.5 py-1.5">
                         <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${cfg.dot}`} />
                         <span className={`text-[10px] uppercase tracking-widest ${cfg.text}`}>{cfg.label}</span>
                     </div>
 
                     {/* Lot number */}
-                    <div className="absolute top-3 right-3 backdrop-blur-sm bg-black/60 border border-white/10 rounded-sm px-2.5 py-1.5">
+                    <div className="absolute top-3 right-3 backdrop-blur-sm bg-[#3D0808]/60 border border-white/10 rounded-sm px-2.5 py-1.5">
                         <span className="text-[9px] uppercase tracking-widest text-neutral-400">Lot {auction.lot}</span>
                     </div>
 

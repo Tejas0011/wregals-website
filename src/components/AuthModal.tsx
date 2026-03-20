@@ -100,6 +100,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     const [loginPassword, setLoginPassword] = useState('');
     const [loading, setLoading] = useState<string | null>(null);
     const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+    const [mode, setMode] = useState<'signup_select' | 'signup_email' | 'login'>('signup_select');
 
     useEffect(() => {
         document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -115,6 +116,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
             setLoginEmail('');
             setLoginPassword('');
             setLoading(null);
+            setMode('signup_select');
         }
     }, [isOpen]);
 
@@ -140,6 +142,17 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
         setLoading('signup'); setMessage(null);
 
+        // Check if email already exists before making the signup call
+        const exists = await checkEmailExistsViaRPC(signupEmail);
+        if (exists) {
+            setMessage({
+                type: 'error',
+                text: 'An account already exists with this email. Please log in instead.',
+            });
+            setLoading(null);
+            return;
+        }
+
         const { data, error } = await supabase.auth.signUp({ email: signupEmail, password: signupPassword });
         setLoading(null);
         if (error) {
@@ -151,8 +164,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 text: 'An account already exists with this email. Please log in instead.',
             });
         } else if (data?.session) {
-            // Immediately logged in (email confirmation disabled) — insert user record then close
-            await upsertUserRecord(data.session.user);
+            // Immediately logged in (email confirmation disabled)
             onClose();
         } else {
             setMessage({ type: 'success', text: 'Check your email to confirm your account.' });
@@ -207,133 +219,185 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 )}
 
                 <div className="auth-columns">
+                    <div className="auth-section">
+                        {mode === 'signup_select' && (
+                            <>
+                                <span className="auth-section-label">New to Wregals</span>
+                                <h2 className="auth-heading">Create an Account</h2>
+                                <p className="auth-subheading">Join the world's most exclusive auction house.</p>
 
-                    {/* ── COLUMN 1 : Create an account ──────────────────────── */}
-                    <div className="auth-section auth-section-top">
-                        <span className="auth-section-label">New to Wregals</span>
-                        <h2 className="auth-heading">Create an Account</h2>
-                        <p className="auth-subheading">Join the world's most exclusive auction house.</p>
+                                <button className="auth-google-btn" onClick={handleGoogleSignIn} disabled={!!loading}>
+                                    {loading === 'google' ? <span className="auth-spinner" /> : <GoogleIcon />}
+                                    {loading === 'google' ? 'Redirecting…' : 'Continue with Google'}
+                                </button>
 
-                        <button className="auth-google-btn" onClick={handleGoogleSignIn} disabled={!!loading}>
-                            {loading === 'google' ? <span className="auth-spinner" /> : <GoogleIcon />}
-                            {loading === 'google' ? 'Redirecting…' : 'Continue with Google'}
-                        </button>
+                                <div className="auth-divider">
+                                    <span className="auth-divider-line" />
+                                    <span className="auth-divider-text">or</span>
+                                    <span className="auth-divider-line" />
+                                </div>
 
-                        <div className="auth-divider">
-                            <span className="auth-divider-line" />
-                            <span className="auth-divider-text">or sign up with email</span>
-                            <span className="auth-divider-line" />
-                        </div>
+                                <button type="button" className="auth-primary-btn" onClick={() => setMode('signup_email')} disabled={!!loading}>
+                                    Sign up with Email
+                                </button>
 
-                        <form className="auth-form" onSubmit={handleSignUp}>
-                            <div className="auth-input-group">
-                                <label className="auth-label">Email Address</label>
-                                <input
-                                    type="email"
-                                    className="auth-input"
-                                    placeholder="you@example.com"
-                                    value={signupEmail}
-                                    onChange={(e) => setSignupEmail(e.target.value)}
-                                    disabled={!!loading}
-                                    required
-                                />
-                            </div>
-                            <div className="auth-input-group">
-                                <label className="auth-label">Password</label>
-                                <PasswordInput
-                                    placeholder="Create a strong password"
-                                    value={signupPassword}
-                                    onChange={setSignupPassword}
-                                    disabled={!!loading}
-                                />
-                            </div>
-                            <div className="auth-input-group">
-                                <label className="auth-label">Confirm Password</label>
-                                <PasswordInput
-                                    placeholder="Type your password again"
-                                    value={signupConfirm}
-                                    onChange={setSignupConfirm}
-                                    disabled={!!loading}
-                                />
-                            </div>
-                            <button type="submit" className="auth-primary-btn" disabled={!!loading}>
-                                {loading === 'signup' ? <span className="auth-spinner auth-spinner--dark" /> : null}
-                                {loading === 'signup' ? 'Creating account…' : 'Create Account'}
-                                {!loading && <IIcon icon="solar:arrow-right-linear" width="16" />}
-                            </button>
-                        </form>
+                                <div className="mt-8 text-center text-[11px] text-white/40 font-inter">
+                                    Already have an account?{' '}
+                                    <button 
+                                        type="button" 
+                                        onClick={() => { setMode('login'); setMessage(null); }} 
+                                        className="text-[#D4AF37] hover:text-white transition-colors uppercase tracking-wider font-semibold ml-1"
+                                    >
+                                        Log in
+                                    </button>
+                                </div>
+                            </>
+                        )}
+
+                        {mode === 'signup_email' && (
+                            <>
+                                <span className="auth-section-label">New to Wregals</span>
+                                <h2 className="auth-heading">Sign Up with Email</h2>
+                                <p className="auth-subheading">Create a secure login for your account.</p>
+
+                                <form className="auth-form" onSubmit={handleSignUp}>
+                                    <div className="auth-input-group">
+                                        <label className="auth-label">Email Address</label>
+                                        <input
+                                            type="email"
+                                            className="auth-input"
+                                            placeholder="you@example.com"
+                                            value={signupEmail}
+                                            onChange={(e) => setSignupEmail(e.target.value)}
+                                            disabled={!!loading}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="auth-input-group">
+                                        <label className="auth-label">Password</label>
+                                        <PasswordInput
+                                            placeholder="Create a strong password"
+                                            value={signupPassword}
+                                            onChange={setSignupPassword}
+                                            disabled={!!loading}
+                                        />
+                                    </div>
+                                    <div className="auth-input-group">
+                                        <label className="auth-label">Confirm Password</label>
+                                        <PasswordInput
+                                            placeholder="Type your password again"
+                                            value={signupConfirm}
+                                            onChange={setSignupConfirm}
+                                            disabled={!!loading}
+                                        />
+                                    </div>
+                                    <button type="submit" className="auth-primary-btn" disabled={!!loading}>
+                                        {loading === 'signup' ? <span className="auth-spinner auth-spinner--dark" /> : null}
+                                        {loading === 'signup' ? 'Creating account…' : 'Create Account'}
+                                        {!loading && <IIcon icon="solar:arrow-right-linear" width="16" />}
+                                    </button>
+                                </form>
+
+                                <div className="mt-8 text-center text-[11px] text-white/40 font-inter">
+                                    Already have an account?{' '}
+                                    <button 
+                                        type="button" 
+                                        onClick={() => { setMode('login'); setMessage(null); }} 
+                                        className="text-[#D4AF37] hover:text-white transition-colors uppercase tracking-wider font-semibold ml-1"
+                                    >
+                                        Log in
+                                    </button>
+                                    <div className="mt-2">
+                                        <button 
+                                            type="button" 
+                                            onClick={() => { setMode('signup_select'); setMessage(null); }} 
+                                            className="text-white/60 hover:text-white transition-colors text-[10px]"
+                                        >
+                                            Back to choices
+                                        </button>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+                        
+                        {mode === 'login' && (
+                            <>
+                                <span className="auth-section-label">Welcome back</span>
+                                <h2 className="auth-heading">Log In</h2>
+                                <p className="auth-subheading">Access your exclusive account.</p>
+
+                                <button className="auth-google-btn" onClick={handleGoogleSignIn} disabled={!!loading}>
+                                    {loading === 'google' ? <span className="auth-spinner" /> : <GoogleIcon />}
+                                    {loading === 'google' ? 'Redirecting…' : 'Continue with Google'}
+                                </button>
+
+                                <div className="auth-divider">
+                                    <span className="auth-divider-line" />
+                                    <span className="auth-divider-text">or log in with email</span>
+                                    <span className="auth-divider-line" />
+                                </div>
+
+                                <form className="auth-form auth-form--login" onSubmit={handleLogin}>
+                                    <div className="auth-input-group">
+                                        <label className="auth-label">Email Address</label>
+                                        <input
+                                            type="email"
+                                            className="auth-input"
+                                            placeholder="you@example.com"
+                                            value={loginEmail}
+                                            onChange={(e) => setLoginEmail(e.target.value)}
+                                            disabled={!!loading}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="auth-input-group">
+                                        <label className="auth-label">Password</label>
+                                        <PasswordInput
+                                            placeholder="Your password"
+                                            value={loginPassword}
+                                            onChange={setLoginPassword}
+                                            disabled={!!loading}
+                                        />
+                                    </div>
+                                    <div className="auth-forgot-row">
+                                        <a
+                                            href="#"
+                                            className="auth-forgot-link"
+                                            onClick={async (e) => {
+                                                e.preventDefault();
+                                                if (!loginEmail) { setMessage({ type: 'error', text: 'Enter your email above first.' }); return; }
+                                                const { error } = await supabase.auth.resetPasswordForEmail(loginEmail, {
+                                                    redirectTo: `${window.location.origin}/reset-password`,
+                                                });
+                                                setMessage(error
+                                                    ? { type: 'error', text: error.message }
+                                                    : { type: 'success', text: 'Password reset email sent.' }
+                                                );
+                                            }}
+                                        >
+                                            Forgot password?
+                                        </a>
+                                    </div>
+                                    <button type="submit" className="auth-primary-btn" disabled={!!loading}>
+                                        {loading === 'login' ? <span className="auth-spinner auth-spinner--dark" /> : null}
+                                        {loading === 'login' ? 'Logging in…' : 'Log In'}
+                                        {!loading && <IIcon icon="solar:arrow-right-linear" width="16" />}
+                                    </button>
+                                </form>
+
+                                <div className="mt-8 text-center text-[11px] text-white/40 font-inter">
+                                    Don't have an account?{' '}
+                                    <button 
+                                        type="button" 
+                                        onClick={() => { setMode('signup_select'); setMessage(null); }} 
+                                        className="text-[#D4AF37] hover:text-white transition-colors uppercase tracking-wider font-semibold ml-1"
+                                    >
+                                        Sign up
+                                    </button>
+                                </div>
+                            </>
+                        )}
                     </div>
-
-                    {/* ── Vertical divider ──────────────────────────────────── */}
-                    <div className="auth-vdivider" />
-
-                    {/* ── COLUMN 2 : Log in ─────────────────────────────────── */}
-                    <div className="auth-section auth-section-bottom">
-                        <span className="auth-section-label">Welcome back</span>
-                        <h2 className="auth-heading">Log In</h2>
-                        {/* Invisible spacer to match the LHS subheading height perfectly */}
-                        <p className="auth-subheading" style={{ visibility: 'hidden' }}>Spacer</p>
-
-                        <button className="auth-google-btn" onClick={handleGoogleSignIn} disabled={!!loading}>
-                            {loading === 'google' ? <span className="auth-spinner" /> : <GoogleIcon />}
-                            {loading === 'google' ? 'Redirecting…' : 'Continue with Google'}
-                        </button>
-
-                        <div className="auth-divider">
-                            <span className="auth-divider-line" />
-                            <span className="auth-divider-text">or log in with email</span>
-                            <span className="auth-divider-line" />
-                        </div>
-
-                        <form className="auth-form auth-form--login" onSubmit={handleLogin}>
-                            <div className="auth-input-group">
-                                <label className="auth-label">Email Address</label>
-                                <input
-                                    type="email"
-                                    className="auth-input"
-                                    placeholder="you@example.com"
-                                    value={loginEmail}
-                                    onChange={(e) => setLoginEmail(e.target.value)}
-                                    disabled={!!loading}
-                                    required
-                                />
-                            </div>
-                            <div className="auth-input-group">
-                                <label className="auth-label">Password</label>
-                                <PasswordInput
-                                    placeholder="Your password"
-                                    value={loginPassword}
-                                    onChange={setLoginPassword}
-                                    disabled={!!loading}
-                                />
-                            </div>
-                            <div className="auth-forgot-row">
-                                <a
-                                    href="#"
-                                    className="auth-forgot-link"
-                                    onClick={async (e) => {
-                                        e.preventDefault();
-                                        if (!loginEmail) { setMessage({ type: 'error', text: 'Enter your email above first.' }); return; }
-                                        const { error } = await supabase.auth.resetPasswordForEmail(loginEmail, {
-                                            redirectTo: `${window.location.origin}/reset-password`,
-                                        });
-                                        setMessage(error
-                                            ? { type: 'error', text: error.message }
-                                            : { type: 'success', text: 'Password reset email sent.' }
-                                        );
-                                    }}
-                                >
-                                    Forgot password?
-                                </a>
-                            </div>
-                            <button type="submit" className="auth-secondary-btn" disabled={!!loading}>
-                                {loading === 'login' ? <span className="auth-spinner auth-spinner--light" /> : null}
-                                {loading === 'login' ? 'Logging in…' : 'Log In'}
-                                {!loading && <IIcon icon="solar:arrow-right-linear" width="16" />}
-                            </button>
-                        </form>
-                    </div>
-
                 </div>
 
                 <p className="auth-fine-print">
