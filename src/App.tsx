@@ -133,78 +133,7 @@ function App() {
             <img src="/wregals-logo-new.png" alt="WREGALS" className="h-16 w-auto object-contain" />
           </Link>
 
-          {/* Desktop Menu */}
-          <div ref={navRef} className="hidden md:flex items-center gap-8 text-xs tracking-widest uppercase font-medium text-neutral-400">
-            {/* Auctions with Dropdown */}
-            <div className="relative group" onMouseEnter={() => openNavMenu('auctions')} onMouseLeave={closeNavMenu}>
-              <button
-                onClick={() => setOpenNav(v => v === 'auctions' ? null : 'auctions')}
-                className={`transition-colors duration-300 hover:text-white group-hover:text-white ${openNav === 'auctions' ? 'text-white' : ''}`}
-              >
-                AUCTIONS
-              </button>
 
-              {/* Full-width Dropdown */}
-              <div onMouseEnter={() => openNavMenu('auctions')} onMouseLeave={closeNavMenu} className={`fixed left-0 right-0 top-20 transition-all duration-300 z-40 ${openNav === 'auctions' ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'}`}>
-                <div className="bg-[#0A0A0A] border-t border-white/10 py-8 px-6">
-                  <div className="max-w-7xl mx-auto">
-                    <div className="flex flex-col gap-6">
-                      <Link to="/auctions/live" onClick={() => setOpenNav(null)} className="group/item py-3 border-b border-white/5 hover:border-white/20 transition-colors">
-                        <h3 className="text-sm font-semibold mb-1 text-white group-hover/item:text-[#D4AF37] transition-colors">Live Auctions</h3>
-                        <p className="text-xs text-neutral-500 normal-case tracking-normal">Current active auctions</p>
-                      </Link>
-                      <Link to="/auctions/upcoming" onClick={() => setOpenNav(null)} className="group/item py-3 border-b border-white/5 hover:border-white/20 transition-colors">
-                        <h3 className="text-sm font-semibold mb-1 text-white group-hover/item:text-[#D4AF37] transition-colors">Upcoming Auctions</h3>
-                        <p className="text-xs text-neutral-500 normal-case tracking-normal">Preview future events</p>
-                      </Link>
-                      <Link to="/auctions/results" onClick={() => setOpenNav(null)} className="group/item py-3 border-b border-white/5 hover:border-white/20 transition-colors">
-                        <h3 className="text-sm font-semibold mb-1 text-white group-hover/item:text-[#D4AF37] transition-colors">Auction Results</h3>
-                        <p className="text-xs text-neutral-500 normal-case tracking-normal">Past auction outcomes</p>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <Link to="/how-it-works" className="transition-colors duration-300 hover:text-white">How It Works</Link>
-            <Link to="/gallery" className="transition-colors duration-300 hover:text-white">Gallery</Link>
-
-            {/* Company dropdown */}
-            <div className="relative group" onMouseEnter={() => openNavMenu('company')} onMouseLeave={closeNavMenu}>
-              <button
-                onClick={() => setOpenNav(v => v === 'company' ? null : 'company')}
-                className={`transition-colors duration-300 hover:text-white group-hover:text-white ${openNav === 'company' ? 'text-white' : ''}`}
-              >
-                COMPANY
-              </button>
-
-              <div onMouseEnter={() => openNavMenu('company')} onMouseLeave={closeNavMenu} className={`fixed left-0 right-0 top-20 transition-all duration-300 z-40 ${openNav === 'company' ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'}`}>
-                <div className="bg-[#0A0A0A] border-t border-white/10 py-8 px-6">
-                  <div className="max-w-7xl mx-auto">
-                    <div className="flex flex-col gap-6">
-                      <Link to="/about" onClick={() => setOpenNav(null)} className="group/item py-3 border-b border-white/5 hover:border-white/20 transition-colors">
-                        <h3 className="text-sm font-semibold mb-1 text-white group-hover/item:text-[#D4AF37] transition-colors">About Us</h3>
-                        <p className="text-xs text-neutral-500 normal-case tracking-normal">Our mission, story, and team</p>
-                      </Link>
-                      <Link to="/careers" onClick={() => setOpenNav(null)} className="group/item py-3 border-b border-white/5 hover:border-white/20 transition-colors">
-                        <h3 className="text-sm font-semibold mb-1 text-white group-hover/item:text-[#D4AF37] transition-colors">Careers</h3>
-                        <p className="text-xs text-neutral-500 normal-case tracking-normal">Join the WREGALS team</p>
-                      </Link>
-                      <Link to="/press" onClick={() => setOpenNav(null)} className="group/item py-3 border-b border-white/5 hover:border-white/20 transition-colors">
-                        <h3 className="text-sm font-semibold mb-1 text-white group-hover/item:text-[#D4AF37] transition-colors">Press</h3>
-                        <p className="text-xs text-neutral-500 normal-case tracking-normal">Media resources and enquiries</p>
-                      </Link>
-                      <Link to="/contact" onClick={() => setOpenNav(null)} className="group/item py-3 border-white/5 hover:border-white/20 transition-colors">
-                        <h3 className="text-sm font-semibold mb-1 text-white group-hover/item:text-[#D4AF37] transition-colors">Contact</h3>
-                        <p className="text-xs text-neutral-500 normal-case tracking-normal">Get in touch with us</p>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
           {/* Sign In / User Dropdown */}
           <div className="hidden md:flex items-center gap-6">
