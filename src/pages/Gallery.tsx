@@ -127,27 +127,10 @@ export default function Gallery({ user, onSignInClick }: GalleryProps) {
         [active]);
 
     return (
-        <div className="bg-[#3D0808] min-h-screen text-white">
-
-            {/* Nav */}
-            <nav className="fixed top-0 w-full z-50 bg-[#3D0808]/90 backdrop-blur-md border-b border-white/5">
-                <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-                    <Link to="/"><img src="/wregals-logo-new.png" alt="WREGALS" className="h-12 w-auto object-contain" /></Link>
-                    <div className="flex items-center gap-6 text-xs tracking-widest uppercase text-neutral-400">
-                        <Link to="/" className="hover:text-white transition-colors">Home</Link>
-                        <Link to="/auctions/live" className="hover:text-white transition-colors hidden md:block">Auctions</Link>
-                        <span className="text-[#D4AF37]">Gallery</span>
-                        {user ? (
-                            <span className="text-neutral-300 hidden md:block">{user.email?.split('@')[0]}</span>
-                        ) : (
-                            <button onClick={onSignInClick} className="border px-4 py-1.5 rounded-sm border-white/20 hover:bg-white hover:text-black transition-all">Sign In</button>
-                        )}
-                    </div>
-                </div>
-            </nav>
+        <div className="bg-[#0C0C0D] min-h-screen text-white">
 
             {/* Hero */}
-            <section className="pt-16 relative overflow-hidden">
+            <section className="pt-20 relative overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full bg-[#D4AF37]/4 blur-[100px] pointer-events-none" />
                 <div className="max-w-7xl mx-auto px-6 py-20 relative">
                     <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-neutral-600 mb-8">

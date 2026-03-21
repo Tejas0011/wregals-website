@@ -1,1002 +1,657 @@
-import { useState } from 'react';
+// @ts-nocheck
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import IIcon from './IIcon';
-import LotActions from './LotActions';
 
-export default function HomeHero() {
-    const lot1Images = [
-        "https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=2000&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1587280501635-68a0e82c5fbf?q=80&w=2000&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1593341646782-e0b495cff86d?q=80&w=2000&auto=format&fit=crop"
-    ];
-
-    const lot2Images = [
-        "https://images.unsplash.com/photo-1516924962500-2b4b3b99ea02?q=80&w=2070&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1512374382149-233c42b6a83b?q=80&w=2000&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1564186763535-ebb50fd419e1?q=80&w=2000&auto=format&fit=crop"
-    ];
-
-    const lot3Images = [
-        "https://images.unsplash.com/photo-1578269174936-2709b6aeb913?q=80&w=2000&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1580234811497-9df7fd2f3570?q=80&w=2000&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2000&auto=format&fit=crop"
-    ];
-
-    const lot4Images = [
-        "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=2000&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1543857778-c4a1a3e0f2eb?q=80&w=2000&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1520697830682-8f1cebb1bb56?q=80&w=2000&auto=format&fit=crop"
-    ];
-
-    const [currentImage1, setCurrentImage1] = useState(0);
-    const [currentImage2, setCurrentImage2] = useState(0);
-    const [currentImage3, setCurrentImage3] = useState(0);
-    const [currentImage4, setCurrentImage4] = useState(0);
-
-    const nextImage1 = () => setCurrentImage1((prev) => (prev + 1) % lot1Images.length);
-    const prevImage1 = () => setCurrentImage1((prev) => (prev - 1 + lot1Images.length) % lot1Images.length);
-
-    const nextImage2 = () => setCurrentImage2((prev) => (prev + 1) % lot2Images.length);
-    const prevImage2 = () => setCurrentImage2((prev) => (prev - 1 + lot2Images.length) % lot2Images.length);
-
-    const nextImage3 = () => setCurrentImage3((prev) => (prev + 1) % lot3Images.length);
-    const prevImage3 = () => setCurrentImage3((prev) => (prev - 1 + lot3Images.length) % lot3Images.length);
-
-    const nextImage4 = () => setCurrentImage4((prev) => (prev + 1) % lot4Images.length);
-    const prevImage4 = () => setCurrentImage4((prev) => (prev - 1 + lot4Images.length) % lot4Images.length);
-
-    const [isFollowed1, setIsFollowed1] = useState(false);
-    const [isFollowed2, setIsFollowed2] = useState(false);
-    const [isFollowed3, setIsFollowed3] = useState(false);
-    const [isFollowed4, setIsFollowed4] = useState(false);
-    return (
-        <section className="relative w-full min-h-screen bg-[#3D0808] pt-20 pb-20">
-            <div className="max-w-[1800px] mx-auto flex flex-col gap-20 py-10 px-6 md:px-12">
-            
-            {/* LOT 01 */}
-            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-200px)] min-h-[600px] border border-white/10 rounded-sm overflow-hidden shadow-2xl snap-start bg-[#212121]">
-                
-                {/* ── Left Column: Featured Auction ──────────────────────────────── */}
-                <div className="relative flex-1 bg-[#111] overflow-hidden">
-                    <img 
-                        src={lot1Images[currentImage1]} 
-                        alt="Match-Worn 2023 World Cup Jersey" 
-                        key={currentImage1}
-                        className="absolute inset-0 w-full h-full object-cover opacity-60 transition-opacity duration-500 object-top"
-                    />
-                    
-                    {/* Image Navigation */}
-                    <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-6 z-30 pointer-events-none">
-                        {currentImage1 > 0 ? (
-                            <button 
-                                onClick={prevImage1}
-                                className="w-12 h-12 rounded-full bg-[#3D0808]/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
-                            >
-                                <IIcon icon="solar:alt-arrow-left-linear" width="24" />
-                            </button>
-                        ) : <div />}
-                        {currentImage1 < lot1Images.length - 1 ? (
-                            <button 
-                                onClick={nextImage1}
-                                className="w-12 h-12 rounded-full bg-[#3D0808]/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
-                            >
-                                <IIcon icon="solar:alt-arrow-right-linear" width="24" />
-                            </button>
-                        ) : <div />}
-                    </div>
-
-                    {/* Image Indicators */}
-                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-[#3D0808]/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
-                        {lot1Images.map((_, index) => (
-                            <button 
-                                key={index}
-                                onClick={() => setCurrentImage1(index)}
-                                className={`h-1.5 rounded-full transition-all duration-300 ${index === currentImage1 ? 'bg-white w-5' : 'bg-white/30 w-1.5 hover:bg-white/60'}`}
-                                aria-label={`Go to image ${index + 1}`}
-                            />
-                        ))}
-                    </div>
-                    
-                    {/* Gradient Overlay for Text Readability */}
-                    
-
-                    {/* Top Elements */}
-                    <div className="absolute top-8 left-8 right-8 flex items-center justify-between z-20">
-                        
-                        
-                        {/* Badges removed */}
-                    </div>
-
-                    {/* Content */}
-                    <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 z-20 flex flex-col justify-end">
-                        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-8">
-                            <div className="max-w-2xl">
-                            </div>
-                            <div className="text-left md:text-right shrink-0">
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                {/* ── Right Column: Sidebar ────────────────────────────────────────── */}
-                <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#212121] border-l border-white/5 flex flex-col pt-4 overflow-y-auto custom-scrollbar">
-                    
-                    {/* Curator Profile */}
-                    <div className="px-6 pb-2 border-b border-white/5">
-                        <div className="flex items-center justify-between mb-2">
-                            <div className="flex items-center gap-3">
-                                <div className="relative">
-                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" alt="Virat Kohli" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
-                                    <div className="absolute right-0 bottom-0 w-3 h-3 bg-blue-500 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
-                                        <span className="text-white text-[6px] font-bold">✓</span>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col">
-                                    <h3 className="text-white text-base font-medium tracking-tight">Virat Kohli</h3>
-                                    <p className="text-neutral-500 text-xs">@virat.kohli</p>
-                                </div>
-                            </div>
-                            <button 
-                                onClick={() => setIsFollowed1(!isFollowed1)}
-                                className={`px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ${
-                                    isFollowed1 
-                                    ? 'bg-neutral-800 text-neutral-400 border border-white/10' 
-                                    : 'bg-white text-black hover:bg-neutral-200'
-                                }`}
-                            >
-                                {isFollowed1 ? 'Remove' : 'Follow'}
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Item Details */}
-                    <div className="px-6 py-2">
-                        <h2 className="serif text-white text-lg tracking-tight leading-snug mb-1 uppercase">
-                            Match-Worn 2023 World Cup Jersey — Signed
-                        </h2>
-                        <h4 className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold mb-1 block">Item Details</h4>
-                        <p className="text-neutral-300 text-[12px] leading-relaxed">
-                            An exceptionally rare, match-worn example of the 2023 Cricket World Cup jersey. Featuring Virat Kohli's authentic signature on the front. Accompanied by original authentication papers and photographic proof.
-                        </p>
-                    </div>
-
-                    {/* Interaction & Timer */}
-                    <div className="px-6 py-2 flex items-center justify-between">
-                        <LotActions initialLikes={1200} url="https://wregals.com/lot/WC2023-VK" />
-                        <div className="flex items-center gap-2 text-neutral-300">
-                            <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
-                            <span className="font-mono text-sm tracking-tight text-white/90">04h 12m 39s</span>
-                        </div>
-                    </div>
-
-                    {/* Bidding Info */}
-                    <div className="px-6 py-3 border-b border-white/5 flex items-end justify-between">
-                        <div>
-                            <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-0.5 font-semibold">
-                                Next Bid
-                            </p>
-                            <div className="text-white font-mono text-xl font-bold">
-                                ₹85,000
-                            </div>
-                        </div>
-                        <div className="text-right">
-                            <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-0.5 font-semibold flex items-center justify-end">
-                                Starting Bid
-                            </p>
-                            <div className="text-neutral-400 font-mono text-xl font-bold">
-                                ₹50,000
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Live Bidding Feed */}
-                    <div className="flex-1 bg-[#3D0808]/50 flex flex-col min-h-0">
-                        <div className="sticky top-0 z-10 bg-[#0e0e0e] px-6 py-4 border-b border-white/5">
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                    <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold block">Live Bidding</h4>
-                                    <div className="w-2 h-2 bg-neutral-500 rounded-full"></div>
-                                </div>
-                                <Link 
-                                    to="/auctions/live" 
-                                    className="bg-white text-black px-6 py-1.5 text-[9px] font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center"
-                                >
-                                    Place Bid
-                                </Link>
-                            </div>
-                        </div>
-
-                        <div className="px-6 py-6 overflow-y-auto no-scrollbar flex-1">
-                            <div className="flex flex-col gap-6">
-                                {/* Bidder 1 (Highest) */}
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/10" />
-                                        <div>
-                                            <h5 className="text-white text-[12px] font-medium">@marcus_t</h5>
-                                            <p className="text-neutral-500 text-[9px] uppercase font-semibold mt-0.5">Just now</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-[#D4AF37] text-sm font-mono">₹84,000</p>
-                                    </div>
-                                </div>
-
-                                {/* Bidder 2 */}
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/5">
-                                            <span className="text-neutral-400 text-xs text-base">S</span>
-                                        </div>
-                                        <div>
-                                            <h5 className="text-neutral-300 text-[12px] font-medium">@sarah_kl</h5>
-                                            <p className="text-neutral-500 text-[9px] uppercase font-semibold mt-0.5">2m ago</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-white text-sm font-mono">₹82,500</p>
-                                    </div>
-                                </div>
-
-                                {/* Bidder 3 */}
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/5 opacity-80" />
-                                        <div>
-                                            <h5 className="text-neutral-400 text-[12px] font-medium">@james_w</h5>
-                                            <p className="text-neutral-600 text-[9px] uppercase font-semibold mt-0.5">15m ago</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-neutral-300 text-sm font-mono">₹80,000</p>
-                                    </div>
-                                </div>
-
-                                {/* Bidder 4 */}
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/5">
-                                            <span className="text-neutral-500 text-xs text-base">M</span>
-                                        </div>
-                                        <div>
-                                            <h5 className="text-neutral-500 text-[12px] font-medium">@mike_r</h5>
-                                            <p className="text-neutral-600 text-[9px] uppercase font-semibold mt-0.5">1h ago</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-neutral-500 text-sm font-mono">₹78,500</p>
-                                    </div>
-                                </div>
-
-                                {/* Bidder 5 (Faded) */}
-                                <div className="flex items-center justify-between opacity-30 grayscale">
-                                    <div className="flex items-center gap-3">
-                                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/5" />
-                                        <div>
-                                            <h5 className="text-neutral-600 text-[12px] font-medium">@laura_v</h5>
-                                            <p className="text-neutral-700 text-[9px] uppercase font-semibold mt-0.5">3h ago</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-neutral-600 text-sm font-mono">₹75,000</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            {/* LOT 02 */}
-            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-200px)] min-h-[600px] border border-white/10 rounded-sm overflow-hidden shadow-2xl snap-start bg-[#212121]">
-                
-                {/* ── Left Column: Featured Auction ──────────────────────────────── */}
-                <div className="relative flex-1 bg-[#111] overflow-hidden">
-                    <img 
-                        src={lot2Images[currentImage2]}
-                        alt="1998 Custom Painted Stratocaster" 
-                        key={currentImage2}
-                        className="absolute inset-0 w-full h-full object-cover opacity-60 transition-opacity duration-500"
-                    />
-
-                    {/* Image Navigation */}
-                    <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-6 z-30 pointer-events-none">
-                        {currentImage2 > 0 ? (
-                            <button 
-                                onClick={prevImage2}
-                                className="w-12 h-12 rounded-full bg-[#3D0808]/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
-                            >
-                                <IIcon icon="solar:alt-arrow-left-linear" width="24" />
-                            </button>
-                        ) : <div />}
-                        {currentImage2 < lot2Images.length - 1 ? (
-                            <button 
-                                onClick={nextImage2}
-                                className="w-12 h-12 rounded-full bg-[#3D0808]/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
-                            >
-                                <IIcon icon="solar:alt-arrow-right-linear" width="24" />
-                            </button>
-                        ) : <div />}
-                    </div>
-
-                    {/* Image Indicators */}
-                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-[#3D0808]/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
-                        {lot2Images.map((_, index) => (
-                            <button 
-                                key={index}
-                                onClick={() => setCurrentImage2(index)}
-                                className={`h-1.5 rounded-full transition-all duration-300 ${index === currentImage2 ? 'bg-white w-5' : 'bg-white/30 w-1.5 hover:bg-white/60'}`}
-                                aria-label={`Go to image ${index + 1}`}
-                            />
-                        ))}
-                    </div>
-                    
-                    {/* Gradient Overlay for Text Readability */}
-                    
-
-                    {/* Top Elements */}
-                    <div className="absolute top-8 left-8 right-8 flex items-center justify-between z-20">
-                        
-                        
-                        {/* Badges removed */}
-                    </div>
-
-                    {/* Content */}
-                    <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 z-20 flex flex-col justify-end">
-                        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-8">
-                            <div className="max-w-2xl">
-                            </div>
-                            <div className="text-left md:text-right shrink-0">
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                {/* ── Right Column: Sidebar ────────────────────────────────────────── */}
-                <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#212121] border-l border-white/5 flex flex-col pt-4 overflow-y-auto custom-scrollbar">
-                    
-                    {/* Curator Profile */}
-                    <div className="px-6 pb-2 border-b border-white/5">
-                        <div className="flex items-center justify-between mb-2">
-                            <div className="flex items-center gap-3">
-                                <div className="relative">
-                                    <img src="https://images.unsplash.com/photo-1516280440502-d2fdaa0bf5e2?q=80&w=200&auto=format&fit=crop" alt="Jane Doe" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
-                                    <div className="absolute right-0 bottom-0 w-3 h-3 bg-blue-500 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
-                                        <span className="text-white text-[6px] font-bold">✓</span>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col">
-                                    <h3 className="text-white text-base font-medium tracking-tight">Jane Doe</h3>
-                                    <p className="text-neutral-500 text-xs">@jane_doe</p>
-                                </div>
-                            </div>
-                            <button 
-                                onClick={() => setIsFollowed2(!isFollowed2)}
-                                className={`px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ${
-                                    isFollowed2 
-                                    ? 'bg-neutral-800 text-neutral-400 border border-white/10' 
-                                    : 'bg-white text-black hover:bg-neutral-200'
-                                }`}
-                            >
-                                {isFollowed2 ? 'Remove' : 'Follow'}
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Item Details */}
-                    <div className="px-6 py-2">
-                        <h2 className="serif text-white text-lg tracking-tight leading-snug mb-1 uppercase">
-                            1998 Custom Stratocaster — Studio Used
-                        </h2>
-                        <h4 className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold mb-1 block">Item Details</h4>
-                        <p className="text-neutral-300 text-[12px] leading-relaxed">
-                            Played extensively during the recording sessions for their multi-platinum album. Body features custom hand-painted artwork. Comes fully authenticated by the artist's estate.
-                        </p>
-                    </div>
-
-                    {/* Interaction & Timer */}
-                    <div className="px-6 py-2 flex items-center justify-between">
-                        <LotActions initialLikes={843} url="https://wregals.com/lot/VS-1960" />
-                        <div className="flex items-center gap-2 text-neutral-300">
-                            <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
-                            <span className="font-mono text-sm tracking-tight text-white/90">01h 45m 12s</span>
-                        </div>
-                    </div>
-
-                    {/* Bidding Info */}
-                    <div className="px-6 py-3 border-b border-white/5 flex items-end justify-between">
-                        <div>
-                            <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-0.5 font-semibold">
-                                Next Bid
-                            </p>
-                            <div className="text-white font-mono text-xl font-bold">
-                                ₹215,000
-                            </div>
-                        </div>
-                        <div className="text-right">
-                            <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-0.5 font-semibold flex items-center justify-end">
-                                Starting Bid
-                            </p>
-                            <div className="text-neutral-400 font-mono text-xl font-bold">
-                                ₹150,000
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Live Bidding Feed */}
-                    <div className="flex-1 bg-[#3D0808]/50 flex flex-col min-h-0">
-                        <div className="sticky top-0 z-10 bg-[#0e0e0e] px-6 py-4 border-b border-white/5">
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                    <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold block">Live Bidding</h4>
-                                    <div className="w-2 h-2 bg-neutral-500 rounded-full"></div>
-                                </div>
-                                <Link 
-                                    to="/auctions/live" 
-                                    className="bg-white text-black px-6 py-1.5 text-[9px] font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center"
-                                >
-                                    Place Bid
-                                </Link>
-                            </div>
-                        </div>
-
-                        <div className="px-6 py-6 overflow-y-auto no-scrollbar flex-1">
-                            <div className="flex flex-col gap-6">
-                                {/* Bidder 1 (Highest) */}
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/10" />
-                                        <div>
-                                            <h5 className="text-white text-[12px] font-medium">@alex_b</h5>
-                                            <p className="text-neutral-500 text-[9px] uppercase font-semibold mt-0.5">Just now</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-[#D4AF37] text-sm font-mono">₹210,000</p>
-                                    </div>
-                                </div>
-
-                                {/* Bidder 2 */}
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/5">
-                                            <span className="text-neutral-400 text-xs text-base">J</span>
-                                        </div>
-                                        <div>
-                                            <h5 className="text-neutral-300 text-[12px] font-medium">@jason_k</h5>
-                                            <p className="text-neutral-500 text-[9px] uppercase font-semibold mt-0.5">4m ago</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-white text-sm font-mono">₹205,500</p>
-                                    </div>
-                                </div>
-
-                                {/* Bidder 3 */}
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/5 opacity-80" />
-                                        <div>
-                                            <h5 className="text-neutral-400 text-[12px] font-medium">@emily_r</h5>
-                                            <p className="text-neutral-600 text-[9px] uppercase font-semibold mt-0.5">12m ago</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-neutral-300 text-sm font-mono">₹200,000</p>
-                                    </div>
-                                </div>
-
-                                {/* Bidder 4 */}
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/5">
-                                            <span className="text-neutral-500 text-xs text-base">C</span>
-                                        </div>
-                                        <div>
-                                            <h5 className="text-neutral-500 text-[12px] font-medium">@chris_89</h5>
-                                            <p className="text-neutral-600 text-[9px] uppercase font-semibold mt-0.5">28m ago</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-neutral-500 text-sm font-mono">₹195,000</p>
-                                    </div>
-                                </div>
-
-                                {/* Bidder 5 (Faded) */}
-                                <div className="flex items-center justify-between opacity-30 grayscale">
-                                    <div className="flex items-center gap-3">
-                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/5" />
-                                        <div>
-                                            <h5 className="text-neutral-600 text-[12px] font-medium">@david_m</h5>
-                                            <p className="text-neutral-700 text-[9px] uppercase font-semibold mt-0.5">2h ago</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-neutral-600 text-sm font-mono">₹190,000</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* LOT 03 */}
-            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-200px)] min-h-[600px] border border-white/10 rounded-sm overflow-hidden shadow-2xl snap-start bg-[#212121]">
-                
-                {/* ── Left Column: Featured Auction ──────────────────────────────── */}
-                <div className="relative flex-1 bg-[#111] overflow-hidden">
-                    <img 
-                        src={lot3Images[currentImage3]} 
-                        alt="Vintage 1960s Desk Lamp" 
-                        key={currentImage3}
-                        className="absolute inset-0 w-full h-full object-cover opacity-60 transition-opacity duration-500"
-                    />
-                    
-                    {/* Image Navigation */}
-                    <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-6 z-30 pointer-events-none">
-                        {currentImage3 > 0 ? (
-                            <button 
-                                onClick={prevImage3}
-                                className="w-12 h-12 rounded-full bg-[#3D0808]/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
-                            >
-                                <IIcon icon="solar:alt-arrow-left-linear" width="24" />
-                            </button>
-                        ) : <div />}
-                        {currentImage3 < lot3Images.length - 1 ? (
-                            <button 
-                                onClick={nextImage3}
-                                className="w-12 h-12 rounded-full bg-[#3D0808]/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
-                            >
-                                <IIcon icon="solar:alt-arrow-right-linear" width="24" />
-                            </button>
-                        ) : <div />}
-                    </div>
-
-                    {/* Image Indicators */}
-                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-[#3D0808]/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
-                        {lot3Images.map((_, index) => (
-                            <button 
-                                key={index}
-                                onClick={() => setCurrentImage3(index)}
-                                className={`h-1.5 rounded-full transition-all duration-300 ${index === currentImage3 ? 'bg-white w-5' : 'bg-white/30 w-1.5 hover:bg-white/60'}`}
-                                aria-label={`Go to image ${index + 1}`}
-                            />
-                        ))}
-                    </div>
-                    
-                    {/* Gradient Overlay for Text Readability */}
-                    
-
-                    {/* Top Elements */}
-                    <div className="absolute top-8 left-8 right-8 flex items-center justify-between z-20">
-                        
-                        
-                        {/* Badges removed */}
-                    </div>
-
-                    {/* Content */}
-                    <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 z-20 flex flex-col justify-end">
-                        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-8">
-                            <div className="max-w-2xl">
-                            </div>
-                            <div className="text-left md:text-right shrink-0">
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                {/* ── Right Column: Sidebar ────────────────────────────────────────── */}
-                <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#212121] border-l border-white/5 flex flex-col pt-4 overflow-y-auto custom-scrollbar">
-                    
-                    {/* Curator Profile */}
-                    <div className="px-6 pb-2 border-b border-white/5">
-                        <div className="flex items-center justify-between mb-2">
-                            <div className="flex items-center gap-3">
-                                <div className="relative">
-                                    <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=200&auto=format&fit=crop" alt="Mark Studio" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
-                                    <div className="absolute right-0 bottom-0 w-3 h-3 bg-blue-500 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
-                                        <span className="text-white text-[6px] font-bold">✓</span>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col">
-                                    <h3 className="text-white text-base font-medium tracking-tight">Mark Studio</h3>
-                                    <p className="text-neutral-500 text-xs">@mark_antiques</p>
-                                </div>
-                            </div>
-                            <button 
-                                onClick={() => setIsFollowed3(!isFollowed3)}
-                                className={`px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ${
-                                    isFollowed3 
-                                    ? 'bg-neutral-800 text-neutral-400 border border-white/10' 
-                                    : 'bg-white text-black hover:bg-neutral-200'
-                                }`}
-                            >
-                                {isFollowed3 ? 'Remove' : 'Follow'}
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Item Details */}
-                    <div className="px-6 py-2">
-                        <h2 className="serif text-white text-lg tracking-tight leading-snug mb-1 uppercase">
-                            Mid-Century Modern Desk Lamp
-                        </h2>
-                        <h4 className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold mb-1 block">Item Details</h4>
-                        <p className="text-neutral-300 text-[12px] leading-relaxed">
-                            An original restored piece from the early 1960s. Features a distinct brass finish and minimalist industrial design, completely rewired for modern safety standards.
-                        </p>
-                    </div>
-
-                    {/* Interaction & Timer */}
-                    <div className="px-6 py-2 flex items-center justify-between">
-                        <LotActions initialLikes={942} url="https://wregals.com/lot/MCL-1960" />
-                        <div className="flex items-center gap-2 text-neutral-300">
-                            <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
-                            <span className="font-mono text-sm tracking-tight text-white/90">06h 20m 15s</span>
-                        </div>
-                    </div>
-
-                    {/* Bidding Info */}
-                    <div className="px-6 py-3 border-b border-white/5 flex items-end justify-between">
-                        <div>
-                            <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-0.5 font-semibold">
-                                Next Bid
-                            </p>
-                            <div className="text-white font-mono text-xl font-bold">
-                                ₹22,500
-                            </div>
-                        </div>
-                        <div className="text-right">
-                            <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-0.5 font-semibold flex items-center justify-end">
-                                Starting Bid
-                            </p>
-                            <div className="text-neutral-400 font-mono text-xl font-bold">
-                                ₹10,000
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Live Bidding Feed */}
-                    <div className="flex-1 bg-[#3D0808]/50 flex flex-col min-h-0">
-                        <div className="sticky top-0 z-10 bg-[#0e0e0e] px-6 py-4 border-b border-white/5">
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                    <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold block">Live Bidding</h4>
-                                    <div className="w-2 h-2 bg-neutral-500 rounded-full"></div>
-                                </div>
-                                <Link 
-                                    to="/auctions/live" 
-                                    className="bg-white text-black px-6 py-1.5 text-[9px] font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center"
-                                >
-                                    Place Bid
-                                </Link>
-                            </div>
-                        </div>
-
-                        <div className="px-6 py-6 overflow-y-auto no-scrollbar flex-1">
-                            <div className="flex flex-col gap-6">
-                                {/* Bidder 1 (Highest) */}
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/10">
-                                            <span className="text-white text-xs">R</span>
-                                        </div>
-                                        <div>
-                                            <h5 className="text-white text-[12px] font-medium">@retro_man</h5>
-                                            <p className="text-neutral-600 text-[9px] uppercase font-semibold mt-0.5">Just now</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-[#D4AF37] text-sm font-mono">₹22,000</p>
-                                    </div>
-                                </div>
-
-                                {/* Bidder 2 */}
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/5 opacity-80" />
-                                        <div>
-                                            <h5 className="text-neutral-300 text-[12px] font-medium">@susan_w</h5>
-                                            <p className="text-neutral-600 text-[9px] uppercase font-semibold mt-0.5">5m ago</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-white text-sm font-mono">₹20,500</p>
-                                    </div>
-                                </div>
-
-                                {/* Bidder 3 */}
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/5">
-                                            <span className="text-neutral-400 text-xs text-base">T</span>
-                                        </div>
-                                        <div>
-                                            <h5 className="text-neutral-400 text-[12px] font-medium">@thomas_builds</h5>
-                                            <p className="text-neutral-700 text-[9px] uppercase font-semibold mt-0.5">22m ago</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-neutral-300 text-sm font-mono">₹18,000</p>
-                                    </div>
-                                </div>
-
-                                {/* Bidder 4 */}
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/5">
-                                            <span className="text-neutral-700 text-xs text-base">E</span>
-                                        </div>
-                                        <div>
-                                            <h5 className="text-neutral-500 text-[12px] font-medium">@erica_99</h5>
-                                            <p className="text-neutral-700 text-[9px] uppercase font-semibold mt-0.5">1h ago</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-neutral-500 text-sm font-mono">₹15,000</p>
-                                    </div>
-                                </div>
-
-                                {/* Bidder 5 (Faded) */}
-                                <div className="flex items-center justify-between opacity-30 grayscale">
-                                    <div className="flex items-center gap-3">
-                                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/5" />
-                                        <div>
-                                            <h5 className="text-neutral-600 text-[12px] font-medium">@john_doe</h5>
-                                            <p className="text-neutral-700 text-[9px] uppercase font-semibold mt-0.5">4h ago</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-neutral-600 text-sm font-mono">₹12,500</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* LOT 04 */}
-            <div className="flex flex-col lg:flex-row w-full h-[calc(100vh-200px)] min-h-[600px] border border-white/10 rounded-sm overflow-hidden shadow-2xl snap-start bg-[#212121]">
-                
-                {/* ── Left Column: Featured Auction ──────────────────────────────── */}
-                <div className="relative flex-1 bg-[#111] overflow-hidden">
-                    <img 
-                        src={lot4Images[currentImage4]} 
-                        alt="Handcrafted Leather Messenger Bag" 
-                        key={currentImage4}
-                        className="absolute inset-0 w-full h-full object-cover opacity-60 transition-opacity duration-500"
-                    />
-                    
-                    {/* Image Navigation */}
-                    <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-6 z-30 pointer-events-none">
-                        {currentImage4 > 0 ? (
-                            <button 
-                                onClick={prevImage4}
-                                className="w-12 h-12 rounded-full bg-[#3D0808]/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
-                            >
-                                <IIcon icon="solar:alt-arrow-left-linear" width="24" />
-                            </button>
-                        ) : <div />}
-                        {currentImage4 < lot4Images.length - 1 ? (
-                            <button 
-                                onClick={nextImage4}
-                                className="w-12 h-12 rounded-full bg-[#3D0808]/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 pointer-events-auto shadow-lg"
-                            >
-                                <IIcon icon="solar:alt-arrow-right-linear" width="24" />
-                            </button>
-                        ) : <div />}
-                    </div>
-
-                    {/* Image Indicators */}
-                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 bg-[#3D0808]/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/10">
-                        {lot4Images.map((_, index) => (
-                            <button 
-                                key={index}
-                                onClick={() => setCurrentImage4(index)}
-                                className={`h-1.5 rounded-full transition-all duration-300 ${index === currentImage4 ? 'bg-white w-5' : 'bg-white/30 w-1.5 hover:bg-white/60'}`}
-                                aria-label={`Go to image ${index + 1}`}
-                            />
-                        ))}
-                    </div>
-                    
-                    {/* Gradient Overlay for Text Readability */}
-                    
-
-                    {/* Top Elements */}
-                    <div className="absolute top-8 left-8 right-8 flex items-center justify-between z-20">
-                        
-                        
-                        {/* Badges removed */}
-                    </div>
-
-                    {/* Content */}
-                    <div className="absolute bottom-0 left-0 w-full p-8 md:p-12 z-20 flex flex-col justify-end">
-                        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-8">
-                            <div className="max-w-2xl">
-                            </div>
-                            <div className="text-left md:text-right shrink-0">
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                {/* ── Right Column: Sidebar ────────────────────────────────────────── */}
-                <div className="w-full lg:w-[400px] xl:w-[450px] bg-[#212121] border-l border-white/5 flex flex-col pt-4 overflow-y-auto custom-scrollbar">
-                    
-                    {/* Curator Profile */}
-                    <div className="px-6 pb-2 border-b border-white/5">
-                        <div className="flex items-center justify-between mb-2">
-                            <div className="flex items-center gap-3">
-                                <div className="relative">
-                                    <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=200&auto=format&fit=crop" alt="Artisan Crafts" className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-xl" />
-                                </div>
-                                <div className="flex flex-col">
-                                    <h3 className="text-white text-base font-medium tracking-tight">Artisan Crafts</h3>
-                                    <p className="text-neutral-500 text-xs">@artisan_leather</p>
-                                </div>
-                            </div>
-                            <button 
-                                onClick={() => setIsFollowed4(!isFollowed4)}
-                                className={`px-4 py-1.5 rounded-full text-[11px] font-semibold transition-all duration-300 ${
-                                    isFollowed4 
-                                    ? 'bg-neutral-800 text-neutral-400 border border-white/10' 
-                                    : 'bg-white text-black hover:bg-neutral-200'
-                                }`}
-                            >
-                                {isFollowed4 ? 'Remove' : 'Follow'}
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Item Details */}
-                    <div className="px-6 py-2">
-                        <h2 className="serif text-white text-lg tracking-tight leading-snug mb-1 uppercase">
-                            Handcrafted Leather Messenger Bag
-                        </h2>
-                        <h4 className="text-neutral-500 text-[9px] uppercase tracking-widest font-semibold mb-1 block">Item Details</h4>
-                        <p className="text-neutral-300 text-[12px] leading-relaxed">
-                            Precision hand-stitched from premium Italian full-grain leather. Designed for durability and timeless style, featuring solid brass hardware and meticulous detailing.
-                        </p>
-                    </div>
-
-                    {/* Interaction & Timer */}
-                    <div className="px-6 py-2 flex items-center justify-between">
-                        <LotActions initialLikes={1800} url="https://wregals.com/lot/SB-2024" />
-                        <div className="flex items-center gap-2 text-neutral-300">
-                            <IIcon icon="solar:clock-circle-linear" width="18" className="text-neutral-500" />
-                            <span className="font-mono text-sm tracking-tight text-white/90">11h 05m 12s</span>
-                        </div>
-                    </div>
-
-                    {/* Bidding Info */}
-                    <div className="px-6 py-3 border-b border-white/5 flex items-end justify-between">
-                        <div>
-                            <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-0.5 font-semibold">
-                                Next Bid
-                            </p>
-                            <div className="text-white font-mono text-xl font-bold">
-                                ₹36,000
-                            </div>
-                        </div>
-                        <div className="text-right">
-                            <p className="text-neutral-500 text-[12px] uppercase tracking-widest mb-0.5 font-semibold flex items-center justify-end">
-                                Starting Bid
-                            </p>
-                            <div className="text-neutral-400 font-mono text-xl font-bold">
-                                ₹18,000
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Live Bidding Feed */}
-                    <div className="flex-1 bg-[#3D0808]/50 flex flex-col min-h-0">
-                        <div className="sticky top-0 z-10 bg-[#0e0e0e] px-6 py-4 border-b border-white/5">
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                    <h4 className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold block">Live Bidding</h4>
-                                    <div className="w-2 h-2 bg-neutral-500 rounded-full"></div>
-                                </div>
-                                <Link 
-                                    to="/auctions/live" 
-                                    className="bg-white text-black px-6 py-1.5 text-[9px] font-bold uppercase tracking-widest rounded-sm hover:bg-neutral-200 transition-colors duration-300 text-center"
-                                >
-                                    Place Bid
-                                </Link>
-                            </div>
-                        </div>
-
-                        <div className="px-6 py-6 overflow-y-auto no-scrollbar flex-1">
-                            <div className="flex flex-col gap-6">
-                                {/* Bidder 1 (Highest) */}
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/10" />
-                                        <div>
-                                            <h5 className="text-white text-[12px] font-medium">@jessica_p</h5>
-                                            <p className="text-neutral-500 text-[9px] uppercase font-semibold mt-0.5">Just now</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-[#D4AF37] text-sm font-mono">₹35,500</p>
-                                    </div>
-                                </div>
-
-                                {/* Bidder 2 */}
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/5">
-                                            <span className="text-neutral-400 text-xs text-base">G</span>
-                                        </div>
-                                        <div>
-                                            <h5 className="text-neutral-300 text-[12px] font-medium">@greg_style</h5>
-                                            <p className="text-neutral-500 text-[9px] uppercase font-semibold mt-0.5">12m ago</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-white text-sm font-mono">₹34,000</p>
-                                    </div>
-                                </div>
-
-                                {/* Bidder 3 */}
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=150&auto=format&fit=crop" alt="Bidder" className="w-11 h-11 rounded-full object-cover border-2 border-white/5 opacity-80" />
-                                        <div>
-                                            <h5 className="text-neutral-400 text-[12px] font-medium">@mark_ryan</h5>
-                                            <p className="text-neutral-600 text-[9px] uppercase font-semibold mt-0.5">34m ago</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-neutral-300 text-sm font-mono">₹31,500</p>
-                                    </div>
-                                </div>
-
-                                {/* Bidder 4 */}
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/5">
-                                            <span className="text-neutral-500 text-xs text-base">A</span>
-                                        </div>
-                                        <div>
-                                            <h5 className="text-neutral-500 text-[12px] font-medium">@anna_leather</h5>
-                                            <p className="text-neutral-600 text-[9px] uppercase font-semibold mt-0.5">2h ago</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-neutral-500 text-sm font-mono">₹29,000</p>
-                                    </div>
-                                </div>
-
-                                {/* Bidder 5 (Faded) */}
-                                <div className="flex items-center justify-between opacity-30 grayscale">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-11 h-11 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-white/5">
-                                            <span className="text-neutral-500 text-xs text-base">K</span>
-                                        </div>
-                                        <div>
-                                            <h5 className="text-neutral-600 text-[12px] font-medium">@kevin_p</h5>
-                                            <p className="text-neutral-700 text-[9px] uppercase font-semibold mt-0.5">5h ago</p>
-                                        </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-neutral-600 text-sm font-mono">₹25,000</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+/* ─── DATA ─────────────────────────────────────── */
+const tickerItems = [
+  { type: 'promo', name: 'Kohli WC Jersey', price: '₹84,000' },
+  { type: 'promo', name: 'MSD WC Gloves', price: '₹2,40,000' },
+  { type: 'live', name: 'Ranveer Jacket', price: '₹42,000' },
+  { type: 'live', name: 'Hardik Pandya Bat', price: '₹1,18,500' },
+  { type: 'live', name: 'Alia Bhatt Dress', price: '₹67,200' },
+  { type: 'live', name: 'Dhoni Gloves', price: '₹2,40,000' },
+  { type: 'live', name: 'Badshah Jacket', price: '₹38,900' },
+  { type: 'live', name: 'Priyanka Saree', price: '₹1,92,000' },
+];
+
+const auctionData = {
+  vk: {
+    ph: 'VK', av: 'VK', name: 'Virat Kohli', handle: '@virat.kohli',
+    title: 'Match-Worn 2023 World Cup Jersey — Signed',
+    cat: 'Cricket', lot: 'Lot #0847', bids: '23 bids', watching: '147 watching',
+    current: '₹84,000', starting: '₹50,000', nextBid: '₹85,000',
+    bidcount: '23 bids placed', deposit: '₹8,500', watch2: '147 people',
+    cond: 'Match-Worn', btnText: 'Place Bid — ₹85,000',
+    secs: 4 * 3600 + 12 * 60 + 39,
+    desc: "An exceptionally rare, match-worn example of the 2023 Cricket World Cup jersey. Featuring Kohli's authentic signature on the front. Accompanied by original authentication papers and photographic proof from the match day.",
+    feed: [
+      { av: 'M', name: '@marcus_t', time: 'Just now', amt: '₹84,000', top: true },
+      { av: 'S', name: '@sarah_kl', time: '2 min ago', amt: '₹82,500' },
+      { av: 'J', name: '@james_w', time: '6 min ago', amt: '₹80,000' },
+      { av: 'R', name: '@rahul_m', time: '12 min ago', amt: '₹77,500' },
+      { av: 'P', name: '@preet_v', time: '18 min ago', amt: '₹75,000' },
+    ],
+  },
+  msd: {
+    ph: 'MSD', av: 'MS', name: 'MS Dhoni', handle: '@msd_official',
+    title: '2011 World Cup Winning Gloves — Match Worn',
+    cat: 'Cricket', lot: 'Lot #0841', bids: '47 bids', watching: '318 watching',
+    current: '₹2,40,000', starting: '₹80,000', nextBid: '₹2,45,000',
+    bidcount: '47 bids placed', deposit: '₹24,000', watch2: '318 people',
+    cond: 'Match-Worn', btnText: 'Place Bid — ₹2,45,000',
+    secs: 1 * 3600 + 52 * 60 + 14,
+    desc: "The actual gloves worn during India's historic 2011 World Cup final. Individually numbered and certified with full provenance documentation from the BCCI.",
+    feed: [
+      { av: 'R', name: '@rahul_m', time: 'Just now', amt: '₹2,40,000', top: true },
+      { av: 'A', name: '@arjun_k', time: '4 min ago', amt: '₹2,35,000' },
+      { av: 'V', name: '@vikram_s', time: '9 min ago', amt: '₹2,30,000' },
+    ],
+  },
+  rs: {
+    ph: 'RS', av: 'RS', name: 'Ranveer Singh', handle: '@ranveersingh',
+    title: 'Rocky Aur Rani Custom Jacket — Film Set Piece',
+    cat: 'Bollywood', lot: 'Lot #0852', bids: '12 bids', watching: '89 watching',
+    current: '₹42,000', starting: '₹15,000', nextBid: '₹43,500',
+    bidcount: '12 bids placed', deposit: '₹4,200', watch2: '89 people',
+    cond: 'Film Costume', btnText: 'Bid Now — ₹43,500',
+    secs: 23 * 60 + 7,
+    desc: "Custom jacket worn on set during Rocky Aur Rani Ki Prem Kahaani. Sourced from the costume department with director's letter of authenticity and full documentation.",
+    feed: [
+      { av: 'N', name: '@neha_v', time: 'Just now', amt: '₹42,000', top: true },
+      { av: 'K', name: '@karan_p', time: '3 min ago', amt: '₹40,500' },
+    ],
+  },
+  hp: {
+    ph: 'HP', av: 'HP', name: 'Hardik Pandya', handle: '@hardikpandya7',
+    title: 'IPL 2023 Match-Used Cricket Bat — Season Signed',
+    cat: 'Cricket', lot: 'Lot #0848', bids: '31 bids', watching: '201 watching',
+    current: '₹1,18,500', starting: '₹40,000', nextBid: '₹1,20,000',
+    bidcount: '31 bids placed', deposit: '₹11,850', watch2: '201 people',
+    cond: 'Match-Used', btnText: 'Place Bid — ₹1,20,000',
+    secs: 3 * 3600 + 55 * 60 + 10,
+    desc: 'Bat used throughout the IPL 2023 season, signed at season end with full provenance documentation from the Mumbai Indians franchise.',
+    feed: [
+      { av: 'D', name: '@deepak_r', time: 'Just now', amt: '₹1,18,500', top: true },
+      { av: 'F', name: '@farrukh_t', time: '5 min ago', amt: '₹1,16,000' },
+      { av: 'G', name: '@gaurav_m', time: '11 min ago', amt: '₹1,14,000' },
+    ],
+  },
+};
+
+/* ─── HELPERS ───────────────────────────────────── */
+const pad = (n: number) => String(n).padStart(2, '0');
+const fmtSecs = (s: number) =>
+  `${pad(Math.floor(s / 3600))}:${pad(Math.floor((s % 3600) / 60))}:${pad(s % 60)}`;
+
+/* ─── SUB-COMPONENTS ────────────────────────────── */
+
+function LiveDot() {
+  return (
+    <span className="hh-rdot" />
+  );
+}
+
+function VTick() {
+  return <span className="hh-vtick">✓</span>;
+}
+
+function PostTag({ type, children }: { type: string; children: React.ReactNode }) {
+  const cls: Record<string, string> = {
+    live: 'hh-ptag hh-ptag-live',
+    cat: 'hh-ptag hh-ptag-cat',
+    cert: 'hh-ptag hh-ptag-cert',
+    soon: 'hh-ptag hh-ptag-soon',
+    up: 'hh-ptag hh-ptag-up',
+  };
+  return <span className={cls[type] || 'hh-ptag hh-ptag-cat'}>{children}</span>;
+}
+
+/* ─── BID MODAL ─────────────────────────────────── */
+function BidModal({ auctionKey, onClose }: { auctionKey: string | null; onClose: () => void }) {
+  const d = auctionKey ? auctionData[auctionKey as keyof typeof auctionData] : null;
+  const [secs, setSecs] = useState(d?.secs ?? 0);
+  const [activeThumb, setActiveThumb] = useState(0);
+  const dur = 7 * 3600;
+
+  useEffect(() => {
+    if (!d) return;
+    setSecs(d.secs);
+    setActiveThumb(0);
+  }, [auctionKey]);
+
+  useEffect(() => {
+    if (!d) return;
+    const id = setInterval(() => setSecs(s => Math.max(0, s - 1)), 1000);
+    return () => clearInterval(id);
+  }, [auctionKey]);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [onClose]);
+
+  if (!d) return null;
+
+  const isUrgent = auctionKey === 'rs';
+  const pct = Math.max(2, (secs / dur) * 100);
+
+  return (
+    <div className="hh-modal-overlay" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
+      <div className="hh-modal">
+        <button className="hh-mr-close" onClick={onClose}>✕</button>
+
+        {/* LEFT — media */}
+        <div className="hh-modal-left">
+          <div className="hh-modal-media">
+            <div className="hh-mm-ph">{d.ph}</div>
+            <div className="hh-mm-badge-live"><LiveDot /> Live</div>
+            <div className="hh-mm-cert">✓ Wregals Verified</div>
+            <div className="hh-mm-count">1 / 4</div>
+          </div>
+          <div className="hh-modal-thumbs">
+            {['▶', '●', '◆', '■'].map((ico, i) => (
+              <div
+                key={i}
+                className={`hh-mthumb${activeThumb === i ? ' active' : ''}`}
+                onClick={() => setActiveThumb(i)}
+              >{ico}</div>
+            ))}
+          </div>
+          <div className="hh-modal-desc-label">Item Details</div>
+          <div className="hh-modal-desc">{d.desc}</div>
+          <div className="hh-modal-proof">
+            {['Match-worn', 'Original COA', 'Photo proof', 'Wregals inspected'].map(p => (
+              <span key={p} className="hh-mp">✓ {p}</span>
+            ))}
+          </div>
         </div>
 
+        {/* RIGHT — auction panel */}
+        <div className="hh-modal-right">
+          <div className="hh-mr-seller">
+            <div className="hh-mr-seller-left">
+              <div className="hh-mr-av">{d.av}</div>
+              <div>
+                <div className="hh-mr-name">{d.name} <VTick /></div>
+                <div className="hh-mr-handle">{d.handle}</div>
+              </div>
+            </div>
+            <button className="hh-mr-flw">Follow</button>
+          </div>
 
-        </section>
-    );
+          <div className="hh-mr-title">{d.title}</div>
+          <div className="hh-mr-meta">
+            <span className="hh-mr-tag">{d.cat}</span>
+            <span className="hh-mr-dot" />
+            <span>{d.lot}</span>
+            <span className="hh-mr-dot" />
+            <span>{d.bids}</span>
+            <span className="hh-mr-dot" />
+            <span>{d.watching}</span>
+          </div>
+
+          {/* Timer */}
+          <div className="hh-mr-timer">
+            <div className="hh-mrt-row">
+              <div>
+                <div className="hh-mrt-lbl">Time Left</div>
+                <div className="hh-mrt-val">{fmtSecs(secs)}</div>
+              </div>
+              <div className="hh-mrt-closes">Closes<br /><strong>Today, 11:59 PM</strong></div>
+            </div>
+            <div className="hh-mrt-bar"><div className="hh-mrt-fill" style={{ width: `${pct}%` }} /></div>
+          </div>
+
+          {/* Bid card */}
+          <div className="hh-mr-bid-card">
+            <div className="hh-mr-bid-split">
+              <div className="hh-mbc">
+                <div className="hh-mbc-lbl">Current Bid</div>
+                <div className="hh-mbc-val">{d.current}</div>
+                <div className="hh-mbc-sub">{d.bidcount}</div>
+              </div>
+              <div className="hh-mbc">
+                <div className="hh-mbc-lbl">Starting Bid</div>
+                <div className="hh-mbc-val hh-mbc-dim">{d.starting}</div>
+                <div className="hh-mbc-sub">Next: {d.nextBid}</div>
+              </div>
+            </div>
+            <button className="hh-mr-place-btn" style={isUrgent ? { background: 'var(--hh-red)' } : {}}>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="17 11 12 6 7 11" /><line x1="12" y1="6" x2="12" y2="18" /></svg>
+              {d.btnText}
+            </button>
+          </div>
+
+          {/* Info grid */}
+          <div className="hh-mr-info-grid">
+            <div className="hh-mig"><div className="hh-mig-lbl">Deposit (10%)</div><div className="hh-mig-val">{d.deposit}</div></div>
+            <div className="hh-mig"><div className="hh-mig-lbl">Watching</div><div className="hh-mig-val">{d.watch2}</div></div>
+            <div className="hh-mig"><div className="hh-mig-lbl">Category</div><div className="hh-mig-val">{d.cat}</div></div>
+            <div className="hh-mig"><div className="hh-mig-lbl">Condition</div><div className="hh-mig-val">{d.cond}</div></div>
+          </div>
+
+          {/* Live feed */}
+          <div className="hh-mr-feed">
+            <div className="hh-mrf-header">
+              <div className="hh-mrf-l"><LiveDot /> Live Bidding</div>
+              <span className="hh-mrf-r">{d.bids}</span>
+            </div>
+            <div className="hh-mrf-list">
+              {d.feed.map((f, i) => (
+                <div key={i} className={`hh-mfr${f.top ? ' hh-mfr-top' : ''}`}>
+                  <div className="hh-mfr-av">{f.av}</div>
+                  <div className="hh-mfr-info">
+                    <div className="hh-mfr-name">
+                      {f.name}
+                      {f.top && <span className="hh-mfr-badge">LEADING</span>}
+                    </div>
+                    <div className="hh-mfr-time">{f.time}</div>
+                  </div>
+                  <div className="hh-mfr-amt">{f.amt}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── POST CARD ─────────────────────────────────── */
+interface PostProps {
+  auctionKey: string;
+  seller: string;
+  handle: string;
+  ago: string;
+  tags: React.ReactNode;
+  title: string;
+  desc: string;
+  timerSecs: number;
+  currentBid: string;
+  bidCount: string;
+  nextBid: string;
+  dep: string;
+  likes: string;
+  isUpcoming?: boolean;
+  isEndingSoon?: boolean;
+  notifyMode?: boolean;
+  startingBid?: string;
+  interested?: string;
+  openModal: (key: string) => void;
+  timerColor?: string;
+  lot: string;
+  opacity?: number;
+}
+
+function PostCard({
+  auctionKey, seller, handle, ago, tags, title, desc,
+  timerSecs, currentBid, bidCount, nextBid, dep,
+  likes, isUpcoming, isEndingSoon, notifyMode,
+  startingBid, interested, openModal, timerColor, lot, opacity = 1,
+}: PostProps) {
+  const [secs, setSecs] = useState(timerSecs);
+  const [liked, setLiked] = useState(false);
+  const [watched, setWatched] = useState(false);
+
+  useEffect(() => {
+    if (isUpcoming) return;
+    const id = setInterval(() => setSecs(s => Math.max(0, s - 1)), 1000);
+    return () => clearInterval(id);
+  }, [isUpcoming]);
+
+  const initials = seller.split(' ').map(w => w[0]).join('').slice(0, 2);
+
+  return (
+    <div className="hh-post">
+      <div className="hh-p-header">
+        <div className="hh-p-seller">
+          <div className="hh-p-av">{initials}</div>
+          <div>
+            <div className="hh-p-nm-row">
+              <span className="hh-p-name">{seller}</span>
+              <VTick />
+            </div>
+            <div className="hh-p-handle">{handle} · {ago}</div>
+            <div className="hh-p-tag-row">{tags}</div>
+          </div>
+        </div>
+        <button className="hh-p-more">···</button>
+      </div>
+
+      <div className="hh-p-media" style={{ opacity }}>
+        <div className="hh-p-media-ph">{initials}</div>
+        <div
+          className="hh-p-media-timer"
+          style={timerColor ? { color: timerColor } : isUpcoming ? { color: 'var(--hh-w2)' } : {}}
+        >
+          {isUpcoming ? `Starts Apr 5` : fmtSecs(secs)}
+        </div>
+        <div className="hh-p-media-lot">{lot}</div>
+      </div>
+
+      <div className="hh-p-title">{title}</div>
+      <div className="hh-p-desc">{desc}</div>
+
+      <div className="hh-p-bid">
+        <div className="hh-p-bid-data">
+          <div className="hh-bdg">
+            <div className="hh-bdl">{notifyMode ? 'Starting Bid' : 'Current Bid'}</div>
+            <div className={`hh-bdv${notifyMode ? ' hh-bdv-muted' : ''}`}>
+              {notifyMode ? startingBid : currentBid}
+            </div>
+            <div className="hh-bds">{notifyMode ? `Opens Apr 5` : `${bidCount} · ${dep} watching`}</div>
+          </div>
+          <div className="hh-bdg">
+            <div className="hh-bdl">{notifyMode ? 'Interested' : 'Next Bid'}</div>
+            <div className="hh-bdv hh-bdv-muted" style={notifyMode ? { fontSize: '18px' } : {}}>
+              {notifyMode ? interested : nextBid}
+            </div>
+            <div className="hh-bds">{notifyMode ? 'reminders set' : `Dep: ${dep}`}</div>
+          </div>
+        </div>
+        {notifyMode ? (
+          <button className="hh-p-bid-btn hh-p-bid-btn-notify">Notify Me</button>
+        ) : isEndingSoon ? (
+          <button className="hh-p-bid-btn hh-p-bid-btn-urgent" onClick={() => openModal(auctionKey)}>Bid Now</button>
+        ) : (
+          <button className="hh-p-bid-btn" onClick={() => openModal(auctionKey)}>Place Bid</button>
+        )}
+      </div>
+
+      <div className="hh-p-actions">
+        <button className={`hh-pact${liked ? ' hh-pact-liked' : ''}`} onClick={() => setLiked(l => !l)}>
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
+          {likes}
+        </button>
+        <button className={`hh-pact${watched ? ' hh-pact-watched' : ''}`} onClick={() => setWatched(w => !w)}>
+          <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>
+          {watched ? 'Watching' : 'Watch'}
+        </button>
+        <button className="hh-pact">
+          <svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9" /><path d="M3 11V9a4 4 0 0 1 4-4h14" /><polyline points="7 23 3 19 7 15" /><path d="M21 13v2a4 4 0 0 1-4 4H3" /></svg>
+          Share
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ─── MAIN COMPONENT ────────────────────────────── */
+export default function HomeHero() {
+  const [modalKey, setModalKey] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState('For You');
+  const [activeCat, setActiveCat] = useState('All');
+  const [activeNavLink, setActiveNavLink] = useState('Feed');
+  const [followed, setFollowed] = useState<Record<string, boolean>>({});
+  const tickerRef = useRef<HTMLDivElement>(null);
+
+  const openModal = (key: string) => {
+    setModalKey(key);
+    document.body.style.overflow = 'hidden';
+  };
+  const closeModal = () => {
+    setModalKey(null);
+    document.body.style.overflow = '';
+  };
+
+  // Pause ribbon on hover
+  const pauseRibbon = () => { if (tickerRef.current) tickerRef.current.style.animationPlayState = 'paused'; };
+  const resumeRibbon = () => { if (tickerRef.current) tickerRef.current.style.animationPlayState = 'running'; };
+
+  const toggleFollow = (name: string) => setFollowed(p => ({ ...p, [name]: !p[name] }));
+
+  const navLinks = [
+    { icon: '⊞', label: 'Feed' },
+    { icon: '⏱', label: 'Live Now', badge: '12' },
+    { icon: '♡', label: 'Watchlist' },
+    { icon: '↑', label: 'My Bids' },
+    { icon: '▭', label: 'Wallet' },
+  ];
+
+  const cats = [
+    { label: 'All', color: '#F04040' },
+    { label: 'Cricket', color: '#3B82F6' },
+    { label: 'Bollywood', color: '#EC4899' },
+    { label: 'Music', color: '#8B5CF6' },
+    { label: 'Fashion', color: '#F59E0B' },
+    { label: 'Sports', color: '#10B981' },
+  ];
+
+  const feedTabs = ['For You', 'Following', 'Cricket', 'Bollywood', 'Music'];
+
+  // Double ticker items for seamless loop
+  const allTicker = [...tickerItems, ...tickerItems];
+
+  return (
+    <section className="hh-root">
+      {/* ─── PROMO RIBBON ────────────────────────── */}
+      <div className="hh-ribbon">
+        <div className="hh-ribbon-label">Promoted</div>
+        <div className="hh-ribbon-track" ref={tickerRef} onMouseEnter={pauseRibbon} onMouseLeave={resumeRibbon}>
+          {allTicker.map((item, i) => (
+            <div key={i} className={`hh-tick-item${item.type === 'promo' ? ' hh-tick-promo' : ''}`}>
+              {item.type === 'promo' && <span className="hh-promo-tag">AD</span>}
+              {item.type === 'live' && <span className="hh-rdot" />}
+              <span className="hh-ti-name">{item.name}</span>
+              <span className="hh-ti-price">{item.price}</span>
+              <span className="hh-ti-up">↑</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ─── 3-COLUMN LAYOUT ─────────────────────── */}
+      <div className="hh-layout">
+
+        {/* LEFT SIDEBAR */}
+        <div className="hh-lsidebar">
+          {navLinks.map(({ icon, label, badge }) => (
+            <div
+              key={label}
+              className={`hh-ls-link${activeNavLink === label ? ' active' : ''}`}
+              onClick={() => setActiveNavLink(label)}
+            >
+              <span className="hh-ls-icon">{icon}</span>
+              {label}
+              {badge && <span className="hh-ls-badge">{badge}</span>}
+            </div>
+          ))}
+
+          <div className="hh-ls-sep" />
+          <div className="hh-ls-section">Browse</div>
+
+          <div className="hh-ls-cats">
+            {cats.map(({ label, color }) => (
+              <div
+                key={label}
+                className={`hh-ls-cat${activeCat === label ? ' active' : ''}`}
+                onClick={() => setActiveCat(label)}
+              >
+                <div className="hh-ls-cat-dot" style={{ background: color }} />
+                {label}
+              </div>
+            ))}
+          </div>
+
+          <div className="hh-ls-sep" />
+
+          <div className="hh-ls-wallet">
+            <div className="hh-lw-label">My Wallet</div>
+            <div className="hh-lw-value">₹50,000</div>
+            <button className="hh-lw-btn">Add Funds</button>
+          </div>
+        </div>
+
+        {/* FEED */}
+        <div className="hh-feed">
+          <div className="hh-feed-tabs">
+            {feedTabs.map(tab => (
+              <div
+                key={tab}
+                className={`hh-ftab${activeTab === tab ? ' active' : ''}`}
+                onClick={() => setActiveTab(tab)}
+              >
+                {tab}
+              </div>
+            ))}
+          </div>
+
+          {/* Post 1 — Virat Kohli — LIVE */}
+          <PostCard
+            auctionKey="vk"
+            seller="Virat Kohli" handle="@virat.kohli" ago="2h ago"
+            tags={<><PostTag type="live"><LiveDot />Live</PostTag><PostTag type="cat">Cricket</PostTag><PostTag type="cert">✓ Verified</PostTag></>}
+            title="Match-Worn 2023 World Cup Jersey — Signed"
+            desc="An exceptionally rare match-worn jersey from the 2023 ICC Cricket World Cup, featuring Kohli's authenticated signature with original certification papers."
+            timerSecs={4 * 3600 + 12 * 60 + 39}
+            currentBid="₹84,000" bidCount="23 bids" nextBid="₹85,000" dep="₹8,500"
+            likes="1.2K" lot="Lot #0847"
+            openModal={openModal}
+          />
+
+          {/* Post 2 — MS Dhoni — LIVE */}
+          <PostCard
+            auctionKey="msd"
+            seller="MS Dhoni" handle="@msd_official" ago="5h ago"
+            tags={<><PostTag type="live"><LiveDot />Live</PostTag><PostTag type="cat">Cricket</PostTag><PostTag type="cert">✓ Verified</PostTag></>}
+            title="2011 World Cup Winning Gloves — Match Worn"
+            desc="The actual gloves worn during India's 2011 World Cup final. Individually numbered, certified, and fully documented by the BCCI."
+            timerSecs={1 * 3600 + 52 * 60 + 14}
+            currentBid="₹2,40,000" bidCount="47 bids" nextBid="₹2,45,000" dep="₹24,000"
+            likes="3.4K" lot="Lot #0841"
+            openModal={openModal}
+          />
+
+          {/* Post 3 — Ranveer Singh — ENDING SOON */}
+          <PostCard
+            auctionKey="rs"
+            seller="Ranveer Singh" handle="@ranveersingh" ago="3h ago"
+            tags={<><PostTag type="soon">Ending in 23 min</PostTag><PostTag type="cat">Bollywood</PostTag><PostTag type="cert">✓ Verified</PostTag></>}
+            title="Rocky Aur Rani Custom Jacket — Film Set Piece"
+            desc="Custom jacket worn on set during production. Sourced from the costume department with director's letter of authenticity."
+            timerSecs={23 * 60 + 7}
+            currentBid="₹42,000" bidCount="12 bids" nextBid="₹43,500" dep="₹4,200"
+            likes="876" lot="Lot #0852"
+            isEndingSoon
+            timerColor="var(--hh-amber)"
+            openModal={openModal}
+          />
+
+          {/* Post 4 — Alia Bhatt — UPCOMING */}
+          <PostCard
+            auctionKey="ab"
+            seller="Alia Bhatt" handle="@aliabhatt" ago="1d ago"
+            tags={<><PostTag type="up">Upcoming · Apr 5</PostTag><PostTag type="cat">Bollywood</PostTag><PostTag type="cert">✓ Verified</PostTag></>}
+            title="Gangubai Kathiawadi Premiere Saree — Signed"
+            desc="Worn at the Gangubai Kathiawadi world premiere. Personally signed with full authentication documentation. Bidding opens April 5th."
+            timerSecs={0}
+            currentBid="₹25,000" bidCount="0 bids" nextBid="412" dep="₹2,500"
+            likes="2.1K" lot="Lot #0860"
+            isUpcoming notifyMode
+            startingBid="₹25,000" interested="412"
+            opacity={0.65}
+            openModal={openModal}
+          />
+
+          {/* Post 5 — Hardik Pandya — LIVE */}
+          <PostCard
+            auctionKey="hp"
+            seller="Hardik Pandya" handle="@hardikpandya7" ago="4h ago"
+            tags={<><PostTag type="live"><LiveDot />Live</PostTag><PostTag type="cat">Cricket</PostTag><PostTag type="cert">✓ Verified</PostTag></>}
+            title="IPL 2023 Match-Used Cricket Bat — Season Signed"
+            desc="Bat used throughout IPL 2023, signed at season end with full provenance documentation from the franchise."
+            timerSecs={3 * 3600 + 55 * 60 + 10}
+            currentBid="₹1,18,500" bidCount="31 bids" nextBid="₹1,20,000" dep="₹11,850"
+            likes="1.8K" lot="Lot #0848"
+            openModal={openModal}
+          />
+        </div>
+
+        {/* RIGHT SIDEBAR */}
+        <div className="hh-rsidebar">
+
+          {/* Ending soon */}
+          <div className="hh-rc">
+            <div className="hh-rc-title">Ending Soon</div>
+            {[
+              { av: 'RS', name: 'Ranveer — Film Jacket', sub: '12 bids', timer: '00:23:07', red: true, key: 'rs' },
+              { av: 'MS', name: 'MSD — WC Gloves', sub: '47 bids', timer: '01:52:14', red: true, key: 'msd' },
+              { av: 'VK', name: 'Kohli — WC Jersey', sub: '23 bids', timer: '04:12:39', red: false, key: 'vk' },
+              { av: 'HP', name: 'Hardik — IPL Bat', sub: '31 bids', timer: '03:55:10', red: false, key: 'hp' },
+            ].map(row => (
+              <div key={row.key} className="hh-rc-row" onClick={() => openModal(row.key)} style={{ cursor: 'pointer' }}>
+                <div className="hh-rc-av">{row.av}</div>
+                <div className="hh-rc-info">
+                  <div className="hh-rc-name">{row.name}</div>
+                  <div className="hh-rc-sub">{row.sub}</div>
+                </div>
+                <div className={`hh-rc-timer${row.red ? ' hh-rc-timer-red' : ''}`}>{row.timer}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Sellers to follow */}
+          <div className="hh-rc">
+            <div className="hh-rc-title">Sellers to Follow</div>
+            {[
+              { av: 'SR', name: 'Sachin Tendulkar', sub: '2 upcoming auctions' },
+              { av: 'DP', name: 'Deepika Padukone', sub: '1 live now' },
+              { av: 'BD', name: 'Badshah', sub: 'Listing soon' },
+            ].map(s => (
+              <div key={s.name} className="hh-rc-row">
+                <div className="hh-rc-av">{s.av}</div>
+                <div className="hh-rc-info">
+                  <div className="hh-rc-name">{s.name}</div>
+                  <div className="hh-rc-sub">{s.sub}</div>
+                </div>
+                <button className="hh-flw-btn" onClick={() => toggleFollow(s.name)}>
+                  {followed[s.name] ? 'Following' : 'Follow'}
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {/* Why Wregals */}
+          <div className="hh-rc">
+            <div className="hh-rc-title">Why Wregals</div>
+            {[
+              ['All items verified', '✓ Always'],
+              ['Escrow protected', '✓ Always'],
+              ['3-day returns', '✓ Guaranteed'],
+              ['Avg. closing price', '₹96K'],
+              ['Items sold this week', '142'],
+            ].map(([l, r]) => (
+              <div key={l} className="hh-rc-stat">
+                <span className="hh-rs-l">{l}</span>
+                <span className="hh-rs-r">{r}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Active bids */}
+          <div className="hh-rc">
+            <div className="hh-rc-title">Your Active Bids</div>
+            <div className="hh-rc-row">
+              <div className="hh-rc-av">VK</div>
+              <div className="hh-rc-info">
+                <div className="hh-rc-name">Kohli WC Jersey</div>
+                <div className="hh-rc-sub" style={{ color: 'var(--hh-red)' }}>Outbid · your bid ₹80,000</div>
+              </div>
+              <button
+                className="hh-flw-btn"
+                style={{ background: 'var(--hh-red)', color: '#fff', borderColor: 'var(--hh-red)' }}
+                onClick={() => openModal('vk')}
+              >Raise</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* BID MODAL */}
+      {modalKey && <BidModal auctionKey={modalKey} onClose={closeModal} />}
+    </section>
+  );
 }
