@@ -359,26 +359,26 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                 ) : (
                     <div className="relative w-full h-full rounded-[30px] p-[1.5px] overflow-hidden">
                         {/* Animated Border Gradient */}
-                        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] -translate-x-1/2 -translate-y-1/2 animate-[wren-spin_3s_linear_infinite]" 
-                             style={{ background: 'conic-gradient(from 90deg at 50% 50%, transparent 0%, rgba(6,182,212,0.2) 30%, #06B6D4 50%, rgba(59,130,246,0.2) 70%, transparent 100%)' }}
+                        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] -translate-x-1/2 -translate-y-1/2 animate-[wren-spin_4s_linear_infinite]" 
+                             style={{ background: 'conic-gradient(from 180deg at 50% 50%, transparent 0%, rgba(161,0,255,0) 20%, #A100FF 60%, #00E5FF 100%)' }}
                         ></div>
                         
                         {/* Inner Tech Core */}
-                        <div className="relative flex items-center w-full h-full bg-[#030712] rounded-[30px] overflow-hidden transition-all duration-500 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] group-hover:bg-[#0A1229]">
+                        <div className="relative flex items-center w-full h-full bg-[#080212] rounded-[30px] overflow-hidden transition-all duration-500 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] group-hover:bg-[#0F0424]">
                             
                             <div className="flex items-center absolute left-0 w-full h-full">
                                 {/* 8-Pointed Star Icon */}
                                 <div className="w-[57px] h-[57px] flex items-center justify-center flex-shrink-0 relative">
                                     <StarEightPointsIcon 
                                         width={24} 
-                                        className="text-cyan-400 relative z-20 group-hover:rotate-[45deg] group-hover:scale-110 transition-transform duration-500"
+                                        className="text-white relative z-20 group-hover:rotate-[45deg] group-hover:scale-110 transition-transform duration-500"
                                     />
                                 </div>
                                 
                                 {/* Expanding Text */}
                                 <span 
-                                    className="whitespace-nowrap font-medium text-[11px] tracking-[0.2em] uppercase opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-75"
-                                    style={{ fontFamily: "'Inter', sans-serif", color: '#06B6D4' }}
+                                    className="whitespace-nowrap font-medium text-[14px] tracking-wide opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-75"
+                                    style={{ fontFamily: "'Inter', sans-serif", color: '#ffffff' }}
                                 >
                                     System AI
                                 </span>
