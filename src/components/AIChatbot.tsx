@@ -39,16 +39,7 @@ BEHAVIOUR RULES:
 }
 
 const StarEightPointsIcon = ({ width = 16, className = "" }: { width?: number; className?: string }) => (
-    <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        viewBox="0 0 24 24" 
-        width={width} 
-        height={width} 
-        fill="currentColor" 
-        className={className}
-    >
-        <path d="M12,2L14.24,5.92L18.78,5.06L18.84,9.66L22.61,12L18.84,14.34L18.78,18.94L14.24,18.08L12,22L9.76,18.08L5.22,18.94L5.16,14.34L1.39,12L5.16,9.66L5.22,5.06L9.76,5.92L12,2Z" />
-    </svg>
+    <IIcon icon="game-icons:nautical-star" width={width} className={className} />
 );
 
 interface Message {
@@ -203,7 +194,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                                     className="w-8 h-8 flex items-center justify-center flex-shrink-0"
                                     style={{ background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.3)', borderRadius: '4px' }}
                                 >
-                                    <StarEightPointsIcon width={16} className="text-cyan-400" />
+                                    <StarEightPointsIcon width={16} className="text-white" />
                                 </div>
                                 <div>
                                     <p className="text-white text-sm font-semibold tracking-wide" style={{ fontFamily: "'Inter', sans-serif" }}>WREN</p>
@@ -227,7 +218,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                                             className="w-6 h-6 flex-shrink-0 flex items-center justify-center mr-2 mt-0.5 rounded-sm"
                                             style={{ background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.2)' }}
                                         >
-                                            <StarEightPointsIcon width={10} className="text-cyan-400" />
+                                            <StarEightPointsIcon width={10} className="text-white" />
                                         </div>
                                     )}
                                     <div
@@ -255,7 +246,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                                         className="w-6 h-6 flex-shrink-0 flex items-center justify-center rounded-sm"
                                         style={{ background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.2)' }}
                                     >
-                                        <StarEightPointsIcon width={10} className="text-cyan-400" />
+                                        <StarEightPointsIcon width={10} className="text-white" />
                                     </div>
                                     <div
                                         className="px-3 py-2 flex items-center gap-1 rounded-sm"
