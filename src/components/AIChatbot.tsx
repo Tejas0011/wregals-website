@@ -358,7 +358,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
             {/* ── FAB Button ─────────────────────────────────────────────────────── */}
             <button
                 onClick={open ? () => setOpen(false) : handleOpen}
-                className={`fixed bottom-6 right-6 z-50 flex items-center justify-center outline-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${open ? 'w-14 h-14 rounded-full bg-[#050B1A] border border-[rgba(6,182,212,0.4)] shadow-[0_8px_24px_rgba(0,0,0,0.6)]' : 'group h-[60px] w-[60px] hover:w-[160px] rounded-[30px] shadow-[0_12px_36px_rgba(0,0,0,0.8)]'}`}
+                className={`fixed bottom-6 right-6 z-50 flex items-center justify-center outline-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${open ? 'w-14 h-14 rounded-full bg-[#050B1A] border border-[rgba(6,182,212,0.4)] shadow-[0_8px_24px_rgba(0,0,0,0.6)]' : 'group h-[60px] w-[60px] hover:w-[128px] rounded-[30px] shadow-[0_12px_36px_rgba(0,0,0,0.8)]'}`}
                 style={{
                     animation: 'wren-fab-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
                 }}
@@ -387,7 +387,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                                 
                                 {/* Expanding Text */}
                                 <span 
-                                    className="flex-1 pr-6 text-center whitespace-nowrap font-medium text-[15px] tracking-wide opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-75"
+                                    className="flex-1 pr-4 text-center whitespace-nowrap font-medium text-[15px] tracking-wide opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-75"
                                     style={{ 
                                         fontFamily: "'Inter', sans-serif", 
                                         color: '#ffffff',
