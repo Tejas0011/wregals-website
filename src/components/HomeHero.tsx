@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import IIcon from './IIcon';
 
 /* ─── DATA ─────────────────────────────────────── */
 const tickerItems = [
@@ -403,11 +404,11 @@ export default function HomeHero() {
   const toggleFollow = (name: string) => setFollowed(p => ({ ...p, [name]: !p[name] }));
 
   const navLinks = [
-    { icon: '⊞', label: 'Feed' },
-    { icon: '⏱', label: 'Live Now', badge: '12' },
-    { icon: '♡', label: 'Watchlist' },
-    { icon: '↑', label: 'My Bids' },
-    { icon: '▭', label: 'Wallet' },
+    { icon: 'lucide:layout-grid', label: 'Feed' },
+    { icon: 'lucide:clock', label: 'Live Now', badge: '12' },
+    { icon: 'lucide:heart', label: 'Watchlist' },
+    { icon: 'lucide:activity', label: 'My Bids' },
+    { icon: 'lucide:credit-card', label: 'Wallet' },
   ];
 
   const cats = [
@@ -419,7 +420,7 @@ export default function HomeHero() {
     { label: 'Sports', color: '#10B981' },
   ];
 
-  const feedTabs = ['For You', 'Following', 'Cricket', 'Bollywood', 'Music'];
+  const feedTabs = ['For You', 'Sports', 'Bollywood', 'Music', 'Creators'];
 
   // Double ticker items for seamless loop
   const allTicker = [...tickerItems, ...tickerItems];
@@ -431,8 +432,7 @@ export default function HomeHero() {
         <div className="hh-ribbon-label">Promoted</div>
         <div className="hh-ribbon-track" ref={tickerRef} onMouseEnter={pauseRibbon} onMouseLeave={resumeRibbon}>
           {allTicker.map((item, i) => (
-            <div key={i} className={`hh-tick-item${item.type === 'promo' ? ' hh-tick-promo' : ''}`}>
-              {item.type === 'promo' && <span className="hh-promo-tag">AD</span>}
+            <div key={i} className="hh-tick-item">
               {item.type === 'live' && <span className="hh-rdot" />}
               <span className="hh-ti-name">{item.name}</span>
               <span className="hh-ti-price">{item.price}</span>
@@ -453,7 +453,7 @@ export default function HomeHero() {
               className={`hh-ls-link${activeNavLink === label ? ' active' : ''}`}
               onClick={() => setActiveNavLink(label)}
             >
-              <span className="hh-ls-icon">{icon}</span>
+              <span className="hh-ls-icon"><IIcon icon={icon} width={20} /></span>
               {label}
               {badge && <span className="hh-ls-badge">{badge}</span>}
             </div>
@@ -572,6 +572,23 @@ export default function HomeHero() {
         {/* RIGHT SIDEBAR */}
         <div className="hh-rsidebar">
 
+          {/* Active bids */}
+          <div className="hh-rc">
+            <div className="hh-rc-title">Your Active Bids</div>
+            <div className="hh-rc-row">
+              <div className="hh-rc-av">VK</div>
+              <div className="hh-rc-info">
+                <div className="hh-rc-name">Kohli WC Jersey</div>
+                <div className="hh-rc-sub" style={{ color: 'var(--hh-red)' }}>Outbid · your bid ₹80,000</div>
+              </div>
+              <button
+                className="hh-flw-btn"
+                style={{ background: 'var(--hh-red)', color: '#fff', borderColor: 'var(--hh-red)' }}
+                onClick={() => openModal('vk')}
+              >Raise</button>
+            </div>
+          </div>
+
           {/* Ending soon */}
           <div className="hh-rc">
             <div className="hh-rc-title">Ending Soon</div>
@@ -590,6 +607,11 @@ export default function HomeHero() {
                 <div className={`hh-rc-timer${row.red ? ' hh-rc-timer-red' : ''}`}>{row.timer}</div>
               </div>
             ))}
+            <button 
+              className="mt-2 -mb-2 mx-auto block w-[60%] text-center text-[9px] tracking-wider font-semibold text-[var(--hh-w3)] hover:text-[var(--hh-w2)] transition-colors"
+            >
+              Show more
+            </button>
           </div>
 
           {/* Sellers to follow */}
@@ -611,41 +633,14 @@ export default function HomeHero() {
                 </button>
               </div>
             ))}
+            <button 
+              className="mt-2 -mb-2 mx-auto block w-[60%] text-center text-[9px] tracking-wider font-semibold text-[var(--hh-w3)] hover:text-[var(--hh-w2)] transition-colors"
+            >
+              Show more
+            </button>
           </div>
 
-          {/* Why Wregals */}
-          <div className="hh-rc">
-            <div className="hh-rc-title">Why Wregals</div>
-            {[
-              ['All items verified', '✓ Always'],
-              ['Escrow protected', '✓ Always'],
-              ['3-day returns', '✓ Guaranteed'],
-              ['Avg. closing price', '₹96K'],
-              ['Items sold this week', '142'],
-            ].map(([l, r]) => (
-              <div key={l} className="hh-rc-stat">
-                <span className="hh-rs-l">{l}</span>
-                <span className="hh-rs-r">{r}</span>
-              </div>
-            ))}
-          </div>
 
-          {/* Active bids */}
-          <div className="hh-rc">
-            <div className="hh-rc-title">Your Active Bids</div>
-            <div className="hh-rc-row">
-              <div className="hh-rc-av">VK</div>
-              <div className="hh-rc-info">
-                <div className="hh-rc-name">Kohli WC Jersey</div>
-                <div className="hh-rc-sub" style={{ color: 'var(--hh-red)' }}>Outbid · your bid ₹80,000</div>
-              </div>
-              <button
-                className="hh-flw-btn"
-                style={{ background: 'var(--hh-red)', color: '#fff', borderColor: 'var(--hh-red)' }}
-                onClick={() => openModal('vk')}
-              >Raise</button>
-            </div>
-          </div>
 
         </div>
       </div>
