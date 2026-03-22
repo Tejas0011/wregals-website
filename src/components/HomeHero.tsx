@@ -473,7 +473,10 @@ export default function HomeHero() {
               </div>
             ))}
           </div>
-          <button className="hh-ls-cat-all">Browse all categories</button>
+          <button className="hh-ls-cat-all">
+            <IIcon icon="lucide:plus" width={14} className="mr-2" />
+            Browse all categories
+          </button>
 
           <div className="hh-ls-sep" />
 
