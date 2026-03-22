@@ -139,12 +139,12 @@ a[href*="spline"] {
     position: relative;
     width: 100%;
     max-width: 440px;
-    background: #0E0E0E;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 4px;
+    background: var(--hh-s1);
+    border: 1px solid var(--hh-line);
+    border-radius: 16px;
     padding: 40px 36px 32px;
     scrollbar-width: thin;
-    scrollbar-color: #2a2a2a #0E0E0E;
+    scrollbar-color: var(--hh-s3) var(--hh-s1);
     animation: authModalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -233,10 +233,10 @@ a[href*="spline"] {
     justify-content: center;
     gap: 10px;
     padding: 11px 16px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 2px;
-    color: rgba(255, 255, 255, 0.75);
+    background: var(--hh-s2);
+    border: 1px solid var(--hh-line2);
+    border-radius: 8px;
+    color: var(--hh-w2);
     font-size: 12px;
     letter-spacing: 0.06em;
     font-family: 'Inter', sans-serif;
@@ -302,12 +302,12 @@ a[href*="spline"] {
 
 .auth-input {
     width: 100%;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 2px;
-    padding: 10px 12px;
+    background: var(--hh-s2);
+    border: 1px solid var(--hh-line);
+    border-radius: 8px;
+    padding: 11px 13px;
     font-size: 13px;
-    color: #ffffff;
+    color: var(--hh-w1);
     font-family: 'Inter', sans-serif;
     outline: none;
     transition: border-color 0.2s, background 0.2s;
@@ -357,7 +357,7 @@ a[href*="spline"] {
     letter-spacing: 0.12em;
     text-transform: uppercase;
     border: none;
-    border-radius: 2px;
+    border-radius: 8px;
     font-weight: 600;
     transition: opacity 0.2s, transform 0.2s;
 }

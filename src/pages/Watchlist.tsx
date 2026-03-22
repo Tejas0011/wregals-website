@@ -14,35 +14,39 @@ const WATCHLIST = [
 export default function Watchlist({ user, onSignInClick }: WatchlistProps) {
   return (
     <AccountLayout user={user} onSignInClick={onSignInClick} title="Watchlist">
-      <div className="space-y-6">
+      <div className="space-y-4">
         {WATCHLIST.length > 0 ? (
           <div className="grid gap-4">
             {WATCHLIST.map((item, i) => (
-              <div key={i} className="bg-[#3D0808] border border-white/5 flex flex-col md:flex-row rounded-sm overflow-hidden group">
-                <div className="w-full md:w-32 h-32 flex-shrink-0 relative">
+              <div
+                key={i}
+                className="border flex flex-col md:flex-row rounded-xl overflow-hidden group"
+                style={{ background: 'var(--hh-s1)', borderColor: 'var(--hh-line)' }}
+              >
+                <div className="w-full md:w-28 h-28 flex-shrink-0 relative">
                   <img src={item.image} alt={item.item} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
-                  <button className="absolute top-2 right-2 w-8 h-8 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-[#D4AF37] hover:bg-white hover:text-black transition-all">
-                    <IIcon icon="solar:heart-bold" width="14" />
+                  <button className="absolute top-2 right-2 w-7 h-7 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-[#D4AF37] hover:bg-white hover:text-black transition-all">
+                    <IIcon icon="lucide:heart" width="13" />
                   </button>
                 </div>
-                <div className="flex-1 p-6 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div className="flex-1 p-5 flex flex-col md:flex-row justify-between items-center gap-5">
                   <div className="flex-1 space-y-1">
-                    <p className="text-[10px] uppercase tracking-widest text-neutral-600 font-semibold">{item.auction}</p>
-                    <h3 className="text-lg font-light text-white">{item.item}</h3>
-                    <p className="text-[10px] tracking-widest text-neutral-500 mt-2 flex items-center gap-1.5">
-                      <IIcon icon="solar:clock-circle-linear" width="12" />
+                    <p className="text-[10px] uppercase tracking-widest font-semibold" style={{ color: 'var(--hh-w3)' }}>{item.auction}</p>
+                    <h3 className="text-base font-semibold" style={{ color: 'var(--hh-w1)' }}>{item.item}</h3>
+                    <p className="text-[10px] tracking-widest mt-1.5 flex items-center gap-1.5" style={{ color: 'var(--hh-w3)' }}>
+                      <IIcon icon="lucide:clock" width="11" />
                       {item.timeLeft} remaining
                     </p>
                   </div>
-                  
-                  <div className="flex gap-8 text-center border-l border-white/5 pl-8 pr-4">
+
+                  <div className="flex gap-7 text-center border-l pl-7" style={{ borderColor: 'var(--hh-line)' }}>
                     <div>
-                      <p className="text-[9px] uppercase tracking-widest text-neutral-600 mb-1">Current Bid</p>
-                      <p className="text-lg font-light text-[#D4AF37]">₹{item.currentBid.toLocaleString('en-IN')}</p>
+                      <p className="text-[9px] uppercase tracking-widest mb-1" style={{ color: 'var(--hh-w3)' }}>Current Bid</p>
+                      <p className="text-base font-semibold text-[#D4AF37]">₹{item.currentBid.toLocaleString('en-IN')}</p>
                     </div>
                   </div>
 
-                  <button className="px-6 py-2.5 bg-white text-black text-[10px] uppercase tracking-widest font-bold hover:bg-[#D4AF37] transition-all">
+                  <button className="px-5 py-2 bg-white text-black text-[10px] uppercase tracking-widest font-bold hover:bg-[#D4AF37] transition-all rounded-sm">
                     Place Bid
                   </button>
                 </div>
@@ -50,11 +54,14 @@ export default function Watchlist({ user, onSignInClick }: WatchlistProps) {
             ))}
           </div>
         ) : (
-          <div className="py-20 text-center border border-dashed border-white/10 rounded-sm">
-            <IIcon icon="solar:heart-linear" width="48" class="text-neutral-700 mx-auto mb-4" />
-            <h2 className="text-white font-medium mb-2">Your watchlist is empty</h2>
-            <p className="text-sm text-neutral-500 mb-6">Find auctions you're interested in and save them here.</p>
-            <button className="px-8 py-3 bg-[#D4AF37] text-black text-xs uppercase tracking-widest font-semibold hover:bg-[#c49f2e] transition-colors">
+          <div
+            className="py-20 text-center border border-dashed rounded-xl"
+            style={{ borderColor: 'var(--hh-line2)' }}
+          >
+            <IIcon icon="lucide:heart" width="48" className="mx-auto mb-4" style={{ color: 'var(--hh-w3)' }} />
+            <h2 className="font-semibold mb-2" style={{ color: 'var(--hh-w1)' }}>Your watchlist is empty</h2>
+            <p className="text-sm mb-6" style={{ color: 'var(--hh-w3)' }}>Find auctions you're interested in and save them here.</p>
+            <button className="px-8 py-3 bg-[#D4AF37] text-black text-xs uppercase tracking-widest font-semibold hover:bg-[#c49f2e] transition-colors rounded-sm">
               Explore Auctions
             </button>
           </div>

@@ -11,108 +11,112 @@ interface AccountLayoutProps {
 }
 
 const MENU_ITEMS = [
-  { label: 'My Profile', icon: 'solar:user-circle-linear', path: '/profile' },
-  { label: 'Wallet', icon: 'solar:wallet-linear', path: '/wallet' },
-  { label: 'My Bids', icon: 'mdi:gavel', path: '/my-bids' },
-  { label: 'Watchlist', icon: 'solar:heart-linear', path: '/watchlist' },
-  { label: 'Notifications', icon: 'solar:bell-linear', path: '/notifications' },
+  { label: 'My Profile', icon: 'lucide:user', path: '/profile' },
+  { label: 'Wallet', icon: 'lucide:credit-card', path: '/wallet' },
+  { label: 'My Bids', icon: 'lucide:activity', path: '/my-bids' },
+  { label: 'Watchlist', icon: 'lucide:heart', path: '/watchlist' },
+  { label: 'Notifications', icon: 'lucide:bell', path: '/notifications' },
 ];
 
 export default function AccountLayout({ user, onSignInClick, children, title }: AccountLayoutProps) {
   const location = useLocation();
 
   return (
-    <div className="bg-[#3D0808] min-h-screen text-white flex flex-col">
-      {/* Shared Nav (simplified for account pages) */}
-      <nav className="fixed top-0 w-full z-50 bg-[#3D0808]/90 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <div style={{ background: 'var(--hh-bg)' }} className="min-h-screen text-white flex flex-col">
+      {/* Sidebar */}
+      <aside
+        className="w-[240px] hidden md:flex flex-col fixed top-0 left-0 h-screen border-r z-30"
+        style={{ background: 'var(--hh-s1)', borderColor: 'var(--hh-line)' }}
+      >
+        {/* Logo */}
+        <div className="px-5 py-5 border-b" style={{ borderColor: 'var(--hh-line)' }}>
           <Link to="/">
-            <img src="/wregals-logo-new.png" alt="WREGALS" className="h-12 w-auto object-contain" />
+            <img src="/wregals-logo-new.png" alt="WREGALS" className="h-10 w-auto object-contain" />
           </Link>
-          <div className="flex items-center gap-6 text-xs tracking-widest uppercase text-neutral-400">
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
-            <Link to="/auctions/live" className="hover:text-white transition-colors hidden md:block">Auctions</Link>
-            {user ? (
-              <span className="text-neutral-300 hidden md:block">
-                {user.user_metadata?.full_name || user.email?.split('@')[0]}
-              </span>
-            ) : (
-              <button
-                onClick={onSignInClick}
-                className="border px-4 py-1.5 rounded-sm border-white/20 hover:bg-white hover:text-black transition-all"
-              >
-                Sign In
-              </button>
-            )}
-          </div>
         </div>
+
+        {/* Section label */}
+        <div className="px-5 pt-6 pb-2">
+          <p className="text-[9px] uppercase tracking-[0.16em] font-bold" style={{ color: 'var(--hh-w3)' }}>
+            Account
+          </p>
+        </div>
+
+        {/* Nav */}
+        <nav className="flex-1 px-3 space-y-0.5">
+          {MENU_ITEMS.map((item) => {
+            const isActive = location.pathname === item.path;
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-150 group"
+                style={{
+                  background: isActive ? 'var(--hh-s2)' : 'transparent',
+                  color: isActive ? 'var(--hh-w1)' : 'var(--hh-w3)',
+                }}
+              >
+                <IIcon icon={item.icon} width={18} />
+                <span className="text-[13px] font-medium">{item.label}</span>
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Bottom — back to home */}
+        <div className="p-4 border-t" style={{ borderColor: 'var(--hh-line)' }}>
+          <Link
+            to="/"
+            className="flex items-center gap-2 px-3 py-2.5 rounded-lg transition-all"
+            style={{ color: 'var(--hh-w3)' }}
+          >
+            <IIcon icon="lucide:arrow-left" width={16} />
+            <span className="text-[12px] font-medium">Back to Home</span>
+          </Link>
+        </div>
+      </aside>
+
+      {/* Mobile top bar */}
+      <nav
+        className="fixed top-0 left-0 right-0 z-40 md:hidden flex items-center justify-between px-5 h-14 border-b"
+        style={{ background: 'var(--hh-s1)', borderColor: 'var(--hh-line)' }}
+      >
+        <Link to="/">
+          <img src="/wregals-logo-new.png" alt="WREGALS" className="h-8 w-auto object-contain" />
+        </Link>
+        {user ? (
+          <span className="text-xs" style={{ color: 'var(--hh-w2)' }}>
+            {user.user_metadata?.full_name || user.email?.split('@')[0]}
+          </span>
+        ) : (
+          <button
+            onClick={onSignInClick}
+            className="text-xs font-semibold uppercase tracking-wider px-3 py-1.5 rounded border transition-all"
+            style={{ borderColor: 'var(--hh-line2)', color: 'var(--hh-w1)' }}
+          >
+            Sign In
+          </button>
+        )}
       </nav>
 
-      <div className="flex-1 flex pt-16">
-        {/* Sidebar */}
-        <aside className="w-64 hidden md:flex flex-col border-r border-white/10 bg-[#3D0808] fixed h-[calc(100vh-64px)] overflow-y-auto">
-          <div className="p-6">
-            <p className="text-[10px] uppercase tracking-[0.2em] text-[#D4AF37] mb-8 font-semibold">
-              Account Settings
-            </p>
-            <nav className="space-y-1">
-              {MENU_ITEMS.map((item) => {
-                const isActive = location.pathname === item.path;
-                return (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-sm transition-all duration-300 group ${
-                      isActive
-                        ? 'bg-[#D4AF37]/10 text-white'
-                        : 'text-neutral-500 hover:text-white hover:bg-white/5'
-                    }`}
-                  >
-                    <IIcon
-                      icon={item.icon}
-                      width="18"
-                      class={`transition-colors ${
-                        isActive ? 'text-[#D4AF37]' : 'text-neutral-600 group-hover:text-neutral-400'
-                      }`}
-                    />
-                    <span className="text-sm font-medium">{item.label}</span>
-                    {isActive && (
-                      <div className="ml-auto w-1 h-4 bg-[#D4AF37] rounded-full" />
-                    )}
-                  </Link>
-                );
-              })}
-            </nav>
-          </div>
-
-          <div className="mt-auto p-6 border-t border-white/10">
-            <div className="bg-white/5 p-4 rounded-sm border border-white/10">
-              <p className="text-[9px] uppercase tracking-widest text-neutral-500 mb-2">Need Help?</p>
-              <Link to="/contact" className="text-xs text-neutral-400 hover:text-[#D4AF37] transition-colors">
-                Contact Concierge
-              </Link>
+      {/* Main content */}
+      <main className="flex-1 md:ml-[240px] pt-14 md:pt-0">
+        <div className="max-w-4xl mx-auto px-6 py-10">
+          {/* Breadcrumb + title */}
+          <header className="mb-10">
+            <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest mb-3" style={{ color: 'var(--hh-w3)' }}>
+              <Link to="/" className="hover:text-white transition-colors">Home</Link>
+              <span>/</span>
+              <span style={{ color: '#D4AF37' }}>{title}</span>
             </div>
-          </div>
-        </aside>
+            <h1 className="text-3xl font-semibold tracking-tight" style={{ color: 'var(--hh-w1)' }}>{title}</h1>
+            <div className="h-px w-16 mt-3" style={{ background: 'rgba(212,175,55,0.4)' }} />
+          </header>
 
-        {/* Main Content */}
-        <main className="flex-1 md:ml-64 bg-[#3D0808]">
-          <div className="max-w-5xl mx-auto px-6 py-12">
-            <header className="mb-12">
-              <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-neutral-500 mb-4">
-                <Link to="/" className="hover:text-neutral-300 transition-colors">Dashboard</Link>
-                <span>/</span>
-                <span className="text-[#D4AF37]">{title}</span>
-              </div>
-              <h1 className="text-4xl font-light tracking-tight text-white mb-2">{title}</h1>
-              <div className="h-px w-24 bg-[#D4AF37]/40" />
-            </header>
-
-            {children}
-          </div>
-          <Footer />
-        </main>
-      </div>
+          {children}
+        </div>
+        <Footer />
+      </main>
     </div>
   );
 }
