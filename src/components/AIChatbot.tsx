@@ -39,7 +39,18 @@ BEHAVIOUR RULES:
 }
 
 const StarEightPointsIcon = ({ width = 16, className = "" }: { width?: number; className?: string }) => (
-    <IIcon icon="game-icons:nautical-star" width={width} className={className} />
+    <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        viewBox="0 0 24 24" 
+        width={width} 
+        height={width} 
+        className={className}
+    >
+        <path fill="currentColor" d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5Z" />
+        <g transform="translate(12, 12) rotate(45) scale(0.65) translate(-12, -12)">
+            <path fill="currentColor" d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5Z" />
+        </g>
+    </svg>
 );
 
 interface Message {
