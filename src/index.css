@@ -1321,7 +1321,7 @@ a[href*="spline"] {
   display: grid;
   grid-template-columns: 270px 1fr 340px;
   max-width: 100%; margin: 0 auto;
-  padding: calc(80px + 28px) 32px 0; /* Restored horizontal 32px padding */
+  padding: calc(80px + 28px) 12px 0; /* Reduced horizontal padding from 32px to 12px */
   gap: 32px;
   align-items: start;
 }
@@ -1342,7 +1342,7 @@ a[href*="spline"] {
 }
 .hh-ls-link {
   display: flex; align-items: center; gap: 10px;
-  padding: 6px 12px; border-radius: 8px; /* Restored radius, kept compact vertical padding */
+  padding: 8px 12px; border-radius: 8px; /* Uniform 8px vertical padding */
   font-size: 14px; font-weight: 500; color: var(--hh-w3);
   cursor: pointer; transition: all .14s; margin-bottom: 0px;
 }
@@ -1360,7 +1360,7 @@ a[href*="spline"] {
 .hh-ls-cats { display: flex; flex-direction: column; gap: 2px; }
 .hh-ls-cat {
   display: flex; align-items: center; gap: 10px;
-  padding: 5px 12px; border-radius: 8px; /* Restored radius, kept compact vertical padding */
+  padding: 8px 12px; border-radius: 8px; /* Harmonized with .hh-ls-link height */
   font-size: 13px; font-weight: 500; color: var(--hh-w3);
   cursor: pointer; transition: all .14s;
 }
@@ -1379,7 +1379,7 @@ a[href*="spline"] {
   color: var(--hh-w1); background: var(--hh-s2);
 }
 .hh-ls-wallet {
-  margin-top: auto;
+  margin-top: 24px; /* Changed from auto to reduce the gap */
   background: var(--hh-s2); border: 1px solid var(--hh-line);
   border-radius: 10px; padding: 12px; /* Reduced from 16px */
 }
