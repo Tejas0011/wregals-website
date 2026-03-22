@@ -280,7 +280,7 @@ export default function Social({ user, onSignInClick }: SocialProps) {
                 </main>
 
                 {/* ── RIGHT SIDEBAR ── */}
-                <aside className="hidden lg:block w-80 xl:w-96 flex-shrink-0 px-4 py-4 sticky top-0 h-screen overflow-y-auto">
+                <aside className="hidden lg:flex flex-col w-80 xl:w-96 flex-shrink-0 px-4 py-4 sticky top-0 h-screen overflow-y-auto">
                     {/* Search bar */}
                     <div className="flex items-center gap-3 bg-[#111] border border-white/10 px-4 py-2.5 mb-5 mt-2">
                         <IIcon icon="solar:magnifer-linear" width="15" class="text-neutral-500" />
@@ -288,7 +288,7 @@ export default function Social({ user, onSignInClick }: SocialProps) {
                     </div>
 
                     {/* Live Lots card */}
-                    <div className="bg-[#0C0C0C] border border-white/5 overflow-hidden mb-4">
+                    <div className="bg-[#0C0C0C] border border-white/5 overflow-hidden mb-4 flex-shrink-0">
                         <div className="px-4 py-3 border-b border-white/5 flex items-center gap-2">
                             <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
                             <h3 className="font-bold text-white text-sm">Live Drops</h3>
@@ -306,11 +306,11 @@ export default function Social({ user, onSignInClick }: SocialProps) {
                     </div>
 
                     {/* Who to follow */}
-                    <div className="bg-[#0C0C0C] border border-white/5 overflow-hidden mb-4">
+                    <div className="bg-[#0C0C0C] border border-white/5 overflow-hidden mb-4 flex-1 flex flex-col">
                         <div className="px-4 py-3 border-b border-white/5">
                             <h3 className="font-bold text-white text-sm">Verified Creators</h3>
                         </div>
-                        {CREATORS.map(c => (
+                        <div className="flex-1 overflow-y-auto">{CREATORS.map(c => (
                             <div key={c.id} className="flex items-center gap-3 px-4 py-3 hover:bg-white/5 transition-colors border-b border-white/5 last:border-0">
                                 <div className="w-9 h-9 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/5 flex items-center justify-center flex-shrink-0">
                                     <span className="font-mono text-xs text-[#D4AF37]">{c.initials}</span>
@@ -330,11 +330,11 @@ export default function Social({ user, onSignInClick }: SocialProps) {
                                     {followed.has(c.id) ? 'Following' : 'Follow'}
                                 </button>
                             </div>
-                        ))}
+                        ))}</div>
                     </div>
 
                     {/* Policy note */}
-                    <div className="bg-[#0C0C0C] border border-white/5 px-4 py-4">
+                    <div className="bg-[#0C0C0C] border border-white/5 px-4 py-4 flex-shrink-0">
                         <div className="flex items-center gap-2 mb-2">
                             <IIcon icon="solar:shield-check-linear" width="14" class="text-[#D4AF37]" />
                             <span className="text-xs font-bold text-[#D4AF37] uppercase tracking-widest">Broadcast Policy</span>

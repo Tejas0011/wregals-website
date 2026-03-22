@@ -176,7 +176,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                     style={{
                         width: 'min(380px, calc(100vw - 24px))',
                         height: 'min(520px, calc(100vh - 120px))',
-                        background: '#22105fff',
+                        background: '#090124ff',
                         border: '1px solid rgba(6, 182, 212, 0.25)',
                         boxShadow: '0 24px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(6, 182, 212, 0.15)',
                         animation: 'wren-slide-up 0.25s ease',
@@ -288,7 +288,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                         {/* Quick suggestions (show only at start) */}
                         {messages.length <= 1 && !loading && (
                             <div className="px-3 pb-2 flex flex-wrap gap-1.5 flex-shrink-0">
-                                {['How do I bid?', 'Live auctions', 'How does KYC work?', 'System specs'].map(s => (
+                                {['What is Wregals?', 'How do I bid?', 'How does KYC work?', 'I need help!'].map(s => (
                                     <button
                                         key={s}
                                         onClick={() => { setInput(s); setTimeout(() => sendMessage(), 0); }}

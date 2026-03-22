@@ -405,7 +405,7 @@ export default function HomeHero() {
 
   const navLinks = [
     { icon: 'lucide:layout-grid', label: 'Feed' },
-    { icon: 'lucide:clock', label: 'Live Now', badge: '12' },
+    { icon: 'lucide:clock', label: 'Live Now' },
     { icon: 'lucide:heart', label: 'Watchlist' },
     { icon: 'lucide:activity', label: 'My Bids' },
     { icon: 'lucide:credit-card', label: 'Wallet' },
