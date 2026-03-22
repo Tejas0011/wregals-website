@@ -23,6 +23,7 @@ import WalletPage from './pages/WalletPage';
 import MyBids from './pages/MyBids';
 import Watchlist from './pages/Watchlist';
 import Notifications from './pages/Notifications';
+import Settings from './pages/Settings';
 import { supabase } from './lib/supabase';
 
 function App() {
@@ -197,6 +198,10 @@ function App() {
                   <Link to="/notifications" className="user-dropdown-item w-full text-left">
                     <IIcon icon="solar:bell-linear" width="16" />
                     Notifications
+                  </Link>
+                  <Link to="/settings" className="user-dropdown-item w-full text-left">
+                    <IIcon icon="solar:settings-linear" width="16" />
+                    Settings
                   </Link>
 
                   <div className="user-dropdown-divider" />
@@ -384,6 +389,9 @@ function App() {
         } />
         <Route path="/notifications" element={
           <Notifications user={user} onSignInClick={() => setAuthOpen(true)} />
+        } />
+        <Route path="/settings" element={
+          <Settings user={user} onSignInClick={() => setAuthOpen(true)} />
         } />
         <Route path="/*" element={<HomeHero />} />
       </Routes>

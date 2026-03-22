@@ -16,6 +16,7 @@ const MENU_ITEMS = [
   { label: 'My Bids', icon: 'lucide:activity', path: '/my-bids' },
   { label: 'Watchlist', icon: 'lucide:heart', path: '/watchlist' },
   { label: 'Notifications', icon: 'lucide:bell', path: '/notifications' },
+  { label: 'Settings', icon: 'lucide:settings', path: '/settings' },
 ];
 
 export default function AccountLayout({ children, title }: AccountLayoutProps) {
