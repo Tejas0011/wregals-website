@@ -176,15 +176,23 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                     style={{
                         width: 'min(380px, calc(100vw - 24px))',
                         height: 'min(520px, calc(100vh - 120px))',
-                        background: '#040914',
+                        background: '#191970',
                         border: '1px solid rgba(6, 182, 212, 0.25)',
                         boxShadow: '0 24px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(6, 182, 212, 0.15)',
                         animation: 'wren-slide-up 0.25s ease',
                     }}
                 >
+                    {/* Glass Reflection Overlay */}
+                    <div 
+                        className="absolute inset-0 pointer-events-none z-0 rounded-[inherit]" 
+                        style={{ 
+                            background: 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.03) 30%, transparent 45%, transparent 100%)',
+                        }} 
+                    />
+
                     {/* Animated Traveling Background Overlay */}
                     <div 
-                        className="absolute inset-0 pointer-events-none opacity-40 z-0" 
+                        className="absolute inset-0 pointer-events-none opacity-40 z-0 rounded-[inherit]" 
                         style={{ 
                             background: 'linear-gradient(135deg, rgba(6,182,212,0.1) 0%, transparent 50%, rgba(59,130,246,0.1) 100%)',
                             backgroundSize: '200% 200%',
