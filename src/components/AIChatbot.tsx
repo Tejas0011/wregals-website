@@ -387,10 +387,14 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                                 
                                 {/* Expanding Text */}
                                 <span 
-                                    className="whitespace-nowrap font-medium text-[14px] tracking-wide opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-75"
-                                    style={{ fontFamily: "'Inter', sans-serif", color: '#ffffff' }}
+                                    className="whitespace-nowrap font-medium text-[15px] tracking-wide opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-75"
+                                    style={{ 
+                                        fontFamily: "'Inter', sans-serif", 
+                                        color: '#ffffff',
+                                        textShadow: '2px 0px 0px rgba(0,255,255,0.7), -2px 0px 0px rgba(255,0,0,0.7)'
+                                    }}
                                 >
-                                    System AI
+                                    Wren
                                 </span>
                             </div>
 
