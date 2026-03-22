@@ -186,7 +186,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                     <div 
                         className="absolute inset-0 pointer-events-none z-0 rounded-[inherit]" 
                         style={{ 
-                            background: 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.03) 30%, transparent 45%, transparent 100%)',
+                            background: 'linear-gradient(to bottom right, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 49.9%, rgba(255,255,255,0) 50%, transparent 100%)',
                         }} 
                     />
 
