@@ -413,14 +413,13 @@ export default function HomeHero() {
 
   const cats = [
     { label: 'All', color: '#961616' },
-    { label: 'Cricket', color: '#3B82F6' },
-    { label: 'Bollywood', color: '#EC4899' },
+    { label: 'Sports', color: '#3B82F6' },
+    { label: 'Cinema', color: '#EC4899' },
     { label: 'Music', color: '#8B5CF6' },
-    { label: 'Fashion', color: '#F59E0B' },
-    { label: 'Sports', color: '#10B981' },
+    { label: 'Creators', color: '#10B981' },
   ];
 
-  const feedTabs = ['For You', 'Sports', 'Bollywood', 'Music', 'Creators'];
+  const feedTabs = ['For You', 'Sports', 'Cinema', 'Music', 'Creators'];
 
   // Double ticker items for seamless loop
   const allTicker = [...tickerItems, ...tickerItems];
@@ -474,6 +473,7 @@ export default function HomeHero() {
               </div>
             ))}
           </div>
+          <button className="hh-ls-cat-all">Browse all categories</button>
 
           <div className="hh-ls-sep" />
 
