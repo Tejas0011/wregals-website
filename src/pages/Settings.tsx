@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import AccountLayout from '../components/AccountLayout';
 import IIcon from '../components/IIcon';
 
