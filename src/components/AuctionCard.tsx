@@ -23,7 +23,7 @@ interface AuctionCardProps {
 const fmt = (n: number) => '₹' + n.toLocaleString('en-IN');
 
 const STATUS_CONFIG = {
-    'live': { label: 'Live', dot: 'bg-red-500 animate-pulse', text: 'text-white' },
+    'live': { label: 'Live', dot: 'bg-[var(--hh-red)] animate-pulse', text: 'text-white' },
     'ending-soon': { label: 'Ending Soon', dot: 'bg-amber-400 animate-pulse', text: 'text-amber-400' },
     'reserve-met': { label: 'Reserve Met', dot: 'bg-emerald-400', text: 'text-emerald-400' },
     'ended': { label: 'Ended', dot: 'bg-neutral-600', text: 'text-neutral-500' },

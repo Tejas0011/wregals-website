@@ -1222,9 +1222,9 @@ a[href*="spline"] {
   --hh-w2:      #8A8A9A;
   --hh-w3:      #55555F;
   --hh-w4:      #35353D;
-  --hh-red:     #F04040;
-  --hh-rbg:     rgba(240,64,64,0.09);
-  --hh-rline:   rgba(240,64,64,0.2);
+  --hh-red:     #961616;
+  --hh-rbg:     rgba(150,22,22,0.09);
+  --hh-rline:   rgba(150,22,22,0.2);
   --hh-green:   #22C56A;
   --hh-gbg:     rgba(34,197,106,0.09);
   --hh-gline:   rgba(34,197,106,0.18);

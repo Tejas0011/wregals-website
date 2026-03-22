@@ -36,7 +36,7 @@ export default function LotActions({ initialLikes, url }: LotActionsProps) {
             {/* Like Button */}
             <button
                 onClick={handleLike}
-                className={`flex items-center gap-2 transition-colors ${liked ? 'text-red-500' : 'hover:text-white'}`}
+                className={`flex items-center gap-2 transition-colors ${liked ? 'text-[var(--hh-red)]' : 'hover:text-white'}`}
             >
                 <IIcon icon={liked ? "solar:heart-bold" : "solar:heart-linear"} width="22" />
                 <span className="text-[13px] font-bold uppercase tracking-wider">{formatLikes(likes)}</span>

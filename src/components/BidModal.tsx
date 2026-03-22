@@ -117,7 +117,7 @@ export default function BidModal({ isOpen, onClose, item, user, walletBalance = 
                                 />
                             </div>
                             {bid > 0 && !isValidBid && (
-                                <p className="text-[10px] text-red-400 mt-1">Minimum bid is {fmt(minBid)}</p>
+                                <p className="text-[10px] text-[var(--hh-red)] mt-1">Minimum bid is {fmt(minBid)}</p>
                             )}
                             {isBuyout && (
                                 <p className="text-[10px] text-amber-400 mt-1">⚡ This bid meets the buyout price — auction will close immediately.</p>
@@ -126,17 +126,17 @@ export default function BidModal({ isOpen, onClose, item, user, walletBalance = 
 
                         {/* Wallet check */}
                         {bid > 0 && isValidBid && (
-                            <div className={`rounded-sm p-3 border text-xs space-y-1 ${hasEnoughBalance ? 'border-white/5 bg-[#0A0A0A]' : 'border-red-500/30 bg-red-500/5'}`}>
+                            <div className={`rounded-sm p-3 border text-xs space-y-1 ${hasEnoughBalance ? 'border-white/5 bg-[#0A0A0A]' : 'border-[var(--hh-red)]/30 bg-[var(--hh-red)]/5'}`}>
                                 <div className="flex justify-between text-neutral-400">
                                     <span>Required wallet balance (50%)</span>
                                     <span className="font-mono">{fmt(requiredBalance)}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-neutral-400">Your available balance</span>
-                                    <span className={`font-mono ${hasEnoughBalance ? 'text-emerald-400' : 'text-red-400'}`}>{fmt(walletBalance)}</span>
+                                    <span className={`font-mono ${hasEnoughBalance ? 'text-emerald-400' : 'text-[var(--hh-red)]'}`}>{fmt(walletBalance)}</span>
                                 </div>
                                 {!hasEnoughBalance && (
-                                    <p className="text-red-400 text-[10px] pt-1">
+                                    <p className="text-[var(--hh-red)] text-[10px] pt-1">
                                         Insufficient balance. Add ₹{(requiredBalance - walletBalance).toLocaleString('en-IN')} to your wallet to place this bid.
                                     </p>
                                 )}

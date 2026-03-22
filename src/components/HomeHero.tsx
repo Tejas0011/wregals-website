@@ -412,7 +412,7 @@ export default function HomeHero() {
   ];
 
   const cats = [
-    { label: 'All', color: '#F04040' },
+    { label: 'All', color: '#961616' },
     { label: 'Cricket', color: '#3B82F6' },
     { label: 'Bollywood', color: '#EC4899' },
     { label: 'Music', color: '#8B5CF6' },
