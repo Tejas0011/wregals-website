@@ -489,17 +489,7 @@ export default function HomeHero() {
 
         {/* FEED */}
         <div className="hh-feed">
-          <div className="hh-feed-tabs">
-            {feedTabs.map(tab => (
-              <div
-                key={tab}
-                className={`hh-ftab${activeTab === tab ? ' active' : ''}`}
-                onClick={() => setActiveTab(tab)}
-              >
-                {tab}
-              </div>
-            ))}
-          </div>
+
 
           {/* Post 1 — Virat Kohli — LIVE */}
           <PostCard
