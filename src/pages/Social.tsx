@@ -193,7 +193,7 @@ export default function Social({ user, onSignInClick }: SocialProps) {
             {/* Mobile top nav */}
             <nav className="fixed top-0 w-full z-50 bg-[#3D0808]/90 backdrop-blur-md border-b border-white/5 md:hidden">
                 <div className="px-4 h-14 flex items-center justify-between">
-                    <Link to="/"><img src="/wregals-logo-new.png" alt="WREGALS" className="h-9 w-auto object-contain" /></Link>
+                    <Link to="/"><img src="/wregals-text-logo.png" alt="WREGALS" className="h-18 w-auto object-contain" /></Link>
                     <span className="text-xs tracking-widest uppercase text-[#D4AF37]">Social</span>
                     {!user && <button onClick={onSignInClick} className="text-xs border border-white/20 px-3 py-1.5 hover:bg-white hover:text-black transition-all">Sign In</button>}
                 </div>
@@ -206,7 +206,7 @@ export default function Social({ user, onSignInClick }: SocialProps) {
                 <aside className="hidden md:flex flex-col w-64 xl:w-72 flex-shrink-0 sticky top-0 h-screen px-3 py-4 border-r border-white/5">
                     {/* Logo */}
                     <Link to="/" className="mb-6 px-3 pt-2 block">
-                        <img src="/wregals-logo-new.png" alt="WREGALS" className="h-12 w-auto object-contain" />
+                        <img src="/wregals-text-logo.png" alt="WREGALS" className="h-24 w-auto object-contain" />
                     </Link>
 
                     {/* Nav items */}
@@ -244,7 +244,7 @@ export default function Social({ user, onSignInClick }: SocialProps) {
                     {/* Sticky header */}
                     <div className="sticky top-0 z-30 bg-[#3D0808]/80 backdrop-blur-md border-b border-white/5">
                         <div className="px-4 py-3 hidden md:flex items-center gap-3">
-                            <img src="/wregals-logo-new.png" alt="W" className="h-7 w-auto object-contain opacity-60" />
+                            <img src="/wregals-text-logo.png" alt="W" className="h-14 w-auto object-contain opacity-60" />
                             <h1 className="font-bold text-lg text-white">Social</h1>
                         </div>
                         {/* Tabs */}

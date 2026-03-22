@@ -128,10 +128,10 @@ function App() {
       <nav
         className="fixed top-0 w-full z-[500] bg-[#0C0C0D]/90 backdrop-blur-md border-b border-white/5"
       >
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="w-full pl-5 pr-6 h-20 flex items-center justify-between">
           {/* Logo */}
           <Link to="/">
-            <img src="/wregals-logo-new.png" alt="WREGALS" className="h-16 w-auto object-contain" />
+            <img src="/wregals-text-logo.png" alt="WREGALS" className="h-32 w-auto object-contain" />
           </Link>
 
 
@@ -261,7 +261,7 @@ function App() {
         <div className="fixed inset-0 z-40 bg-[#0C0C0D]/95 backdrop-blur-md md:hidden">
           <div className="flex justify-between items-center px-6 h-20 border-b border-white/10">
             <Link to="/" onClick={() => setMobileMenuOpen(false)}>
-              <img src="/wregals-logo-new.png" alt="WREGALS" className="h-12 w-auto object-contain" />
+              <img src="/wregals-text-logo.png" alt="WREGALS" className="h-24 w-auto object-contain" />
             </Link>
             <button
               className="text-white"

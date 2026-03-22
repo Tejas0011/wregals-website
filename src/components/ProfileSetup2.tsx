@@ -96,7 +96,7 @@ export default function ProfileSetup2({ user, onComplete, onBack, onDismiss }: P
             <div className="profile-setup-container profile-setup-container--compact">
                 {/* Wordmark */}
                 <div className="profile-setup-brand profile-setup-brand--compact">
-                    <img src="/wregals-logo-new.png" alt="WREGALS" className="h-16 w-auto object-contain" />
+                    <img src="/wregals-text-logo.png" alt="WREGALS" className="h-32 w-auto object-contain" />
                 </div>
 
                 {/* Step indicator */}

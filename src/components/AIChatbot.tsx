@@ -39,11 +39,11 @@ BEHAVIOUR RULES:
 }
 
 const StarEightPointsIcon = ({ width = 16, className = "" }: { width?: number; className?: string }) => (
-    <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        viewBox="0 0 24 24" 
-        width={width} 
-        height={width} 
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width={width}
+        height={width}
         className={className}
     >
         <path fill="currentColor" d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5Z" />
@@ -128,8 +128,8 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
 
         const firstName = user?.user_metadata?.full_name?.split(' ')[0] || null;
         const greetMsg = firstName
-            ? `Welcome back, ${firstName}. I'm WREN, your WREGALS concierge. How can I assist you today?`
-            : `Welcome to WREGALS. I'm WREN, your personal auction concierge. How can I help you today?`;
+            ? `Welcome back, ${firstName}. I'm WREN. How can I assist you today?`
+            : `Welcome to WREGALS, I'm WREN. How can I help you today?`;
 
         setMessages([{ role: 'model', text: greetMsg }]);
     };
@@ -151,7 +151,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
             console.error('Gemini error:', e);
             setMessages(prev => [...prev, {
                 role: 'model',
-                text: 'I apologise — I encountered an issue. Please try again in a moment.'
+                text: 'I apologise. I encountered an issue. Please try again in a moment.'
             }]);
         } finally {
             setLoading(false);
@@ -176,28 +176,28 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                     style={{
                         width: 'min(380px, calc(100vw - 24px))',
                         height: 'min(520px, calc(100vh - 120px))',
-                        background: '#160733',
+                        background: '#22105fff',
                         border: '1px solid rgba(6, 182, 212, 0.25)',
                         boxShadow: '0 24px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(6, 182, 212, 0.15)',
                         animation: 'wren-slide-up 0.25s ease',
                     }}
                 >
                     {/* Glass Reflection Overlay */}
-                    <div 
-                        className="absolute inset-0 pointer-events-none z-0 rounded-[inherit]" 
-                        style={{ 
+                    <div
+                        className="absolute inset-0 pointer-events-none z-0 rounded-[inherit]"
+                        style={{
                             background: 'linear-gradient(to bottom right, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 49.9%, rgba(255,255,255,0) 50%, transparent 100%)',
-                        }} 
+                        }}
                     />
 
                     {/* Animated Traveling Background Overlay */}
-                    <div 
-                        className="absolute inset-0 pointer-events-none opacity-40 z-0 rounded-[inherit]" 
-                        style={{ 
+                    <div
+                        className="absolute inset-0 pointer-events-none opacity-40 z-0 rounded-[inherit]"
+                        style={{
                             background: 'linear-gradient(135deg, rgba(6,182,212,0.1) 0%, transparent 50%, rgba(59,130,246,0.1) 100%)',
                             backgroundSize: '200% 200%',
                             animation: 'wren-traveling-bg 8s ease infinite'
-                        }} 
+                        }}
                     />
 
                     {/* Header */}
@@ -217,7 +217,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                                 </div>
                                 <div>
                                     <p className="text-white text-sm font-semibold tracking-wide" style={{ fontFamily: "'Inter', sans-serif" }}>WREN</p>
-                                    <p className="text-[10px] uppercase tracking-widest text-cyan-500">System AI Assistant</p>
+                                    <p className="text-[10px] uppercase tracking-widest text-cyan-500">AI Assistant</p>
                                 </div>
                             </div>
                             <button
@@ -369,27 +369,27 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                 ) : (
                     <div className="relative w-full h-full rounded-[30px] p-[1.5px] overflow-hidden">
                         {/* Animated Border Gradient */}
-                        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] -translate-x-1/2 -translate-y-1/2 animate-[wren-spin_4s_linear_infinite]" 
-                             style={{ background: 'conic-gradient(from 180deg at 50% 50%, transparent 0%, rgba(161,0,255,0) 20%, #A100FF 60%, #00E5FF 100%)' }}
+                        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] -translate-x-1/2 -translate-y-1/2 animate-[wren-spin_4s_linear_infinite]"
+                            style={{ background: 'conic-gradient(from 180deg at 50% 50%, transparent 0%, rgba(161,0,255,0) 20%, #A100FF 60%, #00E5FF 100%)' }}
                         ></div>
-                        
+
                         {/* Inner Tech Core */}
                         <div className="relative flex items-center w-full h-full bg-[#080212] rounded-[30px] overflow-hidden transition-all duration-500 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] group-hover:bg-[#0F0424]">
-                            
+
                             <div className="flex items-center absolute left-0 w-full h-full">
                                 {/* 8-Pointed Star Icon */}
                                 <div className="w-[57px] h-[57px] flex items-center justify-center flex-shrink-0 relative">
-                                    <StarEightPointsIcon 
-                                        width={24} 
+                                    <StarEightPointsIcon
+                                        width={24}
                                         className="text-white relative z-20 group-hover:rotate-[45deg] group-hover:scale-110 transition-transform duration-500"
                                     />
                                 </div>
-                                
+
                                 {/* Expanding Text */}
-                                <span 
+                                <span
                                     className="flex-1 pr-4 text-center whitespace-nowrap font-medium text-[15px] tracking-wide opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-75"
-                                    style={{ 
-                                        fontFamily: "'Inter', sans-serif", 
+                                    style={{
+                                        fontFamily: "'Inter', sans-serif",
                                         color: '#ffffff',
                                     }}
                                 >
