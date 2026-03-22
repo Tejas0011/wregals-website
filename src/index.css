@@ -1321,16 +1321,16 @@ a[href*="spline"] {
   display: grid;
   grid-template-columns: 270px 1fr 340px;
   max-width: 100%; margin: 0 auto;
-  padding: calc(80px + 28px) 32px 0; /* nav + ribbon */
+  padding: calc(80px + 28px) 0 0; /* Removed horizontal 32px padding */
   gap: 32px;
-  align-items: start; /* crucial for grid items to not stretch and break sticky */
+  align-items: start;
 }
 
 /* ─── Left Sidebar ──────────────────────────────── */
 .hh-lsidebar {
   position: sticky; top: calc(85px + 28px);
   height: calc(100vh - 120px);
-  padding: 16px 10px 20px;
+  padding: 16px 0 20px; /* Removed horizontal 10px padding */
   display: flex; flex-direction: column;
   overflow-y: auto; scrollbar-width: none;
 }
@@ -1342,7 +1342,7 @@ a[href*="spline"] {
 }
 .hh-ls-link {
   display: flex; align-items: center; gap: 10px;
-  padding: 7px 10px; border-radius: 8px;
+  padding: 10px 24px; border-radius: 0; /* Removed radius, increased horizontal padding */
   font-size: 14px; font-weight: 500; color: var(--hh-w3);
   cursor: pointer; transition: all .14s; margin-bottom: 0px;
 }
@@ -1360,7 +1360,7 @@ a[href*="spline"] {
 .hh-ls-cats { display: flex; flex-direction: column; gap: 2px; }
 .hh-ls-cat {
   display: flex; align-items: center; gap: 10px;
-  padding: 6px 10px; border-radius: 8px;
+  padding: 8px 24px; border-radius: 0; /* Removed radius, increased horizontal padding */
   font-size: 13px; font-weight: 500; color: var(--hh-w3);
   cursor: pointer; transition: all .14s;
 }
@@ -1519,13 +1519,13 @@ a[href*="spline"] {
   position: sticky; top: calc(85px + 28px);
   align-self: flex-start;
   height: calc(100vh - 120px);
-  padding: 16px 10px 20px;
+  padding: 16px 0 20px; /* Removed horizontal 10px padding */
   overflow-y: auto; scrollbar-width: none;
 }
 .hh-rsidebar::-webkit-scrollbar { display: none; }
 .hh-rc {
   background: var(--hh-s1); border: 1px solid var(--hh-line);
-  border-radius: 12px; padding: 16px; margin-bottom: 10px;
+  border-radius: 0; border-left: none; border-right: none; padding: 16px 20px; margin-bottom: 10px;
 }
 .hh-rc-title { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--hh-w3); margin-bottom: 12px; }
 .hh-rc-row {
