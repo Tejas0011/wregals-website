@@ -99,7 +99,9 @@ export default function Careers({ user, onSignInClick }: CareersProps) {
             {/* Perks */}
             <section className="border-t border-white/5 py-16">
                 <div className="max-w-7xl mx-auto px-6">
-                    <h2 className="text-xl font-light tracking-tight mb-8 text-neutral-300">Why WREGALS</h2>
+                    <h2 className="text-xl font-light tracking-tight mb-8 text-neutral-300 flex items-center gap-3">
+                        Why <img src="/wregals-text-logo.png" alt="WREGALS" className="h-8 w-auto object-contain" />
+                    </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {PERKS.map(p => (
                             <div key={p.label} className="flex gap-4 p-5 border border-white/5 bg-[#0C0C0C] hover:bg-[#111] hover:border-white/10 transition-all rounded-sm">

@@ -121,17 +121,19 @@ export default function About({ user, onSignInClick }: AboutPageProps) {
                     <div className="grid md:grid-cols-2 gap-16 items-center">
                         <div>
                             <span className="text-[10px] uppercase tracking-widest text-[#D4AF37] mb-4 block">Our Mission</span>
-                            <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-6">
-                                Only financially eligible bidders may participate.
+                            <h2 className="text-3xl font-light tracking-tight mb-8">
+                                <Logo height="h-10" /> is India's first capital-backed digital auction house — built for collectors, estates,
+                                and high-value assets.
                             </h2>
-                            <p className="text-neutral-400 text-sm leading-relaxed mb-4">
-                                The global auction market is plagued by phantom bids, unsettled sales, and price manipulation. WREGALS was built to fix that.
-                            </p>
-                            <p className="text-neutral-400 text-sm leading-relaxed">
-                                By requiring every bidder to maintain 50% of their bid in their WREGALS wallet — and enforcing a strict
-                                liquidated damages clause on default — we've created a marketplace where every bid is a credible commitment,
-                                not a speculative gesture.
-                            </p>
+                            <div className="flex-1 space-y-6 text-neutral-400 text-sm leading-relaxed">
+                                <p>
+                                    The global auction market is plagued by phantom bids, unsettled sales, and price manipulation. <Logo height="h-3.5" /> was built to fix that.
+                                </p>
+                                <p>
+                                    By requiring every bidder to maintain 50% of their bid in their <Logo height="h-3.5" /> wallet — and enforcing a strict
+                                    liquidated damages clause for defaults — we've created the most reliable transaction layer in the industry.
+                                </p>
+                            </div>
                         </div>
                         <div className="space-y-4">
                             {VALUES.map(v => (

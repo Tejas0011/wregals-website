@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import Logo from './Logo';
 
 const FRAME_COUNT = 192;
 const ANIMATION_PATH = '/Animations/_MConverter.eu_Animation-';
@@ -233,12 +234,7 @@ export default function HeroScroll({ onReady, onAnimationDone }: { onReady?: () 
             {!isReady && (
                 <div className="absolute inset-0 z-30 bg-[#3D0808] flex flex-col items-center justify-center gap-8">
                     {/* WREGALS wordmark */}
-                    <span
-                        className="text-white/80 uppercase tracking-[0.5em] text-sm font-light"
-                        style={{ fontFamily: "'Cormorant Garamond', serif" }}
-                    >
-                        WREGALS
-                    </span>
+                    <Logo height="h-16" className="opacity-80" />
 
                     {/* Progress bar */}
                     <div className="w-48 h-[1px] bg-white/10 relative overflow-hidden">

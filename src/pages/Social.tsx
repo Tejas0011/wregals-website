@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import IIcon from '../components/IIcon';
 import Footer from '../components/Footer';
 import ShareSheet from '../components/ShareSheet';
+import Logo from '../components/Logo';
 
 /* ─── Mock data ─────────────────────────────────────────────────────────── */
 const CREATORS = [
@@ -339,7 +340,9 @@ export default function Social({ user, onSignInClick }: SocialProps) {
                             <IIcon icon="solar:shield-check-linear" width="14" class="text-[#D4AF37]" />
                             <span className="text-xs font-bold text-[#D4AF37] uppercase tracking-widest">Broadcast Policy</span>
                         </div>
-                        <p className="text-xs text-neutral-600 leading-relaxed">Only verified creators post. No public comments in Phase 1. Content is auction-centric and editorially reviewed by WREGALS.</p>
+                        <p className="text-xs text-neutral-600 leading-relaxed flex items-center gap-1.5 flex-wrap">
+                            Only verified creators post. No public comments in Phase 1. Content is auction-centric and editorially reviewed by <Logo height="h-3.5" />.
+                        </p>
                     </div>
                 </aside>
 

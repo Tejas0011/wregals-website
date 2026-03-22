@@ -128,8 +128,8 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
 
         const firstName = user?.user_metadata?.full_name?.split(' ')[0] || null;
         const greetMsg = firstName
-            ? `Welcome back, ${firstName}. I'm WREN. How can I assist you today?`
-            : `Welcome to WREGALS, I'm WREN. How can I help you today?`;
+            ? <span className="flex items-center gap-1.5 flex-wrap">Welcome back, {firstName}. I'm WREN. How can I assist you today?</span>
+            : <span className="flex items-center gap-1.5 flex-wrap">Welcome to <Logo height="h-3.5" />, I'm WREN. How can I help you today?</span>;
 
         setMessages([{ role: 'model', text: greetMsg }]);
     };

@@ -3,9 +3,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import IIcon from '../components/IIcon';
 import Footer from '../components/Footer';
+import Logo from '../components/Logo';
 
-const TOPICS = [
-    { icon: 'solar:tag-linear', label: 'Consign an Item', email: 'consign@wregals.com', desc: 'Sell your asset with WREGALS' },
+const CONTACT_INFO = [
+    { icon: 'solar:tag-linear', label: 'Consign an Item', email: 'consign@wregals.com', desc: (<span className="flex items-center gap-1.5">Sell your asset with <Logo height="h-3.5" /></span>) },
     { icon: 'solar:wallet-linear', label: 'Wallet & Payments', email: 'support@wregals.com', desc: 'Deposits, withdrawals, and bids' },
     { icon: 'solar:shield-check-linear', label: 'KYC & Compliance', email: 'kyc@wregals.com', desc: 'Verification and account issues' },
     { icon: 'solar:star-linear', label: 'Press & Media', email: 'press@wregals.com', desc: 'Interviews and media requests' },

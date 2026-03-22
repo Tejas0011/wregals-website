@@ -111,7 +111,7 @@ export default function WalletModal({ isOpen, onClose, user }: WalletModalProps)
                                     <span className="text-[#D4AF37] font-mono">{fmt(available * 2)}</span>.
                                 </p>
                                 <p className="text-[10px] text-neutral-600">
-                                    As per WREGALS' capital-backing rule, 50% of any bid must be held in your wallet.
+                                    As per <Logo height="h-3" />'s capital-backing rule, 50% of any bid must be held in your wallet.
                                 </p>
                             </div>
                             <div className="bg-[#0A0A0A] border border-white/5 rounded-sm p-4 space-y-2">

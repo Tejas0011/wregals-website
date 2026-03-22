@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import IIcon from '../components/IIcon';
 import Footer from '../components/Footer';
+import Logo from '../components/Logo';
 
 const STEPS = [
     {
@@ -20,7 +21,7 @@ const STEPS = [
     {
         n: '02',
         icon: 'solar:wallet-money-linear',
-        title: 'Fund Your WREGALS Wallet',
+        title: (<span className="flex items-center gap-1.5">Fund Your <Logo height="h-4" /> Wallet</span>),
         desc: 'Deposit funds via NEFT, RTGS, or UPI. Your wallet balance must cover at least 50% of your intended bid before you are eligible to place it.',
         detail: [
             'Min deposit: ₹10,000',
