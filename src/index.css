@@ -1544,6 +1544,13 @@ a[href*="spline"] {
 .hh-rc-sub  { font-size: 11px; color: var(--hh-w3); margin-top: 1px; }
 .hh-rc-timer { font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--hh-w2); white-space: nowrap; }
 .hh-rc-timer-red { color: var(--hh-red) !important; }
+.hh-rc-show-more {
+  display: block; width: 100%; text-align: center;
+  padding-top: 13px; margin-top: 4px;
+  font-size: 10.5px; font-weight: 600; letter-spacing: .03em;
+  color: var(--hh-w3); transition: color .16s; cursor: pointer;
+}
+.hh-rc-show-more:hover { color: var(--hh-w1); }
 .hh-flw-btn {
   height: 26px; padding: 0 12px;
   background: var(--hh-s3); border: 1px solid var(--hh-line2);

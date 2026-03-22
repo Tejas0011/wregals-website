@@ -600,9 +600,7 @@ export default function HomeHero() {
                 <div className={`hh-rc-timer${row.red ? ' hh-rc-timer-red' : ''}`}>{row.timer}</div>
               </div>
             ))}
-            <button 
-              className="mt-2 -mb-2 mx-auto block w-[60%] text-center text-[9px] tracking-wider font-semibold text-[var(--hh-w3)] hover:text-[var(--hh-w2)] transition-colors"
-            >
+            <button className="hh-rc-show-more">
               Show more
             </button>
           </div>
@@ -626,9 +624,7 @@ export default function HomeHero() {
                 </button>
               </div>
             ))}
-            <button 
-              className="mt-2 -mb-2 mx-auto block w-[60%] text-center text-[9px] tracking-wider font-semibold text-[var(--hh-w3)] hover:text-[var(--hh-w2)] transition-colors"
-            >
+            <button className="hh-rc-show-more">
               Show more
             </button>
           </div>
