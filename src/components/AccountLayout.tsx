@@ -18,22 +18,17 @@ const MENU_ITEMS = [
   { label: 'Notifications', icon: 'lucide:bell', path: '/notifications' },
 ];
 
-export default function AccountLayout({ user, onSignInClick, children, title }: AccountLayoutProps) {
+export default function AccountLayout({ children, title }: AccountLayoutProps) {
   const location = useLocation();
 
   return (
     <div style={{ background: 'var(--hh-bg)' }} className="min-h-screen text-white flex flex-col">
       {/* Sidebar */}
       <aside
-        className="w-[240px] hidden md:flex flex-col fixed top-0 left-0 h-screen border-r z-30"
+        className="w-[240px] hidden md:flex flex-col fixed top-20 left-0 h-[calc(100vh-5rem)] border-r z-30"
         style={{ background: 'var(--hh-s1)', borderColor: 'var(--hh-line)' }}
       >
-        {/* Logo */}
-        <div className="px-5 py-5 border-b" style={{ borderColor: 'var(--hh-line)' }}>
-          <Link to="/">
-            <img src="/wregals-logo-new.png" alt="WREGALS" className="h-10 w-auto object-contain" />
-          </Link>
-        </div>
+        <div className="pt-2" />
 
         {/* Section label */}
         <div className="px-5 pt-6 pb-2">
@@ -76,31 +71,8 @@ export default function AccountLayout({ user, onSignInClick, children, title }: 
         </div>
       </aside>
 
-      {/* Mobile top bar */}
-      <nav
-        className="fixed top-0 left-0 right-0 z-40 md:hidden flex items-center justify-between px-5 h-14 border-b"
-        style={{ background: 'var(--hh-s1)', borderColor: 'var(--hh-line)' }}
-      >
-        <Link to="/">
-          <img src="/wregals-logo-new.png" alt="WREGALS" className="h-8 w-auto object-contain" />
-        </Link>
-        {user ? (
-          <span className="text-xs" style={{ color: 'var(--hh-w2)' }}>
-            {user.user_metadata?.full_name || user.email?.split('@')[0]}
-          </span>
-        ) : (
-          <button
-            onClick={onSignInClick}
-            className="text-xs font-semibold uppercase tracking-wider px-3 py-1.5 rounded border transition-all"
-            style={{ borderColor: 'var(--hh-line2)', color: 'var(--hh-w1)' }}
-          >
-            Sign In
-          </button>
-        )}
-      </nav>
-
       {/* Main content */}
-      <main className="flex-1 md:ml-[240px] pt-14 md:pt-0">
+      <main className="flex-1 md:ml-[240px] pt-20">
         <div className="max-w-4xl mx-auto px-6 py-10">
           {/* Breadcrumb + title */}
           <header className="mb-10">
