@@ -24,6 +24,7 @@ import MyBids from './pages/MyBids';
 import Watchlist from './pages/Watchlist';
 import Notifications from './pages/Notifications';
 import Settings from './pages/Settings';
+import SellerDashboard from './pages/SellerDashboard';
 import { supabase } from './lib/supabase';
 
 function App() {
@@ -179,6 +180,12 @@ function App() {
                   <div className="user-dropdown-divider" />
 
                   {/* Menu items */}
+                  {['seller@wregals.com', 'tejasvardhan873@gmail.com'].includes(user?.email) && (
+                    <Link to="/seller/dashboard" className="user-dropdown-item w-full text-left text-[#D4AF37] hover:text-[#e4c256]">
+                      <IIcon icon="solar:graph-up-linear" width="16" />
+                      Seller Dashboard
+                    </Link>
+                  )}
                   <Link to="/profile" className="user-dropdown-item w-full text-left">
                     <IIcon icon="solar:user-circle-linear" width="16" />
                     My Profile
@@ -392,6 +399,9 @@ function App() {
         } />
         <Route path="/settings" element={
           <Settings user={user} onSignInClick={() => setAuthOpen(true)} />
+        } />
+        <Route path="/seller/dashboard" element={
+          <SellerDashboard user={user} />
         } />
         <Route path="/*" element={<HomeHero />} />
       </Routes>

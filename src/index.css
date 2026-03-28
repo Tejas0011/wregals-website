@@ -1306,6 +1306,11 @@ a[href*="spline"] {
   padding: 0 24px; font-size: 11px; font-weight: 500;
   color: var(--hh-w3); border-right: 1px solid var(--hh-line);
   white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.hh-tick-item:hover {
+  background: rgba(255, 255, 255, 0.05);
 }
 .hh-tick-item.hh-tick-promo .hh-ti-name { color: var(--hh-amber); }
 .hh-ti-name  { color: var(--hh-w2); }
@@ -1496,7 +1501,6 @@ a[href*="spline"] {
   cursor: pointer; transition: opacity .14s; white-space: nowrap;
 }
 .hh-p-bid-btn:hover { opacity: .86; }
-.hh-p-bid-btn-urgent { background: var(--hh-red) !important; color: #fff !important; }
 .hh-p-bid-btn-notify { background: var(--hh-s4) !important; color: var(--hh-w1) !important; border: 1px solid var(--hh-line2) !important; }
 .hh-p-actions {
   display: flex; gap: 2px;

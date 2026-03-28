@@ -5,14 +5,14 @@ import IIcon from './IIcon';
 
 /* ─── DATA ─────────────────────────────────────── */
 const tickerItems = [
-  { type: 'promo', name: 'Kohli WC Jersey', price: '₹84,000' },
-  { type: 'promo', name: 'MSD WC Gloves', price: '₹2,40,000' },
-  { type: 'live', name: 'Ranveer Jacket', price: '₹42,000' },
-  { type: 'live', name: 'Hardik Pandya Bat', price: '₹1,18,500' },
-  { type: 'live', name: 'Alia Bhatt Dress', price: '₹67,200' },
-  { type: 'live', name: 'Dhoni Gloves', price: '₹2,40,000' },
-  { type: 'live', name: 'Badshah Jacket', price: '₹38,900' },
-  { type: 'live', name: 'Priyanka Saree', price: '₹1,92,000' },
+  { type: 'promo', name: 'Kohli WC Jersey', price: '₹84,000', key: 'vk' },
+  { type: 'promo', name: 'MSD WC Gloves', price: '₹2,40,000', key: 'msd' },
+  { type: 'live', name: 'Ranveer Jacket', price: '₹42,000', key: 'rs' },
+  { type: 'live', name: 'Hardik Pandya Bat', price: '₹1,18,500', key: 'hp' },
+  { type: 'live', name: 'Alia Bhatt Dress', price: '₹67,200', key: 'ab' },
+  { type: 'live', name: 'Dhoni Gloves', price: '₹2,40,000', key: 'msd' },
+  { type: 'live', name: 'Badshah Jacket', price: '₹38,900', key: 'bj' },
+  { type: 'live', name: 'Priyanka Saree', price: '₹1,92,000', key: 'ps' },
 ];
 
 const auctionData = {
@@ -106,6 +106,48 @@ const auctionData = {
       { av: 'N', name: '@nitin_m', time: '56 min ago', amt: '₹85,000' },
       { av: 'M', name: '@mohit_c', time: '1h 10m ago', amt: '₹80,000' },
       { av: 'K', name: '@kunal_s', time: '1h 25m ago', amt: '₹75,500' },
+    ],
+  },
+  ab: {
+    ph: 'AB', av: 'AB', name: 'Alia Bhatt', handle: '@aliabhatt',
+    title: 'Gangubai Kathiawadi Premiere Saree — Signed',
+    cat: 'Bollywood', lot: 'Lot #0860', bids: '28 bids', watching: '412 watching',
+    current: '₹67,200', starting: '₹25,000', nextBid: '₹68,500',
+    bidcount: '28 bids placed', deposit: '₹6,720', watch2: '412 people',
+    cond: 'Premiere Saree', btnText: 'Place Bid — ₹68,500',
+    secs: 2 * 3600 + 15 * 60 + 45,
+    desc: "Worn at the Gangubai Kathiawadi world premiere. Personally signed with full authentication documentation.",
+    feed: [
+      { av: 'S', name: '@shreya_v', time: 'Just now', amt: '₹67,200', top: true },
+      { av: 'K', name: '@kavya_m', time: '3 min ago', amt: '₹65,000' },
+    ],
+  },
+  bj: {
+    ph: 'BD', av: 'BD', name: 'Badshah', handle: '@badboyshah',
+    title: 'Signed Custom Performance Jacket — Sanak Tour',
+    cat: 'Music', lot: 'Lot #0872', bids: '19 bids', watching: '95 watching',
+    current: '₹38,900', starting: '₹10,000', nextBid: '₹40,000',
+    bidcount: '19 bids placed', deposit: '₹3,890', watch2: '95 people',
+    cond: 'Stage Worn', btnText: 'Place Bid — ₹40,000',
+    secs: 8 * 3600 + 42 * 60 + 10,
+    desc: "Custom jacket worn by Badshah during the Sanak North American Tour. Autographed on the inner lining.",
+    feed: [
+      { av: 'A', name: '@aman_r', time: 'Just now', amt: '₹38,900', top: true },
+      { av: 'R', name: '@rohit_b', time: '7 min ago', amt: '₹37,500' },
+    ],
+  },
+  ps: {
+    ph: 'PS', av: 'PS', name: 'Priyanka Chopra', handle: '@priyankachopra',
+    title: 'Hand-woven Banarasi Saree — Met Gala Afterparty',
+    cat: 'Bollywood', lot: 'Lot #0894', bids: '54 bids', watching: '520 watching',
+    current: '₹1,92,000', starting: '₹50,000', nextBid: '₹1,95,000',
+    bidcount: '54 bids placed', deposit: '₹19,200', watch2: '520 people',
+    cond: 'Mint Condition', btnText: 'Place Bid — ₹1,95,000',
+    secs: 1 * 3600 + 5 * 60 + 30,
+    desc: "A stunning hand-woven Banarasi saree worn by Priyanka Chopra Jonas. Features intricate gold zari work and original certification.",
+    feed: [
+      { av: 'M', name: '@maya_s', time: 'Just now', amt: '₹1,92,000', top: true },
+      { av: 'P', name: '@pooja_k', time: '4 min ago', amt: '₹1,90,000' },
     ],
   },
 };
@@ -249,7 +291,7 @@ function BidModal({ auctionKey, onClose }: { auctionKey: string | null; onClose:
                 <div className="hh-mbc-sub">Next: {d.nextBid}</div>
               </div>
             </div>
-            <button className="hh-mr-place-btn" style={isUrgent ? { background: 'var(--hh-red)' } : {}}>
+            <button className="hh-mr-place-btn">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="17 11 12 6 7 11" /><line x1="12" y1="6" x2="12" y2="18" /></svg>
               {d.btnText}
             </button>
@@ -386,7 +428,7 @@ function PostCard({
         {notifyMode ? (
           <button className="hh-p-bid-btn hh-p-bid-btn-notify">Notify Me</button>
         ) : isEndingSoon ? (
-          <button className="hh-p-bid-btn hh-p-bid-btn-urgent" onClick={() => openModal(auctionKey)}>Bid Now</button>
+          <button className="hh-p-bid-btn" onClick={() => openModal(auctionKey)}>Bid Now</button>
         ) : (
           <button className="hh-p-bid-btn" onClick={() => openModal(auctionKey)}>Place Bid</button>
         )}
@@ -462,7 +504,12 @@ export default function HomeHero() {
         <div className="hh-ribbon-label">Promoted</div>
         <div className="hh-ribbon-track" ref={tickerRef} onMouseEnter={pauseRibbon} onMouseLeave={resumeRibbon}>
           {allTicker.map((item, i) => (
-            <div key={i} className="hh-tick-item">
+            <div
+              key={i}
+              className="hh-tick-item"
+              onClick={() => openModal(item.key)}
+              style={{ cursor: 'pointer' }}
+            >
               {item.type === 'live' && <span className="hh-rdot" />}
               <span className="hh-ti-name">{item.name}</span>
               <span className="hh-ti-price">{item.price}</span>
