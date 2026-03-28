@@ -1,4 +1,5 @@
-import React from 'react';
+// No React import needed in React 17+
+
 
 interface LogoProps {
   className?: string;
