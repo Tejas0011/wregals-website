@@ -10,12 +10,9 @@ interface AccountLayoutProps {
   title: string;
 }
 
-import PromoRibbon from './PromoRibbon';
-
 export default function AccountLayout({ children, title }: AccountLayoutProps) {
   return (
     <section className="hh-root">
-      <PromoRibbon />
       {/* Same 2-column grid as LiveAuctions — LHS sidebar + content */}
       <div style={{
         display: 'grid',

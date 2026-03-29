@@ -3,7 +3,6 @@ import { useState, useMemo, useEffect } from 'react';
 import IIcon from '../components/IIcon';
 import LeftSidebar from '../components/LeftSidebar';
 import BidModal from '../components/BidModal';
-import PromoRibbon from '../components/PromoRibbon';
 
 /* ─── helpers ── */
 const pad = (n: number) => String(n).padStart(2, '0');
@@ -123,7 +122,6 @@ export default function LiveAuctions({ user, walletBalance = 0, onSignInClick }:
 
   return (
     <section className="hh-root">
-      <PromoRibbon />
       {/* ─── Use same grid as home page — LHS sidebar + content ─── */}
       <div style={{
         display: 'grid',

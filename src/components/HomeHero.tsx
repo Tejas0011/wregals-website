@@ -168,9 +168,6 @@ export default function HomeHero() {
 
   return (
     <section className="hh-root">
-      {/* ─── PROMO RIBBON ────────────────────────── */}
-      <PromoRibbon />
-
       {/* ─── 3-COLUMN LAYOUT ─────────────────────── */}
       <div className="hh-layout">
 

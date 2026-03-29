@@ -1,7 +1,8 @@
 // @ts-nocheck
 import { useState, useEffect, useRef } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import HomeHero from './components/HomeHero';
+import PromoRibbon from './components/PromoRibbon';
 import AuthModal from './components/AuthModal';
 import ProfileSetup from './components/ProfileSetup';
 import ProfileSetup2 from './components/ProfileSetup2';
@@ -27,7 +28,20 @@ import Settings from './pages/Settings';
 import SellerDashboard from './pages/SellerDashboard';
 import { supabase } from './lib/supabase';
 
+const PROMO_ROUTES = [
+  '/',
+  '/auctions/live',
+  '/watchlist',
+  '/wallet',
+  '/my-bids',
+  '/profile',
+  '/notifications',
+  '/settings'
+];
+
 function App() {
+  const location = useLocation();
+  const showPromo = PROMO_ROUTES.includes(location.pathname);
   const [authOpen, setAuthOpen] = useState(false);
 
   const [user, setUser] = useState(null);
@@ -349,6 +363,9 @@ function App() {
 
       {/* Wallet Modal */}
       <WalletModal isOpen={walletOpen} onClose={() => setWalletOpen(false)} user={user} />
+
+      {/* Promo Ribbon */}
+      {showPromo && <PromoRibbon />}
 
       {/* ── Routes ───────────────────────────────────────────────────────── */}
       <Routes>
