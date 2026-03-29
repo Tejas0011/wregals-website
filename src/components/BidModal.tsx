@@ -1,6 +1,6 @@
 // @ts-nocheck
-import { useState } from 'react';
-import IIcon from './IIcon';
+import { useState, useEffect } from 'react';
+import { LiveDot, VTick, fmtSecs } from './PromoRibbon';
 
 export interface AuctionItem {
     id: string;
@@ -10,6 +10,14 @@ export interface AuctionItem {
     minIncrement: number;
     buyoutPrice?: number;
     currency?: string;
+    
+    seller?: string;
+    provenance?: string;
+    endsAt?: Date;
+    bidCount?: number;
+    status?: string;
+    category?: string;
+    image?: string;
 }
 
 interface BidModalProps {
@@ -17,165 +25,195 @@ interface BidModalProps {
     onClose: () => void;
     item: AuctionItem | null;
     user: any;
-    walletBalance?: number; // available (unblocked) wallet balance
+    walletBalance?: number;
 }
 
 const fmt = (n: number) => '₹' + n.toLocaleString('en-IN');
 
 export default function BidModal({ isOpen, onClose, item, user, walletBalance = 0 }: BidModalProps) {
-    const [bidAmount, setBidAmount] = useState('');
-    const [confirmed, setConfirmed] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [success, setSuccess] = useState(false);
+    const [secs, setSecs] = useState(0);
+    const [activeThumb, setActiveThumb] = useState(0);
+    const dur = 7 * 3600;
+
+    useEffect(() => {
+        if (!item || !item.endsAt) return;
+        const s = Math.max(0, Math.floor((item.endsAt.getTime() - Date.now()) / 1000));
+        setSecs(s);
+    }, [item]);
+
+    useEffect(() => {
+        if (!item || !item.endsAt) return;
+        const id = setInterval(() => setSecs(s => Math.max(0, s - 1)), 1000);
+        return () => clearInterval(id);
+    }, [item]);
+
+    useEffect(() => {
+        const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+        document.addEventListener('keydown', handler);
+        return () => document.removeEventListener('keydown', handler);
+    }, [onClose]);
 
     if (!isOpen || !item) return null;
 
-    const minBid = item.currentBid + item.minIncrement;
-    const bid = Number(bidAmount);
-    const requiredBalance = bid * 0.5;
-    const hasEnoughBalance = walletBalance >= requiredBalance;
-    const isValidBid = bid >= minBid && bid > 0;
-    const isBuyout = item.buyoutPrice !== undefined && bid >= item.buyoutPrice;
+    // Synthesize data for the modal
+    const current = fmt(item.currentBid);
+    const minBidNum = item.currentBid + item.minIncrement;
+    const nextBid = fmt(minBidNum);
+    const depositNum = Math.ceil(minBidNum * 0.1);
+    const deposit = fmt(depositNum);
+    
+    const starting = fmt(Math.ceil(item.currentBid * 0.4)); // dummy calculation
+    const isLive = item.status === 'live' || item.status === 'ending-soon';
+    
+    const sellerStr = item.seller || 'Anonymous Collector';
+    const av = sellerStr.split(' ').map(w => w[0]).join('').substring(0, 2);
+    const handle = `@${sellerStr.replace(/[^A-Za-z0-9]/g, '').toLowerCase()}`;
+    
+    // Create a mock feed array based on the current bid to make it look alive
+    const feed = [
+        { av: 'X', name: '@bidder_one', time: 'Just now', amt: current, top: true },
+        { av: 'Y', name: '@collector99', time: '4 min ago', amt: fmt(item.currentBid - item.minIncrement) },
+        { av: 'Z', name: '@fanatic_x', time: '9 min ago', amt: fmt(item.currentBid - item.minIncrement * 2) },
+    ].filter(f => f.amt.indexOf('-') === -1); // remove negatives if any
 
-    const handleClose = () => {
-        setBidAmount('');
-        setConfirmed(false);
-        setLoading(false);
-        setSuccess(false);
-        onClose();
-    };
+    const watching = Math.floor(item.currentBid / 1000) % 500 + 40; // fake
+    const cond = item.provenance ? 'Verified Authentic' : 'Excellent';
+    const desc = item.provenance 
+        ? `Fully authenticated item with documented provenance: ${item.provenance}. A truly premium collectible sourced directly for the Wregals platform.`
+        : "An exceptionally rare item, documented and verified for authenticity. Perfect for dedicated collectors.";
 
-    const handleConfirm = async () => {
-        if (!isValidBid || !hasEnoughBalance) return;
-        setLoading(true);
-        // TODO: call Supabase to place bid
-        await new Promise(r => setTimeout(r, 1200));
-        setLoading(false);
-        setSuccess(true);
-    };
+    const pct = Math.max(2, (secs / dur) * 100);
 
     return (
-        <div className="fixed inset-0 z-[300] flex items-end sm:items-center justify-center" onClick={e => e.target === e.currentTarget && handleClose()}>
-            <div className="absolute inset-0 bg-[#3D0808]/70 backdrop-blur-sm" onClick={handleClose} />
-
-            <div className="relative z-10 w-full sm:max-w-md mx-4 mb-0 sm:mb-auto bg-[#0E0E0E] border border-white/10 rounded-t-lg sm:rounded-sm shadow-2xl overflow-hidden">
-
-                {/* Header */}
-                <div className="flex items-start justify-between px-6 py-5 border-b border-white/5">
-                    <div>
-                        <p className="text-[10px] uppercase tracking-widest text-neutral-500 mb-1">Lot {item.lot}</p>
-                        <h2 className="text-sm font-medium text-white leading-snug max-w-xs">{item.title}</h2>
-                    </div>
-                    <button onClick={handleClose} className="text-neutral-500 hover:text-white transition-colors mt-0.5">
-                        <IIcon icon="solar:close-circle-linear" width="20" />
-                    </button>
-                </div>
-
-                {success ? (
-                    <div className="px-6 py-10 text-center space-y-3">
-                        <IIcon icon="solar:check-circle-linear" width="40" class="text-emerald-400 mx-auto block" />
-                        <p className="text-white font-medium">{isBuyout ? 'Buyout Placed!' : 'Bid Placed!'}</p>
-                        <p className="text-xs text-neutral-500">
-                            {isBuyout
-                                ? 'Auction closed. You are the winner. Settlement instructions sent.'
-                                : `Your bid of ${fmt(bid)} has been placed. ${fmt(requiredBalance)} is now blocked in your wallet.`}
-                        </p>
-                        <button onClick={handleClose} className="mt-4 w-full py-3 text-xs uppercase tracking-widest border border-white/10 hover:border-white transition-colors text-neutral-400 hover:text-white">
-                            Done
-                        </button>
-                    </div>
-                ) : (
-                    <div className="px-6 py-5 space-y-5">
-                        {/* Current bid info */}
-                        <div className="grid grid-cols-3 gap-px bg-white/5 rounded-sm overflow-hidden text-center">
-                            <div className="bg-[#0E0E0E] py-3">
-                                <p className="text-[9px] uppercase tracking-widest text-neutral-600 mb-1">Current Bid</p>
-                                <p className="font-mono text-sm text-white">{fmt(item.currentBid)}</p>
-                            </div>
-                            <div className="bg-[#0E0E0E] py-3 border-x border-white/5">
-                                <p className="text-[9px] uppercase tracking-widest text-neutral-600 mb-1">Min Increment</p>
-                                <p className="font-mono text-sm text-neutral-300">{fmt(item.minIncrement)}</p>
-                            </div>
-                            <div className="bg-[#0E0E0E] py-3">
-                                <p className="text-[9px] uppercase tracking-widest text-neutral-600 mb-1">Your Minimum</p>
-                                <p className="font-mono text-sm text-[#D4AF37]">{fmt(minBid)}</p>
-                            </div>
-                        </div>
-
-                        {/* Bid input */}
-                        <div>
-                            <label className="text-[10px] uppercase tracking-widest text-neutral-500 block mb-2">Your Bid Amount</label>
-                            <div className="flex items-center gap-2 border-b border-white/20 pb-2 focus-within:border-[#D4AF37] transition-colors">
-                                <span className="text-neutral-500">₹</span>
-                                <input
-                                    type="number"
-                                    value={bidAmount}
-                                    onChange={e => { setBidAmount(e.target.value); setConfirmed(false); }}
-                                    placeholder={minBid.toString()}
-                                    className="flex-1 bg-transparent text-base focus:outline-none text-white font-mono placeholder:text-neutral-700"
-                                    min={minBid}
-                                />
-                            </div>
-                            {bid > 0 && !isValidBid && (
-                                <p className="text-[10px] text-[var(--hh-red)] mt-1">Minimum bid is {fmt(minBid)}</p>
-                            )}
-                            {isBuyout && (
-                                <p className="text-[10px] text-amber-400 mt-1">⚡ This bid meets the buyout price — auction will close immediately.</p>
-                            )}
-                        </div>
-
-                        {/* Wallet check */}
-                        {bid > 0 && isValidBid && (
-                            <div className={`rounded-sm p-3 border text-xs space-y-1 ${hasEnoughBalance ? 'border-white/5 bg-[#0A0A0A]' : 'border-[var(--hh-red)]/30 bg-[var(--hh-red)]/5'}`}>
-                                <div className="flex justify-between text-neutral-400">
-                                    <span>Required wallet balance (50%)</span>
-                                    <span className="font-mono">{fmt(requiredBalance)}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-neutral-400">Your available balance</span>
-                                    <span className={`font-mono ${hasEnoughBalance ? 'text-emerald-400' : 'text-[var(--hh-red)]'}`}>{fmt(walletBalance)}</span>
-                                </div>
-                                {!hasEnoughBalance && (
-                                    <p className="text-[var(--hh-red)] text-[10px] pt-1">
-                                        Insufficient balance. Add ₹{(requiredBalance - walletBalance).toLocaleString('en-IN')} to your wallet to place this bid.
-                                    </p>
-                                )}
-                            </div>
-                        )}
-
-                        {!user && (
-                            <p className="text-xs text-amber-400 text-center">You must be signed in to place a bid.</p>
-                        )}
-
-                        {/* Action */}
-                        {!confirmed ? (
-                            <button
-                                disabled={!isValidBid || !hasEnoughBalance || !user}
-                                onClick={() => setConfirmed(true)}
-                                className="w-full py-3.5 text-xs uppercase tracking-widest font-semibold transition-all disabled:opacity-30 disabled:cursor-not-allowed bg-[#D4AF37] text-black hover:bg-[#c49f2e]"
-                            >
-                                Review Bid — {bid > 0 && isValidBid ? fmt(bid) : '—'}
-                            </button>
-                        ) : (
-                            <div className="space-y-2">
-                                <div className="bg-[#0A0A0A] border border-[#D4AF37]/20 rounded-sm p-3 text-xs text-neutral-400 text-center">
-                                    By confirming, you agree to the binding auction terms and liquidated damages clause.
-                                </div>
-                                <button
-                                    onClick={handleConfirm}
-                                    disabled={loading}
-                                    className="w-full py-3.5 text-xs uppercase tracking-widest font-semibold bg-[#D4AF37] text-black hover:bg-[#c49f2e] transition-all disabled:opacity-60"
-                                >
-                                    {loading ? 'Placing Bid…' : `Confirm Bid — ${fmt(bid)}`}
-                                </button>
-                                <button onClick={() => setConfirmed(false)} className="w-full py-2 text-xs text-neutral-500 hover:text-white transition-colors">
-                                    Edit Bid
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                )}
+        <div className="hh-modal-overlay" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
+          <div className="hh-modal">
+            <button className="hh-mr-close" onClick={onClose}>✕</button>
+    
+            {/* LEFT — media */}
+            <div className="hh-modal-left">
+              <div className="hh-modal-media">
+                <div className="hh-mm-ph">{av}</div>
+                {isLive && <div className="hh-mm-badge-live"><LiveDot /> Live</div>}
+                <div className="hh-mm-cert">✓ Wregals Verified</div>
+                <div className="hh-mm-count">1 / 4</div>
+              </div>
+              <div className="hh-modal-thumbs">
+                {['▶', '●', '◆', '■'].map((ico, i) => (
+                  <div
+                    key={i}
+                    className={`hh-mthumb${activeThumb === i ? ' active' : ''}`}
+                    onClick={() => setActiveThumb(i)}
+                  >{ico}</div>
+                ))}
+              </div>
+              <div className="hh-modal-desc-label">Item Details</div>
+              <div className="hh-modal-desc">{desc}</div>
+              <div className="hh-modal-proof">
+                {['Direct Provenance', 'Original COA', 'Photo proof', 'Wregals inspected'].map(p => (
+                  <span key={p} className="hh-mp">✓ {p}</span>
+                ))}
+              </div>
             </div>
+    
+            {/* RIGHT — auction panel */}
+            <div className="hh-modal-right">
+              <div className="hh-mr-seller">
+                <div className="hh-mr-seller-left">
+                  <div className="hh-mr-av">{av}</div>
+                  <div>
+                    <div className="hh-mr-name">{sellerStr} <VTick /></div>
+                    <div className="hh-mr-handle">{handle}</div>
+                  </div>
+                </div>
+                <button className="hh-mr-flw">Follow</button>
+              </div>
+    
+              <div className="hh-mr-title">{item.title}</div>
+              <div className="hh-mr-meta">
+                <span className="hh-mr-tag">{item.category || 'Collectible'}</span>
+                <span className="hh-mr-dot" />
+                <span>{item.lot}</span>
+                <span className="hh-mr-dot" />
+                <span>{item.bidCount} bids</span>
+                <span className="hh-mr-dot" />
+                <span>{watching} watching</span>
+              </div>
+    
+              {/* Timer */}
+              {item.endsAt && (
+                  <div className="hh-mr-timer">
+                    <div className="hh-mrt-row">
+                      <div>
+                        <div className="hh-mrt-lbl">{secs === 0 ? 'Auction Ended' : 'Time Left'}</div>
+                        <div className="hh-mrt-val">{secs > 0 ? fmtSecs(secs) : '00:00:00'}</div>
+                      </div>
+                      <div className="hh-mrt-closes">Closes<br /><strong>Today, 11:59 PM</strong></div>
+                    </div>
+                    {secs > 0 && <div className="hh-mrt-bar"><div className="hh-mrt-fill" style={{ width: `${pct}%` }} /></div>}
+                  </div>
+              )}
+    
+              {/* Bid card */}
+              <div className="hh-mr-bid-card">
+                <div className="hh-mr-bid-split">
+                  <div className="hh-mbc">
+                    <div className="hh-mbc-lbl">Current Bid</div>
+                    <div className="hh-mbc-val">{current}</div>
+                    <div className="hh-mbc-sub">{item.bidCount} bids placed</div>
+                  </div>
+                  <div className="hh-mbc">
+                    <div className="hh-mbc-lbl">Starting Bid</div>
+                    <div className="hh-mbc-val hh-mbc-dim">{starting}</div>
+                    <div className="hh-mbc-sub">Next: {nextBid}</div>
+                  </div>
+                </div>
+                {secs > 0 ? (
+                    <button className="hh-mr-place-btn" onClick={() => {
+                        // TODO simulate place bid logic
+                        onClose();
+                    }}>
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="17 11 12 6 7 11" /><line x1="12" y1="6" x2="12" y2="18" /></svg>
+                    Place Bid — {nextBid}
+                    </button>
+                ) : (
+                    <button className="hh-mr-place-btn" style={{ background: 'var(--hh-s3)', borderColor: 'var(--hh-line)', color: 'var(--hh-w4)', cursor: 'not-allowed' }}>
+                    Auction Closed
+                    </button>
+                )}
+              </div>
+    
+              {/* Info grid */}
+              <div className="hh-mr-info-grid">
+                <div className="hh-mig"><div className="hh-mig-lbl">Deposit (10%)</div><div className="hh-mig-val">{deposit}</div></div>
+                <div className="hh-mig"><div className="hh-mig-lbl">Watching</div><div className="hh-mig-val">{watching} people</div></div>
+                <div className="hh-mig"><div className="hh-mig-lbl">Category</div><div className="hh-mig-val">{item.category || 'Collectible'}</div></div>
+                <div className="hh-mig"><div className="hh-mig-lbl">Condition</div><div className="hh-mig-val">{cond}</div></div>
+              </div>
+    
+              {/* Live feed */}
+              <div className="hh-mr-feed">
+                <div className="hh-mrf-header">
+                  <div className="hh-mrf-l"><LiveDot /> Live Bidding</div>
+                  <span className="hh-mrf-r">{item.bidCount} bids</span>
+                </div>
+                <div className="hh-mrf-list">
+                  {feed.map((f, i) => (
+                    <div key={i} className={`hh-mfr${f.top ? ' hh-mfr-top' : ''}`}>
+                      <div className="hh-mfr-av">{f.av}</div>
+                      <div className="hh-mfr-info">
+                        <div className="hh-mfr-name">
+                          {f.name}
+                          {f.top && <span className="hh-mfr-badge">LEADING</span>}
+                        </div>
+                        <div className="hh-mfr-time">{f.time}</div>
+                      </div>
+                      <div className="hh-mfr-amt">{f.amt}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    );
+      );
 }
