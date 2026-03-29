@@ -19,6 +19,7 @@ import Gallery from './pages/Gallery';
 import Social from './pages/Social';
 import AIChatbot from './components/AIChatbot';
 import IIcon from './components/IIcon';
+import GlobalSearch from './components/GlobalSearch';
 import MyProfile from './pages/MyProfile';
 import WalletPage from './pages/WalletPage';
 import MyBids from './pages/MyBids';
@@ -27,6 +28,8 @@ import Notifications from './pages/Notifications';
 import Settings from './pages/Settings';
 import SellerDashboard from './pages/SellerDashboard';
 import BrowseCategory from './pages/BrowseCategory';
+import AllCategories from './pages/AllCategories';
+import CelebrityProfile from './pages/CelebrityProfile';
 import { supabase } from './lib/supabase';
 
 const PROMO_ROUTES = [
@@ -37,7 +40,8 @@ const PROMO_ROUTES = [
   '/my-bids',
   '/profile',
   '/notifications',
-  '/settings'
+  '/settings',
+  '/categories'
 ];
 
 function App() {
@@ -149,6 +153,11 @@ function App() {
           <Link to="/">
             <img src="/wregals-text-logo.png" alt="WREGALS" className="h-32 w-auto object-contain" />
           </Link>
+
+          {/* Global Search — centered */}
+          <div className="hidden md:flex flex-1 justify-center px-8">
+            <GlobalSearch />
+          </div>
 
 
 
@@ -370,6 +379,8 @@ function App() {
 
       {/* ── Routes ───────────────────────────────────────────────────────── */}
       <Routes>
+        <Route path="/categories" element={<AllCategories />} />
+        <Route path="/celebrity/:id" element={<CelebrityProfile />} />
         <Route path="/browse/:category" element={
           <BrowseCategory user={user} walletBalance={50000} onSignInClick={() => setAuthOpen(true)} />
         } />

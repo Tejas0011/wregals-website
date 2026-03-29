@@ -57,7 +57,7 @@ export default function LeftSidebar() {
           );
         })}
       </div>
-      <Link to="/browse/all" style={{ textDecoration: 'none' }}>
+      <Link to="/categories" style={{ textDecoration: 'none' }}>
         <button className="hh-ls-cat-all">
           <IIcon icon="lucide:plus" width={14} className="mr-2" />
           Browse all categories

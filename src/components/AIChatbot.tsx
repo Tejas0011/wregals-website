@@ -213,7 +213,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
             {/* ── Chat Panel ─────────────────────────────────────────────────────── */}
             {open && (
                 <div
-                    className="fixed bottom-24 right-5 z-50 flex flex-col"
+                    className="fixed bottom-24 right-5 z-[9999] flex flex-col"
                     style={{
                         width: 'min(380px, calc(100vw - 24px))',
                         height: 'min(520px, calc(100vh - 120px))',
@@ -399,7 +399,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
             {/* ── FAB Button ─────────────────────────────────────────────────────── */}
             <button
                 onClick={open ? () => setOpen(false) : handleOpen}
-                className={`fixed bottom-6 right-6 z-50 flex items-center justify-center outline-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${open ? 'w-14 h-14 rounded-full bg-[#050B1A] border border-[rgba(6,182,212,0.4)] shadow-[0_8px_24px_rgba(0,0,0,0.6)]' : 'group h-[60px] w-[60px] hover:w-[128px] rounded-[30px] shadow-[0_12px_36px_rgba(0,0,0,0.8)]'}`}
+                className={`fixed bottom-6 right-6 z-[9999] flex items-center justify-center outline-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${open ? 'w-14 h-14 rounded-full bg-[#050B1A] border border-[rgba(6,182,212,0.4)] shadow-[0_8px_24px_rgba(0,0,0,0.6)]' : 'group h-[60px] w-[60px] hover:w-[128px] rounded-[30px] shadow-[0_12px_36px_rgba(0,0,0,0.8)]'}`}
                 style={{
                     animation: 'wren-fab-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
                 }}

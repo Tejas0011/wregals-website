@@ -6,6 +6,22 @@ import IIcon from './IIcon';
 import PromoRibbon, { PromoBidModal, LiveDot, VTick, PostTag, fmtSecs } from './PromoRibbon';
 
 /* ─── POST CARD ─────────────────────────────────── */
+// Seller ID lookup — maps seller name to their celebrity profile ID
+const SELLER_IDS: Record<string, string> = {
+  'Virat Kohli': 'vk',
+  'MS Dhoni': 'msd',
+  'Hardik Pandya': 'hp',
+  'Ranveer Singh': 'rs',
+  'Alia Bhatt': 'ab',
+  'Priyanka Chopra': 'pc',
+  'Amitabh Bachchan': 'amitabh',
+  'Badshah': 'badshah',
+  'A.R. Rahman': 'arr',
+  'Bhuvan Bam': 'bb',
+  'Neeraj Chopra': 'nc',
+  'PV Sindhu': 'pv',
+};
+
 interface PostProps {
   auctionKey: string;
   seller: string;
@@ -39,7 +55,7 @@ function PostCard({
 }: PostProps) {
   const [secs, setSecs] = useState(timerSecs);
   const [liked, setLiked] = useState(false);
-  const [watched, setWatched] = useState(false);
+  const sellerId = SELLER_IDS[seller] || null;
 
   useEffect(() => {
     if (isUpcoming) return;
@@ -53,17 +69,31 @@ function PostCard({
     <div className="hh-post">
       <div className="hh-p-header">
         <div className="hh-p-seller">
-          <div className="hh-p-av">{initials}</div>
+          {sellerId ? (
+            <Link to={`/celebrity/${sellerId}`} onClick={e => e.stopPropagation()} className="hh-p-av" style={{ textDecoration: 'none', cursor: 'pointer' }}>
+              {initials}
+            </Link>
+          ) : (
+            <div className="hh-p-av">{initials}</div>
+          )}
           <div>
             <div className="hh-p-nm-row">
-              <span className="hh-p-name">{seller}</span>
+              {sellerId ? (
+                <Link to={`/celebrity/${sellerId}`} onClick={e => e.stopPropagation()} style={{ textDecoration: 'none' }}>
+                  <span className="hh-p-name" style={{ cursor: 'pointer' }}>{seller}</span>
+                </Link>
+              ) : (
+                <span className="hh-p-name">{seller}</span>
+              )}
               <VTick />
             </div>
             <div className="hh-p-handle">{handle} · {ago}</div>
-            <div className="hh-p-tag-row">{tags}</div>
           </div>
         </div>
-        <button className="hh-p-more">···</button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div className="hh-p-tag-row" style={{ marginTop: 0 }}>{tags}</div>
+          <button className="hh-p-more">···</button>
+        </div>
       </div>
 
       <div className="hh-p-media" style={{ opacity }}>
@@ -75,6 +105,28 @@ function PostCard({
           {isUpcoming ? `Starts Apr 5` : fmtSecs(secs)}
         </div>
         <div className="hh-p-media-lot">{lot}</div>
+      </div>
+
+      {/* Actions row — directly below image */}
+      <div className="hh-p-actions">
+        <button
+          className="hh-pact"
+          onClick={(e) => { e.stopPropagation(); setLiked(l => !l); }}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill={liked ? '#fff' : 'none'}
+            stroke={liked ? '#fff' : 'currentColor'}
+            style={{ transition: 'fill 0.18s, stroke 0.18s' }}
+          >
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
+          {likes}
+        </button>
+        <button className="hh-pact">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="17 1 21 5 17 9" /><path d="M3 11V9a4 4 0 0 1 4-4h14" /><polyline points="7 23 3 19 7 15" /><path d="M21 13v2a4 4 0 0 1-4 4H3" /></svg>
+          Share
+        </button>
       </div>
 
       <div className="hh-p-title">{title}</div>
@@ -104,21 +156,6 @@ function PostCard({
         ) : (
           <button className="hh-p-bid-btn" onClick={() => openModal(auctionKey)}>Place Bid</button>
         )}
-      </div>
-
-      <div className="hh-p-actions">
-        <button className={`hh-pact${liked ? ' hh-pact-liked' : ''}`} onClick={() => setLiked(l => !l)}>
-          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
-          {likes}
-        </button>
-        <button className={`hh-pact${watched ? ' hh-pact-watched' : ''}`} onClick={() => setWatched(w => !w)}>
-          <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>
-          {watched ? 'Watching' : 'Watch'}
-        </button>
-        <button className="hh-pact">
-          <svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9" /><path d="M3 11V9a4 4 0 0 1 4-4h14" /><polyline points="7 23 3 19 7 15" /><path d="M21 13v2a4 4 0 0 1-4 4H3" /></svg>
-          Share
-        </button>
       </div>
     </div>
   );
@@ -229,7 +266,7 @@ export default function HomeHero() {
           <PostCard
             auctionKey="vk"
             seller="Virat Kohli" handle="@virat.kohli" ago="2h ago"
-            tags={<><PostTag type="live"><LiveDot />Live</PostTag><PostTag type="cat">Cricket</PostTag><PostTag type="cert">✓ Verified</PostTag></>}
+            tags={<><PostTag type="live"><LiveDot />Live</PostTag><PostTag type="cat">Sports</PostTag></>}
             title="Match-Worn 2023 World Cup Jersey — Signed"
             desc="An exceptionally rare match-worn jersey from the 2023 ICC Cricket World Cup, featuring Kohli's authenticated signature with original certification papers."
             timerSecs={4 * 3600 + 12 * 60 + 39}
@@ -242,7 +279,7 @@ export default function HomeHero() {
           <PostCard
             auctionKey="msd"
             seller="MS Dhoni" handle="@msd_official" ago="5h ago"
-            tags={<><PostTag type="live"><LiveDot />Live</PostTag><PostTag type="cat">Cricket</PostTag><PostTag type="cert">✓ Verified</PostTag></>}
+            tags={<><PostTag type="live"><LiveDot />Live</PostTag><PostTag type="cat">Sports</PostTag></>}
             title="2011 World Cup Winning Gloves — Match Worn"
             desc="The actual gloves worn during India's 2011 World Cup final. Individually numbered, certified, and fully documented by the BCCI."
             timerSecs={1 * 3600 + 52 * 60 + 14}
@@ -255,7 +292,7 @@ export default function HomeHero() {
           <PostCard
             auctionKey="rs"
             seller="Ranveer Singh" handle="@ranveersingh" ago="3h ago"
-            tags={<><PostTag type="soon">Ending in 23 min</PostTag><PostTag type="cat">Bollywood</PostTag><PostTag type="cert">✓ Verified</PostTag></>}
+            tags={<><PostTag type="soon">Ending in 23 min</PostTag><PostTag type="cat">Cinema</PostTag></>}
             title="Rocky Aur Rani Custom Jacket — Film Set Piece"
             desc="Custom jacket worn on set during production. Sourced from the costume department with director's letter of authenticity."
             timerSecs={23 * 60 + 7}
@@ -270,7 +307,7 @@ export default function HomeHero() {
           <PostCard
             auctionKey="ab"
             seller="Alia Bhatt" handle="@aliabhatt" ago="1d ago"
-            tags={<><PostTag type="up">Upcoming · Apr 5</PostTag><PostTag type="cat">Bollywood</PostTag><PostTag type="cert">✓ Verified</PostTag></>}
+            tags={<><PostTag type="up">Upcoming · Apr 5</PostTag><PostTag type="cat">Cinema</PostTag></>}
             title="Gangubai Kathiawadi Premiere Saree — Signed"
             desc="Worn at the Gangubai Kathiawadi world premiere. Personally signed with full authentication documentation. Bidding opens April 5th."
             timerSecs={0}
@@ -286,7 +323,7 @@ export default function HomeHero() {
           <PostCard
             auctionKey="hp"
             seller="Hardik Pandya" handle="@hardikpandya7" ago="4h ago"
-            tags={<><PostTag type="live"><LiveDot />Live</PostTag><PostTag type="cat">Cricket</PostTag><PostTag type="cert">✓ Verified</PostTag></>}
+            tags={<><PostTag type="live"><LiveDot />Live</PostTag><PostTag type="cat">Sports</PostTag></>}
             title="IPL 2023 Match-Used Cricket Bat — Season Signed"
             desc="Bat used throughout IPL 2023, signed at season end with full provenance documentation from the franchise."
             timerSecs={3 * 3600 + 55 * 60 + 10}

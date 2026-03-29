@@ -8,9 +8,9 @@ import Logo from '../components/Logo';
 
 /* ─── Mock data ─────────────────────────────────────────────────────────── */
 const CREATORS = [
-    { id: 'c1', name: 'Rohit Shetty', handle: '@rohitshetty', role: 'Film Director', initials: 'RS', followers: '142k', posts: 14 },
-    { id: 'c2', name: 'Deepika Padukone', handle: '@deepikapadukone', role: 'Actor & Collector', initials: 'DP', followers: '389k', posts: 8 },
-    { id: 'c3', name: 'Virat Kohli', handle: '@viratkohli', role: 'Cricketer', initials: 'VK', followers: '512k', posts: 11 },
+    { id: 'rs', name: 'Rohit Shetty', handle: '@rohitshetty', role: 'Film Director', initials: 'RS', followers: '142k', posts: 14 },
+    { id: 'dp', name: 'Deepika Padukone', handle: '@deepikapadukone', role: 'Actor & Collector', initials: 'DP', followers: '389k', posts: 8 },
+    { id: 'vk', name: 'Virat Kohli', handle: '@viratkohli', role: 'Cricketer', initials: 'VK', followers: '512k', posts: 11 },
 ];
 
 const TRENDING_LOTS = [
@@ -21,34 +21,34 @@ const TRENDING_LOTS = [
 
 const POSTS_FYP = [
     {
-        id: 'p1', creatorId: 'c3', name: 'Virat Kohli', handle: '@viratkohli', initials: 'VK', role: 'Cricketer', time: '2h',
+        id: 'p1', creatorId: 'vk', name: 'Virat Kohli', handle: '@viratkohli', initials: 'VK', role: 'Cricketer', time: '2h',
         text: "The jersey I wore in the 2011 World Cup final is going live on WREGALS next week. This one is personal. More than any trophy, it reminds me of what we built together as a team. Verified provenance, original match tag still intact.",
         image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=2005&auto=format&fit=crop',
         auctionCard: { lotTitle: '2011 World Cup Final Match Jersey', lotNum: 'Lot #WC2011-07', bid: '₹32,00,000', time: '6 days', status: 'upcoming' },
         likes: 4812, reshares: 634,
     },
     {
-        id: 'p2', creatorId: 'c2', name: 'Deepika Padukone', handle: '@deepikapadukone', initials: 'DP', role: 'Actor & Collector', time: '5h',
+        id: 'p2', creatorId: 'dp', name: 'Deepika Padukone', handle: '@deepikapadukone', initials: 'DP', role: 'Actor & Collector', time: '5h',
         text: "The Cartier necklace I wore to the Cannes premiere in 2018 has been authenticated by Cartier Geneva. Every piece I list has a story — this one carries four years of memory. Opening reserve: ₹85L.",
         image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=1974&auto=format&fit=crop',
         auctionCard: { lotTitle: 'Cartier Diamond Necklace — Cannes 2018', lotNum: 'Lot #CRT-DP18', bid: '₹87,50,000', time: '2d 14h', status: 'live' },
         likes: 9231, reshares: 1102,
     },
     {
-        id: 'p3', creatorId: 'c1', name: 'Rohit Shetty', handle: '@rohitshetty', initials: 'RS', role: 'Film Director', time: '1d',
+        id: 'p3', creatorId: 'rs', name: 'Rohit Shetty', handle: '@rohitshetty', initials: 'RS', role: 'Film Director', time: '1d',
         text: "30 years behind the camera. This director's chair from the sets of Singham (2011) sat in my Mumbai office until today. The leather is original, the plaque is hand-engraved. Now it belongs to a collector who truly values cinema.",
         image: null,
         auctionCard: { lotTitle: "Singham (2011) Director's Chair", lotNum: 'Lot #FILM-RS01', bid: '₹4,75,000', time: 'Ended', status: 'sold' },
         likes: 3104, reshares: 289,
     },
     {
-        id: 'p4', creatorId: 'c3', name: 'Virat Kohli', handle: '@viratkohli', initials: 'VK', role: 'Cricketer', time: '2d',
+        id: 'p4', creatorId: 'vk', name: 'Virat Kohli', handle: '@viratkohli', initials: 'VK', role: 'Cricketer', time: '2d',
         text: "I get asked all the time — why auction instead of donate? Because auction creates a transaction with meaning. The buyer knows the value. The price becomes part of the legacy. That's what WREGALS is built for.",
         image: null, auctionCard: null,
         likes: 6644, reshares: 882,
     },
     {
-        id: 'p5', creatorId: 'c2', name: 'Deepika Padukone', handle: '@deepikapadukone', initials: 'DP', role: 'Actor & Collector', time: '3d',
+        id: 'p5', creatorId: 'dp', name: 'Deepika Padukone', handle: '@deepikapadukone', initials: 'DP', role: 'Actor & Collector', time: '3d',
         text: "Behind the scenes from our verification session with the WREGALS provenance team. Every detail — stitching, clasp, hallmark — documented and uploaded to the lot record. This is what authentic looks like.",
         image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=1974&auto=format&fit=crop',
         auctionCard: null,
@@ -99,14 +99,14 @@ function PostCard({ post, liked, reshared, shareOpen, onLike, onReshare, onShare
     return (
         <article className="flex gap-3 px-4 py-4 border-b border-white/5 hover:bg-white/[0.02] transition-colors cursor-pointer">
             {/* Avatar */}
-            <div className="flex-shrink-0 w-10 h-10 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/5 flex items-center justify-center">
+            <Link to={`/celebrity/${post.creatorId}`} className="flex-shrink-0 w-10 h-10 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/5 flex items-center justify-center hover:opacity-80 transition-opacity" onClick={e => e.stopPropagation()}>
                 <span className="font-mono text-xs text-[#D4AF37]">{post.initials}</span>
-            </div>
+            </Link>
 
             <div className="flex-1 min-w-0">
                 {/* Name row */}
                 <div className="flex items-center gap-1.5 flex-wrap mb-1">
-                    <span className="text-sm font-bold text-white">{post.name}</span>
+                    <Link to={`/celebrity/${post.creatorId}`} className="text-sm font-bold text-white hover:underline" onClick={e => e.stopPropagation()}>{post.name}</Link>
                     <IIcon icon="solar:verified-check-bold" width="14" class="text-[#D4AF37]" />
                     <span className="text-sm text-neutral-600">{post.handle}</span>
                     <span className="text-neutral-700">·</span>
@@ -129,10 +129,12 @@ function PostCard({ post, liked, reshared, shareOpen, onLike, onReshare, onShare
                 {/* Actions */}
                 <div className="flex items-center justify-between mt-3 max-w-xs">
                     {/* Like */}
-                    <button onClick={() => { setLc(l => liked ? l - 1 : l + 1); onLike(post.id); }}
-                        className={`flex items-center gap-1.5 text-xs group transition-colors ${liked ? 'text-pink-500' : 'text-neutral-600 hover:text-pink-500'}`}>
-                        <span className="w-8 h-8 flex items-center justify-center group-hover:bg-pink-500/10 transition-colors">
-                            <IIcon icon={liked ? 'solar:heart-bold' : 'solar:heart-linear'} width="17" />
+                    <button onClick={(e) => { e.stopPropagation(); setLc(l => liked ? l - 1 : l + 1); onLike(post.id); }}
+                        className="flex items-center gap-1.5 text-xs group transition-colors text-neutral-400 hover:text-white">
+                        <span className="w-8 h-8 flex items-center justify-center transition-colors">
+                            <svg viewBox="0 0 24 24" fill={liked ? '#ffffff' : 'none'} stroke={liked ? '#ffffff' : 'currentColor'} width="17" height="17" style={{ transition: 'fill 0.18s, stroke 0.18s' }}>
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                            </svg>
                         </span>
                         <span>{fmt(lc)}</span>
                     </button>
@@ -313,12 +315,12 @@ export default function Social({ user, onSignInClick }: SocialProps) {
                         </div>
                         <div className="flex-1 overflow-y-auto">{CREATORS.map(c => (
                             <div key={c.id} className="flex items-center gap-3 px-4 py-3 hover:bg-white/5 transition-colors border-b border-white/5 last:border-0">
-                                <div className="w-9 h-9 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/5 flex items-center justify-center flex-shrink-0">
+                                <Link to={`/celebrity/${c.id}`} className="w-9 h-9 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/5 flex items-center justify-center flex-shrink-0 hover:opacity-80 transition-opacity">
                                     <span className="font-mono text-xs text-[#D4AF37]">{c.initials}</span>
-                                </div>
+                                </Link>
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-1">
-                                        <span className="text-sm font-semibold text-white truncate">{c.name}</span>
+                                        <Link to={`/celebrity/${c.id}`} className="text-sm font-semibold text-white truncate hover:underline">{c.name}</Link>
                                         <IIcon icon="solar:verified-check-bold" width="12" class="text-[#D4AF37] flex-shrink-0" />
                                     </div>
                                     <p className="text-xs text-neutral-600 truncate">{c.handle}</p>

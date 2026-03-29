@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useState, useMemo, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import IIcon from '../components/IIcon';
 import LeftSidebar from '../components/LeftSidebar';
 import BidModal from '../components/BidModal';
@@ -13,59 +14,65 @@ const now = Date.now();
 const mins = (n: number) => new Date(now + n * 60 * 1000);
 const hrs = (n: number) => new Date(now + n * 60 * 60 * 1000);
 
+const SELLER_IDS: Record<string, string> = {
+  'Virat Kohli': 'vk', 'MS Dhoni': 'msd', 'Hardik Pandya': 'hp',
+  'Ranveer Singh': 'rs', 'Priyanka Chopra': 'pc', 'Badshah': 'badshah',
+  'A.R. Rahman': 'arr', 'Bhuvan Bam': 'bb',
+};
+
 /* ─── auction data ── */
 const AUCTIONS = [
   {
     id: '1', title: 'Match-Worn 2023 World Cup Jersey — Signed',
     lot: '#0847', provenance: 'Virat Kohli · Authenticated by BCCI',
-    category: 'Cricket', seller: 'Virat Kohli',
+    category: 'Sports', seller: 'Virat Kohli',
     image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1470&auto=format&fit=crop',
     currentBid: 84000, minIncrement: 1000, bidCount: 23, endsAt: hrs(4), status: 'live',
-    secs: 4 * 3600 + 12 * 60 + 39,
+    secs: 4 * 3600 + 12 * 60 + 39, likes: '1.2K',
   },
   {
     id: '2', title: '2011 World Cup Winning Gloves — Match Worn',
     lot: '#0841', provenance: 'MS Dhoni · Authenticated by BCCI',
-    category: 'Cricket', seller: 'MS Dhoni',
+    category: 'Sports', seller: 'MS Dhoni',
     image: 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=1470&auto=format&fit=crop',
     currentBid: 240000, minIncrement: 5000, bidCount: 47, endsAt: mins(112), status: 'ending-soon', extended: true,
-    secs: 1 * 3600 + 52 * 60 + 14,
+    secs: 1 * 3600 + 52 * 60 + 14, likes: '3.4K',
   },
   {
     id: '3', title: 'IPL 2023 Match-Used Cricket Bat — Season Signed',
     lot: '#0848', provenance: 'Hardik Pandya · Mumbai Indians',
-    category: 'Cricket', seller: 'Hardik Pandya',
+    category: 'Sports', seller: 'Hardik Pandya',
     image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1473&auto=format&fit=crop',
     currentBid: 118500, minIncrement: 1500, bidCount: 31, endsAt: hrs(3), status: 'reserve-met',
-    secs: 3 * 3600 + 55 * 60 + 10,
+    secs: 3 * 3600 + 55 * 60 + 10, likes: '876',
   },
   {
     id: '4', title: 'Rocky Aur Rani Custom Jacket — Film Set Piece',
     lot: '#0852', provenance: 'Ranveer Singh · Dharma Productions',
-    category: 'Bollywood', seller: 'Ranveer Singh',
+    category: 'Cinema', seller: 'Ranveer Singh',
     image: 'https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?q=80&w=1470&auto=format&fit=crop',
     currentBid: 42000, minIncrement: 1500, bidCount: 12, endsAt: mins(23), status: 'ending-soon',
-    secs: 23 * 60 + 7,
+    secs: 23 * 60 + 7, likes: '512',
   },
   {
     id: '5', title: 'Hand-woven Banarasi Saree — Met Gala Afterparty',
     lot: '#0894', provenance: 'Priyanka Chopra Jonas',
-    category: 'Bollywood', seller: 'Priyanka Chopra',
+    category: 'Cinema', seller: 'Priyanka Chopra',
     image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=1470&auto=format&fit=crop',
     currentBid: 192000, minIncrement: 3000, bidCount: 54, endsAt: hrs(1), status: 'live',
-    secs: 1 * 3600 + 5 * 60 + 30,
+    secs: 1 * 3600 + 5 * 60 + 30, likes: '2.1K',
   },
   {
     id: '6', title: 'Signed Custom Performance Jacket — Sanak Tour',
     lot: '#0872', provenance: 'Badshah · Stage Worn',
-    category: 'Music', seller: 'Badshah',
+    category: 'Musicians & Artists', seller: 'Badshah',
     image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1470&auto=format&fit=crop',
     currentBid: 38900, minIncrement: 1100, bidCount: 19, endsAt: hrs(8), status: 'live',
-    secs: 8 * 3600 + 42 * 60 + 10,
+    secs: 8 * 3600 + 42 * 60 + 10, likes: '743',
   },
 ];
 
-const FILTER_CATS = ['All', 'Cricket', 'Bollywood', 'Music'];
+const FILTER_CATS = ['All', 'Sports', 'Cinema', 'Musicians & Artists'];
 const FILTER_STATUS = ['All', 'Live', 'Ending Soon', 'Reserve Met'];
 const SORTS = ['Ending Soonest', 'Highest Bid', 'Lowest Bid', 'Most Bids'];
 
@@ -253,33 +260,38 @@ export default function LiveAuctions({ user, walletBalance = 0, onSignInClick }:
                     {/* Header — seller info */}
                     <div className="hh-p-header">
                       <div className="hh-p-seller">
-                        <div className="hh-p-av">{initials}</div>
+                        <Link to={`/celebrity/${SELLER_IDS[auction.seller] || 'vk'}`} onClick={e => e.stopPropagation()} className="hh-p-av" style={{ textDecoration: 'none', cursor: 'pointer' }}>
+                          {initials}
+                        </Link>
                         <div>
                           <div className="hh-p-nm-row">
-                            <span className="hh-p-name">{auction.seller}</span>
+                            <Link to={`/celebrity/${SELLER_IDS[auction.seller] || 'vk'}`} onClick={e => e.stopPropagation()} style={{ textDecoration: 'none' }}>
+                              <span className="hh-p-name" style={{ cursor: 'pointer' }}>{auction.seller}</span>
+                            </Link>
                             <span className="hh-vtick">✓</span>
                           </div>
                           <div className="hh-p-handle">{auction.provenance}</div>
-                          <div className="hh-p-tag-row">
-                            {auction.status === 'ending-soon' ? (
-                              <span className="hh-ptag hh-ptag-soon">
-                                <span className="hh-rdot" style={{ width: 4, height: 4 }} />
-                                {statusStyle.text}
-                              </span>
-                            ) : auction.status === 'reserve-met' ? (
-                              <span className="hh-ptag hh-ptag-cert">✓ {statusStyle.text}</span>
-                            ) : (
-                              <span className="hh-ptag hh-ptag-live">
-                                <span className="hh-rdot" style={{ width: 4, height: 4 }} />
-                                {statusStyle.text}
-                              </span>
-                            )}
-                            <span className="hh-ptag hh-ptag-cat">{auction.category}</span>
-                            <span className="hh-ptag hh-ptag-cert">✓ Verified</span>
-                          </div>
                         </div>
                       </div>
-                      <button className="hh-p-more" onClick={e => e.stopPropagation()}>···</button>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <div className="hh-p-tag-row" style={{ marginTop: 0 }}>
+                          {auction.status === 'ending-soon' ? (
+                            <span className="hh-ptag hh-ptag-soon">
+                              <span className="hh-rdot" style={{ width: 4, height: 4 }} />
+                              {statusStyle.text}
+                            </span>
+                          ) : auction.status === 'reserve-met' ? (
+                            <span className="hh-ptag hh-ptag-cert">✓ {statusStyle.text}</span>
+                          ) : (
+                            <span className="hh-ptag hh-ptag-live">
+                              <span className="hh-rdot" style={{ width: 4, height: 4 }} />
+                              {statusStyle.text}
+                            </span>
+                          )}
+                          <span className="hh-ptag hh-ptag-cat">{auction.category}</span>
+                        </div>
+                        <button className="hh-p-more" onClick={e => e.stopPropagation()}>···</button>
+                      </div>
                     </div>
 
                     {/* Media placeholder */}
@@ -314,17 +326,24 @@ export default function LiveAuctions({ user, walletBalance = 0, onSignInClick }:
                     </div>
 
                     {/* Actions */}
-                    <div className="hh-p-actions">
-                      <button className="hh-pact">
-                        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
-                        Save
+                    <div className="hh-p-actions" onClick={e => e.stopPropagation()}>
+                      <button className="hh-pact" onClick={(e) => {
+                        e.stopPropagation();
+                        e.currentTarget.classList.toggle('liked');
+                        const svg = e.currentTarget.querySelector('svg');
+                        if (svg) {
+                          const isLiked = e.currentTarget.classList.contains('liked');
+                          svg.setAttribute('fill', isLiked ? '#fff' : 'none');
+                          svg.setAttribute('stroke', isLiked ? '#fff' : 'currentColor');
+                        }
+                      }}>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style={{ transition: 'fill 0.18s, stroke 0.18s' }}>
+                          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                        </svg>
+                        {auction.likes || '1.2K'}
                       </button>
-                      <button className="hh-pact">
-                        <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>
-                        Watch
-                      </button>
-                      <button className="hh-pact">
-                        <svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9" /><path d="M3 11V9a4 4 0 0 1 4-4h14" /><polyline points="7 23 3 19 7 15" /><path d="M21 13v2a4 4 0 0 1-4 4H3" /></svg>
+                      <button className="hh-pact" onClick={e => e.stopPropagation()}>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="17 1 21 5 17 9" /><path d="M3 11V9a4 4 0 0 1 4-4h14" /><polyline points="7 23 3 19 7 15" /><path d="M21 13v2a4 4 0 0 1-4 4H3" /></svg>
                         Share
                       </button>
                     </div>

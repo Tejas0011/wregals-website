@@ -349,7 +349,10 @@ export default function PromoRibbon() {
   const pauseRibbon = () => { if (tickerRef.current) tickerRef.current.style.animationPlayState = 'paused'; };
   const resumeRibbon = () => { if (tickerRef.current) tickerRef.current.style.animationPlayState = 'running'; };
 
-  const allTicker = [...tickerItems, ...tickerItems];
+  const allTicker = [];
+  for (let i = 0; i < 8; i++) {
+    allTicker.push(...tickerItems);
+  }
 
   return (
     <>

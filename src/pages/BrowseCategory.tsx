@@ -19,21 +19,21 @@ const AUCTIONS = [
   {
     id: 's1', title: 'Match-Worn 2023 World Cup Jersey — Signed',
     lot: '#0847', provenance: 'Virat Kohli · Authenticated by BCCI',
-    category: 'Sports', seller: 'Virat Kohli',
+    category: 'Sports', seller: 'Virat Kohli', sellerId: 'vk',
     image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1470&auto=format&fit=crop',
     currentBid: 84000, minIncrement: 1000, bidCount: 23, endsAt: hrs(4), status: 'live',
   },
   {
     id: 's2', title: '2011 World Cup Winning Gloves — Match Worn',
     lot: '#0841', provenance: 'MS Dhoni · Authenticated by BCCI',
-    category: 'Sports', seller: 'MS Dhoni',
+    category: 'Sports', seller: 'MS Dhoni', sellerId: 'msd',
     image: 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=1470&auto=format&fit=crop',
     currentBid: 240000, minIncrement: 5000, bidCount: 47, endsAt: mins(112), status: 'ending-soon',
   },
   {
     id: 's3', title: 'IPL 2023 Match-Used Cricket Bat — Season Signed',
     lot: '#0848', provenance: 'Hardik Pandya · Mumbai Indians',
-    category: 'Sports', seller: 'Hardik Pandya',
+    category: 'Sports', seller: 'Hardik Pandya', sellerId: 'hp',
     image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1473&auto=format&fit=crop',
     currentBid: 118500, minIncrement: 1500, bidCount: 31, endsAt: hrs(3), status: 'reserve-met',
   },
@@ -41,21 +41,21 @@ const AUCTIONS = [
   {
     id: 'c1', title: 'Rocky Aur Rani Custom Jacket — Film Set Piece',
     lot: '#0852', provenance: 'Ranveer Singh · Dharma Productions',
-    category: 'Cinema', seller: 'Ranveer Singh',
+    category: 'Cinema', seller: 'Ranveer Singh', sellerId: 'rs',
     image: 'https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?q=80&w=1470&auto=format&fit=crop',
     currentBid: 42000, minIncrement: 1500, bidCount: 12, endsAt: mins(23), status: 'ending-soon',
   },
   {
     id: 'c2', title: 'Hand-woven Banarasi Saree — Met Gala Afterparty',
     lot: '#0894', provenance: 'Priyanka Chopra Jonas',
-    category: 'Cinema', seller: 'Priyanka Chopra',
+    category: 'Cinema', seller: 'Priyanka Chopra', sellerId: 'pc',
     image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=1470&auto=format&fit=crop',
     currentBid: 192000, minIncrement: 3000, bidCount: 54, endsAt: hrs(1), status: 'live',
   },
   {
     id: 'c3', title: 'Original "Don" Movie Script Page — Signed',
     lot: '#0901', provenance: 'Amitabh Bachchan · Personal Collection',
-    category: 'Cinema', seller: 'Amitabh Bachchan',
+    category: 'Cinema', seller: 'Amitabh Bachchan', sellerId: 'amitabh',
     image: 'https://images.unsplash.com/photo-1585644141249-141a54a7c030?q=80&w=1472&auto=format&fit=crop',
     currentBid: 65000, minIncrement: 2000, bidCount: 18, endsAt: hrs(5), status: 'live',
   },
@@ -63,14 +63,14 @@ const AUCTIONS = [
   {
     id: 'm1', title: 'Signed Custom Performance Jacket — Sanak Tour',
     lot: '#0872', provenance: 'Badshah · Stage Worn',
-    category: 'Music', seller: 'Badshah',
+    category: 'Musicians & Artists', seller: 'Badshah', sellerId: 'badshah',
     image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1470&auto=format&fit=crop',
     currentBid: 38900, minIncrement: 1100, bidCount: 19, endsAt: hrs(8), status: 'live',
   },
   {
     id: 'm2', title: 'Custom Red Stratocaster Guitar — Studio Sessions',
     lot: '#0880', provenance: 'A.R. Rahman · Verified Studio Gear',
-    category: 'Music', seller: 'A.R. Rahman',
+    category: 'Musicians & Artists', seller: 'A.R. Rahman', sellerId: 'arr',
     image: 'https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=1587&auto=format&fit=crop',
     currentBid: 550000, minIncrement: 10000, bidCount: 78, endsAt: hrs(12), status: 'live',
   },
@@ -78,14 +78,14 @@ const AUCTIONS = [
   {
     id: 'cr1', title: 'First 1M Subscribers Golden Play Button — Signed Custom Shell',
     lot: '#0921', provenance: 'Bhuvan Bam · BB Ki Vines',
-    category: 'Creators', seller: 'Bhuvan Bam',
+    category: 'Creators', seller: 'Bhuvan Bam', sellerId: 'bb',
     image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1548&auto=format&fit=crop',
     currentBid: 125000, minIncrement: 3000, bidCount: 45, endsAt: mins(42), status: 'ending-soon',
   },
   {
     id: 'cr2', title: 'Custom PC Build Side Panel with Signature Graphic',
     lot: '#0925', provenance: 'Mortal · Naman Mathur',
-    category: 'Creators', seller: 'Naman Mathur',
+    category: 'Creators', seller: 'Naman Mathur', sellerId: null,
     image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?q=80&w=1658&auto=format&fit=crop',
     currentBid: 32000, minIncrement: 1000, bidCount: 15, endsAt: hrs(2), status: 'live',
   }
@@ -278,33 +278,49 @@ export default function BrowseCategory({ user, walletBalance = 0, onSignInClick 
                     {/* Header — seller info */}
                     <div className="hh-p-header">
                       <div className="hh-p-seller">
-                        <div className="hh-p-av">{initials}</div>
+                        <Link
+                          to={auction.sellerId ? `/celebrity/${auction.sellerId}` : '#'}
+                          onClick={e => e.stopPropagation()}
+                          className="hh-p-av"
+                          style={{ textDecoration: 'none', cursor: auction.sellerId ? 'pointer' : 'default' }}
+                        >
+                          {initials}
+                        </Link>
                         <div>
                           <div className="hh-p-nm-row">
-                            <span className="hh-p-name">{auction.seller}</span>
+                            <Link
+                              to={auction.sellerId ? `/celebrity/${auction.sellerId}` : '#'}
+                              onClick={e => e.stopPropagation()}
+                              style={{ textDecoration: 'none' }}
+                            >
+                              <span className="hh-p-name" style={{ cursor: auction.sellerId ? 'pointer' : 'default' }}>
+                                {auction.seller}
+                              </span>
+                            </Link>
                             <span className="hh-vtick">✓</span>
                           </div>
                           <div className="hh-p-handle">{auction.provenance}</div>
-                          <div className="hh-p-tag-row">
-                            {auction.status === 'ending-soon' ? (
-                              <span className="hh-ptag hh-ptag-soon">
-                                <span className="hh-rdot" style={{ width: 4, height: 4 }} />
-                                {statusStyle.text}
-                              </span>
-                            ) : auction.status === 'reserve-met' ? (
-                              <span className="hh-ptag hh-ptag-cert">✓ {statusStyle.text}</span>
-                            ) : (
-                              <span className="hh-ptag hh-ptag-live">
-                                <span className="hh-rdot" style={{ width: 4, height: 4 }} />
-                                {statusStyle.text}
-                              </span>
-                            )}
-                            <span className="hh-ptag hh-ptag-cat">{auction.category}</span>
-                            <span className="hh-ptag hh-ptag-cert">✓ Verified</span>
-                          </div>
                         </div>
                       </div>
-                      <button className="hh-p-more" onClick={e => e.stopPropagation()}>···</button>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <div className="hh-p-tag-row" style={{ marginTop: 0 }}>
+                          {auction.status === 'ending-soon' ? (
+                            <span className="hh-ptag hh-ptag-soon">
+                              <span className="hh-rdot" style={{ width: 4, height: 4 }} />
+                              {statusStyle.text}
+                            </span>
+                          ) : auction.status === 'reserve-met' ? (
+                            <span className="hh-ptag hh-ptag-cert">✓ {statusStyle.text}</span>
+                          ) : (
+                            <span className="hh-ptag hh-ptag-live">
+                              <span className="hh-rdot" style={{ width: 4, height: 4 }} />
+                              {statusStyle.text}
+                            </span>
+                          )}
+                          <span className="hh-ptag hh-ptag-cat">{auction.category}</span>
+                        </div>
+                        <button className="hh-p-more" onClick={e => e.stopPropagation()}>···</button>
+                      </div>
                     </div>
 
                     {/* Media placeholder */}
@@ -339,17 +355,24 @@ export default function BrowseCategory({ user, walletBalance = 0, onSignInClick 
                     </div>
 
                     {/* Actions */}
-                    <div className="hh-p-actions">
-                      <button className="hh-pact">
-                        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
-                        Save
+                    <div className="hh-p-actions" onClick={e => e.stopPropagation()}>
+                      <button className="hh-pact" onClick={(e) => {
+                        e.stopPropagation();
+                        e.currentTarget.classList.toggle('liked');
+                        const svg = e.currentTarget.querySelector('svg');
+                        if (svg) {
+                          const isLiked = e.currentTarget.classList.contains('liked');
+                          svg.setAttribute('fill', isLiked ? '#fff' : 'none');
+                          svg.setAttribute('stroke', isLiked ? '#fff' : 'currentColor');
+                        }
+                      }}>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style={{ transition: 'fill 0.18s, stroke 0.18s' }}>
+                          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                        </svg>
+                        1.2K
                       </button>
                       <button className="hh-pact">
-                        <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>
-                        Watch
-                      </button>
-                      <button className="hh-pact">
-                        <svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9" /><path d="M3 11V9a4 4 0 0 1 4-4h14" /><polyline points="7 23 3 19 7 15" /><path d="M21 13v2a4 4 0 0 1-4 4H3" /></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="17 1 21 5 17 9" /><path d="M3 11V9a4 4 0 0 1 4-4h14" /><polyline points="7 23 3 19 7 15" /><path d="M21 13v2a4 4 0 0 1-4 4H3" /></svg>
                         Share
                       </button>
                     </div>
