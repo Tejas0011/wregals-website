@@ -106,7 +106,7 @@ export default function About({ user, onSignInClick }: AboutPageProps) {
                             { label: 'Verified Bidders', value: '8,400+' },
                             { label: 'Seller Partners', value: '400+' },
                         ].map(s => (
-                            <div key={s.label} className="bg-[#3D0808] px-8 py-6">
+                            <div key={s.label} className="px-8 py-6" style={{ background: 'var(--hh-s2)' }}>
                                 <p className="font-mono text-2xl md:text-3xl text-white mb-1">{s.value}</p>
                                 <p className="text-[10px] uppercase tracking-widest text-neutral-600">{s.label}</p>
                             </div>

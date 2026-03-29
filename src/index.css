@@ -1384,7 +1384,7 @@ a[href*="spline"] {
   color: var(--hh-w1); background: var(--hh-s2);
 }
 .hh-ls-wallet {
-  margin-top: 24px; /* Changed from auto to reduce the gap */
+  margin-top: auto; /* Changed from 24px to keep it pinned to the bottom */
   background: var(--hh-s2); border: 1px solid var(--hh-line);
   border-radius: 10px; padding: 12px; /* Reduced from 16px */
 }

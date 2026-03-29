@@ -4,7 +4,7 @@ import Logo from './Logo';
 
 export default function Footer() {
     return (
-        <footer className="pt-20 pb-10 border-t bg-[#3D0808] border-white/10 mt-auto">
+        <footer className="pt-20 pb-10 border-t border-white/10 mt-auto" style={{ background: 'var(--hh-s1)' }}>
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20 items-start">
                     <div className="md:col-span-1">
