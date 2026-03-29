@@ -45,17 +45,24 @@ export default function LeftSidebar() {
       <div className="hh-ls-section">Browse</div>
 
       <div className="hh-ls-cats">
-        {CATEGORIES.map(({ label, color }) => (
-          <div key={label} className="hh-ls-cat">
-            <div className="hh-ls-cat-dot" style={{ background: color }} />
-            {label}
-          </div>
-        ))}
+        {CATEGORIES.map(({ label, color }) => {
+          const path = `/browse/${label.toLowerCase()}`;
+          return (
+            <Link key={label} to={path} style={{ textDecoration: 'none' }}>
+              <div className={`hh-ls-cat${isActive(path) ? ' active' : ''}`}>
+                <div className="hh-ls-cat-dot" style={{ background: color }} />
+                {label}
+              </div>
+            </Link>
+          );
+        })}
       </div>
-      <button className="hh-ls-cat-all">
-        <IIcon icon="lucide:plus" width={14} className="mr-2" />
-        Browse all categories
-      </button>
+      <Link to="/browse/all" style={{ textDecoration: 'none' }}>
+        <button className="hh-ls-cat-all">
+          <IIcon icon="lucide:plus" width={14} className="mr-2" />
+          Browse all categories
+        </button>
+      </Link>
 
 
 

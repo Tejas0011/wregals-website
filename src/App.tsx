@@ -26,6 +26,7 @@ import Watchlist from './pages/Watchlist';
 import Notifications from './pages/Notifications';
 import Settings from './pages/Settings';
 import SellerDashboard from './pages/SellerDashboard';
+import BrowseCategory from './pages/BrowseCategory';
 import { supabase } from './lib/supabase';
 
 const PROMO_ROUTES = [
@@ -41,7 +42,7 @@ const PROMO_ROUTES = [
 
 function App() {
   const location = useLocation();
-  const showPromo = PROMO_ROUTES.includes(location.pathname);
+  const showPromo = PROMO_ROUTES.includes(location.pathname) || location.pathname.startsWith('/browse/');
   const [authOpen, setAuthOpen] = useState(false);
 
   const [user, setUser] = useState(null);
@@ -369,6 +370,9 @@ function App() {
 
       {/* ── Routes ───────────────────────────────────────────────────────── */}
       <Routes>
+        <Route path="/browse/:category" element={
+          <BrowseCategory user={user} walletBalance={50000} onSignInClick={() => setAuthOpen(true)} />
+        } />
         <Route path="/auctions/live" element={
           <LiveAuctions user={user} walletBalance={50000} onSignInClick={() => setAuthOpen(true)} />
         } />

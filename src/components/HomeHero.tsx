@@ -189,22 +189,28 @@ export default function HomeHero() {
           <div className="hh-ls-sep" />
           <div className="hh-ls-section">Browse</div>
 
-          <div className="hh-ls-cats">
-            {cats.map(({ label, color }) => (
+      <div className="hh-ls-cats">
+        {cats.map(({ label, color }) => {
+          const path = `/browse/${label.toLowerCase()}`;
+          return (
+            <Link key={label} to={path} style={{ textDecoration: 'none' }}>
               <div
-                key={label}
                 className={`hh-ls-cat${activeCat === label ? ' active' : ''}`}
-                onClick={() => setActiveCat(label)}
+                onClick={() => setActiveCat(label)} /* Keep local state update for Feed filtering if staying */
               >
                 <div className="hh-ls-cat-dot" style={{ background: color }} />
                 {label}
               </div>
-            ))}
-          </div>
-          <button className="hh-ls-cat-all">
-            <IIcon icon="lucide:plus" width={14} className="mr-2" />
-            Browse all categories
-          </button>
+            </Link>
+          );
+        })}
+      </div>
+      <Link to="/browse/all" style={{ textDecoration: 'none' }}>
+        <button className="hh-ls-cat-all">
+          <IIcon icon="lucide:plus" width={14} className="mr-2" />
+          Browse all categories
+        </button>
+      </Link>
 
           <div className="hh-ls-sep" />
 
