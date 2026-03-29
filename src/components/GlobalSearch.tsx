@@ -177,16 +177,16 @@ export default function GlobalSearch() {
   const showDropdown = focused && query.trim().length > 0;
 
   return (
-    <div ref={containerRef} style={{ position: 'relative', width: 340 }}>
+    <div ref={containerRef} style={{ position: 'relative', width: '100%', maxWidth: 480 }}>
       {/* Search Input */}
       <div style={{
-        display: 'flex', alignItems: 'center', gap: 8,
+        display: 'flex', alignItems: 'center', gap: 10,
         background: focused ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.04)',
         border: `1px solid ${focused ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.09)'}`,
-        borderRadius: 10, padding: '8px 14px',
+        borderRadius: 12, padding: '12px 18px',
         transition: 'all 0.2s ease',
       }}>
-        <IIcon icon="lucide:search" width={15} style={{ color: 'rgba(255,255,255,0.35)', flexShrink: 0 }} />
+        <IIcon icon="lucide:search" width={18} style={{ color: 'rgba(255,255,255,0.35)', flexShrink: 0 }} />
         <input
           ref={inputRef}
           value={query}
@@ -195,7 +195,7 @@ export default function GlobalSearch() {
           placeholder="Search celebrities or items…"
           style={{
             flex: 1, background: 'none', border: 'none', outline: 'none',
-            color: '#fff', fontSize: 13, fontFamily: 'inherit',
+            color: '#fff', fontSize: 15, fontFamily: 'inherit',
           }}
         />
         {query && (
@@ -207,9 +207,9 @@ export default function GlobalSearch() {
           </button>
         )}
         <kbd style={{
-          fontSize: 10, color: 'rgba(255,255,255,0.2)',
+          fontSize: 12, color: 'rgba(255,255,255,0.2)',
           background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)',
-          borderRadius: 4, padding: '2px 6px', fontFamily: 'inherit', flexShrink: 0,
+          borderRadius: 6, padding: '4px 8px', fontFamily: 'inherit', flexShrink: 0,
           display: query ? 'none' : 'block',
         }}>⌘K</kbd>
       </div>
