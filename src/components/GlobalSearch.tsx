@@ -177,13 +177,13 @@ export default function GlobalSearch() {
   const showDropdown = focused && query.trim().length > 0;
 
   return (
-    <div ref={containerRef} style={{ position: 'relative', width: 360 }}>
+    <div ref={containerRef} style={{ position: 'relative', width: '100%', maxWidth: 480 }}>
       {/* Search Input */}
       <div style={{
         display: 'flex', alignItems: 'center', gap: 10,
         background: focused ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.04)',
         border: `1px solid ${focused ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.09)'}`,
-        borderRadius: 12, padding: '10px 16px',
+        borderRadius: 12, padding: '7px 16px',
         transition: 'all 0.2s ease',
       }}>
         <IIcon icon="lucide:search" width={16} style={{ color: 'rgba(255,255,255,0.35)', flexShrink: 0 }} />
