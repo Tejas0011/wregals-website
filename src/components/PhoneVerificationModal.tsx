@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
-import IIcon from './IIcon';
-
 type Mode = 'loading' | 'prompt_phone' | 'verify_otp' | 'error';
 
 interface PhoneVerificationModalProps {
@@ -127,7 +125,7 @@ export default function PhoneVerificationModal({ user, onVerified }: PhoneVerifi
             <div className="w-full max-w-md p-8 md:p-10 border border-white/5 bg-[#141415] rounded-xl shadow-2xl flex flex-col items-center">
                 
                 <div className="w-16 h-16 rounded-full bg-[#D4AF37]/10 flex items-center justify-center mb-6">
-                    <IIcon icon="solar:smartphone-linear" width="32" className="text-[#D4AF37]" />
+                    <img src="/wregals-logo.png" alt="Wregals" className="w-8 h-auto object-contain" />
                 </div>
 
                 <h2 className="text-2xl font-semibold tracking-wide text-white mb-2 font-inter text-center">
