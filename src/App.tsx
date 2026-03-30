@@ -19,6 +19,7 @@ import Gallery from './pages/Gallery';
 import Social from './pages/Social';
 import AIChatbot from './components/AIChatbot';
 import IIcon from './components/IIcon';
+import PhoneVerificationModal from './components/PhoneVerificationModal';
 import GlobalSearch from './components/GlobalSearch';
 import MyProfile from './pages/MyProfile';
 import WalletPage from './pages/WalletPage';
@@ -51,6 +52,7 @@ function App() {
 
   const [user, setUser] = useState(null);
   const [signOutConfirm, setSignOutConfirm] = useState(false);
+  const [requirePhoneOtp, setRequirePhoneOtp] = useState(false);
   const [showProfileSetup, setShowProfileSetup] = useState(false);
   const [setupStep, setSetupStep] = useState(1);
   const [walletOpen, setWalletOpen] = useState(false);
@@ -96,24 +98,38 @@ function App() {
   }, [showProfileSetup]);
 
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-    });
-    // Listen for auth changes (login, logout, OAuth redirect)
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const handleSession = (session: any) => {
       setUser(session?.user ?? null);
       if (session?.user) {
-        setAuthOpen(false);
-        // Database triggers now handle public.users row creation.
-        // Show profile setup if profile hasn't been completed yet
-        if (!session.user.user_metadata?.profile_completed) {
-          setShowProfileSetup(true);
+        // Global Gatekeeper: Check Phone OTP first
+        if (!session.user.user_metadata?.phone_verified) {
+          setRequirePhoneOtp(true);
+          setShowProfileSetup(false);
+        } else {
+          setRequirePhoneOtp(false);
+          // Show profile setup if profile hasn't been completed yet
+          if (!session.user.user_metadata?.profile_completed) {
+            setShowProfileSetup(true);
+          } else {
+            setShowProfileSetup(false);
+          }
         }
       } else {
+        setRequirePhoneOtp(false);
         setShowProfileSetup(false);
       }
+    };
+
+    // Get initial session (crucial for Google OAuth redirects where page reloads)
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      handleSession(session);
     });
+    
+    // Listen for auth changes (login, logout, token refresh)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      handleSession(session);
+    });
+    
     return () => subscription.unsubscribe();
   }, []);
 
@@ -141,6 +157,20 @@ function App() {
           onComplete={() => setShowProfileSetup(false)}
           onBack={() => setSetupStep(1)}
           onDismiss={() => setShowProfileSetup(false)}
+        />
+      )}
+
+      {/* Mandatory Phone OTP Gatekeeper */}
+      {requirePhoneOtp && user && (
+        <PhoneVerificationModal 
+          user={user} 
+          onVerified={() => {
+            setRequirePhoneOtp(false);
+            // After phone verification, check if profile setup is needed
+            if (!user.user_metadata?.profile_completed) {
+              setShowProfileSetup(true);
+            }
+          }} 
         />
       )}
 

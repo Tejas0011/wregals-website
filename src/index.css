@@ -485,6 +485,109 @@ a[href*="spline"] {
     color: #e57368;
 }
 
+/* ── Phone OTP step ─────────────────────────────────────── */
+
+/* Row: [+91 prefix] [phone input] [Send OTP btn] */
+.auth-phone-wrap {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    border: 1px solid var(--hh-line);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--hh-s2);
+    transition: border-color 0.2s;
+}
+
+.auth-phone-wrap:focus-within {
+    border-color: rgba(212, 175, 55, 0.5);
+}
+
+.auth-phone-prefix {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+    border-right: 1px solid var(--hh-line);
+    white-space: nowrap;
+    font-family: 'Inter', sans-serif;
+    background: rgba(255, 255, 255, 0.02);
+    flex-shrink: 0;
+}
+
+.auth-input--phone {
+    flex: 1;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    padding: 11px 10px !important;
+}
+
+.auth-input--phone:focus {
+    border-color: transparent !important;
+    background: transparent !important;
+    outline: none;
+}
+
+/* Inline "Send OTP" / "Resend" / countdown button */
+.auth-send-otp-btn {
+    flex-shrink: 0;
+    padding: 0 14px;
+    font-size: 10px;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #D4AF37;
+    background: rgba(212, 175, 55, 0.08);
+    border: none;
+    border-left: 1px solid var(--hh-line);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+    min-width: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.auth-send-otp-btn:hover:not(:disabled) {
+    background: rgba(212, 175, 55, 0.16);
+    color: #e8c84a;
+}
+
+.auth-send-otp-btn:disabled {
+    color: rgba(212, 175, 55, 0.35);
+    cursor: not-allowed;
+}
+
+/* OTP digit input */
+.auth-otp-input {
+    letter-spacing: 0.45em;
+    font-size: 18px !important;
+    font-weight: 500;
+    text-align: center;
+    font-family: 'Inter', monospace;
+}
+
+/* Slide-in when OTP group appears */
+.auth-otp-group {
+    animation: authOtpSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes authOtpSlide {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* ── User avatar button ─────────────────────────────────── */
 .user-avatar-btn {
     display: flex;

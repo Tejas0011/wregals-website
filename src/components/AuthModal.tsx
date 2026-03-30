@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { supabase } from '../lib/supabase';
 import IIcon from './IIcon';
 
@@ -8,21 +8,20 @@ interface AuthModalProps {
     onClose: () => void;
 }
 
-// Helper: check if an email is registered, using a Supabase SQL RPC.
-// The function `check_email_exists` must be created in Supabase (see walkthrough SQL).
+// ── Supabase helpers ──────────────────────────────────────────────────────────
+
 async function checkEmailExistsViaRPC(email: string): Promise<boolean> {
     try {
         const { data, error } = await supabase.rpc('check_email_exists', {
             p_email: email.trim().toLowerCase(),
         });
-        if (error) return false; // fail open
+        if (error) return false;
         return !!data;
     } catch {
-        return false; // fail open on network error
+        return false;
     }
 }
 
-// Helper: upsert the user's basic record into our public.users table
 export async function upsertUserRecord(user: any) {
     if (!user?.id || !user?.email) return;
     await supabase.from('users').upsert(
@@ -35,7 +34,48 @@ export async function upsertUserRecord(user: any) {
     );
 }
 
-// Reusable eye-toggle password input
+async function saveUserPhone(userId: string, phone: string) {
+    await supabase.rpc('save_user_phone', { p_user_id: userId, p_phone: phone });
+}
+
+// ── MSG91 helpers (call our Vercel proxy) ─────────────────────────────────────
+
+const API_BASE = typeof window !== 'undefined' && import.meta.env.PROD
+    ? window.location.origin
+    : 'http://localhost:5173';
+
+async function sendOtp(mobile: string): Promise<{ success: boolean; error?: string }> {
+    try {
+        const res = await fetch(`${API_BASE}/api/msg91/send-otp`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ mobile }),
+        });
+        const data = await res.json();
+        if (!res.ok) return { success: false, error: data.error || 'Failed to send OTP.' };
+        return { success: true };
+    } catch {
+        return { success: false, error: 'Network error. Please try again.' };
+    }
+}
+
+async function verifyOtp(mobile: string, otp: string, userId?: string): Promise<{ success: boolean; error?: string }> {
+    try {
+        const res = await fetch(`${API_BASE}/api/msg91/verify-otp`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ mobile, otp, userId }),
+        });
+        const data = await res.json();
+        if (!res.ok) return { success: false, error: data.error || 'OTP verification failed.' };
+        return { success: true };
+    } catch {
+        return { success: false, error: 'Network error. Please try again.' };
+    }
+}
+
+// ── Sub-components ────────────────────────────────────────────────────────────
+
 function PasswordInput({ id, placeholder, value, onChange, disabled }: {
     id?: string;
     placeholder: string;
@@ -64,14 +104,12 @@ function PasswordInput({ id, placeholder, value, onChange, disabled }: {
                 aria-label={show ? 'Hide password' : 'Show password'}
             >
                 {show ? (
-                    // Eye-off icon
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
                         <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
                         <line x1="1" y1="1" x2="23" y2="23" />
                     </svg>
                 ) : (
-                    // Eye icon
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                         <circle cx="12" cy="12" r="3" />
@@ -82,7 +120,6 @@ function PasswordInput({ id, placeholder, value, onChange, disabled }: {
     );
 }
 
-// Google SVG
 const GoogleIcon = () => (
     <svg width="18" height="18" viewBox="0 0 48 48" fill="none">
         <path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6-6C34.6 5.1 29.6 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21c10.5 0 20-7.6 20-21 0-1.4-.1-2.7-.5-4z" fill="#FFC107" />
@@ -92,6 +129,187 @@ const GoogleIcon = () => (
     </svg>
 );
 
+// Phone input with inline "Send OTP" button
+function PhoneOtpStep({
+    loading,
+    onBack,
+    onComplete,
+    userId,
+}: {
+    loading: string | null;
+    onBack: () => void;
+    onComplete: (phone: string) => void;
+    userId?: string;
+}) {
+    const [phone, setPhone] = useState('');
+    const [otpSent, setOtpSent] = useState(false);
+    const [otp, setOtp] = useState('');
+    const [countdown, setCountdown] = useState(0);
+    const [localLoading, setLocalLoading] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
+    const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+    const otpInputRef = useRef<HTMLInputElement>(null);
+
+    const isLoading = !!(loading || localLoading);
+
+    // Format phone to E.164 without + (MSG91 expects it as e.g. 919876543210)
+    const formatMobile = (raw: string) => {
+        const digits = raw.replace(/\D/g, '');
+        // If user types 10-digit Indian number, prepend 91
+        if (digits.length === 10) return `91${digits}`;
+        return digits; // already includes country code
+    };
+
+    const startCountdown = () => {
+        setCountdown(45);
+        timerRef.current = setInterval(() => {
+            setCountdown(c => {
+                if (c <= 1) { clearInterval(timerRef.current!); return 0; }
+                return c - 1;
+            });
+        }, 1000);
+    };
+
+    useEffect(() => () => { if (timerRef.current) clearInterval(timerRef.current); }, []);
+
+    const handleSendOtp = async () => {
+        setError(null);
+        const mobile = formatMobile(phone);
+        if (mobile.length < 10) {
+            setError('Please enter a valid mobile number.');
+            return;
+        }
+        setLocalLoading('send');
+        const result = await sendOtp(mobile);
+        setLocalLoading(null);
+        if (!result.success) {
+            setError(result.error || 'Failed to send OTP.');
+            return;
+        }
+        setOtpSent(true);
+        setSuccess('OTP sent! Check your SMS.');
+        startCountdown();
+        setTimeout(() => otpInputRef.current?.focus(), 100);
+    };
+
+    const handleVerifyOtp = async () => {
+        setError(null);
+        setSuccess(null);
+        if (otp.length !== 6) {
+            setError('Please enter the 6-digit OTP.');
+            return;
+        }
+        const mobile = formatMobile(phone);
+        setLocalLoading('verify');
+        const result = await verifyOtp(mobile, otp, userId);
+        setLocalLoading(null);
+        if (!result.success) {
+            setError(result.error || 'OTP verification failed.');
+            return;
+        }
+        onComplete(mobile);
+    };
+
+    return (
+        <>
+            <span className="auth-section-label">One last step</span>
+            <h2 className="auth-heading">Verify Your Phone</h2>
+            <p className="auth-subheading">We'll send a 6-digit code to confirm your number.</p>
+
+            {error && <div className="auth-message auth-message--error" style={{ marginBottom: 12 }}>{error}</div>}
+            {success && !error && <div className="auth-message auth-message--success" style={{ marginBottom: 12 }}>{success}</div>}
+
+            <div className="auth-form">
+                {/* Phone + Send OTP row */}
+                <div className="auth-input-group">
+                    <label className="auth-label">Mobile Number</label>
+                    <div className="auth-phone-wrap">
+                        <span className="auth-phone-prefix">+91</span>
+                        <input
+                            type="tel"
+                            className="auth-input auth-input--phone"
+                            placeholder="98765 43210"
+                            value={phone}
+                            onChange={(e) => {
+                                setPhone(e.target.value);
+                                setOtpSent(false);
+                                setOtp('');
+                                setError(null);
+                                setSuccess(null);
+                            }}
+                            disabled={isLoading}
+                            maxLength={15}
+                        />
+                        <button
+                            type="button"
+                            className="auth-send-otp-btn"
+                            onClick={handleSendOtp}
+                            disabled={isLoading || countdown > 0}
+                        >
+                            {localLoading === 'send' ? (
+                                <span className="auth-spinner auth-spinner--dark" />
+                            ) : countdown > 0 ? (
+                                `${countdown}s`
+                            ) : otpSent ? (
+                                'Resend'
+                            ) : (
+                                'Send OTP'
+                            )}
+                        </button>
+                    </div>
+                </div>
+
+                {/* OTP input — appears after OTP is sent */}
+                {otpSent && (
+                    <div className="auth-input-group auth-otp-group">
+                        <label className="auth-label">Enter OTP</label>
+                        <input
+                            ref={otpInputRef}
+                            type="text"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            className="auth-input auth-otp-input"
+                            placeholder="● ● ● ● ● ●"
+                            value={otp}
+                            onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                            disabled={isLoading}
+                            maxLength={6}
+                            autoComplete="one-time-code"
+                        />
+                        <button
+                            type="button"
+                            className="auth-primary-btn"
+                            style={{ marginTop: 8 }}
+                            onClick={handleVerifyOtp}
+                            disabled={isLoading || otp.length !== 6}
+                        >
+                            {localLoading === 'verify' ? <span className="auth-spinner auth-spinner--dark" /> : null}
+                            {localLoading === 'verify' ? 'Verifying…' : 'Verify & Continue'}
+                            {!localLoading && <IIcon icon="solar:arrow-right-linear" width="16" />}
+                        </button>
+                    </div>
+                )}
+            </div>
+
+            <div className="mt-8 text-center text-[11px] text-white/40 font-inter">
+                <button
+                    type="button"
+                    onClick={onBack}
+                    className="text-white/60 hover:text-white transition-colors text-[10px]"
+                    disabled={isLoading}
+                >
+                    ← Go back
+                </button>
+            </div>
+        </>
+    );
+}
+
+// ── Main Modal ────────────────────────────────────────────────────────────────
+
+type AuthMode = 'signup_select' | 'signup_email' | 'login';
+
 export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     const [signupEmail, setSignupEmail] = useState('');
     const [signupPassword, setSignupPassword] = useState('');
@@ -100,8 +318,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     const [loginPassword, setLoginPassword] = useState('');
     const [loading, setLoading] = useState<string | null>(null);
     const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-    const [mode, setMode] = useState<'signup_select' | 'signup_email' | 'login'>('signup_select');
-
+    const [mode, setMode] = useState<AuthMode>('signup_select');
     useEffect(() => {
         document.body.style.overflow = isOpen ? 'hidden' : '';
         return () => { document.body.style.overflow = ''; };
@@ -132,6 +349,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         if (error) { setMessage({ type: 'error', text: error.message }); setLoading(null); }
     };
 
+    // Step 1 of sign-up: create the account, then move to phone verification
     const handleSignUp = async (e) => {
         e.preventDefault();
         if (!signupEmail || !signupPassword) return;
@@ -142,7 +360,6 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
         setLoading('signup'); setMessage(null);
 
-        // Check if email already exists before making the signup call
         const exists = await checkEmailExistsViaRPC(signupEmail);
         if (exists) {
             setMessage({
@@ -155,20 +372,20 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
         const { data, error } = await supabase.auth.signUp({ email: signupEmail, password: signupPassword });
         setLoading(null);
+
         if (error) {
             setMessage({ type: 'error', text: error.message });
         } else if (data?.user && (data.user.identities?.length === 0)) {
-            // Supabase returns an empty identities array when the email is already registered
             setMessage({
                 type: 'error',
                 text: 'An account already exists with this email. Please log in instead.',
             });
-        } else if (data?.session) {
-            // Immediately logged in (email confirmation disabled)
+        } else if (data?.user) {
+            // Upsert base record
+            await upsertUserRecord(data.user);
+            // Close modal — the global App.tsx Gatekeeper will prompt for phone verification if needed
+            setMessage(null);
             onClose();
-        } else {
-            setMessage({ type: 'success', text: 'Check your email to confirm your account.' });
-            setSignupEmail(''); setSignupPassword(''); setSignupConfirm('');
         }
     };
 
@@ -178,7 +395,6 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
         setLoading('login'); setMessage(null);
 
-        // Check if email exists before attempting login via RPC
         const exists = await checkEmailExistsViaRPC(loginEmail);
         if (!exists) {
             setMessage({
@@ -220,6 +436,8 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
                 <div className="auth-columns">
                     <div className="auth-section">
+
+                        {/* ── Sign Up: choose method ── */}
                         {mode === 'signup_select' && (
                             <>
                                 <span className="auth-section-label">New to Wregals</span>
@@ -243,9 +461,9 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
                                 <div className="mt-8 text-center text-[11px] text-white/40 font-inter">
                                     Already have an account?{' '}
-                                    <button 
-                                        type="button" 
-                                        onClick={() => { setMode('login'); setMessage(null); }} 
+                                    <button
+                                        type="button"
+                                        onClick={() => { setMode('login'); setMessage(null); }}
                                         className="text-[#D4AF37] hover:text-white transition-colors uppercase tracking-wider font-semibold ml-1"
                                     >
                                         Log in
@@ -254,6 +472,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                             </>
                         )}
 
+                        {/* ── Sign Up: email & password ── */}
                         {mode === 'signup_email' && (
                             <>
                                 <span className="auth-section-label">New to Wregals</span>
@@ -293,24 +512,24 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                                     </div>
                                     <button type="submit" className="auth-primary-btn" disabled={!!loading}>
                                         {loading === 'signup' ? <span className="auth-spinner auth-spinner--dark" /> : null}
-                                        {loading === 'signup' ? 'Creating account…' : 'Create Account'}
+                                        {loading === 'signup' ? 'Creating account…' : 'Continue'}
                                         {!loading && <IIcon icon="solar:arrow-right-linear" width="16" />}
                                     </button>
                                 </form>
 
                                 <div className="mt-8 text-center text-[11px] text-white/40 font-inter">
                                     Already have an account?{' '}
-                                    <button 
-                                        type="button" 
-                                        onClick={() => { setMode('login'); setMessage(null); }} 
+                                    <button
+                                        type="button"
+                                        onClick={() => { setMode('login'); setMessage(null); }}
                                         className="text-[#D4AF37] hover:text-white transition-colors uppercase tracking-wider font-semibold ml-1"
                                     >
                                         Log in
                                     </button>
                                     <div className="mt-2">
-                                        <button 
-                                            type="button" 
-                                            onClick={() => { setMode('signup_select'); setMessage(null); }} 
+                                        <button
+                                            type="button"
+                                            onClick={() => { setMode('signup_select'); setMessage(null); }}
                                             className="text-white/60 hover:text-white transition-colors text-[10px]"
                                         >
                                             Back to choices
@@ -319,7 +538,8 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                                 </div>
                             </>
                         )}
-                        
+
+                        {/* ── Login ── */}
                         {mode === 'login' && (
                             <>
                                 <span className="auth-section-label">Welcome back</span>
@@ -387,9 +607,9 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
                                 <div className="mt-8 text-center text-[11px] text-white/40 font-inter">
                                     Don't have an account?{' '}
-                                    <button 
-                                        type="button" 
-                                        onClick={() => { setMode('signup_select'); setMessage(null); }} 
+                                    <button
+                                        type="button"
+                                        onClick={() => { setMode('signup_select'); setMessage(null); }}
                                         className="text-[#D4AF37] hover:text-white transition-colors uppercase tracking-wider font-semibold ml-1"
                                     >
                                         Sign up
