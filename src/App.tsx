@@ -99,8 +99,16 @@ function App() {
     const handleSession = (session: any) => {
       setUser(session?.user ?? null);
       if (session?.user) {
-        // Show profile setup if profile hasn't been completed yet
-        if (!session.user.user_metadata?.profile_completed) {
+        const meta = session.user.user_metadata || {};
+        
+        // Populate existing user info just in case they're re-completing missing steps
+        if (meta.full_name && !profileName) setProfileName(meta.full_name);
+        if (meta.phone && !profilePhone) setProfilePhone(meta.phone);
+        if (meta.country && !profileCountry) setProfileCountry(meta.country);
+        if (meta.heard_from && profileHeardSource.length === 0) setProfileHeardSource(meta.heard_from);
+
+        // Show profile setup if profile hasn't been completed yet OR if phone is missing/unverified
+        if (!meta.profile_completed || !meta.phone_verified) {
           setShowProfileSetup(true);
         } else {
           setShowProfileSetup(false);

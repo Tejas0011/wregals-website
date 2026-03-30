@@ -25,12 +25,12 @@ interface ProfileSetup2Props {
 }
 
 export default function ProfileSetup2({ user, onComplete, onBack, onDismiss }: ProfileSetup2Props) {
-    const [addressLine1, setAddressLine1] = useState('');
-    const [addressLine2, setAddressLine2] = useState('');
-    const [city, setCity] = useState('');
-    const [state, setState] = useState('');
-    const [pincode, setPincode] = useState('');
-    const [pan, setPan] = useState('');
+    const [addressLine1, setAddressLine1] = useState(user?.user_metadata?.address_line1 || '');
+    const [addressLine2, setAddressLine2] = useState(user?.user_metadata?.address_line2 || '');
+    const [city, setCity] = useState(user?.user_metadata?.city || '');
+    const [state, setState] = useState(user?.user_metadata?.state || '');
+    const [pincode, setPincode] = useState(user?.user_metadata?.pincode || '');
+    const [pan, setPan] = useState(user?.user_metadata?.pan_card || '');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
