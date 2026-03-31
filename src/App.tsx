@@ -180,8 +180,8 @@ function App() {
             {user ? (
               <div className="relative group/user">
                 {/* Trigger — user avatar or generic icon */}
-                <button className="user-avatar-btn flex items-center justify-center text-neutral-400 hover:text-white transition-colors">
-                  <IIcon icon="solar:hamburger-menu-linear" width="32" />
+                <button className="flex items-center justify-center text-neutral-400 hover:text-[#D4AF37] transition-colors outline-none h-10 px-2">
+                  <IIcon icon="lucide:menu" width="28" stroke-width="1.2" />
                 </button>
 
                 {/* Dropdown panel */}
@@ -276,11 +276,11 @@ function App() {
 
           {/* Mobile Menu Icon */}
           <button
-            className="md:hidden text-white"
+            className="md:hidden text-white hover:text-[#D4AF37] transition-colors outline-none h-10 px-2"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
             aria-label="Toggle navigation menu"
           >
-            <IIcon icon="solar:hamburger-menu-linear" width="24"></IIcon>
+            <IIcon icon="lucide:menu" width="28" stroke-width="1.2"></IIcon>
           </button>
         </div>
       </nav>
