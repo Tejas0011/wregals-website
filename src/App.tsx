@@ -181,7 +181,7 @@ function App() {
               <div className="relative group/user">
                 {/* Trigger — user avatar or generic icon */}
                 <button className="user-avatar-btn flex items-center justify-center text-neutral-400 hover:text-white transition-colors">
-                  <IIcon icon="solar:user-rounded-bold" width="32" />
+                  <IIcon icon="solar:hamburger-menu-linear" width="32" />
                 </button>
 
                 {/* Dropdown panel */}
