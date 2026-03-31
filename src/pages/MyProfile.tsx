@@ -38,8 +38,8 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
         >
           <div className="flex flex-col md:flex-row gap-7 items-start">
             <div className="relative group">
-              <div className="w-20 h-20 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center overflow-hidden text-[#D4AF37]">
-                <IIcon icon="solar:user-circle-bold" width="48" />
+              <div className="flex items-center justify-center text-neutral-400">
+                <IIcon icon="solar:user-rounded-bold" width="60" />
               </div>
               <button className="absolute bottom-0 right-0 w-7 h-7 bg-white text-black rounded-full flex items-center justify-center hover:bg-[#D4AF37] transition-colors shadow-lg">
                 <IIcon icon="lucide:camera" width="12" />

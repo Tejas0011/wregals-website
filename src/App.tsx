@@ -180,16 +180,16 @@ function App() {
             {user ? (
               <div className="relative group/user">
                 {/* Trigger — user avatar or generic icon */}
-                <button className="user-avatar-btn w-8 h-8 flex items-center justify-center rounded-full bg-white/5 border border-white/10 hover:border-[#D4AF37] transition-colors text-white">
-                  <IIcon icon="solar:user-circle-bold" width="22" />
+                <button className="user-avatar-btn flex items-center justify-center text-neutral-400 hover:text-white transition-colors">
+                  <IIcon icon="solar:user-rounded-bold" width="32" />
                 </button>
 
                 {/* Dropdown panel */}
                 <div className="user-dropdown">
                   {/* Header — name + email */}
                   <div className="user-dropdown-header">
-                    <div className="user-dropdown-avatar flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 text-[#D4AF37]">
-                      <IIcon icon="solar:user-circle-bold" width="28" />
+                    <div className="user-dropdown-avatar flex items-center justify-center text-neutral-400">
+                      <IIcon icon="solar:user-rounded-bold" width="40" />
                     </div>
                     <div className="user-dropdown-identity">
                       <p className="user-dropdown-name">
