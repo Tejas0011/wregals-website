@@ -180,32 +180,16 @@ function App() {
             {user ? (
               <div className="relative group/user">
                 {/* Trigger — user avatar or generic icon */}
-                <button className="user-avatar-btn">
-                  {user.user_metadata?.avatar_url ? (
-                    <img
-                      src={user.user_metadata.avatar_url}
-                      alt="avatar"
-                      className="w-8 h-8 rounded-full object-cover"
-                    />
-                  ) : (
-                    <span className="user-avatar-initials">
-                      {(user.user_metadata?.full_name || user.email || 'U')[0].toUpperCase()}
-                    </span>
-                  )}
+                <button className="user-avatar-btn w-8 h-8 flex items-center justify-center rounded-full bg-white/5 border border-white/10 hover:border-[#D4AF37] transition-colors text-white">
+                  <IIcon icon="solar:user-circle-bold" width="22" />
                 </button>
 
                 {/* Dropdown panel */}
                 <div className="user-dropdown">
                   {/* Header — name + email */}
                   <div className="user-dropdown-header">
-                    <div className="user-dropdown-avatar">
-                      {user.user_metadata?.avatar_url ? (
-                        <img src={user.user_metadata.avatar_url} alt="avatar" className="w-10 h-10 rounded-full object-cover" />
-                      ) : (
-                        <span className="user-avatar-initials user-avatar-initials--lg">
-                          {(user.user_metadata?.full_name || user.email || 'U')[0].toUpperCase()}
-                        </span>
-                      )}
+                    <div className="user-dropdown-avatar flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 text-[#D4AF37]">
+                      <IIcon icon="solar:user-circle-bold" width="28" />
                     </div>
                     <div className="user-dropdown-identity">
                       <p className="user-dropdown-name">
