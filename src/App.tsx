@@ -27,6 +27,7 @@ import Watchlist from './pages/Watchlist';
 import Notifications from './pages/Notifications';
 import Settings from './pages/Settings';
 import SellerDashboard from './pages/SellerDashboard';
+import CreateListing from './pages/CreateListing';
 import BrowseCategory from './pages/BrowseCategory';
 import AllCategories from './pages/AllCategories';
 import CelebrityProfile from './pages/CelebrityProfile';
@@ -432,6 +433,9 @@ function App() {
         } />
         <Route path="/seller/dashboard" element={
           <SellerDashboard user={user} />
+        } />
+        <Route path="/seller/create-listing" element={
+          <CreateListing user={user} />
         } />
         <Route path="/*" element={<HomeHero />} />
       </Routes>

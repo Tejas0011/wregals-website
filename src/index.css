@@ -1641,7 +1641,7 @@ a.hh-p-av {
   background: var(--hh-s1); border: 1px solid var(--hh-line);
   border-radius: 12px; padding: 16px; margin-bottom: 10px;
 }
-.hh-rc:last-child { flex: 1; margin-bottom: 0; }
+.hh-rc:last-child { margin-bottom: 0; }
 .hh-rc-title { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--hh-w3); margin-bottom: 12px; }
 .hh-rc-row {
   display: flex; align-items: center; gap: 9px;

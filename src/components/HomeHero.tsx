@@ -307,9 +307,9 @@ export default function HomeHero() {
             </button>
           </div>
 
-          {/* Sellers to follow */}
+          {/* People to follow */}
           <div className="hh-rc">
-            <div className="hh-rc-title">Sellers to Follow</div>
+            <div className="hh-rc-title">People to Follow</div>
             {[
               { av: 'SR', name: 'Sachin Tendulkar', sub: '2 upcoming auctions' },
               { av: 'DP', name: 'Deepika Padukone', sub: '1 live now' },

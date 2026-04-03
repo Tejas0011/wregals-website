@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   ResponsiveContainer, LineChart, Line, AreaChart, Area,
   BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid,
@@ -158,6 +159,7 @@ const CustomTooltip = ({ active, payload, label, prefix = '', suffix = '' }: any
 // ── Main Component ────────────────────────────────────────────────────────────
 
 export default function SellerDashboard({ user }: SellerDashboardProps) {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'analytics' | 'listings'>('analytics');
   const [feedIndex, setFeedIndex] = useState(0);
 
@@ -186,7 +188,9 @@ export default function SellerDashboard({ user }: SellerDashboardProps) {
             <span className="text-[10px] text-green-400/70 tracking-widest uppercase">Live data</span>
           </div>
         </div>
-        <button className="bg-white text-black px-6 py-3 text-xs tracking-widest uppercase font-bold hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2 self-start md:self-auto">
+        <button
+          onClick={() => navigate('/seller/create-listing')}
+          className="bg-white text-black px-6 py-3 text-xs tracking-widest uppercase font-bold hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2 self-start md:self-auto">
           <IIcon icon="solar:add-square-linear" width="16" />
           Create Listing
         </button>
