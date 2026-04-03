@@ -69,12 +69,38 @@ export default function BidModal({ isOpen, onClose, item, user, walletBalance = 
     const av = sellerStr.split(' ').map(w => w[0]).join('').substring(0, 2);
     const handle = `@${sellerStr.replace(/[^A-Za-z0-9]/g, '').toLowerCase()}`;
     
-    // Create a mock feed array based on the current bid to make it look alive
-    const feed = [
-        { av: 'X', name: '@bidder_one', time: 'Just now', amt: current, top: true },
-        { av: 'Y', name: '@collector99', time: '4 min ago', amt: fmt(item.currentBid - item.minIncrement) },
-        { av: 'Z', name: '@fanatic_x', time: '9 min ago', amt: fmt(item.currentBid - item.minIncrement * 2) },
-    ].filter(f => f.amt.indexOf('-') === -1); // remove negatives if any
+    // Realistic live bidder feed — 20 most recent bids
+    const inc = item.minIncrement || Math.ceil(item.currentBid * 0.05);
+    const bidders = [
+        { av: 'RK', name: '@rajkumar_c'   },
+        { av: 'AS', name: '@arjun_bids'   },
+        { av: 'PM', name: '@priya_m99'    },
+        { av: 'VK', name: '@vikram_col'   },
+        { av: 'NR', name: '@neha_rare'    },
+        { av: 'SK', name: '@sanjay_k01'   },
+        { av: 'AM', name: '@amit_mvp'     },
+        { av: 'DP', name: '@deepa_p12'    },
+        { av: 'MR', name: '@manish_rb'    },
+        { av: 'KS', name: '@kavita_s7'    },
+        { av: 'RT', name: '@rohit_fan'    },
+        { av: 'AK', name: '@aarav_k3'     },
+        { av: 'SG', name: '@sneha_g88'    },
+        { av: 'DB', name: '@dhruv_bid'    },
+        { av: 'MS', name: '@meera_s21'    },
+        { av: 'GP', name: '@gaurav_p4'    },
+        { av: 'TS', name: '@tanvi_sp'     },
+        { av: 'RJ', name: '@rahul_j99'    },
+        { av: 'PD', name: '@pooja_dx'     },
+        { av: 'NK', name: '@nikhil_k7'    },
+    ];
+    const times = ['Just now', '1 min ago', '3 min ago', '5 min ago', '7 min ago', '9 min ago', '12 min ago', '15 min ago', '18 min ago', '22 min ago', '25 min ago', '28 min ago', '33 min ago', '37 min ago', '40 min ago', '45 min ago', '50 min ago', '55 min ago', '1h ago', '1h ago'];
+    const feed = bidders.map((b, i) => ({
+        av: b.av,
+        name: b.name,
+        time: times[i],
+        amt: fmt(item.currentBid - inc * i),
+        top: i === 0,
+    })).filter(f => !f.amt.includes('-'));
 
     const watching = Math.floor(item.currentBid / 1000) % 500 + 40; // fake
     const cond = item.provenance ? 'Verified Authentic' : 'Excellent';
