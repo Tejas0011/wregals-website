@@ -246,7 +246,7 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
                                     type="button"
                                     onClick={handleSendOtp}
                                     disabled={phone.length !== 10 || loading || otpLoading || (otpSent && timer > 0)}
-                                    className="px-4 py-3 bg-[#D4AF37] hover:bg-[#ebd074] text-[#0C0C0D] text-xs font-bold uppercase tracking-wider rounded-lg disabled:opacity-50 transition-colors whitespace-nowrap min-w-[120px]"
+                                    className="px-4 py-3 bg-white hover:bg-neutral-200 text-[#0C0C0D] text-xs font-bold uppercase tracking-wider rounded-lg disabled:opacity-50 transition-colors whitespace-nowrap min-w-[120px]"
                                 >
                                     {otpLoading && !otpSent ? 'Sending...' : (otpSent && timer > 0 ? `Resend ${timer}s` : 'Send OTP')}
                                 </button>
@@ -287,7 +287,7 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
                                         type="button"
                                         onClick={handleVerifyOtp}
                                         disabled={otp.join('').length !== 6 || otpLoading}
-                                        className="px-5 py-2.5 bg-[#D4AF37] hover:bg-[#ebd074] text-[#0C0C0D] text-xs font-bold uppercase tracking-wider rounded-lg shrink-0 disabled:opacity-50 shadow-lg shadow-[#D4AF37]/10"
+                                        className="px-5 py-2.5 bg-white hover:bg-neutral-200 text-[#0C0C0D] text-xs font-bold uppercase tracking-wider rounded-lg shrink-0 disabled:opacity-50 shadow-lg shadow-white/10"
                                     >
                                         {otpLoading ? 'Verifying...' : 'Verify Code'}
                                     </button>

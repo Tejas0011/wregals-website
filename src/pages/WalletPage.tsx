@@ -31,7 +31,7 @@ export default function WalletPage({ user, onSignInClick }: WalletPageProps) {
               <span className="font-mono" style={{ color: 'var(--hh-w3)' }}>INR</span>
             </div>
             <div className="flex gap-3">
-              <button className="px-6 py-2.5 bg-[#D4AF37] text-black text-xs uppercase tracking-widest font-semibold hover:bg-[#c49f2e] transition-colors flex items-center gap-2 rounded-sm">
+              <button className="px-6 py-2.5 bg-white text-black text-xs uppercase tracking-widest font-semibold hover:bg-neutral-200 transition-colors flex items-center gap-2 rounded-sm">
                 <IIcon icon="lucide:plus-circle" width="15" />
                 Add Funds
               </button>

@@ -52,7 +52,7 @@ export default function Settings({ user, onSignInClick }: SettingsProps) {
           </div>
           
           <div className="pt-2">
-            <button className="px-6 py-2.5 bg-[#D4AF37] text-black text-xs uppercase tracking-widest font-semibold hover:bg-[#c49f2e] transition-colors rounded-sm">
+            <button className="px-6 py-2.5 bg-white text-black text-xs uppercase tracking-widest font-semibold hover:bg-neutral-200 transition-colors rounded-sm">
               Save Changes
             </button>
           </div>
@@ -78,7 +78,7 @@ export default function Settings({ user, onSignInClick }: SettingsProps) {
               </div>
               <button 
                 onClick={() => setEmailAlerts(!emailAlerts)}
-                className={`w-10 h-5 rounded-full transition-colors relative flex items-center ${emailAlerts ? 'bg-[#D4AF37]' : 'bg-neutral-700'}`}
+                className={`w-10 h-5 rounded-full transition-colors relative flex items-center ${emailAlerts ? 'bg-white' : 'bg-neutral-700'}`}
               >
                 <span className={`w-3.5 h-3.5 bg-white rounded-full absolute transition-transform ${emailAlerts ? 'translate-x-5' : 'translate-x-1'}`} />
               </button>
@@ -91,7 +91,7 @@ export default function Settings({ user, onSignInClick }: SettingsProps) {
               </div>
               <button 
                 onClick={() => setSmsAlerts(!smsAlerts)}
-                className={`w-10 h-5 rounded-full transition-colors relative flex items-center ${smsAlerts ? 'bg-[#D4AF37]' : 'bg-neutral-700'}`}
+                className={`w-10 h-5 rounded-full transition-colors relative flex items-center ${smsAlerts ? 'bg-white' : 'bg-neutral-700'}`}
               >
                 <span className={`w-3.5 h-3.5 bg-white rounded-full absolute transition-transform ${smsAlerts ? 'translate-x-5' : 'translate-x-1'}`} />
               </button>
@@ -104,7 +104,7 @@ export default function Settings({ user, onSignInClick }: SettingsProps) {
               </div>
               <button 
                 onClick={() => setMarketingEmails(!marketingEmails)}
-                className={`w-10 h-5 rounded-full transition-colors relative flex items-center ${marketingEmails ? 'bg-[#D4AF37]' : 'bg-neutral-700'}`}
+                className={`w-10 h-5 rounded-full transition-colors relative flex items-center ${marketingEmails ? 'bg-white' : 'bg-neutral-700'}`}
               >
                 <span className={`w-3.5 h-3.5 bg-white rounded-full absolute transition-transform ${marketingEmails ? 'translate-x-5' : 'translate-x-1'}`} />
               </button>

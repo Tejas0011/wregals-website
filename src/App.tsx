@@ -160,7 +160,7 @@ function App() {
 
       {/* ── Global Navigation ────────────────────────────────────────────── */}
       <nav
-        className="fixed top-0 w-full z-[500] bg-[#0C0C0D]/90 backdrop-blur-md border-b border-white/5"
+        className="fixed top-0 w-full z-[500] bg-[#0C0C0D] border-b border-white/5"
       >
         <div className="w-full pl-5 pr-6 h-20 flex items-center justify-between">
           {/* Logo */}

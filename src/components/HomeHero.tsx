@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import IIcon from './IIcon';
+import LeftSidebar from './LeftSidebar';
 
 import PromoRibbon, { PromoBidModal, LiveDot, VTick, PostTag, fmtSecs } from './PromoRibbon';
 
@@ -164,9 +165,6 @@ function PostCard({
 /* ─── MAIN COMPONENT ────────────────────────────── */
 export default function HomeHero() {
   const [modalKey, setModalKey] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState('For You');
-  const [activeCat, setActiveCat] = useState('All');
-  const [activeNavLink, setActiveNavLink] = useState('Feed');
   const [followed, setFollowed] = useState<Record<string, boolean>>({});
 
 
@@ -183,80 +181,13 @@ export default function HomeHero() {
 
   const toggleFollow = (name: string) => setFollowed(p => ({ ...p, [name]: !p[name] }));
 
-  const navLinks = [
-    { icon: 'lucide:layout-grid', label: 'Feed', path: '/' },
-    { icon: 'lucide:clock', label: 'Live Now', path: '/auctions/live' },
-    { icon: 'lucide:heart', label: 'Watchlist', path: '/watchlist' },
-    { icon: 'lucide:activity', label: 'My Bids', path: '/my-bids' },
-    { icon: 'lucide:credit-card', label: 'Wallet', path: '/wallet' },
-  ];
-
-  const cats = [
-    { label: 'All', color: '#961616' },
-    { label: 'Sports', color: '#3B82F6' },
-    { label: 'Cinema', color: '#EC4899' },
-    { label: 'Music', color: '#8B5CF6' },
-    { label: 'Creators', color: '#10B981' },
-  ];
-
-  const feedTabs = ['For You', 'Sports', 'Cinema', 'Music', 'Creators'];
-
-
-
   return (
     <section className="hh-root">
       {/* ─── 3-COLUMN LAYOUT ─────────────────────── */}
       <div className="hh-layout">
 
         {/* LEFT SIDEBAR */}
-        <div className="hh-lsidebar">
-          {navLinks.map(({ icon, label, badge, path }) => (
-            <Link
-              key={label}
-              to={path}
-              className={`hh-ls-link${activeNavLink === label ? ' active' : ''}`}
-              onClick={() => setActiveNavLink(label)}
-            >
-              <span className="hh-ls-icon"><IIcon icon={icon} width={20} /></span>
-              {label}
-              {badge && <span className="hh-ls-badge">{badge}</span>}
-            </Link>
-          ))}
-
-          <div className="hh-ls-sep" />
-          <div className="hh-ls-section">Browse</div>
-
-      <div className="hh-ls-cats">
-        {cats.map(({ label, color }) => {
-          const path = `/browse/${label.toLowerCase()}`;
-          return (
-            <Link key={label} to={path} style={{ textDecoration: 'none' }}>
-              <div
-                className={`hh-ls-cat${activeCat === label ? ' active' : ''}`}
-                onClick={() => setActiveCat(label)} /* Keep local state update for Feed filtering if staying */
-              >
-                <div className="hh-ls-cat-dot" style={{ background: color }} />
-                {label}
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-      <Link to="/browse/all" style={{ textDecoration: 'none' }}>
-        <button className="hh-ls-cat-all">
-          <IIcon icon="lucide:plus" width={14} className="mr-2" />
-          Browse all categories
-        </button>
-      </Link>
-
-          <div className="hh-ls-sep" />
-
-          <div className="hh-ls-wallet">
-            <div className="hh-lw-label">My Wallet</div>
-            <div className="hh-lw-value">₹50,000</div>
-            <button className="hh-lw-btn">Add Funds</button>
-          </div>
-        </div>
+        <LeftSidebar />
 
         {/* FEED */}
         <div className="hh-feed">

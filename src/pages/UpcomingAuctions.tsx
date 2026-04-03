@@ -256,7 +256,7 @@ export default function UpcomingAuctions({ user, onSignInClick }: UpcomingAuctio
                                                 <button
                                                     onClick={() => toggleReminder(lot.id)}
                                                     className={`flex items-center gap-1.5 text-[10px] uppercase tracking-widest px-3 py-2 border rounded-sm transition-all ${isReminded
-                                                        ? 'border-[#D4AF37] text-[#D4AF37] bg-[#D4AF37]/5'
+                                                        ? 'border-white text-white bg-white/5'
                                                         : 'border-white/10 text-neutral-500 hover:border-white/30 hover:text-white'
                                                         }`}
                                                 >

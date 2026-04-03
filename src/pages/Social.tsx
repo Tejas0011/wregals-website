@@ -81,7 +81,7 @@ function AuctionCard({ card }) {
                     </div>
                 </div>
                 {!isSold && (
-                    <Link to={isLive ? '/auctions/live' : '/auctions/upcoming'} className="flex-shrink-0 text-[10px] uppercase tracking-widest border border-[#D4AF37]/40 text-[#D4AF37] px-3 py-1.5 hover:bg-[#D4AF37]/10 transition-colors rounded-sm whitespace-nowrap">
+                    <Link to={isLive ? '/auctions/live' : '/auctions/upcoming'} className="flex-shrink-0 text-[10px] uppercase tracking-widest border border-white/40 text-white px-3 py-1.5 hover:bg-white/10 transition-colors rounded-sm whitespace-nowrap">
                         View Lot
                     </Link>
                 )}
@@ -141,8 +141,8 @@ function PostCard({ post, liked, reshared, shareOpen, onLike, onReshare, onShare
 
                     {/* Reshare */}
                     <button onClick={() => { setRc(r => reshared ? r - 1 : r + 1); onReshare(post.id); }}
-                        className={`flex items-center gap-1.5 text-xs group transition-colors ${reshared ? 'text-[#D4AF37]' : 'text-neutral-600 hover:text-[#D4AF37]'}`}>
-                        <span className="w-8 h-8 flex items-center justify-center group-hover:bg-[#D4AF37]/10 transition-colors">
+                        className={`flex items-center gap-1.5 text-xs group transition-colors ${reshared ? 'text-white' : 'text-neutral-600 hover:text-white'}`}>
+                        <span className="w-8 h-8 flex items-center justify-center group-hover:bg-white/10 transition-colors">
                             <IIcon icon="solar:reorder-linear" width="17" />
                         </span>
                         <span>{fmt(rc)}</span>
@@ -236,7 +236,7 @@ export default function Social({ user, onSignInClick }: SocialProps) {
                             <IIcon icon="solar:menu-dots-bold" width="16" class="text-neutral-600" />
                         </div>
                     ) : (
-                        <button onClick={onSignInClick} className="mt-4 w-full py-3 bg-[#D4AF37] text-black text-sm font-bold hover:bg-[#c49f2e] transition-colors uppercase tracking-widest">
+                        <button onClick={onSignInClick} className="mt-4 w-full py-3 bg-white text-black text-sm font-bold hover:bg-neutral-200 transition-colors uppercase tracking-widest">
                             Sign In
                         </button>
                     )}
@@ -303,7 +303,7 @@ export default function Social({ user, onSignInClick }: SocialProps) {
                                 <p className="text-xs text-neutral-500">{t.posts} · {t.time}</p>
                             </div>
                         ))}
-                        <Link to="/auctions/live" className="block px-4 py-3 text-sm text-[#D4AF37] hover:bg-white/5 transition-colors">
+                        <Link to="/auctions/live" className="block px-4 py-3 text-sm text-white hover:bg-white/5 transition-colors">
                             Show all live auctions →
                         </Link>
                     </div>

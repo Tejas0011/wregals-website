@@ -86,8 +86,8 @@ h5,
 
 /* Custom Checkbox */
 .custom-checkbox input:checked+div {
-    background-color: #D4AF37;
-    border-color: #D4AF37;
+    background-color: #ffffff;
+    border-color: #ffffff;
 }
 
 /* Image grayscale to color hover */
@@ -338,7 +338,7 @@ a[href*="spline"] {
 }
 
 .auth-forgot-link:hover {
-    color: #D4AF37;
+    color: #ffffff;
 }
 
 /* Primary (Create Account) */
@@ -350,7 +350,7 @@ a[href*="spline"] {
     justify-content: center;
     gap: 8px;
     padding: 12px 20px;
-    background: #D4AF37;
+    background: #ffffff;
     color: #000000;
     font-size: 11px;
     font-family: 'Inter', sans-serif;
@@ -500,7 +500,7 @@ a[href*="spline"] {
 }
 
 .auth-phone-wrap:focus-within {
-    border-color: rgba(212, 175, 55, 0.5);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 .auth-phone-prefix {
@@ -539,8 +539,8 @@ a[href*="spline"] {
     letter-spacing: 0.1em;
     text-transform: uppercase;
     font-weight: 600;
-    color: #D4AF37;
-    background: rgba(212, 175, 55, 0.08);
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
     border: none;
     border-left: 1px solid var(--hh-line);
     cursor: pointer;
@@ -610,7 +610,7 @@ a[href*="spline"] {
 .user-avatar-initials {
     font-size: 13px;
     font-weight: 600;
-    color: #D4AF37;
+    color: #ffffff;
     font-family: 'Inter', sans-serif;
     line-height: 1;
 }
@@ -825,7 +825,7 @@ a[href*="spline"] {
     font-size: 9px;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: #D4AF37;
+    color: #ffffff;
     margin-bottom: 4px;
     font-family: 'Inter', sans-serif;
 }
@@ -958,7 +958,7 @@ a[href*="spline"] {
 .profile-setup-chip--active {
     background: rgba(212, 175, 55, 0.1);
     border-color: rgba(212, 175, 55, 0.5);
-    color: #D4AF37;
+    color: #ffffff;
 }
 
 /* Submit button */
@@ -970,7 +970,7 @@ a[href*="spline"] {
     justify-content: center;
     gap: 10px;
     padding: 10px 20px;
-    background: #D4AF37;
+    background: #ffffff;
     color: #000;
     font-size: 11px;
     font-family: 'Inter', sans-serif;
@@ -1628,18 +1628,20 @@ a.hh-p-av {
 
 /* ─── Right Sidebar ─────────────────────────────── */
 .hh-rsidebar {
-  width: 300px; flex-shrink: 0;
+  width: 100%; flex-shrink: 0;
   position: sticky; top: calc(85px + 28px);
-  align-self: flex-start;
+  align-self: stretch;
   height: calc(100vh - 120px);
-  padding: 16px 10px 20px; /* Restored horizontal 10px padding */
+  padding: 16px 10px 20px;
   overflow-y: auto; scrollbar-width: none;
+  display: flex; flex-direction: column;
 }
 .hh-rsidebar::-webkit-scrollbar { display: none; }
 .hh-rc {
   background: var(--hh-s1); border: 1px solid var(--hh-line);
   border-radius: 12px; padding: 16px; margin-bottom: 10px;
 }
+.hh-rc:last-child { flex: 1; margin-bottom: 0; }
 .hh-rc-title { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--hh-w3); margin-bottom: 12px; }
 .hh-rc-row {
   display: flex; align-items: center; gap: 9px;

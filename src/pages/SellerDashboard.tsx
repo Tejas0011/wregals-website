@@ -186,7 +186,7 @@ export default function SellerDashboard({ user }: SellerDashboardProps) {
             <span className="text-[10px] text-green-400/70 tracking-widest uppercase">Live data</span>
           </div>
         </div>
-        <button className="bg-[#D4AF37] text-black px-6 py-3 text-xs tracking-widest uppercase font-bold hover:bg-[#ebd074] transition-colors flex items-center justify-center gap-2 self-start md:self-auto">
+        <button className="bg-white text-black px-6 py-3 text-xs tracking-widest uppercase font-bold hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2 self-start md:self-auto">
           <IIcon icon="solar:add-square-linear" width="16" />
           Create Listing
         </button>
