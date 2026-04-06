@@ -46,8 +46,32 @@ const healthRadarData = [
   { subject: 'Listing Quality', score: 88, fullMark: 100 },
   { subject: 'Engagement', score: 75, fullMark: 100 },
   { subject: 'Response Time', score: 92, fullMark: 100 },
-  { subject: 'Completion Rate', score: 100, fullMark: 100 },
+  { subject: 'Promotion Strategy', score: 85, fullMark: 100 },
   { subject: 'Buyer Rating', score: 82, fullMark: 100 },
+];
+
+const promotionEngagementData = [
+  { day: 'Mon', ribbon: 120, popup: 45, organic: 180 },
+  { day: 'Tue', ribbon: 250, popup: 85, organic: 210 },
+  { day: 'Wed', ribbon: 340, popup: 110, organic: 270 },
+  { day: 'Thu', ribbon: 280, popup: 95, organic: 240 },
+  { day: 'Fri', ribbon: 420, popup: 180, organic: 320 },
+  { day: 'Sat', ribbon: 550, popup: 220, organic: 410 },
+  { day: 'Sun', ribbon: 610, popup: 260, organic: 480 },
+];
+
+const monthlyPromoData = [
+  { month: 'Oct', impressions: 12000, clicks: 890, ribbon: 7200, popup: 4800 },
+  { month: 'Nov', impressions: 18500, clicks: 1340, ribbon: 11000, popup: 7500 },
+  { month: 'Dec', impressions: 24000, clicks: 2100, ribbon: 14000, popup: 10000 },
+  { month: 'Jan', impressions: 19500, clicks: 1720, ribbon: 11800, popup: 7700 },
+  { month: 'Feb', impressions: 32000, clicks: 2900, ribbon: 19000, popup: 13000 },
+  { month: 'Mar', impressions: 47500, clicks: 4400, ribbon: 28000, popup: 19500 },
+];
+
+const activePromotions = [
+  { item: 'Match-Worn 2023 World Cup Jersey — Kohli Signed', type: 'Promotion Ribbon', impressions: 15400, clicks: 1240, ctr: '8.1%' },
+  { item: 'Vintage Boxing Gloves — Ali Era Autographed', type: 'Login Popup', impressions: 8200, clicks: 450, ctr: '5.5%' },
 ];
 
 const bidFunnel = [
@@ -162,6 +186,9 @@ export default function SellerDashboard({ user }: SellerDashboardProps) {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'analytics' | 'listings'>('analytics');
   const [feedIndex, setFeedIndex] = useState(0);
+  const [isPromoteModalOpen, setIsPromoteModalOpen] = useState(false);
+  const [selectedPromoListing, setSelectedPromoListing] = useState<string | null>(null);
+  const [selectedPromoType, setSelectedPromoType] = useState<string | null>(null);
 
   // Animate activity feed
   useEffect(() => {
@@ -188,12 +215,20 @@ export default function SellerDashboard({ user }: SellerDashboardProps) {
             <span className="text-[10px] text-green-400/70 tracking-widest uppercase">Live data</span>
           </div>
         </div>
-        <button
-          onClick={() => navigate('/seller/create-listing')}
-          className="bg-white text-black px-6 py-3 text-xs tracking-widest uppercase font-bold hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2 self-start md:self-auto">
-          <IIcon icon="solar:add-square-linear" width="16" />
-          Create Listing
-        </button>
+        <div className="flex flex-col sm:flex-row gap-3 self-start md:self-auto">
+          <button
+            onClick={() => setIsPromoteModalOpen(true)}
+            className="border border-[#D4AF37] text-[#D4AF37] px-6 py-3 text-xs tracking-widest uppercase font-bold hover:bg-[#D4AF37]/10 transition-colors flex items-center justify-center gap-2">
+            <IIcon icon="solar:star-fall-linear" width="16" />
+            Promote Listing
+          </button>
+          <button
+            onClick={() => navigate('/seller/create-listing')}
+            className="bg-white text-black px-6 py-3 text-xs tracking-widest uppercase font-bold hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2">
+            <IIcon icon="solar:add-square-linear" width="16" />
+            Create Listing
+          </button>
+        </div>
       </div>
 
       {/* ── Tabs ── */}
@@ -227,6 +262,13 @@ export default function SellerDashboard({ user }: SellerDashboardProps) {
               <KpiCard icon="solar:refresh-circle-linear" label="Return Rate" value="0.0%" sub="0 disputed transactions" iconColor="text-red-400" />
               <KpiCard icon="solar:graph-up-linear" label="Avg. Bid Increment" value="₹8,450" sub="Per bid placed" iconColor="text-emerald-400" trend={12} />
               <KpiCard icon="solar:hand-money-linear" label="Commission Paid" value="₹47,500" sub="10% Wregals fee" iconColor="text-orange-400" />
+            </div>
+            {/* Promotion KPIs */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+              <KpiCard icon="solar:stars-line-duotone" label="Active Promotions" value="2" sub="1 Ribbon · 1 Popup" iconColor="text-pink-400" trend={100} />
+              <KpiCard icon="solar:eye-linear" label="Total Impressions" value="23,600" sub="This week via promotions" iconColor="text-indigo-400" trend={34} />
+              <KpiCard icon="solar:cursor-linear" label="Promo Clicks" value="1,690" sub="Ribbon + Popup combined" iconColor="text-fuchsia-400" trend={28} />
+              <KpiCard icon="solar:percent-linear" label="Avg. Promo CTR" value="7.2%" sub="Above industry average" iconColor="text-cyan-400" trend={15} />
             </div>
           </div>
 
@@ -332,9 +374,9 @@ export default function SellerDashboard({ user }: SellerDashboardProps) {
             </div>
           </div>
 
-          {/* ── Section 4: Category Pie + Seller Health Radar ── */}
+          {/* ── Section 4: Category Pie + Promotion Engagement Trend ── */}
           <div>
-            <SectionTitle>Profile Breakdown</SectionTitle>
+            <SectionTitle>Engagement Breakdown</SectionTitle>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
               {/* Category Pie */}
@@ -367,32 +409,95 @@ export default function SellerDashboard({ user }: SellerDashboardProps) {
                 </div>
               </div>
 
-              {/* Seller Health Radar */}
+              {/* Promotion Engagement Trend — replaces Health Radar */}
               <div className="bg-[#0d0d0d] border border-white/5 p-6 rounded-sm">
                 <div className="flex justify-between items-start mb-6">
-                  <h3 className="text-[11px] font-semibold tracking-widest uppercase text-neutral-400">Seller Health Score</h3>
-                  <div className="text-right">
-                    <p className="text-3xl font-mono font-light text-[#D4AF37]">{healthScore}</p>
-                    <p className="text-[10px] text-neutral-600">/100</p>
+                  <div>
+                    <h3 className="text-[11px] font-semibold tracking-widest uppercase text-neutral-400">Promotion Engagement</h3>
+                    <p className="text-xs text-neutral-600 mt-1">Clicks via Ribbon, Popup &amp; Organic this week</p>
+                  </div>
+                  <div className="flex items-center gap-3 text-[9px] tracking-widest uppercase">
+                    <span className="flex items-center gap-1"><span className="w-2 h-0.5 bg-[#f472b6] inline-block rounded" /> Ribbon</span>
+                    <span className="flex items-center gap-1"><span className="w-2 h-0.5 bg-[#60a5fa] inline-block rounded" /> Popup</span>
+                    <span className="flex items-center gap-1"><span className="w-2 h-0.5 bg-[#4ade80] inline-block rounded" /> Organic</span>
                   </div>
                 </div>
                 <div className="h-52">
                   <ResponsiveContainer width="100%" height="100%">
-                    <RadarChart data={healthRadarData}>
-                      <PolarGrid stroke="rgba(255,255,255,0.06)" />
-                      <PolarAngleAxis dataKey="subject" tick={{ fill: '#525252', fontSize: 10 }} />
-                      <Radar name="Score" dataKey="score" stroke="#D4AF37" fill="#D4AF37" fillOpacity={0.15} strokeWidth={1.5} dot={{ fill: '#D4AF37', r: 3 }} />
-                      <Tooltip contentStyle={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '6px', fontSize: 12 }} itemStyle={{ color: '#D4AF37' }} />
-                    </RadarChart>
+                    <LineChart data={promotionEngagementData}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
+                      <XAxis dataKey="day" stroke="#404040" fontSize={11} tickLine={false} axisLine={false} />
+                      <YAxis stroke="#404040" fontSize={11} tickLine={false} axisLine={false} />
+                      <Tooltip content={<CustomTooltip />} />
+                      <Line type="monotone" dataKey="ribbon" name="Ribbon" stroke="#f472b6" strokeWidth={2} dot={{ fill: '#000', stroke: '#f472b6', strokeWidth: 2, r: 3 }} activeDot={{ r: 5 }} />
+                      <Line type="monotone" dataKey="popup" name="Popup" stroke="#60a5fa" strokeWidth={2} dot={{ fill: '#000', stroke: '#60a5fa', strokeWidth: 2, r: 3 }} activeDot={{ r: 5 }} />
+                      <Line type="monotone" dataKey="organic" name="Organic" stroke="#4ade80" strokeWidth={2} strokeDasharray="4 2" dot={{ fill: '#000', stroke: '#4ade80', strokeWidth: 2, r: 3 }} activeDot={{ r: 5 }} />
+                    </LineChart>
                   </ResponsiveContainer>
                 </div>
-                <div className="grid grid-cols-2 gap-2 mt-2">
-                  {healthRadarData.map(d => (
-                    <div key={d.subject} className="flex items-center justify-between">
-                      <span className="text-[10px] text-neutral-500">{d.subject}</span>
-                      <span className="text-[10px] font-mono text-[#D4AF37]">{d.score}</span>
-                    </div>
-                  ))}
+              </div>
+            </div>
+          </div>
+
+          {/* ── Section 4.5: Promotion Analytics ── */}
+          <div>
+            <SectionTitle>Promotion Analytics</SectionTitle>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Monthly Impressions vs Clicks Bar Chart */}
+              <div className="bg-[#0d0d0d] border border-white/5 p-6 rounded-sm">
+                <div className="flex justify-between items-start mb-6">
+                  <div>
+                    <h3 className="text-[11px] font-semibold tracking-widest uppercase text-neutral-400">Monthly Promo Reach</h3>
+                    <p className="text-xs text-neutral-600 mt-1">Total impressions &amp; clicks from promotions</p>
+                  </div>
+                  <div className="flex items-center gap-3 text-[9px] tracking-widest uppercase">
+                    <span className="flex items-center gap-1"><span className="w-2 h-2 bg-[#f472b6]/70 inline-block rounded-sm" /> Impressions</span>
+                    <span className="flex items-center gap-1"><span className="w-2 h-2 bg-[#D4AF37]/90 inline-block rounded-sm" /> Clicks</span>
+                  </div>
+                </div>
+                <div className="h-56">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={monthlyPromoData} barGap={4} barSize={14}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
+                      <XAxis dataKey="month" stroke="#404040" fontSize={11} tickLine={false} axisLine={false} />
+                      <YAxis stroke="#404040" fontSize={11} tickLine={false} axisLine={false} tickFormatter={v => v >= 1000 ? `${v / 1000}k` : v} />
+                      <Tooltip content={<CustomTooltip />} />
+                      <Bar dataKey="impressions" name="Impressions" fill="#f472b6" radius={[3, 3, 0, 0]} opacity={0.7} />
+                      <Bar dataKey="clicks" name="Clicks" fill="#D4AF37" radius={[3, 3, 0, 0]} opacity={0.9} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+
+              {/* Active Promotions Table */}
+              <div className="bg-[#0d0d0d] border border-white/5 p-6 rounded-sm flex flex-col">
+                <h3 className="text-[11px] font-semibold tracking-widest uppercase text-neutral-400 mb-5">Active Promotions</h3>
+                <div className="overflow-x-auto flex-1">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="border-b border-white/5">
+                        <th className="text-left text-[10px] tracking-widest uppercase text-neutral-600 pb-3 font-normal">Item & Type</th>
+                        <th className="text-center text-[10px] tracking-widest uppercase text-neutral-600 pb-3 font-normal">Impressions</th>
+                        <th className="text-center text-[10px] tracking-widest uppercase text-neutral-600 pb-3 font-normal">Clicks</th>
+                        <th className="text-center text-[10px] tracking-widest uppercase text-neutral-600 pb-3 font-normal">CTR</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {activePromotions.map((p, i) => (
+                        <tr key={i} className="border-b border-white/[0.03] hover:bg-white/[0.015] transition-colors">
+                          <td className="py-3 pr-4">
+                            <div>
+                              <p className="text-white/80 line-clamp-1 font-light">{p.item}</p>
+                              <span className="text-[9px] tracking-widest text-[#f472b6] mt-0.5 inline-block border border-[#f472b6]/20 bg-[#f472b6]/10 px-1.5 py-0.5 rounded">{p.type}</span>
+                            </div>
+                          </td>
+                          <td className="text-center py-3 font-mono text-neutral-300">{p.impressions.toLocaleString()}</td>
+                          <td className="text-center py-3 font-mono text-neutral-300">{p.clicks.toLocaleString()}</td>
+                          <td className="text-center py-3 font-mono text-green-400">{p.ctr}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
@@ -556,6 +661,106 @@ export default function SellerDashboard({ user }: SellerDashboardProps) {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+      {/* ══════════════════════════════ MODALS ══════════════════════════════ */}
+      {isPromoteModalOpen && (
+        <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 md:p-6 bg-black/80 backdrop-blur-sm overflow-y-auto">
+          <div className="bg-[#0a0a0a] border border-white/10 w-full max-w-2xl rounded-sm p-6 relative flex flex-col my-auto max-h-[90vh]">
+            <button
+              onClick={() => { setIsPromoteModalOpen(false); setSelectedPromoListing(null); setSelectedPromoType(null); }}
+              className="absolute top-6 right-6 text-neutral-500 hover:text-white transition-colors"
+            >
+              <IIcon icon="solar:close-circle-linear" width="24" />
+            </button>
+            <h2 className="text-xl font-[300] tracking-wider uppercase mb-1 text-white">Promote Your Listing</h2>
+            <p className="text-sm text-neutral-400 mb-6 font-light">Select a listing and choose a promotion strategy to significantly boost visibility and bids.</p>
+
+            <div className="flex-1 overflow-y-auto pr-2 space-y-6 custom-scrollbar">
+              {/* Step 1: Select Listing */}
+              <div>
+                <SectionTitle>1. Select Listing</SectionTitle>
+                <div className="grid grid-cols-1 gap-3">
+                  {mockListings.filter(l => l.status === 'Live' || l.status === 'Draft').map(listing => (
+                    <div 
+                      key={listing.id}
+                      onClick={() => setSelectedPromoListing(listing.id)}
+                      className={`p-3 border rounded-sm flex items-center gap-4 cursor-pointer transition-colors ${selectedPromoListing === listing.id ? 'border-[#D4AF37] bg-[#D4AF37]/5' : 'border-white/10 hover:border-white/30 bg-[#0d0d0d]'}`}
+                    >
+                      <img src={listing.image_url} alt="" className="w-12 h-12 object-cover rounded-sm grayscale" />
+                      <div className="flex-1">
+                        <p className="text-sm line-clamp-1">{listing.item_name}</p>
+                        <p className="text-[10px] text-neutral-500 mt-0.5">{listing.status} · Current Bid: {listing.current_bid ? fmt(listing.current_bid) : 'None'}</p>
+                      </div>
+                      {selectedPromoListing === listing.id && (
+                        <IIcon icon="solar:check-circle-bold" width="20" className="text-[#D4AF37]" />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Step 2: Select Promotion Type */}
+              {selectedPromoListing && (
+                <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+                  <SectionTitle>2. Select Promotion Type</SectionTitle>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Option 1: Ribbon */}
+                    <div 
+                      onClick={() => setSelectedPromoType('ribbon')}
+                      className={`p-4 border rounded-sm cursor-pointer transition-colors ${selectedPromoType === 'ribbon' ? 'border-[#D4AF37] bg-[#D4AF37]/5' : 'border-white/10 hover:border-white/30 bg-[#0d0d0d]'}`}
+                    >
+                      <div className="flex justify-between items-start mb-3">
+                        <div className={`p-2 rounded flex items-center justify-center ${selectedPromoType === 'ribbon' ? 'bg-[#D4AF37]/10' : 'bg-white/5'}`}>
+                           <IIcon icon="solar:stars-line-duotone" width="24" className={selectedPromoType === 'ribbon' ? 'text-[#D4AF37]' : 'text-neutral-400'} />
+                        </div>
+                        {selectedPromoType === 'ribbon' && <IIcon icon="solar:check-circle-bold" width="20" className="text-[#D4AF37]" />}
+                      </div>
+                      <h4 className="font-semibold text-sm mb-1 text-white">Promotion Ribbon</h4>
+                      <p className="text-[11px] text-neutral-400 font-light leading-relaxed mb-1">Your listing appears in the scrolling featured ribbon on the homepage globally.</p>
+                    </div>
+
+                    {/* Option 2: Popup */}
+                    <div 
+                      onClick={() => setSelectedPromoType('popup')}
+                      className={`p-4 border rounded-sm cursor-pointer transition-colors ${selectedPromoType === 'popup' ? 'border-[#D4AF37] bg-[#D4AF37]/5' : 'border-white/10 hover:border-white/30 bg-[#0d0d0d]'}`}
+                    >
+                      <div className="flex justify-between items-start mb-3">
+                        <div className={`p-2 rounded flex items-center justify-center ${selectedPromoType === 'popup' ? 'bg-[#D4AF37]/10' : 'bg-white/5'}`}>
+                           <IIcon icon="solar:monitor-smartphone-linear" width="24" className={selectedPromoType === 'popup' ? 'text-[#D4AF37]' : 'text-neutral-400'} />
+                        </div>
+                        {selectedPromoType === 'popup' && <IIcon icon="solar:check-circle-bold" width="20" className="text-[#D4AF37]" />}
+                      </div>
+                      <h4 className="font-semibold text-sm mb-1 text-white">Login Pop-up</h4>
+                      <p className="text-[11px] text-neutral-400 font-light leading-relaxed mb-1">A dedicated pop-up showcases your listing when target buyers open the app.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Footer */}
+            <div className="mt-8 pt-4 border-t border-white/10 flex justify-end gap-3 shrink-0">
+              <button 
+                onClick={() => { setIsPromoteModalOpen(false); setSelectedPromoListing(null); setSelectedPromoType(null); }}
+                className="px-5 py-2.5 text-xs tracking-widest uppercase font-semibold text-neutral-400 hover:text-white transition-colors"
+              >
+                Cancel
+              </button>
+              <button 
+                disabled={!selectedPromoListing || !selectedPromoType}
+                onClick={() => {
+                  alert('Promotion started successfully!');
+                  setIsPromoteModalOpen(false);
+                  setSelectedPromoListing(null);
+                  setSelectedPromoType(null);
+                }}
+                className="bg-[#D4AF37] text-black px-6 py-2.5 text-xs tracking-widest uppercase font-bold hover:bg-[#ebd074] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Pay & Promote
+              </button>
+            </div>
           </div>
         </div>
       )}

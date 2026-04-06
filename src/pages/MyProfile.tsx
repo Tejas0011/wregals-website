@@ -1,7 +1,8 @@
 // @ts-nocheck
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AccountLayout from '../components/AccountLayout';
 import IIcon from '../components/IIcon';
+import { MyProfileSkeleton } from '../components/SkeletonScreens';
 
 interface MyProfileProps {
   user: any;
@@ -109,6 +110,12 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
   const [bio, setBio] = useState('Passionate collector of authentic celebrity memorabilia and rare sporting artefacts. Always hunting for the next great find. 🏆');
   const [editingBio, setEditingBio] = useState(false);
   const [bioDraft, setBioDraft] = useState(bio);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(t);
+  }, []);
 
   if (!user) {
     return (
@@ -129,6 +136,14 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
   }
 
   const initials = (user.user_metadata?.full_name || 'U').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+
+  if (loading) {
+    return (
+      <AccountLayout user={user} onSignInClick={onSignInClick} title="My Profile">
+        <MyProfileSkeleton />
+      </AccountLayout>
+    );
+  }
 
   return (
     <AccountLayout user={user} onSignInClick={onSignInClick} title="My Profile">

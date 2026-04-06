@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import IIcon from '../components/IIcon';
 import LeftSidebar from '../components/LeftSidebar';
 import BidModal from '../components/BidModal';
+import { BrowseCategorySkeleton } from '../components/SkeletonScreens';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 const fmtSecs = (s: number) =>
@@ -132,6 +133,13 @@ export default function BrowseCategory({ user, walletBalance = 0, onSignInClick 
   const [status, setStatus] = useState('All');
   const [sort, setSort] = useState('Ending Soonest');
   const [bidItem, setBidItem] = useState<(typeof AUCTIONS)[0] | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    const t = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(t);
+  }, [category]);
 
   const filtered = useMemo(() => {
     let list = [...AUCTIONS];
@@ -167,6 +175,8 @@ export default function BrowseCategory({ user, walletBalance = 0, onSignInClick 
     'creators': '#10B981',
   };
   const dotColor = catColors[category.toLowerCase()] || '#961616';
+
+  if (loading) return <BrowseCategorySkeleton />;
 
   return (
     <section className="hh-root">

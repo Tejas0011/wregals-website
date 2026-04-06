@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import IIcon from './IIcon';
 import LeftSidebar from './LeftSidebar';
+import { HomeFeedSkeleton } from './SkeletonScreens';
 
 import PromoRibbon, { PromoBidModal, LiveDot, VTick, PostTag, fmtSecs } from './PromoRibbon';
 
@@ -166,6 +167,12 @@ function PostCard({
 export default function HomeHero() {
   const [modalKey, setModalKey] = useState<string | null>(null);
   const [followed, setFollowed] = useState<Record<string, boolean>>({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 1200);
+    return () => clearTimeout(t);
+  }, []);
 
 
   const openModal = (key: string) => {
@@ -180,6 +187,8 @@ export default function HomeHero() {
 
 
   const toggleFollow = (name: string) => setFollowed(p => ({ ...p, [name]: !p[name] }));
+
+  if (loading) return <HomeFeedSkeleton />;
 
   return (
     <section className="hh-root">

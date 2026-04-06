@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import IIcon from '../components/IIcon';
 import LeftSidebar from '../components/LeftSidebar';
 import BidModal from '../components/BidModal';
+import { LiveAuctionsSkeleton } from '../components/SkeletonScreens';
 
 /* ─── helpers ── */
 const pad = (n: number) => String(n).padStart(2, '0');
@@ -108,6 +109,12 @@ export default function LiveAuctions({ user, walletBalance = 0, onSignInClick }:
   const [status, setStatus] = useState('All');
   const [sort, setSort] = useState('Ending Soonest');
   const [bidItem, setBidItem] = useState<(typeof AUCTIONS)[0] | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(t);
+  }, []);
 
   const filtered = useMemo(() => {
     let list = [...AUCTIONS];
@@ -126,6 +133,8 @@ export default function LiveAuctions({ user, walletBalance = 0, onSignInClick }:
   }, [category, status, sort]);
 
   const liveCount = AUCTIONS.filter(a => a.status !== 'ended').length;
+
+  if (loading) return <LiveAuctionsSkeleton />;
 
   return (
     <section className="hh-root">

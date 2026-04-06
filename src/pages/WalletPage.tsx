@@ -1,5 +1,7 @@
+import { useState, useEffect } from 'react';
 import AccountLayout from '../components/AccountLayout';
 import IIcon from '../components/IIcon';
+import { WalletPageSkeleton } from '../components/SkeletonScreens';
 
 interface WalletPageProps {
   user: any;
@@ -13,6 +15,15 @@ const TRANSACTIONS = [
 ];
 
 export default function WalletPage({ user, onSignInClick }: WalletPageProps) {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) return <WalletPageSkeleton />;
+
   return (
     <AccountLayout user={user} onSignInClick={onSignInClick} title="Wallet">
       <div className="space-y-6">

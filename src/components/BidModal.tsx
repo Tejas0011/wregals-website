@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { LiveDot, VTick, fmtSecs } from './PromoRibbon';
 
 export interface AuctionItem {
@@ -33,7 +33,11 @@ const fmt = (n: number) => '₹' + n.toLocaleString('en-IN');
 export default function BidModal({ isOpen, onClose, item, user, walletBalance = 0 }: BidModalProps) {
     const [secs, setSecs] = useState(0);
     const [activeThumb, setActiveThumb] = useState(0);
+    const [step, setStep] = useState<'idle' | 'confirm' | 'no-funds' | 'success'>('idle');
     const dur = 7 * 3600;
+
+    // Reset confirmation step when modal reopens
+    useEffect(() => { if (isOpen) setStep('idle'); }, [isOpen]);
 
     useEffect(() => {
         if (!item || !item.endsAt) return;
@@ -195,8 +199,11 @@ export default function BidModal({ isOpen, onClose, item, user, walletBalance = 
                 </div>
                 {secs > 0 ? (
                     <button className="hh-mr-place-btn" onClick={() => {
-                        // TODO simulate place bid logic
-                        onClose();
+                        if (walletBalance >= depositNum) {
+                            setStep('confirm');
+                        } else {
+                            setStep('no-funds');
+                        }
                     }}>
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="17 11 12 6 7 11" /><line x1="12" y1="6" x2="12" y2="18" /></svg>
                     Place Bid — {nextBid}
@@ -207,6 +214,141 @@ export default function BidModal({ isOpen, onClose, item, user, walletBalance = 
                     </button>
                 )}
               </div>
+
+              {/* ── CONFIRMATION / NO-FUNDS OVERLAY ─────────────── */}
+              {step !== 'idle' && (
+                <div style={{
+                  position: 'absolute', inset: 0,
+                  background: 'rgba(12,12,13,0.97)', backdropFilter: 'blur(8px)',
+                  display: 'flex', flexDirection: 'column', alignItems: 'center',
+                  justifyContent: 'center', gap: 0, zIndex: 20, borderRadius: 16,
+                  padding: '32px 28px', animation: 'hh-modalIn .2s ease both',
+                }}>
+
+                  {/* ── SUCCESS ── */}
+                  {step === 'success' && (
+                    <>
+                      <div style={{
+                        width: 64, height: 64, borderRadius: '50%',
+                        background: 'rgba(34,197,106,0.12)', border: '1.5px solid rgba(34,197,106,0.3)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: 28, marginBottom: 18,
+                      }}>✓</div>
+                      <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--hh-w1)', marginBottom: 6, letterSpacing: '-0.3px' }}>Bid Placed!</div>
+                      <div style={{ fontSize: 12, color: 'var(--hh-w3)', textAlign: 'center' }}>You are now the leading bidder at {fmt(minBidNum)}.</div>
+                    </>
+                  )}
+
+                  {/* ── CONFIRM ── */}
+                  {step === 'confirm' && (
+                    <>
+                      <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--hh-w4)', marginBottom: 24 }}>Confirm Your Bid</div>
+
+                      <div style={{
+                        width: '100%', background: 'var(--hh-s2)', border: '1px solid var(--hh-line)',
+                        borderRadius: 12, padding: '20px 20px', marginBottom: 20,
+                      }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 14 }}>
+                          <div style={{ fontSize: 11, color: 'var(--hh-w3)' }}>Your Bid</div>
+                          <div style={{ fontSize: 19, fontWeight: 700, color: 'var(--hh-w1)', letterSpacing: '-0.5px' }}>{fmt(minBidNum)}</div>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 12, borderTop: '1px solid var(--hh-line)', marginBottom: 10 }}>
+                          <div style={{ fontSize: 11, color: 'var(--hh-w3)' }}>Deposit (10%)</div>
+                          <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--hh-green)' }}>{deposit}</div>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                          <div style={{ fontSize: 11, color: 'var(--hh-w3)' }}>Wallet after bid</div>
+                          <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--hh-w2)' }}>{fmt(walletBalance - depositNum)}</div>
+                        </div>
+                      </div>
+
+                      <div style={{ fontSize: 11, color: 'var(--hh-w4)', textAlign: 'center', marginBottom: 20, lineHeight: 1.6 }}>
+                        By confirming, you agree to deposit {deposit} from your wallet. You can be outbid.
+                      </div>
+
+                      <div style={{ display: 'flex', gap: 10, width: '100%' }}>
+                        <button
+                          onClick={() => setStep('idle')}
+                          style={{
+                            flex: 1, padding: '13px 0', borderRadius: 10,
+                            background: 'var(--hh-s3)', border: '1px solid var(--hh-line)',
+                            color: 'var(--hh-w2)', fontSize: 13, fontWeight: 600, cursor: 'pointer',
+                          }}
+                        >Cancel</button>
+                        <button
+                          onClick={() => {
+                            setStep('success');
+                            setTimeout(onClose, 1800);
+                          }}
+                          style={{
+                            flex: 2, padding: '13px 0', borderRadius: 10,
+                            background: 'var(--hh-w1)', border: 'none',
+                            color: '#0C0C0D', fontSize: 13, fontWeight: 700, cursor: 'pointer',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                          }}
+                        >
+                          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="17 11 12 6 7 11" /><line x1="12" y1="6" x2="12" y2="18" /></svg>
+                          Confirm — {fmt(minBidNum)}
+                        </button>
+                      </div>
+                    </>
+                  )}
+
+                  {/* ── NO FUNDS ── */}
+                  {step === 'no-funds' && (() => {
+                    const shortfall = depositNum - walletBalance;
+                    return (
+                      <>
+                        <div style={{
+                          width: 64, height: 64, borderRadius: '50%',
+                          background: 'rgba(245,165,0,0.1)', border: '1.5px solid rgba(245,165,0,0.25)',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          fontSize: 26, marginBottom: 18,
+                        }}>⚠</div>
+
+                        <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--hh-w1)', marginBottom: 6, letterSpacing: '-0.3px' }}>Insufficient Funds</div>
+                        <div style={{ fontSize: 12, color: 'var(--hh-w3)', textAlign: 'center', marginBottom: 24, lineHeight: 1.6 }}>
+                          You need a 10% deposit of <strong style={{ color: 'var(--hh-w2)' }}>{deposit}</strong> to place this bid.
+                        </div>
+
+                        <div style={{
+                          width: '100%', background: 'var(--hh-s2)', border: '1px solid var(--hh-line)',
+                          borderRadius: 12, padding: '18px 20px', marginBottom: 20,
+                        }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
+                            <div style={{ fontSize: 11, color: 'var(--hh-w3)' }}>Wallet balance</div>
+                            <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--hh-w2)' }}>{fmt(walletBalance)}</div>
+                          </div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 10, borderTop: '1px solid var(--hh-line)' }}>
+                            <div style={{ fontSize: 11, color: 'var(--hh-w3)' }}>Add at least</div>
+                            <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--hh-amber)' }}>+ {fmt(shortfall)}</div>
+                          </div>
+                        </div>
+
+                        <div style={{ display: 'flex', gap: 10, width: '100%' }}>
+                          <button
+                            onClick={() => setStep('idle')}
+                            style={{
+                              flex: 1, padding: '13px 0', borderRadius: 10,
+                              background: 'var(--hh-s3)', border: '1px solid var(--hh-line)',
+                              color: 'var(--hh-w2)', fontSize: 13, fontWeight: 600, cursor: 'pointer',
+                            }}
+                          >Back</button>
+                          <button
+                            onClick={onClose}
+                            style={{
+                              flex: 2, padding: '13px 0', borderRadius: 10,
+                              background: 'var(--hh-amber)', border: 'none',
+                              color: '#0C0C0D', fontSize: 13, fontWeight: 700, cursor: 'pointer',
+                            }}
+                          >Add {fmt(shortfall)} to Wallet</button>
+                        </div>
+                      </>
+                    );
+                  })()}
+
+                </div>
+              )}
     
               {/* Info grid */}
               <div className="hh-mr-info-grid">

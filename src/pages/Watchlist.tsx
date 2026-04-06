@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AccountLayout from '../components/AccountLayout';
 import IIcon from '../components/IIcon';
 import BidModal from '../components/BidModal';
+import { WatchlistSkeleton } from '../components/SkeletonScreens';
 
 interface WatchlistProps {
   user: any;
@@ -32,6 +33,14 @@ const WATCHLIST = [
 
 export default function Watchlist({ user, walletBalance = 0, onSignInClick }: WatchlistProps) {
   const [bidItem, setBidItem] = useState<any | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) return <WatchlistSkeleton />;
 
   return (
     <AccountLayout user={user} onSignInClick={onSignInClick} title="Watchlist">

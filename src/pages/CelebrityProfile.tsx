@@ -1,8 +1,9 @@
 // @ts-nocheck
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import LeftSidebar from '../components/LeftSidebar';
 import BidModal from '../components/BidModal';
+import { CelebrityProfileSkeleton } from '../components/SkeletonScreens';
 
 // ── Celebrity data ────────────────────────────────────────────
 const CELEBRITIES: Record<string, any> = {
@@ -196,6 +197,13 @@ export default function CelebrityProfile() {
 
   const [tab, setTab] = useState<'posts' | 'lots'>('posts');
   const [bidItem, setBidItem] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    const t = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(t);
+  }, [id]);
 
   const now = Date.now();
   const lotsWithDates = celeb.lots.map((lot: any, i: number) => ({
@@ -215,6 +223,8 @@ export default function CelebrityProfile() {
     transition: 'color 0.15s, border-color 0.15s',
     letterSpacing: '-0.1px',
   });
+
+  if (loading) return <CelebrityProfileSkeleton />;
 
   return (
     <section className="hh-root">

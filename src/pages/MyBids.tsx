@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AccountLayout from '../components/AccountLayout';
 import BidModal from '../components/BidModal';
+import { MyBidsSkeleton } from '../components/SkeletonScreens';
 
 interface MyBidsProps {
   user: any;
@@ -33,6 +34,14 @@ const BIDS = [
 
 export default function MyBids({ user, walletBalance = 0, onSignInClick }: MyBidsProps) {
   const [bidItem, setBidItem] = useState<any | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) return <MyBidsSkeleton />;
 
   return (
     <AccountLayout user={user} onSignInClick={onSignInClick} title="My Bids">
