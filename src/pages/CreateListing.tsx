@@ -329,27 +329,31 @@ export default function CreateListing({ user }: { user: any }) {
         {/* ── Listing Type Toggle ── */}
         <SectionCard title="Listing Type" icon="solar:tag-price-bold">
           <div className="grid grid-cols-2 gap-3">
-            {[
-              { val: false, label: 'Standard Auction', icon: '🏷️', desc: 'Seller keeps all proceeds after platform fee.' },
-              { val: true,  label: 'Charity Auction',  icon: '♥',  desc: 'Donate a % of winning bid to a verified NGO.' },
-            ].map(opt => (
-              <button
-                key={String(opt.val)}
-                type="button"
-                onClick={() => set('isCharity')(opt.val)}
-                className={`text-left px-5 py-4 rounded-sm border transition-all ${
-                  form.isCharity === opt.val
-                    ? opt.val
-                      ? 'border-[#EC4899] bg-[#EC4899]/8 text-[#EC4899]'
-                      : 'border-[#D4AF37] bg-[#D4AF37]/8 text-[#D4AF37]'
-                    : 'border-white/10 text-neutral-400 hover:border-white/25 hover:bg-white/[0.02]'
-                }`}
-              >
-                <div className="text-xl mb-2">{opt.icon}</div>
-                <div className="text-sm font-semibold mb-1">{opt.label}</div>
-                <div className="text-[11px] font-light leading-relaxed opacity-80">{opt.desc}</div>
-              </button>
-            ))}
+            {/* Standard Auction — active */}
+            <button
+              type="button"
+              onClick={() => set('isCharity')(false)}
+              className="text-left px-5 py-4 rounded-sm border transition-all border-[#D4AF37] bg-[#D4AF37]/8 text-[#D4AF37]"
+            >
+              <div className="text-xl mb-2">🏷️</div>
+              <div className="text-sm font-semibold mb-1">Standard Auction</div>
+              <div className="text-[11px] font-light leading-relaxed opacity-80">Seller keeps all proceeds after platform fee.</div>
+            </button>
+
+            {/* Charity Auction — Coming Soon */}
+            <div className="relative">
+              <div className="text-left px-5 py-4 rounded-sm border border-white/5 bg-white/[0.02] text-neutral-600 opacity-50 select-none cursor-not-allowed">
+                <div className="text-xl mb-2">♥</div>
+                <div className="text-sm font-semibold mb-1">Charity Auction</div>
+                <div className="text-[11px] font-light leading-relaxed">Donate a % of winning bid to a verified NGO.</div>
+              </div>
+              {/* Coming Soon overlay badge */}
+              <div className="absolute inset-0 flex items-center justify-center rounded-sm">
+                <span className="bg-[#1a1a1a] border border-white/10 text-neutral-300 text-[10px] font-bold tracking-[0.18em] uppercase px-3 py-1.5 rounded-full shadow-lg">
+                  Coming Soon
+                </span>
+              </div>
+            </div>
           </div>
         </SectionCard>
 
