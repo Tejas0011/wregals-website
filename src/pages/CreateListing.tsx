@@ -16,6 +16,13 @@ const CATEGORIES = [
   { id: 'others', name: 'Others', color: '#D4AF37' },
 ];
 
+const CAUSE_TAGS = [
+  'Children', 'Education', 'Health', 'Environment',
+  'Animals', 'Disaster Relief', 'Poverty', 'Women & Girls', 'Veterans', 'Other',
+];
+
+const CHARITY_SPLITS = [25, 50, 75, 100];
+
 const CONDITIONS = [
   { id: 'match-worn', label: 'Match-Worn', desc: 'Used during an official match or event' },
   { id: 'signed', label: 'Signed', desc: 'Authenticated signature present' },
@@ -63,6 +70,12 @@ interface FormData {
   startDate: string;
   startTime: string;
   durationHours: string;
+  // Charity fields
+  isCharity: boolean;
+  ngoName: string;
+  ngoRegNumber: string;
+  charityPercent: number;
+  causeTag: string;
 }
 
 function PhotoUploadZone({ photos, setPhotos }: { photos: File[]; setPhotos: (f: File[]) => void }) {
@@ -243,6 +256,11 @@ export default function CreateListing({ user }: { user: any }) {
     startDate: new Date().toISOString().slice(0, 10),
     startTime: '12:00',
     durationHours: '',
+    isCharity: false,
+    ngoName: '',
+    ngoRegNumber: '',
+    charityPercent: 50,
+    causeTag: '',
   });
 
   const [celebFocused, setCelebFocused] = useState(false);
@@ -271,6 +289,7 @@ export default function CreateListing({ user }: { user: any }) {
       && form.startingBid && Number(form.startingBid) > 0 && form.startDate && form.startTime && form.durationHours && Number(form.durationHours) > 0 && Number(form.durationHours) <= 96;
     
     if (form.hasCert && !form.certDetails.trim()) return false;
+    if (form.isCharity && (!form.ngoName.trim() || !form.causeTag)) return false;
     return !!baseValid;
   };
 
@@ -306,6 +325,33 @@ export default function CreateListing({ user }: { user: any }) {
       </div>
 
       <div className="space-y-5">
+
+        {/* ── Listing Type Toggle ── */}
+        <SectionCard title="Listing Type" icon="solar:tag-price-bold">
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { val: false, label: 'Standard Auction', icon: '🏷️', desc: 'Seller keeps all proceeds after platform fee.' },
+              { val: true,  label: 'Charity Auction',  icon: '♥',  desc: 'Donate a % of winning bid to a verified NGO.' },
+            ].map(opt => (
+              <button
+                key={String(opt.val)}
+                type="button"
+                onClick={() => set('isCharity')(opt.val)}
+                className={`text-left px-5 py-4 rounded-sm border transition-all ${
+                  form.isCharity === opt.val
+                    ? opt.val
+                      ? 'border-[#EC4899] bg-[#EC4899]/8 text-[#EC4899]'
+                      : 'border-[#D4AF37] bg-[#D4AF37]/8 text-[#D4AF37]'
+                    : 'border-white/10 text-neutral-400 hover:border-white/25 hover:bg-white/[0.02]'
+                }`}
+              >
+                <div className="text-xl mb-2">{opt.icon}</div>
+                <div className="text-sm font-semibold mb-1">{opt.label}</div>
+                <div className="text-[11px] font-light leading-relaxed opacity-80">{opt.desc}</div>
+              </button>
+            ))}
+          </div>
+        </SectionCard>
 
         {/* ── Section 1: Photos ── */}
         <SectionCard title="Photos" icon="solar:gallery-bold">
@@ -422,6 +468,87 @@ export default function CreateListing({ user }: { user: any }) {
             )}
           </div>
         </SectionCard>
+
+        {/* ── Section 3b: Charity Details (conditional) ── */}
+        {form.isCharity && (
+          <SectionCard title="Charity Details" icon="solar:heart-bold">
+            <div className="space-y-5">
+              <div className="flex items-start gap-3 p-4 rounded-sm bg-[#EC4899]/5 border border-[#EC4899]/15">
+                <span className="text-[#EC4899] text-lg mt-0.5">♥</span>
+                <p className="text-[11px] text-neutral-400 leading-relaxed font-light">
+                  The NGO you list must be registered with the Indian government (Section 12A / 80G / CSR1).
+                  Wregals will verify and display the registration details to bidders for trust.
+                </p>
+              </div>
+
+              {/* NGO Name */}
+              <div>
+                <Label required>NGO / Beneficiary Organisation</Label>
+                <Input
+                  value={form.ngoName}
+                  onChange={setVal('ngoName')}
+                  placeholder="e.g. CRY India, Pratham, GiveIndia…"
+                />
+              </div>
+
+              {/* Reg number */}
+              <div>
+                <Label>NGO Registration Number (optional but recommended)</Label>
+                <Input
+                  value={form.ngoRegNumber}
+                  onChange={setVal('ngoRegNumber')}
+                  placeholder="80G / 12A / CSR1 registration number"
+                />
+                <p className="text-[10px] text-neutral-600 mt-1.5">Verified NGOs get a trust badge shown to all bidders.</p>
+              </div>
+
+              {/* Cause tag */}
+              <div>
+                <Label required>Cause Category</Label>
+                <div className="flex flex-wrap gap-2">
+                  {CAUSE_TAGS.map(tag => (
+                    <button
+                      key={tag}
+                      type="button"
+                      onClick={() => set('causeTag')(tag)}
+                      className={`px-4 py-1.5 text-xs font-semibold tracking-widest uppercase border rounded-sm transition-colors ${
+                        form.causeTag === tag
+                          ? 'border-[#EC4899] text-[#EC4899] bg-[#EC4899]/10'
+                          : 'border-white/10 text-neutral-400 hover:border-white/25 hover:text-white hover:bg-white/5'
+                      }`}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* % split */}
+              <div>
+                <Label required>Proceeds to Charity</Label>
+                <div className="flex gap-2">
+                  {CHARITY_SPLITS.map(pct => (
+                    <button
+                      key={pct}
+                      type="button"
+                      onClick={() => set('charityPercent')(pct)}
+                      className={`flex-1 py-3 text-sm font-bold border rounded-sm transition-colors ${
+                        form.charityPercent === pct
+                          ? 'border-[#EC4899] text-[#EC4899] bg-[#EC4899]/10'
+                          : 'border-white/10 text-neutral-400 hover:border-white/25 hover:bg-white/[0.02]'
+                      }`}
+                    >
+                      {pct}%
+                    </button>
+                  ))}
+                </div>
+                <p className="text-[10px] text-neutral-600 mt-2">
+                  {form.charityPercent}% of the final winning bid goes to {form.ngoName || 'the NGO'}. Wregals' standard platform fee is deducted from the remaining {100 - form.charityPercent}%.
+                </p>
+              </div>
+            </div>
+          </SectionCard>
+        )}
 
         {/* ── Section 4: Auction Settings ── */}
         <SectionCard title="Auction Settings" icon="solar:hand-money-bold">
@@ -581,6 +708,14 @@ export default function CreateListing({ user }: { user: any }) {
                 { label: 'Closes', val: computedEndDate ? computedEndDate.toLocaleString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—' },
                 { label: 'Photos', val: `${form.photos.length} uploaded` },
                 { label: 'COA', val: form.hasCert ? 'Yes' : 'No' },
+                ...(form.isCharity ? [
+                  { label: 'Type', val: '♥ Charity Auction' },
+                  { label: 'NGO', val: form.ngoName || '—' },
+                  { label: 'Cause', val: form.causeTag || '—' },
+                  { label: 'Charity %', val: `${form.charityPercent}% of winning bid` },
+                ] : [
+                  { label: 'Type', val: 'Standard Auction' },
+                ]),
               ].map(({ label, val }) => (
                 <div key={label} className="flex justify-between items-start text-sm border-b border-white/[0.03] pb-3 last:border-0 last:pb-0">
                   <span className="text-[11px] text-neutral-500 uppercase tracking-widest flex-shrink-0 w-32">{label}</span>

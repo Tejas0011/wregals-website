@@ -23,6 +23,7 @@ const AUCTIONS = [
     category: 'Sports', seller: 'Virat Kohli', sellerId: 'vk',
     image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1470&auto=format&fit=crop',
     currentBid: 84000, minIncrement: 1000, bidCount: 23, endsAt: hrs(4), status: 'live',
+    isCharity: true, ngoName: 'CRY India', charityPercent: 75, causeTag: 'Children',
   },
   {
     id: 's2', title: '2011 World Cup Winning Gloves — Match Worn',
@@ -328,6 +329,9 @@ export default function BrowseCategory({ user, walletBalance = 0, onSignInClick 
                             </span>
                           )}
                           <span className="hh-ptag hh-ptag-cat">{auction.category}</span>
+                          {auction.isCharity && (
+                            <span className="hh-ptag hh-ptag-charity">♥ Charity</span>
+                          )}
                         </div>
                         <button className="hh-p-more" onClick={e => e.stopPropagation()}>···</button>
                       </div>

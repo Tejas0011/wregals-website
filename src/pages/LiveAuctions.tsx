@@ -298,6 +298,9 @@ export default function LiveAuctions({ user, walletBalance = 0, onSignInClick }:
                             </span>
                           )}
                           <span className="hh-ptag hh-ptag-cat">{auction.category}</span>
+                          {auction.isCharity && (
+                            <span className="hh-ptag hh-ptag-charity">♥ Charity</span>
+                          )}
                         </div>
                         <button className="hh-p-more" onClick={e => e.stopPropagation()}>···</button>
                       </div>
