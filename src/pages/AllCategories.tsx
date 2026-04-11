@@ -12,7 +12,7 @@ const CATEGORIES = [
   { id: 'comedians', name: 'Stand-up & Comedy', count: 12, color: '#06B6D4' },
   { id: 'fashion', name: 'Fashion', count: 34, color: '#D946EF' },
   { id: 'entrepreneurs', name: 'Entrepreneurs', count: 11, color: '#14B8A6' },
-  { id: 'others', name: 'Others', count: 9, color: '#D4AF37' },
+  { id: 'others', name: 'Others', count: 9, color: '#3b82f6' },
 ];
 
 export default function AllCategories() {

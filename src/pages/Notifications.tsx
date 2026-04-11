@@ -17,8 +17,8 @@ export default function Notifications({ user, onSignInClick }: NotificationsProp
     <AccountLayout user={user} onSignInClick={onSignInClick} title="Notifications">
       <div className="space-y-4">
         <div className="flex items-center justify-between mb-2">
-          <p className="text-[10px] uppercase tracking-widest" style={{ color: 'var(--hh-w3)' }}>Recent Updates</p>
-          <button className="text-[10px] uppercase tracking-widest text-[#D4AF37] hover:underline underline-offset-4">Mark all as read</button>
+          <p className="text-[10px] font-semibold tracking-wide" style={{ color: 'var(--hh-w3)' }}>Recent Updates</p>
+          <button className="text-[10px] font-semibold tracking-wide text-blue-400 hover:underline underline-offset-4">Mark all as read</button>
         </div>
 
         <div className="grid gap-3">
@@ -28,13 +28,13 @@ export default function Notifications({ user, onSignInClick }: NotificationsProp
               className="p-5 border rounded-xl transition-all duration-300 flex gap-4 items-start"
               style={{
                 background: 'var(--hh-s1)',
-                borderColor: !n.read ? '#D4AF37' : 'var(--hh-line)',
+                borderColor: !n.read ? '#3b82f6' : 'var(--hh-line)',
                 borderLeftWidth: !n.read ? '2px' : '1px',
                 opacity: n.read ? 0.65 : 1,
               }}
             >
               <div
-                className={`mt-1 flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${n.type === 'alert' ? 'bg-red-500/10 text-red-400' : 'bg-[#D4AF37]/10 text-[#D4AF37]'}`}
+                className={`mt-1 flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${n.type === 'alert' ? 'bg-red-500/10 text-red-400' : 'bg-white/5 text-blue-400'}`}
               >
                 <IIcon icon={n.type === 'alert' ? 'lucide:alert-triangle' : 'lucide:bell'} width="14" />
               </div>
@@ -46,7 +46,7 @@ export default function Notifications({ user, onSignInClick }: NotificationsProp
                 </div>
                 <p className="text-xs leading-relaxed max-w-2xl" style={{ color: 'var(--hh-w3)' }}>{n.message}</p>
                 {!n.read && (
-                  <button className="text-[10px] text-[#D4AF37] pt-2 hover:underline">Mark as read</button>
+                  <button className="text-[10px] text-blue-400 pt-2 hover:underline">Mark as read</button>
                 )}
               </div>
             </div>

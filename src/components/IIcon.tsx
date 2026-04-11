@@ -1,5 +1,5 @@
 // Bundled Iconify icon — replaces the CDN <iconify-icon> web component.
-// Usage: <IIcon icon="solar:star-shine-bold" width={16} className="text-[#D4AF37]" />
+// Usage: <IIcon icon="solar:star-shine-bold" width={16} className="text-blue-400" />
 import { Icon } from '@iconify/react';
 
 interface IIconProps {

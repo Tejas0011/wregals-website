@@ -27,6 +27,7 @@ import Watchlist from './pages/Watchlist';
 import Notifications from './pages/Notifications';
 import Settings from './pages/Settings';
 import SellerDashboard from './pages/SellerDashboard';
+import SellerAuctionPage from './pages/SellerAuctionPage';
 import CreateListing from './pages/CreateListing';
 import BrowseCategory from './pages/BrowseCategory';
 import AllCategories from './pages/AllCategories';
@@ -133,7 +134,7 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-[#0C0C0D] selection:bg-[#D4AF37] selection:text-black text-white min-h-screen">
+    <div className="bg-[#0C0C0D] selection:bg-white selection:text-black text-white min-h-screen">
       {/* Profile Setup — shown on first login */}
       {showProfileSetup && user && setupStep === 1 && (
         <ProfileSetup
@@ -181,7 +182,7 @@ function App() {
             {user ? (
               <div className="relative group/user">
                 {/* Trigger — user avatar or generic icon */}
-                <button className="flex items-center justify-center text-neutral-400 hover:text-[#D4AF37] transition-colors outline-none h-10 px-2">
+                <button className="flex items-center justify-center text-neutral-400 hover:text-white transition-colors outline-none h-10 px-2">
                   <IIcon icon="lucide:menu" width="28" stroke-width="1.2" />
                 </button>
 
@@ -204,9 +205,9 @@ function App() {
 
                   {/* Menu items */}
                   {['seller@wregals.com', 'tejasvardhan873@gmail.com'].includes(user?.email) && (
-                    <Link to="/seller/dashboard" className="user-dropdown-item w-full text-left text-[#D4AF37] hover:text-[#e4c256]">
+                    <Link to="/seller/dashboard" className="user-dropdown-item w-full text-left text-white hover:text-neutral-300">
                       <IIcon icon="solar:graph-up-linear" width="16" />
-                      Seller Dashboard
+                      Dashboard
                     </Link>
                   )}
                   <Link to="/profile" className="user-dropdown-item w-full text-left">
@@ -277,7 +278,7 @@ function App() {
 
           {/* Mobile Menu Icon */}
           <button
-            className="md:hidden text-white hover:text-[#D4AF37] transition-colors outline-none h-10 px-2"
+            className="md:hidden text-white hover:text-blue-400 transition-colors outline-none h-10 px-2"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
             aria-label="Toggle navigation menu"
           >
@@ -436,6 +437,9 @@ function App() {
         } />
         <Route path="/seller/create-listing" element={
           <CreateListing user={user} />
+        } />
+        <Route path="/auction/:id" element={
+          <SellerAuctionPage user={user} />
         } />
         <Route path="/*" element={<HomeHero />} />
       </Routes>

@@ -22,7 +22,7 @@ export default function ShareSheet({ url, onClose, className = '' }: ShareSheetP
 
     return (
         <div ref={ref} className={`z-50 w-52 bg-[#111] border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.8)] overflow-hidden rounded-sm ${className}`}>
-            <p className="text-[9px] uppercase tracking-widest text-neutral-600 px-4 pt-3 pb-1">Share via</p>
+            <p className="text-[9px] font-semibold tracking-wide text-neutral-600 px-4 pt-3 pb-1">Share via</p>
             {[
                 { label: 'WhatsApp', icon: 'ic:baseline-whatsapp', href: `https://wa.me/?text=${encodeURIComponent(url)}` },
                 { label: 'Twitter / X', icon: 'ri:twitter-x-fill', href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}` },

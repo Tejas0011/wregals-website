@@ -303,7 +303,7 @@ export default function GlobalSearch() {
                         <div style={{ fontSize: 12, fontWeight: 600, color: '#eee', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{itm.name}</div>
                         <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', marginTop: 1 }}>{itm.category}</div>
                       </div>
-                      <div style={{ fontSize: 12, fontWeight: 700, color: '#D4AF37', flexShrink: 0 }}>{itm.price}</div>
+                      <div style={{ fontSize: 12, fontWeight: 700, color: '#3b82f6', flexShrink: 0 }}>{itm.price}</div>
                     </button>
                   ))}
                 </>

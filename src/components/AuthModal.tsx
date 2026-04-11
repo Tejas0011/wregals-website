@@ -464,7 +464,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                                     <button
                                         type="button"
                                         onClick={() => { setMode('login'); setMessage(null); }}
-                                        className="text-[#D4AF37] hover:text-white transition-colors uppercase tracking-wider font-semibold ml-1"
+                                        className="text-blue-400 hover:text-white transition-colors uppercase tracking-wider font-semibold ml-1"
                                     >
                                         Log in
                                     </button>
@@ -522,7 +522,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                                     <button
                                         type="button"
                                         onClick={() => { setMode('login'); setMessage(null); }}
-                                        className="text-[#D4AF37] hover:text-white transition-colors uppercase tracking-wider font-semibold ml-1"
+                                        className="text-blue-400 hover:text-white transition-colors uppercase tracking-wider font-semibold ml-1"
                                     >
                                         Log in
                                     </button>
@@ -610,7 +610,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                                     <button
                                         type="button"
                                         onClick={() => { setMode('signup_select'); setMessage(null); }}
-                                        className="text-[#D4AF37] hover:text-white transition-colors uppercase tracking-wider font-semibold ml-1"
+                                        className="text-blue-400 hover:text-white transition-colors uppercase tracking-wider font-semibold ml-1"
                                     >
                                         Sign up
                                     </button>

@@ -22,7 +22,7 @@ export default function Settings({ user, onSignInClick }: SettingsProps) {
           style={{ background: 'var(--hh-s1)', borderColor: 'var(--hh-line)' }}
         >
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-8 h-8 rounded-full bg-[#D4AF37]/10 text-[#D4AF37] flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-white/5 text-blue-400 flex items-center justify-center">
               <IIcon icon="lucide:user" width="16" />
             </div>
             <h2 className="text-lg font-semibold" style={{ color: 'var(--hh-w1)' }}>Profile Information</h2>
@@ -30,21 +30,21 @@ export default function Settings({ user, onSignInClick }: SettingsProps) {
           
           <div className="grid md:grid-cols-2 gap-5">
             <div className="space-y-1.5">
-              <label className="text-[10px] uppercase tracking-widest" style={{ color: 'var(--hh-w3)' }}>Full Name</label>
+              <label className="text-[10px] font-semibold tracking-wide" style={{ color: 'var(--hh-w3)' }}>Full Name</label>
               <input 
                 type="text" 
                 defaultValue={user?.user_metadata?.full_name || ''}
-                className="w-full bg-transparent border rounded-lg px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#D4AF37]"
+                className="w-full bg-transparent border rounded-lg px-4 py-2.5 text-sm outline-none transition-colors focus:border-blue-500"
                 style={{ borderColor: 'var(--hh-line)', color: 'var(--hh-w1)' }}
                 placeholder="Enter your full name"
               />
             </div>
             <div className="space-y-1.5">
-              <label className="text-[10px] uppercase tracking-widest" style={{ color: 'var(--hh-w3)' }}>Phone Number</label>
+              <label className="text-[10px] font-semibold tracking-wide" style={{ color: 'var(--hh-w3)' }}>Phone Number</label>
               <input 
                 type="tel" 
                 defaultValue={user?.user_metadata?.phone || ''}
-                className="w-full bg-transparent border rounded-lg px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#D4AF37]"
+                className="w-full bg-transparent border rounded-lg px-4 py-2.5 text-sm outline-none transition-colors focus:border-blue-500"
                 style={{ borderColor: 'var(--hh-line)', color: 'var(--hh-w1)' }}
                 placeholder="+1 (555) 000-0000"
               />
@@ -52,7 +52,7 @@ export default function Settings({ user, onSignInClick }: SettingsProps) {
           </div>
           
           <div className="pt-2">
-            <button className="px-6 py-2.5 bg-white text-black text-xs uppercase tracking-widest font-semibold hover:bg-neutral-200 transition-colors rounded-sm">
+            <button className="px-6 py-2.5 bg-white text-black text-xs font-semibold tracking-wide font-semibold hover:bg-neutral-200 transition-colors rounded-sm">
               Save Changes
             </button>
           </div>
@@ -64,7 +64,7 @@ export default function Settings({ user, onSignInClick }: SettingsProps) {
           style={{ background: 'var(--hh-s1)', borderColor: 'var(--hh-line)' }}
         >
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-8 h-8 rounded-full bg-[#D4AF37]/10 text-[#D4AF37] flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-white/5 text-blue-400 flex items-center justify-center">
               <IIcon icon="lucide:bell" width="16" />
             </div>
             <h2 className="text-lg font-semibold" style={{ color: 'var(--hh-w1)' }}>Notification Preferences</h2>
@@ -118,7 +118,7 @@ export default function Settings({ user, onSignInClick }: SettingsProps) {
           style={{ background: 'var(--hh-s1)', borderColor: 'var(--hh-line)' }}
         >
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-8 h-8 rounded-full bg-[#D4AF37]/10 text-[#D4AF37] flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-white/5 text-blue-400 flex items-center justify-center">
               <IIcon icon="lucide:shield" width="16" />
             </div>
             <h2 className="text-lg font-semibold" style={{ color: 'var(--hh-w1)' }}>Security</h2>
@@ -130,7 +130,7 @@ export default function Settings({ user, onSignInClick }: SettingsProps) {
                 <p className="text-sm font-medium" style={{ color: 'var(--hh-w1)' }}>Password</p>
                 <p className="text-[11px] mt-0.5" style={{ color: 'var(--hh-w3)' }}>Last changed 3 months ago</p>
               </div>
-              <button className="px-5 py-2 border text-[10px] uppercase tracking-widest font-semibold transition-all rounded-sm hover:bg-white hover:text-black" style={{ borderColor: 'var(--hh-line2)', color: 'var(--hh-w1)' }}>
+              <button className="px-5 py-2 border text-[10px] font-semibold tracking-wide font-semibold transition-all rounded-sm hover:bg-white hover:text-black" style={{ borderColor: 'var(--hh-line2)', color: 'var(--hh-w1)' }}>
                 Update Password
               </button>
             </div>
@@ -140,7 +140,7 @@ export default function Settings({ user, onSignInClick }: SettingsProps) {
                 <p className="text-sm font-medium" style={{ color: 'var(--hh-w1)' }}>Two-Factor Authentication</p>
                 <p className="text-[11px] mt-0.5" style={{ color: 'var(--hh-w3)' }}>Add an extra layer of security to your account.</p>
               </div>
-              <button className="px-5 py-2 border text-[10px] uppercase tracking-widest font-semibold transition-all rounded-sm hover:bg-white hover:text-black" style={{ borderColor: 'var(--hh-line2)', color: 'var(--hh-w1)' }}>
+              <button className="px-5 py-2 border text-[10px] font-semibold tracking-wide font-semibold transition-all rounded-sm hover:bg-white hover:text-black" style={{ borderColor: 'var(--hh-line2)', color: 'var(--hh-w1)' }}>
                 Enable 2FA
               </button>
             </div>
@@ -164,7 +164,7 @@ export default function Settings({ user, onSignInClick }: SettingsProps) {
           </p>
           
           <div className="pt-2">
-            <button className="px-6 py-2.5 border border-red-500/30 text-red-500 text-xs uppercase tracking-widest font-semibold hover:bg-red-500 hover:text-white transition-colors rounded-sm">
+            <button className="px-6 py-2.5 border border-red-500/30 text-red-500 text-xs font-semibold tracking-wide font-semibold hover:bg-red-500 hover:text-white transition-colors rounded-sm">
               Delete Account
             </button>
           </div>

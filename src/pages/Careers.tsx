@@ -79,16 +79,16 @@ export default function Careers({ user, onSignInClick }: CareersProps) {
 
             {/* Hero */}
             <section className="pt-20 relative overflow-hidden">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full bg-[#D4AF37]/4 blur-[100px] pointer-events-none" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full bg-white/5 blur-[100px] pointer-events-none" />
                 <div className="max-w-7xl mx-auto px-6 py-24 relative">
-                    <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-neutral-600 mb-8">
+                    <div className="flex items-center gap-2 text-[10px] font-semibold tracking-wide text-neutral-600 mb-8">
                         <Link to="/" className="hover:text-neutral-400 transition-colors">Home</Link>
                         <span>/</span>
                         <Link to="/about" className="hover:text-neutral-400 transition-colors">Company</Link>
                         <span>/</span>
-                        <span className="text-[#D4AF37]">Careers</span>
+                        <span className="text-blue-400">Careers</span>
                     </div>
-                    <span className="text-[10px] uppercase tracking-widest text-[#D4AF37] block mb-4">{ROLES.length} Open Roles</span>
+                    <span className="text-[10px] font-semibold tracking-wide text-blue-400 block mb-4">{ROLES.length} Open Roles</span>
                     <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-6">Build the future<br /><span className="text-neutral-500">of premium auctions.</span></h1>
                     <p className="text-neutral-400 text-base max-w-xl leading-relaxed">
                         We're a small, focused team redefining how high-value assets change hands in India. If you care about craft, integrity, and building things that last — we'd like to meet you.
@@ -99,14 +99,14 @@ export default function Careers({ user, onSignInClick }: CareersProps) {
             {/* Perks */}
             <section className="border-t border-white/5 py-16">
                 <div className="max-w-7xl mx-auto px-6">
-                    <h2 className="text-xl font-light tracking-tight mb-8 text-neutral-300 flex items-center gap-3">
+                    <h2 className="text-xl font-semibold tracking-tight tracking-tight mb-8 text-neutral-300 flex items-center gap-3">
                         Why <img src="/wregals-text-logo.png" alt="WREGALS" className="h-8 w-auto object-contain" />
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {PERKS.map(p => (
                             <div key={p.label} className="flex gap-4 p-5 border border-white/5 bg-[#0C0C0C] hover:bg-[#111] hover:border-white/10 transition-all rounded-sm">
                                 <div className="flex-shrink-0 w-9 h-9 border border-white/10 rounded-sm flex items-center justify-center">
-                                    <IIcon icon={p.icon} width="16" class="text-[#D4AF37]" />
+                                    <IIcon icon={p.icon} width="16" class="text-blue-400" />
                                 </div>
                                 <div>
                                     <h3 className="text-sm font-medium text-white mb-1">{p.label}</h3>
@@ -122,11 +122,11 @@ export default function Careers({ user, onSignInClick }: CareersProps) {
             <section className="border-t border-white/5 py-16 bg-[#0A0A0A]">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
-                        <h2 className="text-xl font-light tracking-tight text-neutral-300">Open Roles</h2>
+                        <h2 className="text-xl font-semibold tracking-tight tracking-tight text-neutral-300">Open Roles</h2>
                         <div className="flex flex-wrap gap-2">
                             {DEPTS.map(d => (
                                 <button key={d} onClick={() => setDept(d)}
-                                    className={`text-[10px] uppercase tracking-widest px-3 py-1.5 border rounded-sm transition-all ${dept === d ? 'border-[#D4AF37] text-[#D4AF37]' : 'border-white/10 text-neutral-500 hover:border-white/30 hover:text-white'}`}>
+                                    className={`text-[10px] font-semibold tracking-wide px-3 py-1.5 border rounded-sm transition-all ${dept === d ? 'border-blue-500 text-blue-400' : 'border-white/10 text-neutral-500 hover:border-white/30 hover:text-white'}`}>
                                     {d}
                                 </button>
                             ))}
@@ -141,7 +141,7 @@ export default function Careers({ user, onSignInClick }: CareersProps) {
                                     className="w-full flex items-center justify-between px-6 py-5 text-left">
                                     <div className="flex-1 min-w-0">
                                         <h3 className="text-sm font-medium text-white mb-1">{role.title}</h3>
-                                        <div className="flex flex-wrap gap-3 text-[10px] uppercase tracking-widest text-neutral-500">
+                                        <div className="flex flex-wrap gap-3 text-[10px] font-semibold tracking-wide text-neutral-500">
                                             <span>{role.dept}</span>
                                             <span>·</span>
                                             <span>{role.location}</span>
@@ -155,7 +155,7 @@ export default function Careers({ user, onSignInClick }: CareersProps) {
                                     <div className="px-6 pb-6 border-t border-white/5 pt-4">
                                         <p className="text-sm text-neutral-400 leading-relaxed mb-5">{role.desc}</p>
                                         <a href={`mailto:careers@wregals.com?subject=Application — ${role.title}`}
-                                            className="inline-flex items-center gap-2 text-xs uppercase tracking-widest px-5 py-2.5 bg-[#D4AF37] text-black font-semibold hover:bg-[#c49f2e] transition-colors">
+                                            className="inline-flex items-center gap-2 text-xs font-semibold tracking-wide px-5 py-2.5 bg-white text-black font-semibold hover:bg-neutral-200 transition-colors">
                                             Apply for This Role
                                             <IIcon icon="solar:arrow-right-linear" width="13" />
                                         </a>
@@ -168,7 +168,7 @@ export default function Careers({ user, onSignInClick }: CareersProps) {
                     <div className="mt-12 p-6 border border-white/5 rounded-sm text-center">
                         <p className="text-sm text-neutral-400 mb-3">Don't see a role that fits? We're always looking for exceptional people.</p>
                         <a href="mailto:careers@wregals.com?subject=General Application"
-                            className="text-xs uppercase tracking-widest text-[#D4AF37] hover:underline underline-offset-2">
+                            className="text-xs font-semibold tracking-wide text-blue-400 hover:underline underline-offset-2">
                             Send a general application →
                         </a>
                     </div>

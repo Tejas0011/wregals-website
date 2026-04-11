@@ -258,7 +258,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                                 </div>
                                 <div>
                                     <p className="text-white text-sm font-semibold tracking-wide" style={{ fontFamily: "'Inter', sans-serif" }}>WREN</p>
-                                    <p className="text-[10px] uppercase tracking-widest text-cyan-500">AI Assistant</p>
+                                    <p className="text-[10px] font-semibold tracking-wide text-cyan-500">AI Assistant</p>
                                 </div>
                             </div>
                             <button
@@ -333,7 +333,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                                     <button
                                         key={s}
                                         onClick={() => { setInput(s); setTimeout(() => sendMessage(), 0); }}
-                                        className="text-[10px] px-2.5 py-1 uppercase tracking-widest transition-all rounded-sm"
+                                        className="text-[10px] px-2.5 py-1 font-semibold tracking-wide transition-all rounded-sm"
                                         style={{
                                             border: '1px solid rgba(6,182,212,0.3)',
                                             color: '#22D3EE',
@@ -357,7 +357,7 @@ export default function AIChatbot({ visible, user, onSignInClick }: AIChatbotPro
                                 <span className="text-[10px] text-cyan-200 uppercase tracking-wider">Sign in for account insights</span>
                                 <button
                                     onClick={onSignInClick}
-                                    className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 transition-colors rounded-sm"
+                                    className="text-[10px] font-bold font-semibold tracking-wide px-3 py-1 transition-colors rounded-sm"
                                     style={{ background: '#06B6D4', color: '#000' }}
                                 >
                                     Sign In

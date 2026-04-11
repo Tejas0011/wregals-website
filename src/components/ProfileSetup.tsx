@@ -257,7 +257,7 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
                         {/* Inline OTP Verification Layout */}
                         {otpSent && !isPhoneVerified && (
                             <div className="mt-3 p-4 bg-white/5 border border-white/10 rounded-xl relative overflow-hidden">
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D4AF37]/5 to-transparent pointer-events-none" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#3b82f6]/5 to-transparent pointer-events-none" />
                                 <label className="block text-xs text-white/50 mb-3 uppercase tracking-wider font-semibold">Enter 6-Digit Code</label>
                                 <div className="flex gap-2 mb-4 justify-between">
                                     {otp.map((digit, i) => (
@@ -266,7 +266,7 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
                                             id={`ps-otp-${i}`}
                                             type="text"
                                             inputMode="numeric"
-                                            className="w-full h-12 text-center text-lg bg-[#0C0C0D] border border-white/10 rounded-lg text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/30 transition-all font-medium shadow-inner"
+                                            className="w-full h-12 text-center text-lg bg-[#0C0C0D] border border-white/10 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-[#3b82f6]/30 transition-all font-medium shadow-inner"
                                             value={digit}
                                             onChange={e => handleOtpChange(i, e.target.value)}
                                             onKeyDown={e => handleOtpKeyDown(i, e)}

@@ -54,7 +54,7 @@ export default function CustomSelect({ value, onChange, options, placeholder = '
                         >
                             {opt === value && (
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
-                                    <path d="M5 13l4 4L19 7" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M5 13l4 4L19 7" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             )}
                             {opt}

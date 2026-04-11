@@ -17,7 +17,7 @@ export default function Footer() {
                     </div>
 
                     <div className="md:col-span-1">
-                        <h5 className="text-xs font-semibold uppercase tracking-widest mb-6 text-white">Platform</h5>
+                        <h5 className="text-xs font-semibold font-semibold tracking-wide mb-6 text-white">Platform</h5>
                         <ul className="space-y-4 text-xs text-neutral-500 font-light">
                             <li>
                                 <Link to="/about" className="transition-colors hover:text-white flex items-center gap-1.5">
@@ -31,7 +31,7 @@ export default function Footer() {
                     </div>
 
                     <div className="md:col-span-1">
-                        <h5 className="text-xs font-semibold uppercase tracking-widest mb-6 text-white">Support</h5>
+                        <h5 className="text-xs font-semibold font-semibold tracking-wide mb-6 text-white">Support</h5>
                         <ul className="space-y-4 text-xs text-neutral-500 font-light">
                             <li><Link to="/how-it-works" className="transition-colors hover:text-white">Trust & Safety</Link></li>
                             <li><Link to="/how-it-works" className="transition-colors hover:text-white">Authentication</Link></li>
@@ -41,10 +41,10 @@ export default function Footer() {
                     </div>
 
                     <div className="md:col-span-1">
-                        <h5 className="text-xs font-semibold uppercase tracking-widest mb-6 text-white">Newsletter</h5>
+                        <h5 className="text-xs font-semibold font-semibold tracking-wide mb-6 text-white">Newsletter</h5>
                         <div className="flex border-b pb-2 border-white/20">
                             <input type="email" placeholder="Email Address" className="bg-transparent w-full text-xs focus:outline-none placeholder:text-neutral-600 text-white" />
-                            <button className="text-xs hover:text-[#D4AF37] transition-colors text-white">JOIN</button>
+                            <button className="text-xs hover:text-blue-400 transition-colors text-white">JOIN</button>
                         </div>
                     </div>
                 </div>

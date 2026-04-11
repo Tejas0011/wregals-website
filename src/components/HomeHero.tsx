@@ -276,9 +276,22 @@ export default function HomeHero() {
         {/* RIGHT SIDEBAR */}
         <div className="hh-rsidebar">
 
-          {/* Active bids */}
           <div className="hh-rc">
             <div className="hh-rc-title">Your Active Bids</div>
+            {/* Winning */}
+            <div className="hh-rc-row" style={{ marginBottom: 4 }}>
+              <div className="hh-rc-av">HP</div>
+              <div className="hh-rc-info">
+                <div className="hh-rc-name">Hardik — IPL Bat</div>
+                <div className="hh-rc-sub" style={{ color: '#4ade80' }}>Winning · your bid ₹1,20,000</div>
+              </div>
+              <button
+                className="hh-flw-btn"
+                style={{ background: '#fff', color: '#000', borderColor: '#fff', fontSize: 10 }}
+                onClick={() => openModal('hp')}
+              >Raise</button>
+            </div>
+            {/* Outbid */}
             <div className="hh-rc-row">
               <div className="hh-rc-av">VK</div>
               <div className="hh-rc-info">
@@ -287,7 +300,7 @@ export default function HomeHero() {
               </div>
               <button
                 className="hh-flw-btn"
-                style={{ background: 'var(--hh-red)', color: '#fff', borderColor: 'var(--hh-red)' }}
+                style={{ background: '#fff', color: '#000', borderColor: '#fff' }}
                 onClick={() => openModal('vk')}
               >Raise</button>
             </div>

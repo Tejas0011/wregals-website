@@ -276,7 +276,7 @@ export default function HeroScroll({ onReady, onAnimationDone }: { onReady?: () 
             {/* Scroll hint */}
             {isReady && (
                 <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 pointer-events-none">
-                    <span className="text-white text-[10px] uppercase tracking-widest">Scroll</span>
+                    <span className="text-white text-[10px] font-semibold tracking-wide">Scroll</span>
                     <div className="w-[1px] h-8 bg-gradient-to-b from-white to-transparent animate-pulse" />
                 </div>
             )}
