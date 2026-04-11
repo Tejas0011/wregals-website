@@ -138,9 +138,12 @@ const CHART_TOOLTIP_STYLE = {
 
 // ── Sub-Components ────────────────────────────────────────────────────────────
 
-function KpiCard({ icon, label, value, sub, iconColor = 'text-[#D4AF37]', trend = null }: any) {
+function KpiCard({ icon, label, value, sub, iconColor = 'text-[#D4AF37]', trend = null, onClick }: any) {
   return (
-    <div className="bg-[#0d0d0d] border border-white/5 p-5 rounded-sm hover:border-white/10 transition-colors group">
+    <div
+      onClick={onClick}
+      className="bg-[#0d0d0d] border border-white/5 p-5 rounded-sm hover:border-white/15 transition-all group cursor-pointer"
+    >
       <div className="flex justify-between items-start mb-4">
         <IIcon icon={icon} width="22" className={iconColor} />
         {trend !== null && (
@@ -152,6 +155,34 @@ function KpiCard({ icon, label, value, sub, iconColor = 'text-[#D4AF37]', trend 
       <p className="text-neutral-500 text-[10px] tracking-widest uppercase mb-1">{label}</p>
       <h3 className="text-xl font-light font-mono text-white">{value}</h3>
       {sub && <p className="text-[11px] text-neutral-600 mt-1.5">{sub}</p>}
+      <p className="text-[9px] text-neutral-700 mt-3 tracking-widest uppercase group-hover:text-neutral-500 transition-colors">Tap to learn more ›</p>
+    </div>
+  );
+}
+
+function KpiDetailPanel({ metric, onClose }: { metric: { label: string; definition: string; formula: string; tip: string } | null; onClose: () => void }) {
+  if (!metric) return null;
+  return (
+    <div className="bg-[#0d0d0d] border border-[#D4AF37]/20 rounded-sm p-5 relative animate-in fade-in slide-in-from-top-2 duration-200">
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 text-neutral-600 hover:text-white transition-colors text-lg leading-none"
+      >✕</button>
+      <div className="flex items-center gap-2 mb-3">
+        <span className="w-0.5 h-4 bg-[#D4AF37] rounded-full" />
+        <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[#D4AF37]">{metric.label}</p>
+      </div>
+      <p className="text-sm text-neutral-300 font-light leading-relaxed mb-3">{metric.definition}</p>
+      <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex-1 bg-white/[0.03] border border-white/5 rounded-sm px-4 py-3">
+          <p className="text-[9px] tracking-widest uppercase text-neutral-600 mb-1">Formula</p>
+          <p className="text-xs font-mono text-neutral-300">{metric.formula}</p>
+        </div>
+        <div className="flex-1 bg-[#D4AF37]/5 border border-[#D4AF37]/10 rounded-sm px-4 py-3">
+          <p className="text-[9px] tracking-widest uppercase text-neutral-600 mb-1">💡 Tip</p>
+          <p className="text-xs text-neutral-400 font-light">{metric.tip}</p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -189,6 +220,76 @@ export default function SellerDashboard({ user }: SellerDashboardProps) {
   const [isPromoteModalOpen, setIsPromoteModalOpen] = useState(false);
   const [selectedPromoListing, setSelectedPromoListing] = useState<string | null>(null);
   const [selectedPromoType, setSelectedPromoType] = useState<string | null>(null);
+  const [activeKpi, setActiveKpi] = useState<{ label: string; definition: string; formula: string; tip: string } | null>(null);
+
+  const kpiDefs: Record<string, { label: string; definition: string; formula: string; tip: string }> = {
+    'Total Earned': {
+      label: 'Total Earned',
+      definition: 'The total net amount credited to your seller account after all auction settlements, excluding Wregals platform fees.',
+      formula: 'Sum of all winning bids − Platform fee',
+      tip: 'Higher reserve prices and better-quality provenance photos consistently result in higher final bids.',
+    },
+    'Total Listings': {
+      label: 'Total Listings',
+      definition: 'The total number of auction listings created under your account across all statuses — Live, Ended, and Draft.',
+      formula: 'Live + Ended + Draft listings',
+      tip: 'Sellers with 10+ listings on average see 40% more returning bidders.',
+    },
+    'Total Bidders': {
+      label: 'Total Bidders',
+      definition: 'The count of unique registered users who have placed at least one bid on any of your listings.',
+      formula: 'Unique bidder accounts across all listings',
+      tip: 'Engaging with watchers via Promotion Ribbon can convert them into active bidders.',
+    },
+    'Avg. Time-to-Sell': {
+      label: 'Avg. Time-to-Sell',
+      definition: 'The average number of days from when a listing goes live to when it closes with a winning bid.',
+      formula: 'Sum of (end date − start date) for all sold listings ÷ number of sold listings',
+      tip: 'Auctions ending on Saturday evenings historically attract the highest bid counts.',
+    },
+    'Return Rate': {
+      label: 'Return Rate',
+      definition: 'The percentage of your completed auctions that resulted in a dispute, cancellation, or non-payment from the winning bidder.',
+      formula: '(Disputed / cancelled auctions ÷ Total closed auctions) × 100',
+      tip: 'A 0% return rate boosts your Seller Trust Score, making your listings rank higher in search.',
+    },
+    'Avg. Bid Increment': {
+      label: 'Avg. Bid Increment',
+      definition: 'The average amount by which each successive bid exceeds the previous one across all your auctions.',
+      formula: 'Total bid value increase across all bids ÷ Total number of bids placed',
+      tip: 'A higher average increment signals strong competitive interest — great for future pricing strategy.',
+    },
+    'Active Promotions': {
+      label: 'Active Promotions',
+      definition: 'The number of promotion campaigns currently running for your listings, including Ribbon and Login Popup types.',
+      formula: 'Count of promotions with status = Active',
+      tip: 'Running both Ribbon and Popup simultaneously gives a 2.3× higher impression rate than either alone.',
+    },
+    'Total Impressions': {
+      label: 'Total Impressions',
+      definition: 'The total number of times your promoted listings were displayed to users this week — from both the Ribbon and Login Popup channels.',
+      formula: 'Ribbon impressions + Popup impressions',
+      tip: 'Impressions above 20K/week correlate strongly with a 30%+ increase in new bidder sign-ups.',
+    },
+    'Promo Clicks': {
+      label: 'Promo Clicks',
+      definition: 'The total number of times users clicked on your promoted listing from either the Promotion Ribbon or Login Popup to view your auction.',
+      formula: 'Ribbon clicks + Popup clicks',
+      tip: 'Titles under 60 characters with the celebrity name upfront see 2× higher click-through rates.',
+    },
+    'Avg. Promo CTR': {
+      label: 'Avg. Promo CTR',
+      definition: 'Click-Through Rate — the percentage of impressions that resulted in a click on your promoted listing.',
+      formula: '(Total promo clicks ÷ Total impressions) × 100',
+      tip: 'A CTR above 5% is considered excellent. Refresh your promotion creative every 10 days to avoid fatigue.',
+    },
+  };
+
+  const handleKpiClick = (label: string) => {
+    const def = kpiDefs[label];
+    if (!def) return;
+    setActiveKpi(prev => prev?.label === label ? null : def);
+  };
 
   // Animate activity feed
   useEffect(() => {
@@ -248,28 +349,32 @@ export default function SellerDashboard({ user }: SellerDashboardProps) {
       {activeTab === 'analytics' && (
         <div className="space-y-10">
 
-          {/* ── Section 1: KPI Row (8 cards) ── */}
+          {/* ── Section 1: KPI Row (6 cards → 2 rows of 3) ── */}
           <div>
             <SectionTitle>Key Metrics</SectionTitle>
-            <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-4 gap-4 mb-4">
-              <KpiCard icon="solar:wallet-money-linear" label="Total Earned" value="₹4,75,000" sub="Net of Wregals commission" iconColor="text-green-400" trend={18} />
-              <KpiCard icon="solar:tag-horizontal-linear" label="Total Listings" value="24" sub="4 Live · 18 Ended · 2 Drafts" iconColor="text-blue-400" trend={4} />
-              <KpiCard icon="solar:users-group-linear" label="Total Bidders" value="347" sub="Across all listings" iconColor="text-purple-400" trend={22} />
-              <KpiCard icon="solar:chart-2-linear" label="Conversion Rate" value="76%" sub="Views → successful bids" iconColor="text-[#D4AF37]" trend={5} />
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+              <KpiCard icon="solar:wallet-money-linear" label="Total Earned" value="₹4,75,000" sub="Net of Wregals commission" iconColor="text-green-400" trend={18} onClick={() => handleKpiClick('Total Earned')} />
+              <KpiCard icon="solar:tag-horizontal-linear" label="Total Listings" value="24" sub="4 Live · 18 Ended · 2 Drafts" iconColor="text-blue-400" trend={4} onClick={() => handleKpiClick('Total Listings')} />
+              <KpiCard icon="solar:users-group-linear" label="Total Bidders" value="347" sub="Across all listings" iconColor="text-purple-400" trend={22} onClick={() => handleKpiClick('Total Bidders')} />
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-4 gap-4">
-              <KpiCard icon="solar:hourglass-linear" label="Avg. Time-to-Sell" value="3.2 Days" sub="Historical average" iconColor="text-yellow-400" trend={-8} />
-              <KpiCard icon="solar:refresh-circle-linear" label="Return Rate" value="0.0%" sub="0 disputed transactions" iconColor="text-red-400" />
-              <KpiCard icon="solar:graph-up-linear" label="Avg. Bid Increment" value="₹8,450" sub="Per bid placed" iconColor="text-emerald-400" trend={12} />
-              <KpiCard icon="solar:hand-money-linear" label="Commission Paid" value="₹47,500" sub="10% Wregals fee" iconColor="text-orange-400" />
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <KpiCard icon="solar:hourglass-linear" label="Avg. Time-to-Sell" value="3.2 Days" sub="Historical average" iconColor="text-yellow-400" trend={-8} onClick={() => handleKpiClick('Avg. Time-to-Sell')} />
+              <KpiCard icon="solar:refresh-circle-linear" label="Return Rate" value="0.0%" sub="0 disputed transactions" iconColor="text-red-400" onClick={() => handleKpiClick('Return Rate')} />
+              <KpiCard icon="solar:graph-up-linear" label="Avg. Bid Increment" value="₹8,450" sub="Per bid placed" iconColor="text-emerald-400" trend={12} onClick={() => handleKpiClick('Avg. Bid Increment')} />
             </div>
             {/* Promotion KPIs */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-              <KpiCard icon="solar:stars-line-duotone" label="Active Promotions" value="2" sub="1 Ribbon · 1 Popup" iconColor="text-pink-400" trend={100} />
-              <KpiCard icon="solar:eye-linear" label="Total Impressions" value="23,600" sub="This week via promotions" iconColor="text-indigo-400" trend={34} />
-              <KpiCard icon="solar:cursor-linear" label="Promo Clicks" value="1,690" sub="Ribbon + Popup combined" iconColor="text-fuchsia-400" trend={28} />
-              <KpiCard icon="solar:percent-linear" label="Avg. Promo CTR" value="7.2%" sub="Above industry average" iconColor="text-cyan-400" trend={15} />
+              <KpiCard icon="solar:stars-line-duotone" label="Active Promotions" value="2" sub="1 Ribbon · 1 Popup" iconColor="text-pink-400" trend={100} onClick={() => handleKpiClick('Active Promotions')} />
+              <KpiCard icon="solar:eye-linear" label="Total Impressions" value="23,600" sub="This week via promotions" iconColor="text-indigo-400" trend={34} onClick={() => handleKpiClick('Total Impressions')} />
+              <KpiCard icon="solar:cursor-linear" label="Promo Clicks" value="1,690" sub="Ribbon + Popup combined" iconColor="text-fuchsia-400" trend={28} onClick={() => handleKpiClick('Promo Clicks')} />
+              <KpiCard icon="solar:percent-linear" label="Avg. Promo CTR" value="7.2%" sub="Above industry average" iconColor="text-cyan-400" trend={15} onClick={() => handleKpiClick('Avg. Promo CTR')} />
             </div>
+            {/* Definition Detail Panel */}
+            {activeKpi && (
+              <div className="mt-4">
+                <KpiDetailPanel metric={activeKpi} onClose={() => setActiveKpi(null)} />
+              </div>
+            )}
           </div>
 
           {/* ── Section 2: Revenue + Bid Velocity (Area Charts) ── */}
