@@ -8,9 +8,9 @@ const CREATORS = [
 ];
 
 const TRENDING_LOTS = [
-  { label: 'Trending · Collectibles', title: '2011 World Cup Jersey', posts: '4.2k bids', time: 'Opens in 6 days' },
-  { label: 'Live Now · Jewellery', title: 'Cartier Diamond - Cannes 2018', posts: '₹87.5L current bid', time: '2d 14h left' },
-  { label: 'Trending · Cinema', title: 'Singham Director Chair', posts: '₹4.75L hammer', time: 'Sold' },
+  { label: 'Trending · Collectibles', title: '2011 World Cup Jersey', posts: '4.2k bids', time: 'Opens in 6 days', link: '/celebrity/vk' },
+  { label: 'Live Now · Jewellery', title: 'Cartier Diamond - Cannes 2018', posts: '₹87.5L current bid', time: '2d 14h left', link: '/auctions/live' },
+  { label: 'Trending · Cinema', title: 'Singham Director Chair', posts: '₹4.75L hammer', time: 'Sold', link: '/auctions/results' },
 ];
 
 interface RightSidebarProps {
@@ -41,7 +41,10 @@ export default function RightSidebar({ followed, toggleFollow, onRaise }: RightS
               <div className={`text-xs mt-0.5 ${row.green ? 'text-green-400' : 'text-red-500'}`}>{row.sub}</div>
             </div>
             <button
-              onClick={() => onRaise ? onRaise(row.key) : undefined}
+              onClick={() => {
+                if (onRaise) onRaise(row.key);
+                else window.location.href = '/auctions/live';
+              }}
               className="text-[12px] font-bold px-4 py-1.5 border border-white bg-white text-black hover:bg-neutral-200 transition-all rounded-lg"
             >
               Raise
@@ -60,11 +63,11 @@ export default function RightSidebar({ followed, toggleFollow, onRaise }: RightS
           </div>
         </div>
         {TRENDING_LOTS.map((t, i) => (
-          <div key={i} className="px-5 py-3 hover:bg-white/5 transition-colors border-b border-white/5 last:border-0 cursor-pointer">
+          <Link to={t.link} key={i} className="block px-5 py-3 hover:bg-white/5 transition-colors border-b border-white/5 last:border-0 cursor-pointer">
             <p className="text-[10px] text-neutral-500 mb-1 font-semibold tracking-wide uppercase">{t.label}</p>
             <p className="text-[15px] font-semibold text-white mb-1 leading-snug">{t.title}</p>
             <p className="text-[13px] text-neutral-400 font-medium">{t.posts} <span className="mx-1 text-neutral-700">·</span> {t.time}</p>
-          </div>
+          </Link>
         ))}
         <Link to="/auctions/live" className="block px-5 py-3 text-[13px] font-semibold text-white hover:bg-white/5 transition-colors text-center">
           Show all live auctions

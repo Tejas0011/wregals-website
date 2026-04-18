@@ -175,14 +175,6 @@ export default function Social({ user, onSignInClick }: SocialProps) {
 
  const posts = tab === 'foryou' ? POSTS_FYP : POSTS_FOLLOWING;
 
- const NAV_ITEMS = [
- { icon: 'solar:home-2-linear', iconActive: 'solar:home-2-bold', label: 'Home', to: '/' },
- { icon: 'solar:star-linear', iconActive: 'solar:star-bold', label: 'Social', to: '/social', active: true },
- { icon: 'solar:notification-linear', iconActive: 'solar:notification-bold', label: 'Auctions', to: '/auctions/live' },
- { icon: 'solar:bookmark-linear', iconActive: 'solar:bookmark-bold', label: 'Watchlist', to: '#' },
- { icon: 'solar:wallet-linear', iconActive: 'solar:wallet-bold', label: 'Wallet', to: '#' },
- { icon: 'solar:user-circle-linear', iconActive: 'solar:user-circle-bold', label: 'Profile', to: '#' },
- ];
 
   if (loading) return <HomeFeedSkeleton />;
 
