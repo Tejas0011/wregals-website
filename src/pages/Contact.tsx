@@ -47,7 +47,7 @@ export default function Contact({ user, onSignInClick }: ContactProps) {
  </div>
  <h1 className="text-4xl md:text-5xl font-semibold tracking-tight tracking-tight mb-4">Get In Touch</h1>
  <p className="text-neutral-400 text-base max-w-xl leading-relaxed">
- Whether you're a potential seller, a bidder with a question, or a member of the press — we're here.
+ Whether you're a potential seller, a bidder with a question, or a member of the press - we're here.
  </p>
  </div>
  </section>
@@ -139,7 +139,7 @@ export default function Contact({ user, onSignInClick }: ContactProps) {
  <p className="text-xs text-neutral-500 leading-relaxed">
  Level 14, One BKC Tower<br />
  Bandra Kurla Complex<br />
- Mumbai — 400 051, Maharashtra
+ Mumbai - 400 051, Maharashtra
  </p>
  </div>
  </div>

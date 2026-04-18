@@ -14,7 +14,7 @@ const fmt = (n: number) => '₹' + n.toLocaleString('en-IN');
 const SELLER_LISTINGS: Record<string, any> = {
   s1: {
     id: 's1',
-    title: 'Match-Worn 2023 World Cup Jersey — Kohli',
+    title: 'Match-Worn 2023 World Cup Jersey - Kohli',
     lot: '#L-001',
     category: 'Sports',
     seller: 'Virat Kohli',
@@ -39,7 +39,7 @@ const SELLER_LISTINGS: Record<string, any> = {
   },
   s2: {
     id: 's2',
-    title: 'Match-Worn 2023 World Cup Jersey — Kohli Signed',
+    title: 'Match-Worn 2023 World Cup Jersey - Kohli Signed',
     lot: '#L-002',
     category: 'Sports',
     seller: 'Virat Kohli',
@@ -64,7 +64,7 @@ const SELLER_LISTINGS: Record<string, any> = {
   },
   s3: {
     id: 's3',
-    title: 'Vintage Boxing Gloves — Ali Era Autographed',
+    title: 'Vintage Boxing Gloves - Ali Era Autographed',
     lot: '#L-003',
     category: 'Sports',
     seller: 'Virat Kohli',
@@ -87,7 +87,7 @@ const SELLER_LISTINGS: Record<string, any> = {
   },
   s4: {
     id: 's4',
-    title: 'Original Screenplay — "Mughal-e-Azam" (1960)',
+    title: 'Original Screenplay - "Mughal-e-Azam" (1960)',
     lot: '#L-004',
     category: 'Cinema',
     seller: 'Virat Kohli',
@@ -110,7 +110,7 @@ const SELLER_LISTINGS: Record<string, any> = {
   },
   s5: {
     id: 's5',
-    title: 'Signed Guitar — AR Rahman World Tour',
+    title: 'Signed Guitar - AR Rahman World Tour',
     lot: '#L-005',
     category: 'Music',
     seller: 'Virat Kohli',
@@ -213,7 +213,7 @@ export default function SellerAuctionPage({ user }: SellerAuctionPageProps) {
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-5" style={{ borderBottom: '1px solid var(--hh-line)' }}>
-            {/* LEFT — Image & Details */}
+            {/* LEFT - Image & Details */}
             <div className="xl:col-span-3" style={{ borderRight: '1px solid var(--hh-line)', padding: '28px' }}>
               {/* Status badge */}
               <div className="flex items-center gap-3 mb-5">
@@ -278,7 +278,7 @@ export default function SellerAuctionPage({ user }: SellerAuctionPageProps) {
               </div>
             </div>
 
-            {/* RIGHT — Bid Info + Feed */}
+            {/* RIGHT - Bid Info + Feed */}
             <div className="xl:col-span-2 flex flex-col">
               {/* Bid summary */}
               <div style={{ padding: '28px', borderBottom: '1px solid var(--hh-line)' }}>
@@ -315,7 +315,7 @@ export default function SellerAuctionPage({ user }: SellerAuctionPageProps) {
 
                 {listing.status === 'Live' ? (
                   <button className="w-full py-3.5 bg-white text-black text-xs font-bold tracking-widest uppercase rounded-sm hover:bg-neutral-200 transition-colors">
-                    Place Bid — {fmt(listing.currentBid + listing.minIncrement)}
+                    Place Bid - {fmt(listing.currentBid + listing.minIncrement)}
                   </button>
                 ) : (
                   <div className="w-full rounded-sm border border-white/5 bg-white/[0.02] p-4 text-center">

@@ -129,7 +129,7 @@ export default function HeroScroll({ onReady, onAnimationDone }: { onReady?: () 
             for (let start = 0; start < FRAME_COUNT; start += BATCH) {
                 await loadBatch(start);
             }
-            // All frames loaded — draw first frame then reveal
+            // All frames loaded - draw first frame then reveal
             imagesRef.current = imgs;
             drawFrame(0);
             setIsReady(true);
@@ -223,14 +223,14 @@ export default function HeroScroll({ onReady, onAnimationDone }: { onReady?: () 
 
     return (
         <div className="relative w-full h-screen bg-[#3D0808]">
-            {/* Canvas — always mounted so first frame can draw into it */}
+            {/* Canvas - always mounted so first frame can draw into it */}
             <canvas
                 ref={canvasRef}
                 className="absolute inset-0 block"
                 style={{ width: '100%', height: '100%' }}
             />
 
-            {/* Full-screen loading overlay — covers canvas until all frames ready */}
+            {/* Full-screen loading overlay - covers canvas until all frames ready */}
             {!isReady && (
                 <div className="absolute inset-0 z-30 bg-[#3D0808] flex flex-col items-center justify-center gap-8">
                     {/* WREGALS wordmark */}

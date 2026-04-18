@@ -10,7 +10,7 @@ const STEPS = [
  n: '01',
  icon: 'solar:user-id-linear',
  title: 'Create & Verify Your Account',
- desc: 'Sign up with your email. Complete our KYC process — government-issued ID, PAN, and source-of-funds declaration. Verification typically takes one business day.',
+ desc: 'Sign up with your email. Complete our KYC process - government-issued ID, PAN, and source-of-funds declaration. Verification typically takes one business day.',
  detail: [
  'Government-issued photo ID (Aadhaar / Passport)',
  'PAN card for transactions above ₹2L',
@@ -58,7 +58,7 @@ const STEPS = [
  n: '05',
  icon: 'solar:shield-warning-linear',
  title: 'Anti-Sniping Protection',
- desc: 'To ensure fair outcomes, any bid placed in the final 2 minutes of a lot automatically extends the closing time by 2 minutes — preventing last-second sniping.',
+ desc: 'To ensure fair outcomes, any bid placed in the final 2 minutes of a lot automatically extends the closing time by 2 minutes - preventing last-second sniping.',
  detail: [
  'Activates within the final 2 minutes',
  'Extends timer by 2 minutes per bid',
@@ -186,7 +186,7 @@ export default function HowItWorks({ user, onSignInClick }: HowItWorksProps) {
  </div>
  </div>
 
- {/* Right — detail list */}
+ {/* Right - detail list */}
  <div className="md:pl-8 md:border-l md:border-white/5">
  <p className="text-[10px] font-semibold tracking-wide text-neutral-600 mb-4">Requirements / Details</p>
  <ul className="space-y-3">

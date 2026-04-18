@@ -1,14 +1,14 @@
 // @ts-nocheck
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import IIcon from './IIcon';
 import LeftSidebar from './LeftSidebar';
+import RightSidebar from './RightSidebar';
 import { HomeFeedSkeleton } from './SkeletonScreens';
 
 import PromoRibbon, { PromoBidModal, LiveDot, VTick, PostTag, fmtSecs } from './PromoRibbon';
 
 /* ─── POST CARD ─────────────────────────────────── */
-// Seller ID lookup — maps seller name to their celebrity profile ID
+// Seller ID lookup - maps seller name to their celebrity profile ID
 const SELLER_IDS: Record<string, string> = {
   'Virat Kohli': 'vk',
   'MS Dhoni': 'msd',
@@ -109,7 +109,7 @@ function PostCard({
         <div className="hh-p-media-lot">{lot}</div>
       </div>
 
-      {/* Actions row — directly below image */}
+      {/* Actions row - directly below image */}
       <div className="hh-p-actions">
         <button
           className="hh-pact"
@@ -166,7 +166,7 @@ function PostCard({
 /* ─── MAIN COMPONENT ────────────────────────────── */
 export default function HomeHero() {
   const [modalKey, setModalKey] = useState<string | null>(null);
-  const [followed, setFollowed] = useState<Record<string, boolean>>({});
+  const [followed, setFollowed] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -186,7 +186,7 @@ export default function HomeHero() {
 
 
 
-  const toggleFollow = (name: string) => setFollowed(p => ({ ...p, [name]: !p[name] }));
+  const toggleFollow = (id: string) => setFollowed(s => { const n = new Set(s); n.has(id) ? n.delete(id) : n.add(id); return n; });
 
   if (loading) return <HomeFeedSkeleton />;
 
@@ -202,12 +202,12 @@ export default function HomeHero() {
         <div className="hh-feed">
 
 
-          {/* Post 1 — Virat Kohli — LIVE */}
+          {/* Post 1 - Virat Kohli - LIVE */}
           <PostCard
             auctionKey="vk"
             seller="Virat Kohli" handle="@virat.kohli" ago="2h ago"
             tags={<><PostTag type="live"><LiveDot />Live</PostTag><PostTag type="cat">Sports</PostTag></>}
-            title="Match-Worn 2023 World Cup Jersey — Signed"
+            title="Match-Worn 2023 World Cup Jersey - Signed"
             desc="An exceptionally rare match-worn jersey from the 2023 ICC Cricket World Cup, featuring Kohli's authenticated signature with original certification papers."
             timerSecs={4 * 3600 + 12 * 60 + 39}
             currentBid="₹84,000" bidCount="23 bids" nextBid="₹85,000" dep="₹8,500"
@@ -215,12 +215,12 @@ export default function HomeHero() {
             openModal={openModal}
           />
 
-          {/* Post 2 — MS Dhoni — LIVE */}
+          {/* Post 2 - MS Dhoni - LIVE */}
           <PostCard
             auctionKey="msd"
             seller="MS Dhoni" handle="@msd_official" ago="5h ago"
             tags={<><PostTag type="live"><LiveDot />Live</PostTag><PostTag type="cat">Sports</PostTag></>}
-            title="2011 World Cup Winning Gloves — Match Worn"
+            title="2011 World Cup Winning Gloves - Match Worn"
             desc="The actual gloves worn during India's 2011 World Cup final. Individually numbered, certified, and fully documented by the BCCI."
             timerSecs={1 * 3600 + 52 * 60 + 14}
             currentBid="₹2,40,000" bidCount="47 bids" nextBid="₹2,45,000" dep="₹24,000"
@@ -228,12 +228,12 @@ export default function HomeHero() {
             openModal={openModal}
           />
 
-          {/* Post 3 — Ranveer Singh — ENDING SOON */}
+          {/* Post 3 - Ranveer Singh - ENDING SOON */}
           <PostCard
             auctionKey="rs"
             seller="Ranveer Singh" handle="@ranveersingh" ago="3h ago"
             tags={<><PostTag type="soon">Ending in 23 min</PostTag><PostTag type="cat">Cinema</PostTag></>}
-            title="Rocky Aur Rani Custom Jacket — Film Set Piece"
+            title="Rocky Aur Rani Custom Jacket - Film Set Piece"
             desc="Custom jacket worn on set during production. Sourced from the costume department with director's letter of authenticity."
             timerSecs={23 * 60 + 7}
             currentBid="₹42,000" bidCount="12 bids" nextBid="₹43,500" dep="₹4,200"
@@ -243,12 +243,12 @@ export default function HomeHero() {
             openModal={openModal}
           />
 
-          {/* Post 4 — Alia Bhatt — UPCOMING */}
+          {/* Post 4 - Alia Bhatt - UPCOMING */}
           <PostCard
             auctionKey="ab"
             seller="Alia Bhatt" handle="@aliabhatt" ago="1d ago"
             tags={<><PostTag type="up">Upcoming · Apr 5</PostTag><PostTag type="cat">Cinema</PostTag></>}
-            title="Gangubai Kathiawadi Premiere Saree — Signed"
+            title="Gangubai Kathiawadi Premiere Saree - Signed"
             desc="Worn at the Gangubai Kathiawadi world premiere. Personally signed with full authentication documentation. Bidding opens April 5th."
             timerSecs={0}
             currentBid="₹25,000" bidCount="0 bids" nextBid="412" dep="₹2,500"
@@ -259,12 +259,12 @@ export default function HomeHero() {
             openModal={openModal}
           />
 
-          {/* Post 5 — Hardik Pandya — LIVE */}
+          {/* Post 5 - Hardik Pandya - LIVE */}
           <PostCard
             auctionKey="hp"
             seller="Hardik Pandya" handle="@hardikpandya7" ago="4h ago"
             tags={<><PostTag type="live"><LiveDot />Live</PostTag><PostTag type="cat">Sports</PostTag></>}
-            title="IPL 2023 Match-Used Cricket Bat — Season Signed"
+            title="IPL 2023 Match-Used Cricket Bat - Season Signed"
             desc="Bat used throughout IPL 2023, signed at season end with full provenance documentation from the franchise."
             timerSecs={3 * 3600 + 55 * 60 + 10}
             currentBid="₹1,18,500" bidCount="31 bids" nextBid="₹1,20,000" dep="₹11,850"
@@ -275,86 +275,7 @@ export default function HomeHero() {
 
         {/* RIGHT SIDEBAR */}
         <div className="hh-rsidebar">
-
-          <div className="hh-rc">
-            <div className="hh-rc-title">Your Active Bids</div>
-            {/* Winning */}
-            <div className="hh-rc-row" style={{ marginBottom: 4 }}>
-              <div className="hh-rc-av">HP</div>
-              <div className="hh-rc-info">
-                <div className="hh-rc-name">Hardik — IPL Bat</div>
-                <div className="hh-rc-sub" style={{ color: '#4ade80' }}>Winning · your bid ₹1,20,000</div>
-              </div>
-              <button
-                className="hh-flw-btn"
-                style={{ background: '#fff', color: '#000', borderColor: '#fff', fontSize: 10 }}
-                onClick={() => openModal('hp')}
-              >Raise</button>
-            </div>
-            {/* Outbid */}
-            <div className="hh-rc-row">
-              <div className="hh-rc-av">VK</div>
-              <div className="hh-rc-info">
-                <div className="hh-rc-name">Kohli WC Jersey</div>
-                <div className="hh-rc-sub" style={{ color: 'var(--hh-red)' }}>Outbid · your bid ₹80,000</div>
-              </div>
-              <button
-                className="hh-flw-btn"
-                style={{ background: '#fff', color: '#000', borderColor: '#fff' }}
-                onClick={() => openModal('vk')}
-              >Raise</button>
-            </div>
-          </div>
-
-          {/* Ending soon */}
-          <div className="hh-rc">
-            <div className="hh-rc-title">Ending Soon</div>
-            {[
-              { av: 'RS', name: 'Ranveer — Film Jacket', sub: '12 bids', timer: '00:23:07', red: true, key: 'rs' },
-              { av: 'MS', name: 'MSD — WC Gloves', sub: '47 bids', timer: '01:52:14', red: true, key: 'msd' },
-              { av: 'VK', name: 'Kohli — WC Jersey', sub: '23 bids', timer: '04:12:39', red: false, key: 'vk' },
-              { av: 'HP', name: 'Hardik — IPL Bat', sub: '31 bids', timer: '03:55:10', red: false, key: 'hp' },
-            ].map(row => (
-              <div key={row.key} className="hh-rc-row" onClick={() => openModal(row.key)} style={{ cursor: 'pointer' }}>
-                <div className="hh-rc-av">{row.av}</div>
-                <div className="hh-rc-info">
-                  <div className="hh-rc-name">{row.name}</div>
-                  <div className="hh-rc-sub">{row.sub}</div>
-                </div>
-                <div className={`hh-rc-timer${row.red ? ' hh-rc-timer-red' : ''}`}>{row.timer}</div>
-              </div>
-            ))}
-            <button className="hh-rc-show-more">
-              Show more
-            </button>
-          </div>
-
-          {/* People to follow */}
-          <div className="hh-rc">
-            <div className="hh-rc-title">People to Follow</div>
-            {[
-              { av: 'SR', name: 'Sachin Tendulkar', sub: '2 upcoming auctions' },
-              { av: 'DP', name: 'Deepika Padukone', sub: '1 live now' },
-              { av: 'BD', name: 'Badshah', sub: 'Listing soon' },
-            ].map(s => (
-              <div key={s.name} className="hh-rc-row">
-                <div className="hh-rc-av">{s.av}</div>
-                <div className="hh-rc-info">
-                  <div className="hh-rc-name">{s.name}</div>
-                  <div className="hh-rc-sub">{s.sub}</div>
-                </div>
-                <button className="hh-flw-btn" onClick={() => toggleFollow(s.name)}>
-                  {followed[s.name] ? 'Following' : 'Follow'}
-                </button>
-              </div>
-            ))}
-            <button className="hh-rc-show-more">
-              Show more
-            </button>
-          </div>
-
-
-
+          <RightSidebar followed={followed} toggleFollow={toggleFollow} onRaise={openModal} />
         </div>
       </div>
 

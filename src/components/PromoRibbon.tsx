@@ -16,11 +16,11 @@ export const tickerItems = [
 export const auctionData = {
   vk: {
     ph: 'VK', av: 'VK', name: 'Virat Kohli', handle: '@virat.kohli',
-    title: 'Match-Worn 2023 World Cup Jersey — Signed',
+    title: 'Match-Worn 2023 World Cup Jersey - Signed',
     cat: 'Cricket', lot: 'Lot #0847', bids: '23 bids', watching: '147 watching',
     current: '₹84,000', starting: '₹50,000', nextBid: '₹85,000',
     bidcount: '23 bids placed', deposit: '₹8,500', watch2: '147 people',
-    cond: 'Match-Worn', btnText: 'Place Bid — ₹85,000',
+    cond: 'Match-Worn', btnText: 'Place Bid - ₹85,000',
     secs: 4 * 3600 + 12 * 60 + 39,
     desc: "An exceptionally rare, match-worn example of the 2023 Cricket World Cup jersey. Featuring Kohli's authentic signature on the front. Accompanied by original authentication papers and photographic proof from the match day.",
     feed: [
@@ -48,11 +48,11 @@ export const auctionData = {
   },
   msd: {
     ph: 'MSD', av: 'MS', name: 'MS Dhoni', handle: '@msd_official',
-    title: '2011 World Cup Winning Gloves — Match Worn',
+    title: '2011 World Cup Winning Gloves - Match Worn',
     cat: 'Cricket', lot: 'Lot #0841', bids: '47 bids', watching: '318 watching',
     current: '₹2,40,000', starting: '₹80,000', nextBid: '₹2,45,000',
     bidcount: '47 bids placed', deposit: '₹24,000', watch2: '318 people',
-    cond: 'Match-Worn', btnText: 'Place Bid — ₹2,45,000',
+    cond: 'Match-Worn', btnText: 'Place Bid - ₹2,45,000',
     secs: 1 * 3600 + 52 * 60 + 14,
     desc: "The actual gloves worn during India's historic 2011 World Cup final. Individually numbered and certified with full provenance documentation from the BCCI.",
     feed: [
@@ -80,11 +80,11 @@ export const auctionData = {
   },
   rs: {
     ph: 'RS', av: 'RS', name: 'Ranveer Singh', handle: '@ranveersingh',
-    title: 'Rocky Aur Rani Custom Jacket — Film Set Piece',
+    title: 'Rocky Aur Rani Custom Jacket - Film Set Piece',
     cat: 'Bollywood', lot: 'Lot #0852', bids: '12 bids', watching: '89 watching',
     current: '₹42,000', starting: '₹15,000', nextBid: '₹43,500',
     bidcount: '12 bids placed', deposit: '₹4,200', watch2: '89 people',
-    cond: 'Film Costume', btnText: 'Bid Now — ₹43,500',
+    cond: 'Film Costume', btnText: 'Bid Now - ₹43,500',
     secs: 23 * 60 + 7,
     desc: "Custom jacket worn on set during Rocky Aur Rani Ki Prem Kahaani. Sourced from the costume department with director's letter of authenticity and full documentation.",
     feed: [
@@ -104,11 +104,11 @@ export const auctionData = {
   },
   hp: {
     ph: 'HP', av: 'HP', name: 'Hardik Pandya', handle: '@hardikpandya7',
-    title: 'IPL 2023 Match-Used Cricket Bat — Season Signed',
+    title: 'IPL 2023 Match-Used Cricket Bat - Season Signed',
     cat: 'Cricket', lot: 'Lot #0848', bids: '31 bids', watching: '201 watching',
     current: '₹1,18,500', starting: '₹40,000', nextBid: '₹1,20,000',
     bidcount: '31 bids placed', deposit: '₹11,850', watch2: '201 people',
-    cond: 'Match-Used', btnText: 'Place Bid — ₹1,20,000',
+    cond: 'Match-Used', btnText: 'Place Bid - ₹1,20,000',
     secs: 3 * 3600 + 55 * 60 + 10,
     desc: 'Bat used throughout the IPL 2023 season, signed at season end with full provenance documentation from the Mumbai Indians franchise.',
     feed: [
@@ -136,11 +136,11 @@ export const auctionData = {
   },
   ab: {
     ph: 'AB', av: 'AB', name: 'Alia Bhatt', handle: '@aliabhatt',
-    title: 'Gangubai Kathiawadi Premiere Saree — Signed',
+    title: 'Gangubai Kathiawadi Premiere Saree - Signed',
     cat: 'Bollywood', lot: 'Lot #0860', bids: '28 bids', watching: '412 watching',
     current: '₹67,200', starting: '₹25,000', nextBid: '₹68,500',
     bidcount: '28 bids placed', deposit: '₹6,720', watch2: '412 people',
-    cond: 'Premiere Saree', btnText: 'Place Bid — ₹68,500',
+    cond: 'Premiere Saree', btnText: 'Place Bid - ₹68,500',
     secs: 2 * 3600 + 15 * 60 + 45,
     desc: "Worn at the Gangubai Kathiawadi world premiere. Personally signed with full authentication documentation.",
     feed: [
@@ -168,11 +168,11 @@ export const auctionData = {
   },
   bj: {
     ph: 'BD', av: 'BD', name: 'Badshah', handle: '@badboyshah',
-    title: 'Signed Custom Performance Jacket — Sanak Tour',
+    title: 'Signed Custom Performance Jacket - Sanak Tour',
     cat: 'Music', lot: 'Lot #0872', bids: '19 bids', watching: '95 watching',
     current: '₹38,900', starting: '₹10,000', nextBid: '₹40,000',
     bidcount: '19 bids placed', deposit: '₹3,890', watch2: '95 people',
-    cond: 'Stage Worn', btnText: 'Place Bid — ₹40,000',
+    cond: 'Stage Worn', btnText: 'Place Bid - ₹40,000',
     secs: 8 * 3600 + 42 * 60 + 10,
     desc: "Custom jacket worn by Badshah during the Sanak North American Tour. Autographed on the inner lining.",
     feed: [
@@ -199,11 +199,11 @@ export const auctionData = {
   },
   ps: {
     ph: 'PS', av: 'PS', name: 'Priyanka Chopra', handle: '@priyankachopra',
-    title: 'Hand-woven Banarasi Saree — Met Gala Afterparty',
+    title: 'Hand-woven Banarasi Saree - Met Gala Afterparty',
     cat: 'Bollywood', lot: 'Lot #0894', bids: '54 bids', watching: '520 watching',
     current: '₹1,92,000', starting: '₹50,000', nextBid: '₹1,95,000',
     bidcount: '54 bids placed', deposit: '₹19,200', watch2: '520 people',
-    cond: 'Mint Condition', btnText: 'Place Bid — ₹1,95,000',
+    cond: 'Mint Condition', btnText: 'Place Bid - ₹1,95,000',
     secs: 1 * 3600 + 5 * 60 + 30,
     desc: "A stunning hand-woven Banarasi saree worn by Priyanka Chopra Jonas. Features intricate gold zari work and original certification.",
     feed: [
@@ -267,11 +267,31 @@ export function PromoBidModal({ auctionKey, onClose, walletBalance = 50000 }: { 
   const [step, setStep] = useState<'idle' | 'confirm' | 'no-funds' | 'success'>('idle');
   const dur = 7 * 3600;
 
-  // Parse numeric values from string data (e.g. '₹8,500' → 8500)
+  const [localBids, setLocalBids] = useState<any[]>([]);
+  useEffect(() => {
+    const fetchLocal = () => {
+      if (!auctionKey) return;
+      const b = JSON.parse(localStorage.getItem('dummyBids') || '[]');
+      setLocalBids(b.filter((x: any) => x.itemId === `'promo-${Math.random()}'` || x.itemId === auctionKey).reverse()); 
+    };
+    fetchLocal();
+    const interval = setInterval(fetchLocal, 1000);
+    return () => clearInterval(interval);
+  }, [auctionKey]);
+
+  // Parse numeric values from string data
   const parseAmt = (s: string) => parseInt(s.replace(/[^0-9]/g, ''), 10) || 0;
-  const nextBidNum = d ? parseAmt(d.nextBid) : 0;
-  const depositNum = Math.ceil(nextBidNum * 0.1);
+  
+  const baseCurrentBid = d ? parseAmt(d.current) : 0;
+  const highestLocalBid = localBids.length > 0 ? Math.max(...localBids.map(b => Number(b.amt))) : 0;
+  const actualCurrentBid = Math.max(baseCurrentBid, highestLocalBid);
+  
+  const nextBidNum = d ? Math.max(parseAmt(d.nextBid), actualCurrentBid + 1000) : 0;
+  const depositNum = Math.min(walletBalance, nextBidNum); // Freeze logic
   const depositStr = `₹${depositNum.toLocaleString('en-IN')}`;
+  
+  const currentBidStr = `₹${actualCurrentBid.toLocaleString('en-IN')}`;
+  const nextBidStr = `₹${nextBidNum.toLocaleString('en-IN')}`;
 
   useEffect(() => {
     if (!d) return;
@@ -302,7 +322,7 @@ export function PromoBidModal({ auctionKey, onClose, walletBalance = 50000 }: { 
       <div className="hh-modal">
         <button className="hh-mr-close" onClick={onClose}>✕</button>
 
-        {/* LEFT — media */}
+        {/* LEFT - media */}
         <div className="hh-modal-left">
           <div className="hh-modal-media">
             <div className="hh-mm-ph">{d.ph}</div>
@@ -328,7 +348,7 @@ export function PromoBidModal({ auctionKey, onClose, walletBalance = 50000 }: { 
           </div>
         </div>
 
-        {/* RIGHT — auction panel */}
+        {/* RIGHT - auction panel */}
         <div className="hh-modal-right">
           <div className="hh-mr-seller">
             <div className="hh-mr-seller-left">
@@ -369,13 +389,13 @@ export function PromoBidModal({ auctionKey, onClose, walletBalance = 50000 }: { 
             <div className="hh-mr-bid-split">
               <div className="hh-mbc">
                 <div className="hh-mbc-lbl">Current Bid</div>
-                <div className="hh-mbc-val">{d.current}</div>
-                <div className="hh-mbc-sub">{d.bidcount}</div>
+                <div className="hh-mbc-val">{currentBidStr}</div>
+                <div className="hh-mbc-sub">{parseAmt(d.bidcount) + localBids.length} bids placed</div>
               </div>
               <div className="hh-mbc">
                 <div className="hh-mbc-lbl">Starting Bid</div>
                 <div className="hh-mbc-val hh-mbc-dim">{d.starting}</div>
-                <div className="hh-mbc-sub">Next: {d.nextBid}</div>
+                <div className="hh-mbc-sub">Next: {nextBidStr}</div>
               </div>
             </div>
             <button className="hh-mr-place-btn" onClick={() => {
@@ -386,7 +406,7 @@ export function PromoBidModal({ auctionKey, onClose, walletBalance = 50000 }: { 
               }
             }}>
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="17 11 12 6 7 11" /><line x1="12" y1="6" x2="12" y2="18" /></svg>
-              {d.btnText}
+              Place Bid - {nextBidStr}
             </button>
           </div>
 
@@ -410,7 +430,7 @@ export function PromoBidModal({ auctionKey, onClose, walletBalance = 50000 }: { 
                     fontSize: 28, marginBottom: 18,
                   }}>✓</div>
                   <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--hh-w1)', marginBottom: 6, letterSpacing: '-0.3px' }}>Bid Placed!</div>
-                  <div style={{ fontSize: 12, color: 'var(--hh-w3)', textAlign: 'center' }}>You are now the leading bidder at {d.nextBid}.</div>
+                  <div style={{ fontSize: 12, color: 'var(--hh-w3)', textAlign: 'center' }}>You are now the leading bidder at {nextBidStr}.</div>
                 </>
               )}
 
@@ -424,10 +444,10 @@ export function PromoBidModal({ auctionKey, onClose, walletBalance = 50000 }: { 
                   }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 14 }}>
                       <div style={{ fontSize: 11, color: 'var(--hh-w3)' }}>Your Bid</div>
-                      <div style={{ fontSize: 19, fontWeight: 700, color: 'var(--hh-w1)', letterSpacing: '-0.5px' }}>{d.nextBid}</div>
+                      <div style={{ fontSize: 19, fontWeight: 700, color: 'var(--hh-w1)', letterSpacing: '-0.5px' }}>{nextBidStr}</div>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 12, borderTop: '1px solid var(--hh-line)', marginBottom: 10 }}>
-                      <div style={{ fontSize: 11, color: 'var(--hh-w3)' }}>Deposit (10%)</div>
+                      <div style={{ fontSize: 11, color: 'var(--hh-w3)' }}>Frozen Deposit</div>
                       <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--hh-green)' }}>{depositStr}</div>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -444,14 +464,69 @@ export function PromoBidModal({ auctionKey, onClose, walletBalance = 50000 }: { 
                       background: 'var(--hh-s3)', border: '1px solid var(--hh-line)',
                       color: 'var(--hh-w2)', fontSize: 13, fontWeight: 600, cursor: 'pointer',
                     }}>Cancel</button>
-                    <button onClick={() => { setStep('success'); setTimeout(onClose, 1800); }} style={{
+                    <button onClick={() => { 
+                      // Generate username logic
+                      const baseName = 'collector';
+                      const cleanName = baseName.replace(/\s+/g, '').toLowerCase();
+                      const rNum = String(Math.floor(Math.random() * 900000) + 100000);
+                      const handle = `@${cleanName}${rNum}`;
+                      const uav = baseName.substring(0, 2).toUpperCase();
+
+                      // Save to dummyBids so it appears in My Bids
+                      const newBid = {
+                          id: Date.now().toString(),
+                          itemId: auctionKey,
+                          av: uav,
+                          name: handle,
+                          time: 'Just now',
+                          amt: nextBidNum,
+                          itemData: {
+                              id: auctionKey,
+                              title: d.title,
+                              image: '', // Can't resolve image from promo
+                              seller: d.name,
+                              currentBid: nextBidNum,
+                              minIncrement: 1000,
+                              bidCount: parseAmt(d.bidcount) + localBids.length + 1,
+                              endsAt: new Date(Date.now() + secs * 1000).toISOString(),
+                              provenance: 'Wregals Verified',
+                              category: d.cat,
+                              status: 'live'
+                          },
+                      };
+                      
+                      const existing = JSON.parse(localStorage.getItem('dummyBids') || '[]');
+                      existing.push(newBid);
+                      localStorage.setItem('dummyBids', JSON.stringify(existing));
+                      setLocalBids(prev => [newBid, ...prev]);
+
+                      // Deduct wallet balance
+                      const currentBalance = Number(localStorage.getItem('dummyWalletBalance') || '50000');
+                      const newBalance = Math.max(0, currentBalance - depositNum);
+                      localStorage.setItem('dummyWalletBalance', newBalance.toString());
+
+                      const existingTx = JSON.parse(localStorage.getItem('dummyWalletTransactions') || '[]');
+                      existingTx.unshift({
+                          id: Date.now().toString(),
+                          type: 'blocked',
+                          amount: depositNum,
+                          date: new Date().toISOString(),
+                          desc: `Bid placed on ${d.title}`,
+                          status: 'completed'
+                      });
+                      localStorage.setItem('dummyWalletTransactions', JSON.stringify(existingTx));
+
+                      // Show success for 3 seconds, then return to idle (the live feed)
+                      setStep('success'); 
+                      setTimeout(() => setStep('idle'), 3000);
+                    }} style={{
                       flex: 2, padding: '13px 0', borderRadius: 10,
                       background: 'var(--hh-w1)', border: 'none',
                       color: '#0C0C0D', fontSize: 13, fontWeight: 700, cursor: 'pointer',
                       display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                     }}>
                       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="17 11 12 6 7 11" /><line x1="12" y1="6" x2="12" y2="18" /></svg>
-                      Confirm — {d.nextBid}
+                      Confirm - {nextBidStr}
                     </button>
                   </div>
                 </>
@@ -516,16 +591,29 @@ export function PromoBidModal({ auctionKey, onClose, walletBalance = 50000 }: { 
           <div className="hh-mr-feed">
             <div className="hh-mrf-header">
               <div className="hh-mrf-l"><LiveDot /> Live Bidding</div>
-              <span className="hh-mrf-r">{d.bids}</span>
+              <span className="hh-mrf-r">{parseAmt(d.bidcount) + localBids.length} bids</span>
             </div>
             <div className="hh-mrf-list">
-              {d.feed.map((f, i) => (
-                <div key={i} className={`hh-mfr${f.top ? ' hh-mfr-top' : ''}`}>
+              {localBids.map((f, i) => (
+                <div key={`loc-${i}`} className={`hh-mfr${i === 0 ? ' hh-mfr-top' : ''}`}>
                   <div className="hh-mfr-av">{f.av}</div>
                   <div className="hh-mfr-info">
                     <div className="hh-mfr-name">
                       {f.name}
-                      {f.top && <span className="hh-mfr-badge">LEADING</span>}
+                      {i === 0 && <span className="hh-mfr-badge">LEADING</span>}
+                    </div>
+                    <div className="hh-mfr-time">Just now</div>
+                  </div>
+                  <div className="hh-mfr-amt">{`₹${f.amt.toLocaleString('en-IN')}`}</div>
+                </div>
+              ))}
+              {d.feed.map((f, i) => (
+                <div key={i} className={`hh-mfr${f.top && localBids.length === 0 ? ' hh-mfr-top' : ''}`}>
+                  <div className="hh-mfr-av">{f.av}</div>
+                  <div className="hh-mfr-info">
+                    <div className="hh-mfr-name">
+                      {f.name}
+                      {f.top && localBids.length === 0 && <span className="hh-mfr-badge">LEADING</span>}
                     </div>
                     <div className="hh-mfr-time">{f.time}</div>
                   </div>

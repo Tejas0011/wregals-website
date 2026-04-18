@@ -25,7 +25,7 @@ export default function CountdownTimer({ endsAt, extended = false }: CountdownTi
 
  const { h, m, s, totalSeconds } = time;
  const isOver = totalSeconds === 0;
- const isCritical = totalSeconds <= 120 && !isOver; // ≤ 2 min — anti-sniping zone
+ const isCritical = totalSeconds <= 120 && !isOver; // ≤ 2 min - anti-sniping zone
  const isWarning = totalSeconds <= 300 && !isCritical && !isOver; // ≤ 5 min
 
  const pad = (n: number) => String(n).padStart(2, '0');

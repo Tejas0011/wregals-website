@@ -143,7 +143,7 @@ export default function Gallery({ user, onSignInClick }: GalleryProps) {
  <span className="text-[10px] font-semibold tracking-wide text-blue-400 mb-3 block">Past Sales</span>
  <h1 className="text-4xl md:text-5xl font-semibold tracking-tight tracking-tight mb-3">The Archive</h1>
  <p className="text-neutral-500 text-sm max-w-lg">
- A curated record of exceptional lots that have passed through WREGALS — watches, art, automobiles, jewellery, and artefacts of historic significance.
+ A curated record of exceptional lots that have passed through WREGALS - watches, art, automobiles, jewellery, and artefacts of historic significance.
  </p>
  </div>
  {/* Category filter */}

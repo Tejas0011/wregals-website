@@ -13,7 +13,7 @@ interface AccountLayoutProps {
 export default function AccountLayout({ children, title }: AccountLayoutProps) {
   return (
     <section className="hh-root">
-      {/* Same 2-column grid as LiveAuctions — LHS sidebar + content */}
+      {/* Same 2-column grid as LiveAuctions - LHS sidebar + content */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: '270px 1fr',
@@ -22,7 +22,7 @@ export default function AccountLayout({ children, title }: AccountLayoutProps) {
         gap: '0',
         alignItems: 'start',
       }}>
-        {/* LHS Sidebar — same as home page */}
+        {/* LHS Sidebar - same as home page */}
         <LeftSidebar />
 
         {/* Main content area */}

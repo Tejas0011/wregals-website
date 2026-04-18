@@ -48,14 +48,14 @@ const RESULTS: ResultLot[] = [
  },
  {
  id: 'r3',
- title: 'Aston Martin DB5 (1964) — James Bond Heritage',
+ title: 'Aston Martin DB5 (1964) - James Bond Heritage',
  lot: '#0993',
  provenance: 'EON Productions Archive',
  category: 'Automobiles',
  image: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=2070&auto=format&fit=crop',
  estimateLow: 60000000,
  estimateHigh: 80000000,
- finalPrice: null, // unsold — reserve not met
+ finalPrice: null, // unsold - reserve not met
  bidCount: 7,
  soldDate: '25 Feb 2026',
  soldAboveEstimate: false,
@@ -261,7 +261,7 @@ export default function AuctionResults({ user, onSignInClick }: AuctionResultsPr
  <p className="text-[9px] font-semibold tracking-wide text-neutral-600 mb-1">Hammer Price</p>
  {sold
  ? <p className={` font-medium ${aboveEst ? 'text-blue-400' : 'text-white'}`}>{fmt(lot.finalPrice!)}</p>
- : <p className="text-neutral-600">—</p>
+ : <p className="text-neutral-600">Not sold</p>
  }
  </div>
  {ratio && (

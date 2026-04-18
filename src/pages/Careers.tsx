@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 const ROLES = [
     {
         id: 1,
-        title: 'Senior Auction Specialist — Fine Art & Jewellery',
+        title: 'Senior Auction Specialist - Fine Art & Jewellery',
         dept: 'Auctions',
         location: 'Mumbai, India',
         type: 'Full-time',
@@ -19,7 +19,7 @@ const ROLES = [
         dept: 'Technology',
         location: 'Remote / Mumbai',
         type: 'Full-time',
-        desc: 'Build and scale the WREGALS platform — real-time bidding engine, wallet infrastructure, and seller tooling. Strong React + Node.js background preferred.',
+        desc: 'Build and scale the WREGALS platform - real-time bidding engine, wallet infrastructure, and seller tooling. Strong React + Node.js background preferred.',
     },
     {
         id: 3,
@@ -91,7 +91,7 @@ export default function Careers({ user, onSignInClick }: CareersProps) {
                     <span className="text-[10px] font-semibold tracking-wide text-blue-400 block mb-4">{ROLES.length} Open Roles</span>
                     <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-6">Build the future<br /><span className="text-neutral-500">of premium auctions.</span></h1>
                     <p className="text-neutral-400 text-base max-w-xl leading-relaxed">
-                        We're a small, focused team redefining how high-value assets change hands in India. If you care about craft, integrity, and building things that last — we'd like to meet you.
+                        We're a small, focused team redefining how high-value assets change hands in India. If you care about craft, integrity, and building things that last - we'd like to meet you.
                     </p>
                 </div>
             </section>
@@ -154,7 +154,7 @@ export default function Careers({ user, onSignInClick }: CareersProps) {
                                 {expanded === role.id && (
                                     <div className="px-6 pb-6 border-t border-white/5 pt-4">
                                         <p className="text-sm text-neutral-400 leading-relaxed mb-5">{role.desc}</p>
-                                        <a href={`mailto:careers@wregals.com?subject=Application — ${role.title}`}
+                                        <a href={`mailto:careers@wregals.com?subject=Application - ${role.title}`}
                                             className="inline-flex items-center gap-2 text-xs font-semibold tracking-wide px-5 py-2.5 bg-white text-black font-semibold hover:bg-neutral-200 transition-colors">
                                             Apply for This Role
                                             <IIcon icon="solar:arrow-right-linear" width="13" />

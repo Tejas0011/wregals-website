@@ -2,6 +2,7 @@
 import { useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import IIcon from '../components/IIcon';
+import { supabase } from '../lib/supabase';
 
 const CATEGORIES = [
  { id: 'sports', name: 'Sports', color: '#3B82F6' },
@@ -238,74 +239,127 @@ function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean
 }
 
 export default function CreateListing({ user }: { user: any }) {
- const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
- const [form, setForm] = useState<FormData>({
- photos: [],
- title: '',
- category: '',
- condition: '',
- description: '',
- celebrity: '',
- hasCert: false,
- certDetails: '',
- startingBid: '',
- bidIncrement: '500',
- hasReserve: false,
- reservePrice: '',
- startDate: new Date().toISOString().slice(0, 10),
- startTime: '12:00',
- durationHours: '',
- isCharity: false,
- ngoName: '',
- ngoRegNumber: '',
- charityPercent: 50,
- causeTag: '',
- });
+  const [form, setForm] = useState<FormData>({
+    photos: [],
+    title: '',
+    category: '',
+    condition: '',
+    description: '',
+    celebrity: '',
+    hasCert: false,
+    certDetails: '',
+    startingBid: '',
+    bidIncrement: '500',
+    hasReserve: false,
+    reservePrice: '',
+    startDate: new Date().toISOString().slice(0, 10),
+    startTime: '12:00',
+    durationHours: '',
+    isCharity: false,
+    ngoName: '',
+    ngoRegNumber: '',
+    charityPercent: 50,
+    causeTag: '',
+  });
 
- const [celebFocused, setCelebFocused] = useState(false);
- const filteredCelebs = form.celebrity.trim()
- ? POPULAR_CELEBS.filter(c => 
- (c.name.toLowerCase().includes(form.celebrity.toLowerCase()) || 
- c.username.toLowerCase().includes(form.celebrity.toLowerCase())) && 
- c.username.toLowerCase() !== form.celebrity.toLowerCase()
- )
- : [];
+  const [celebFocused, setCelebFocused] = useState(false);
+  const filteredCelebs = form.celebrity.trim()
+    ? POPULAR_CELEBS.filter(c => 
+        (c.name.toLowerCase().includes(form.celebrity.toLowerCase()) || 
+         c.username.toLowerCase().includes(form.celebrity.toLowerCase())) && 
+         c.username.toLowerCase() !== form.celebrity.toLowerCase()
+      )
+    : [];
 
- const set = (key: keyof FormData) => (val: any) => setForm(f => ({ ...f, [key]: val }));
- const setVal = (key: keyof FormData) => (e: any) => set(key)(e.target.value);
+  const set = (key: keyof FormData) => (val: any) => setForm(f => ({ ...f, [key]: val }));
+  const setVal = (key: keyof FormData) => (e: any) => set(key)(e.target.value);
 
- // Compute end date from startDate + startTime + durationHours
- const computedEndDate = (() => {
- if (!form.startDate || !form.startTime || !form.durationHours || Number(form.durationHours) <= 0) return null;
- const d = new Date(`${form.startDate}T${form.startTime}`);
- if (isNaN(d.getTime())) return null;
- d.setHours(d.getHours() + Math.min(Number(form.durationHours), 96));
- return d;
- })();
+  // Compute end date from startDate + startTime + durationHours
+  const computedEndDate = (() => {
+    if (!form.startDate || !form.startTime || !form.durationHours || Number(form.durationHours) <= 0) return null;
+    const d = new Date(`${form.startDate}T${form.startTime}`);
+    if (isNaN(d.getTime())) return null;
+    d.setHours(d.getHours() + Math.min(Number(form.durationHours), 96));
+    return d;
+  })();
 
- const validate = () => {
- const baseValid = form.photos.length > 0 && form.title.trim() && form.category && form.condition && form.celebrity.trim()
- && form.startingBid && Number(form.startingBid) > 0 && form.startDate && form.startTime && form.durationHours && Number(form.durationHours) > 0 && Number(form.durationHours) <= 96;
- 
- if (form.hasCert && !form.certDetails.trim()) return false;
- if (form.isCharity && (!form.ngoName.trim() || !form.causeTag)) return false;
- return !!baseValid;
- };
+  const validate = () => {
+    const baseValid = form.photos.length > 0 && form.title.trim() && form.category && form.condition && form.celebrity.trim()
+      && form.startingBid && Number(form.startingBid) > 0 && form.startDate && form.startTime && form.durationHours && Number(form.durationHours) > 0 && Number(form.durationHours) <= 96;
+    
+    if (form.hasCert && !form.certDetails.trim()) return false;
+    if (form.isCharity && (!form.ngoName.trim() || !form.causeTag)) return false;
+    return !!baseValid;
+  };
 
- const handlePublish = () => {
- if (!validate()) {
- alert('Please fill in all required fields (photos, title, category, condition, starting bid, end date).');
- return;
- }
- alert('Listing published! (Backend integration pending)');
- navigate('/seller/dashboard');
- };
+  const uploadPhotos = async (): Promise<string[]> => {
+    const urls: string[] = [];
+    for (const file of form.photos) {
+      const ext = file.name.split('.').pop();
+      const fileName = `${user.id}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+      const { error } = await supabase.storage
+        .from('listing-images')
+        .upload(fileName, file, { upsert: false });
+      if (error) throw new Error(`Photo upload failed: ${error.message}`);
+      const { data: urlData } = supabase.storage
+        .from('listing-images')
+        .getPublicUrl(fileName);
+      urls.push(urlData.publicUrl);
+    }
+    return urls;
+  };
 
- const handleDraft = () => {
- alert('Saved as draft! (Backend integration pending)');
- navigate('/seller/dashboard');
- };
+  const submitListing = async (status: 'live' | 'draft') => {
+    if (status === 'live' && !validate()) {
+      setSubmitError('Please fill in all required fields (photos, title, category, condition, starting bid, end date).');
+      return;
+    }
+    if (!user) {
+      setSubmitError('You must be signed in to create a listing.');
+      return;
+    }
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      const imageUrls = form.photos.length > 0 ? await uploadPhotos() : [];
+      const startsAt = form.startDate && form.startTime
+        ? new Date(`${form.startDate}T${form.startTime}`).toISOString()
+        : new Date().toISOString();
+      const endsAt = computedEndDate ? computedEndDate.toISOString() : null;
+
+      const { error } = await supabase.from('listings').insert({
+        seller_id: user.id,
+        title: form.title.trim(),
+        description: form.description.trim(),
+        category: form.category,
+        condition: form.condition,
+        celebrity: form.celebrity.trim(),
+        images: imageUrls,
+        starting_bid: Number(form.startingBid),
+        current_bid: Number(form.startingBid),
+        bid_increment: Number(form.bidIncrement) || 500,
+        reserve_price: form.hasReserve && form.reservePrice ? Number(form.reservePrice) : null,
+        starts_at: startsAt,
+        ends_at: endsAt,
+        status,
+        has_cert: form.hasCert,
+        cert_details: form.hasCert ? form.certDetails.trim() : null,
+      });
+      if (error) throw new Error(error.message);
+      navigate('/seller/dashboard');
+    } catch (e: any) {
+      setSubmitError(e.message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handlePublish = () => submitListing('live');
+  const handleDraft = () => submitListing('draft');
 
  return (
  <div className="pt-24 pb-24 px-6 max-w-[860px] mx-auto text-white min-h-screen">
@@ -329,7 +383,7 @@ export default function CreateListing({ user }: { user: any }) {
  {/* ── Listing Type Toggle ── */}
  <SectionCard title="Listing Type" icon="solar:tag-price-bold">
  <div className="grid grid-cols-2 gap-3">
- {/* Standard Auction — active */}
+ {/* Standard Auction - active */}
  <button
  type="button"
  onClick={() => set('isCharity')(false)}
@@ -340,7 +394,7 @@ export default function CreateListing({ user }: { user: any }) {
  <div className="text-[11px] font-light leading-relaxed opacity-80">Seller keeps all proceeds after platform fee.</div>
  </button>
 
- {/* Charity Auction — Coming Soon */}
+ {/* Charity Auction - Coming Soon */}
  <div className="relative">
  <div className="text-left px-5 py-4 rounded-sm border border-white/5 bg-white/[0.02] text-neutral-600 opacity-50 select-none cursor-not-allowed">
  <div className="text-xl mb-2">♥</div>
@@ -375,7 +429,7 @@ export default function CreateListing({ user }: { user: any }) {
  <Input
  value={form.title}
  onChange={setVal('title')}
- placeholder="e.g. Match-Worn 2023 World Cup Jersey — Signed"
+ placeholder="e.g. Match-Worn 2023 World Cup Jersey - Signed"
  maxLength={120}
  />
  <p className="text-[10px] text-neutral-600 mt-1.5">{form.title.length}/120 characters</p>
@@ -443,7 +497,7 @@ export default function CreateListing({ user }: { user: any }) {
  rows={5}
  value={form.description}
  onChange={setVal('description')}
- placeholder="Describe the item — its history, significance, condition, and any notable details that make it special…"
+ placeholder="Describe the item - its history, significance, condition, and any notable details that make it special…"
  />
  </div>
  </div>
@@ -582,7 +636,7 @@ export default function CreateListing({ user }: { user: any }) {
  <div className="flex items-center justify-between mb-4">
  <div>
  <p className="text-sm text-neutral-300 font-light">Reserve Price</p>
- <p className="text-[11px] text-neutral-600 mt-0.5">Hidden minimum — item only sells if this is reached</p>
+ <p className="text-[11px] text-neutral-600 mt-0.5">Hidden minimum - item only sells if this is reached</p>
  </div>
  <Toggle checked={form.hasReserve} onChange={set('hasReserve')} />
  </div>
@@ -700,22 +754,22 @@ export default function CreateListing({ user }: { user: any }) {
  <SectionCard title="Listing Summary" icon="solar:document-text-bold">
  <div className="space-y-3">
  {[
- { label: 'Title', val: form.title || '—' },
- { label: 'Category', val: CATEGORIES.find(c => c.id === form.category)?.name || '—' },
- { label: 'Condition', val: CONDITIONS.find(c => c.id === form.condition)?.label || '—' },
- { label: 'Celebrity', val: form.celebrity || '—' },
- { label: 'Starting Bid', val: form.startingBid ? `₹${Number(form.startingBid).toLocaleString('en-IN')}` : '—' },
- { label: 'Bid Increment', val: form.bidIncrement ? `₹${Number(form.bidIncrement).toLocaleString('en-IN')}` : '—' },
+ { label: 'Title', val: form.title || 'not set' },
+ { label: 'Category', val: CATEGORIES.find(c => c.id === form.category)?.name || 'not set' },
+ { label: 'Condition', val: CONDITIONS.find(c => c.id === form.condition)?.label || 'not set' },
+ { label: 'Celebrity', val: form.celebrity || 'not set' },
+ { label: 'Starting Bid', val: form.startingBid ? `₹${Number(form.startingBid).toLocaleString('en-IN')}` : 'not set' },
+ { label: 'Bid Increment', val: form.bidIncrement ? `₹${Number(form.bidIncrement).toLocaleString('en-IN')}` : 'not set' },
  { label: 'Reserve Price', val: form.hasReserve && form.reservePrice ? `₹${Number(form.reservePrice).toLocaleString('en-IN')}` : 'None' },
- { label: 'Starts', val: form.startDate && form.startTime ? new Date(`${form.startDate}T${form.startTime}`).toLocaleString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—' },
- { label: 'Duration', val: form.durationHours ? `${Math.min(Number(form.durationHours), 96)} ${Number(form.durationHours) === 1 ? 'hour' : 'hours'}` : '—' },
- { label: 'Closes', val: computedEndDate ? computedEndDate.toLocaleString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—' },
+ { label: 'Starts', val: form.startDate && form.startTime ? new Date(`${form.startDate}T${form.startTime}`).toLocaleString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'not set' },
+ { label: 'Duration', val: form.durationHours ? `${Math.min(Number(form.durationHours), 96)} ${Number(form.durationHours) === 1 ? 'hour' : 'hours'}` : 'not set' },
+ { label: 'Closes', val: computedEndDate ? computedEndDate.toLocaleString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'not set' },
  { label: 'Photos', val: `${form.photos.length} uploaded` },
  { label: 'COA', val: form.hasCert ? 'Yes' : 'No' },
  ...(form.isCharity ? [
- { label: 'Type', val: '♥ Charity Auction' },
- { label: 'NGO', val: form.ngoName || '—' },
- { label: 'Cause', val: form.causeTag || '—' },
+ { label: 'Type', val: 'Charity Auction' },
+ { label: 'NGO', val: form.ngoName || 'not set' },
+ { label: 'Cause', val: form.causeTag || 'not set' },
  { label: 'Charity %', val: `${form.charityPercent}% of winning bid` },
  ] : [
  { label: 'Type', val: 'Standard Auction' },
@@ -730,23 +784,32 @@ export default function CreateListing({ user }: { user: any }) {
  </SectionCard>
  )}
 
+ {/* ── Error message ── */}
+ {submitError && (
+ <div className="bg-red-500/10 border border-red-500/30 rounded-sm px-4 py-3 text-sm text-red-400">
+ {submitError}
+ </div>
+ )}
+
  {/* ── Action Buttons ── */}
  <div className="flex flex-col sm:flex-row gap-3 pt-2">
  <button
  type="button"
  onClick={handleDraft}
- className="flex-1 border border-white/15 text-neutral-300 px-6 py-3.5 text-[11px] font-semibold tracking-wide font-semibold hover:bg-white/5 hover:text-white transition-all rounded-sm flex items-center justify-center gap-2"
+ disabled={submitting}
+ className="flex-1 border border-white/15 text-neutral-300 px-6 py-3.5 text-[11px] font-semibold tracking-wide hover:bg-white/5 hover:text-white transition-all rounded-sm flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
  >
  <IIcon icon="solar:diskette-linear" width="16" />
- Save as Draft
+ {submitting ? 'Saving...' : 'Save as Draft'}
  </button>
  <button
  type="button"
  onClick={handlePublish}
- className="flex-1 bg-white text-black px-6 py-3.5 text-[11px] font-semibold tracking-wide font-bold hover:bg-neutral-100 transition-all rounded-sm flex items-center justify-center gap-2"
+ disabled={submitting}
+ className="flex-1 bg-white text-black px-6 py-3.5 text-[11px] font-semibold tracking-wide font-bold hover:bg-neutral-100 transition-all rounded-sm flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
  >
  <IIcon icon="solar:rocket-linear" width="16" />
- Publish Listing
+ {submitting ? 'Publishing...' : 'Publish Listing'}
  </button>
  </div>
 

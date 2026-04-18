@@ -45,33 +45,13 @@ const API_BASE = typeof window !== 'undefined' && import.meta.env.PROD
     : 'http://localhost:5173';
 
 async function sendOtp(mobile: string): Promise<{ success: boolean; error?: string }> {
-    try {
-        const res = await fetch(`${API_BASE}/api/msg91/send-otp`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ mobile }),
-        });
-        const data = await res.json();
-        if (!res.ok) return { success: false, error: data.error || 'Failed to send OTP.' };
-        return { success: true };
-    } catch {
-        return { success: false, error: 'Network error. Please try again.' };
-    }
+    // DUMMY MVP Bypass
+    return new Promise(r => setTimeout(() => r({ success: true }), 500));
 }
 
 async function verifyOtp(mobile: string, otp: string, userId?: string): Promise<{ success: boolean; error?: string }> {
-    try {
-        const res = await fetch(`${API_BASE}/api/msg91/verify-otp`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ mobile, otp, userId }),
-        });
-        const data = await res.json();
-        if (!res.ok) return { success: false, error: data.error || 'OTP verification failed.' };
-        return { success: true };
-    } catch {
-        return { success: false, error: 'Network error. Please try again.' };
-    }
+    // DUMMY MVP Bypass
+    return new Promise(r => setTimeout(() => r({ success: true }), 500));
 }
 
 // ── Sub-components ────────────────────────────────────────────────────────────
@@ -260,7 +240,7 @@ function PhoneOtpStep({
                     </div>
                 </div>
 
-                {/* OTP input — appears after OTP is sent */}
+                {/* OTP input - appears after OTP is sent */}
                 {otpSent && (
                     <div className="auth-input-group auth-otp-group">
                         <label className="auth-label">Enter OTP</label>
@@ -383,7 +363,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         } else if (data?.user) {
             // Upsert base record
             await upsertUserRecord(data.user);
-            // Close modal — the global App.tsx Gatekeeper will prompt for phone verification if needed
+            // Close modal - the global App.tsx Gatekeeper will prompt for phone verification if needed
             setMessage(null);
             onClose();
         }

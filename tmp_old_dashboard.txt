@@ -1,0 +1,743 @@
+// @ts-nocheck
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+ ResponsiveContainer, LineChart, Line, AreaChart, Area,
+ BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid,
+ PieChart, Pie, Cell, RadarChart, Radar, PolarGrid,
+ PolarAngleAxis, Legend, RadialBarChart, RadialBar
+} from 'recharts';
+import IIcon from '../components/IIcon';
+
+interface SellerDashboardProps {
+ user: any;
+}
+
+// ΓöÇΓöÇ Mock Data ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+const weeklyData = [
+ { day: 'Mon', bids: 12, revenue: 15000, views: 320, watchers: 85 },
+ { day: 'Tue', bids: 19, revenue: 25000, views: 410, watchers: 110 },
+ { day: 'Wed', bids: 30, revenue: 45000, views: 530, watchers: 160 },
+ { day: 'Thu', bids: 25, revenue: 38000, views: 490, watchers: 140 },
+ { day: 'Fri', bids: 40, revenue: 70000, views: 720, watchers: 230 },
+ { day: 'Sat', bids: 55, revenue: 105000, views: 890, watchers: 310 },
+ { day: 'Sun', bids: 60, revenue: 120000, views: 960, watchers: 340 },
+];
+
+const monthlyData = [
+ { month: 'Oct', earnings: 45000, listings: 3 },
+ { month: 'Nov', earnings: 82000, listings: 5 },
+ { month: 'Dec', earnings: 135000, listings: 7 },
+ { month: 'Jan', earnings: 98000, listings: 6 },
+ { month: 'Feb', earnings: 175000, listings: 9 },
+ { month: 'Mar', earnings: 475000, listings: 14 },
+];
+
+const categoryData = [
+ { name: 'Sports', value: 48, color: '#3b82f6' },
+ { name: 'Cinema', value: 22, color: '#4ade80' },
+ { name: 'Music', value: 15, color: '#60a5fa' },
+ { name: 'Art', value: 10, color: '#f472b6' },
+ { name: 'Rare Media', value: 5, color: '#fb923c' },
+];
+
+const healthRadarData = [
+ { subject: 'Listing Quality', score: 88, fullMark: 100 },
+ { subject: 'Engagement', score: 75, fullMark: 100 },
+ { subject: 'Response Time', score: 92, fullMark: 100 },
+ { subject: 'Promotion Strategy', score: 85, fullMark: 100 },
+ { subject: 'Buyer Rating', score: 82, fullMark: 100 },
+];
+
+const promotionEngagementData = [
+ { day: 'Mon', ribbon: 120, popup: 45, organic: 180 },
+ { day: 'Tue', ribbon: 250, popup: 85, organic: 210 },
+ { day: 'Wed', ribbon: 340, popup: 110, organic: 270 },
+ { day: 'Thu', ribbon: 280, popup: 95, organic: 240 },
+ { day: 'Fri', ribbon: 420, popup: 180, organic: 320 },
+ { day: 'Sat', ribbon: 550, popup: 220, organic: 410 },
+ { day: 'Sun', ribbon: 610, popup: 260, organic: 480 },
+];
+
+const monthlyPromoData = [
+ { month: 'Oct', impressions: 12000, clicks: 890, ribbon: 7200, popup: 4800 },
+ { month: 'Nov', impressions: 18500, clicks: 1340, ribbon: 11000, popup: 7500 },
+ { month: 'Dec', impressions: 24000, clicks: 2100, ribbon: 14000, popup: 10000 },
+ { month: 'Jan', impressions: 19500, clicks: 1720, ribbon: 11800, popup: 7700 },
+ { month: 'Feb', impressions: 32000, clicks: 2900, ribbon: 19000, popup: 13000 },
+ { month: 'Mar', impressions: 47500, clicks: 4400, ribbon: 28000, popup: 19500 },
+];
+
+const activePromotions = [
+ { item: 'Match-Worn 2023 World Cup Jersey ΓÇö Kohli Signed', type: 'Promotion Ribbon', impressions: 15400, clicks: 1240, ctr: '8.1%' },
+ { item: 'Vintage Boxing Gloves ΓÇö Ali Era Autographed', type: 'Login Popup', impressions: 8200, clicks: 450, ctr: '5.5%' },
+];
+
+const bidFunnel = [
+ { stage: 'Listing 1', views: 960, watchers: 340, bidders: 68, winner: 1 },
+ { stage: 'Listing 2', views: 640, watchers: 210, bidders: 45, winner: 1 },
+ { stage: 'Listing 3', views: 420, watchers: 145, bidders: 28, winner: 1 },
+ { stage: 'Listing 4', views: 280, watchers: 88, bidders: 15, winner: 1 },
+];
+
+const topListings = [
+ { id: 's1', name: 'Match-Worn 2023 World Cup Jersey ΓÇö Kohli', bids: 132, highestBid: 350000, conversion: '96%', status: 'Ended', category: 'Sports' },
+ { id: 's2', name: 'Match-Worn 2023 World Cup Jersey ΓÇö Kohli Signed', bids: 45, highestBid: 125000, conversion: '82%', status: 'Live', category: 'Sports' },
+ { id: 's3', name: 'Vintage Boxing Gloves ΓÇö Ali Era Autographed', bids: 78, highestBid: 280000, conversion: '89%', status: 'Ended', category: 'Sports' },
+ { id: 's4', name: 'Original Screenplay ΓÇö"Mughal-e-Azam" (1960)', bids: 52, highestBid: 195000, conversion: '74%', status: 'Ended', category: 'Cinema' },
+ { id: 's5', name: 'Signed Guitar ΓÇö AR Rahman World Tour', bids: 34, highestBid: 88000, conversion: '68%', status: 'Ended', category: 'Music' },
+];
+
+const activityFeed = [
+ { time: '2m ago', event: 'New bid placed', item: 'Match-Worn 2023 Jersey', amount: 'Γé╣1,29,000', user: 'R.M***', icon: 'solar:hand-money-linear', color: '#3b82f6' },
+ { time: '5m ago', event: 'Listing viewed', item: 'Signed Guitar ΓÇö AR Rahman', amount: null, user: 'Anon', icon: 'solar:eye-linear', color: '#60a5fa' },
+ { time: '11m ago', event: 'Bid outbid', item: 'Match-Worn 2023 Jersey', amount: 'Γé╣1,25,000', user: 'P.K***', icon: 'solar:arrow-up-linear', color: '#4ade80' },
+ { time: '18m ago', event: 'Watchlist added', item: 'Original Screenplay', amount: null, user: 'S.V***', icon: 'solar:bookmark-linear', color: '#a78bfa' },
+ { time: '32m ago', event: 'New bid placed', item: 'Original Screenplay', amount: 'Γé╣1,98,000', user: 'T.N***', icon: 'solar:hand-money-linear', color: '#3b82f6' },
+ { time: '1h ago', event: 'New bid placed', item: 'Vintage Boxing Gloves', amount: 'Γé╣2,80,000', user: 'M.S***', icon: 'solar:hand-money-linear', color: '#3b82f6' },
+];
+
+// 7├ù5 heatmap grid: rows = Mon-Sun, cols = weeks 1-5
+const heatmapData = [
+ [4, 12, 8, 20, 3],
+ [7, 15, 22, 34, 8],
+ [12, 25, 40, 55, 15],
+ [9, 18, 32, 45, 11],
+ [15, 28, 48, 62, 20],
+ [22, 35, 55, 75, 28],
+ [18, 30, 50, 68, 24],
+];
+const heatmapDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const heatmapWeeks = ['W1', 'W2', 'W3', 'W4', 'W5'];
+
+const mockListings = [
+ { id: 's1', item_name: 'Match-Worn 2023 World Cup Jersey ΓÇö Kohli Signed', current_bid: 125000, end_time: new Date(Date.now() + 1000 * 60 * 60 * 48).toISOString(), status: 'Live', image_url: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=800&auto=format&fit=crop', unique_bidders: 24, bids_placed: 45 },
+ { id: 's2', item_name: 'Custom Signature Bat ΓÇö Final Over', current_bid: 0, end_time: null, status: 'Draft', image_url: 'https://images.unsplash.com/photo-1518005020951-eccb494ad742?q=80&w=800&auto=format&fit=crop', unique_bidders: 0, bids_placed: 0 },
+ { id: 's3', item_name: 'Vintage Boxing Gloves ΓÇö Ali Era Autographed', current_bid: 350000, end_time: new Date(Date.now() - 1000 * 60 * 60 * 12).toISOString(), status: 'Ended', image_url: 'https://images.unsplash.com/photo-1517466787929-bc90951d0974?q=80&w=800&auto=format&fit=crop', unique_bidders: 68, bids_placed: 132 }
+];
+
+// ΓöÇΓöÇ Helpers ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+function fmt(n: number) { return 'Γé╣' + n.toLocaleString('en-IN'); }
+
+function heatColor(val: number, max = 75) {
+ const ratio = val / max;
+ if (ratio < 0.15) return 'rgba(59, 130, 246, 0.1)';
+ if (ratio < 0.35) return 'rgba(59, 130, 246, 0.3)';
+ if (ratio < 0.55) return 'rgba(59, 130, 246, 0.5)';
+ if (ratio < 0.75) return 'rgba(59, 130, 246, 0.7)';
+ return 'rgba(59, 130, 246, 1)';
+}
+
+const CHART_TOOLTIP_STYLE = {
+ contentStyle: { backgroundColor: '#0a0a0a', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '6px', fontSize: 12 },
+ itemStyle: { color: '#ffffff' },
+ labelStyle: { color: 'rgba(255,255,255,0.5)', fontSize: 11 },
+};
+
+// ΓöÇΓöÇ Sub-Components ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+function KpiCard({ icon, label, value, sub, iconColor = 'text-blue-400', trend = null, onClick }: any) {
+ return (
+ <div
+ onClick={onClick}
+ className="bg-[#0d0d0d] border border-white/5 p-5 flex flex-col rounded-sm hover:border-white/15 transition-all group cursor-pointer h-full relative"
+ >
+ {trend !== null && (
+ <span className={`absolute top-5 right-5 text-[10px] font-semibold tracking-wider px-2 py-0.5 rounded ${trend >= 0 ? 'text-green-400 bg-green-400/10' : 'text-red-400 bg-red-400/10'}`}>
+ {trend >= 0 ? '+' : ''}{trend}%
+ </span>
+ )}
+ 
+ <p className="text-white text-xs font-semibold uppercase tracking-wider mb-2 pr-10">{label}</p>
+ <h3 className="text-2xl font-semibold tracking-tight text-white mb-1">{value}</h3>
+ {sub && <p className="text-[11px] text-neutral-500">{sub}</p>}
+ 
+ <div className="mt-auto pt-4">
+ <p className="text-[9px] text-neutral-600 tracking-widest uppercase group-hover:text-white inline-flex items-center gap-1 transition-colors">
+ Tap to learn more <span className="text-current group-hover:translate-x-1 transition-transform">ΓÇ║</span>
+ </p>
+ </div>
+ </div>
+ );
+}
+
+function KpiDetailPanel({ metric, onClose }: { metric: { label: string; definition: string; formula: string; tip: string } | null; onClose: () => void }) {
+ if (!metric) return null;
+ return (
+ <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200" onClick={onClose}>
+ <div 
+ className="w-full max-w-xl bg-[#0d0d0d] border border-white/10 rounded-sm p-6 relative shadow-2xl animate-in zoom-in-95 duration-200"
+ onClick={e => e.stopPropagation()}
+ >
+ <button
+ onClick={onClose}
+ className="absolute top-4 right-4 text-neutral-600 hover:text-white transition-colors text-lg leading-none"
+ >Γ£ò</button>
+ <div className="flex items-center gap-2 mb-3">
+ <span className="w-2 h-2 bg-blue-500 rounded-full" />
+ <p className="text-xs font-semibold text-white">{metric.label}</p>
+ </div>
+ <p className="text-sm text-neutral-300 font-light leading-relaxed mb-4">{metric.definition}</p>
+ <div className="flex flex-col sm:flex-row gap-4">
+ <div className="flex-1 bg-white/[0.03] border border-white/5 rounded-sm px-4 py-3">
+ <p className="text-[9px] tracking-widest uppercase text-neutral-600 mb-1">Formula</p>
+ <p className="text-xs text-neutral-300">{metric.formula}</p>
+ </div>
+ <div className="flex-1 bg-blue-500/5 border border-blue-500/20 rounded-sm px-4 py-3">
+ <p className="text-[9px] tracking-widest uppercase text-neutral-600 mb-1 flex items-center gap-1.5">
+ <span className="w-1.5 h-1.5 rounded-sm bg-blue-400" /> PRO TIP
+ </p>
+ <p className="text-xs text-neutral-300 font-light">{metric.tip}</p>
+ </div>
+ </div>
+ </div>
+ </div>
+ );
+}
+
+function SectionTitle({ children }: any) {
+ return (
+ <div className="flex items-center gap-2 mb-6">
+ <h2 className="text-sm font-semibold text-white">{children}</h2>
+ </div>
+ );
+}
+
+// ΓöÇΓöÇ Custom Tooltip ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+const CustomTooltip = ({ active, payload, label, prefix = '', suffix = '' }: any) => {
+ if (active && payload && payload.length) {
+ return (
+ <div className="bg-[#0a0a0a] border border-white/10 rounded px-3 py-2 text-xs">
+ <p className="text-neutral-400 mb-1">{label}</p>
+ {payload.map((p: any, i: number) => (
+ <p key={i} className="text-white flex items-center gap-1.5">
+ <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: p.color !== '#3b82f6' ? p.color : '#3b82f6' }} />
+ {p.name}: <span className="font-semibold text-white">{prefix}{typeof p.value === 'number' ? p.value.toLocaleString('en-IN') : p.value}{suffix}</span>
+ </p>
+ ))}
+ </div>
+ );
+ }
+ return null;
+};
+
+// ΓöÇΓöÇ Main Component ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+export default function SellerDashboard({ user }: SellerDashboardProps) {
+ const navigate = useNavigate();
+ const [activeTab, setActiveTab] = useState<'analytics' | 'listings'>('analytics');
+ const [feedIndex, setFeedIndex] = useState(0);
+ const [isPromoteModalOpen, setIsPromoteModalOpen] = useState(false);
+ const [selectedPromoListing, setSelectedPromoListing] = useState<string | null>(null);
+ const [selectedPromoType, setSelectedPromoType] = useState<string | null>(null);
+ const [activeKpi, setActiveKpi] = useState<{ label: string; definition: string; formula: string; tip: string } | null>(null);
+
+ const kpiDefs: Record<string, { label: string; definition: string; formula: string; tip: string }> = {
+ 'Total Earned': {
+ label: 'Total Earned',
+ definition: 'The total net amount credited to your seller account after all auction settlements, excluding Wregals platform fees.',
+ formula: 'Sum of all winning bids ΓêÆ Platform fee',
+ tip: 'Higher reserve prices and better-quality provenance photos consistently result in higher final bids.',
+ },
+ 'Total Listings': {
+ label: 'Total Listings',
+ definition: 'The total number of auction listings created under your account across all statuses ΓÇö Live, Ended, and Draft.',
+ formula: 'Live + Ended + Draft listings',
+ tip: 'Sellers with 10+ listings on average see 40% more returning bidders.',
+ },
+ 'Total Bidders': {
+ label: 'Total Bidders',
+ definition: 'The count of unique registered users who have placed at least one bid on any of your listings.',
+ formula: 'Unique bidder accounts across all listings',
+ tip: 'Engaging with watchers via Promotion Ribbon can convert them into active bidders.',
+ },
+ 'Avg. Time-to-Sell': {
+ label: 'Avg. Time-to-Sell',
+ definition: 'The average number of days from when a listing goes live to when it closes with a winning bid.',
+ formula: 'Sum of (end date ΓêÆ start date) for all sold listings ├╖ number of sold listings',
+ tip: 'Auctions ending on Saturday evenings historically attract the highest bid counts.',
+ },
+ 'Return Rate': {
+ label: 'Return Rate',
+ definition: 'The percentage of your completed auctions that resulted in a dispute, cancellation, or non-payment from the winning bidder.',
+ formula: '(Disputed / cancelled auctions ├╖ Total closed auctions) ├ù 100',
+ tip: 'A 0% return rate boosts your Seller Trust Score, making your listings rank higher in search.',
+ },
+ 'Avg. Bid Increment': {
+ label: 'Avg. Bid Increment',
+ definition: 'The average amount by which each successive bid exceeds the previous one across all your auctions.',
+ formula: 'Total bid value increase across all bids ├╖ Total number of bids placed',
+ tip: 'A higher average increment signals strong competitive interest ΓÇö great for future pricing strategy.',
+ },
+ 'Active Promotions': {
+ label: 'Active Promotions',
+ definition: 'The number of promotion campaigns currently running for your listings, including Ribbon and Login Popup types.',
+ formula: 'Count of promotions with status = Active',
+ tip: 'Running both Ribbon and Popup simultaneously gives a 2.3├ù higher impression rate than either alone.',
+ },
+ 'Total Impressions': {
+ label: 'Total Impressions',
+ definition: 'The total number of times your promoted listings were displayed to users this week ΓÇö from both the Ribbon and Login Popup channels.',
+ formula: 'Ribbon impressions + Popup impressions',
+ tip: 'Impressions above 20K/week correlate strongly with a 30%+ increase in new bidder sign-ups.',
+ },
+ 'Promo Clicks': {
+ label: 'Promo Clicks',
+ definition: 'The total number of times users clicked on your promoted listing from either the Promotion Ribbon or Login Popup to view your auction.',
+ formula: 'Ribbon clicks + Popup clicks',
+ tip: 'Titles under 60 characters with the celebrity name upfront see 2├ù higher click-through rates.',
+ },
+ 'Avg. Promo CTR': {
+ label: 'Avg. Promo CTR',
+ definition: 'Click-Through Rate ΓÇö the percentage of impressions that resulted in a click on your promoted listing.',
+ formula: '(Total promo clicks ├╖ Total impressions) ├ù 100',
+ tip: 'A CTR above 5% is considered excellent. Refresh your promotion creative every 10 days to avoid fatigue.',
+ },
+ };
+
+ const handleKpiClick = (label: string) => {
+ const def = kpiDefs[label];
+ if (!def) return;
+ setActiveKpi(prev => prev?.label === label ? null : def);
+ };
+
+ // Animate activity feed
+ useEffect(() => {
+ const timer = setInterval(() => {
+ setFeedIndex(i => (i + 1) % activityFeed.length);
+ }, 3500);
+ return () => clearInterval(timer);
+ }, []);
+
+ const healthScore = Math.round(healthRadarData.reduce((a, b) => a + b.score, 0) / healthRadarData.length);
+
+ return (
+ <div className="pt-24 pb-20 px-6 max-w-[1400px] mx-auto text-white min-h-screen">
+
+ {/* ΓöÇΓöÇ Header ΓöÇΓöÇ */}
+ <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
+ <div>
+ <h1 className="text-3xl font-bold mb-1 tracking-tight">Dashboard</h1>
+ <p className="text-neutral-500 text-sm">
+ Welcome back, <span className="text-neutral-300">{user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Seller'}</span>
+ </p>
+ <div className="flex items-center gap-2 mt-2">
+ <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+ <span className="text-xs font-medium text-green-500">Live data</span>
+ </div>
+ </div>
+ <div className="flex flex-col sm:flex-row gap-3 self-start md:self-auto">
+ <button
+ onClick={() => setIsPromoteModalOpen(true)}
+ className="border border-white/20 text-white px-6 py-2.5 text-xs font-semibold hover:bg-white/5 transition-colors flex items-center justify-center gap-2 rounded-sm shadow-sm">
+ <IIcon icon="solar:star-fall-linear" width="16" />
+ Promote Listing
+ </button>
+ <button
+ onClick={() => navigate('/seller/create-listing')}
+ className="bg-white text-black px-6 py-2.5 text-xs font-semibold hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2 rounded-sm shadow-sm">
+ <IIcon icon="solar:add-square-linear" width="16" />
+ Create Listing
+ </button>
+ </div>
+ </div>
+
+ {/* ΓöÇΓöÇ Tabs ΓöÇΓöÇ */}
+ <div className="flex border-b border-white/10 mb-10 gap-8">
+ {(['analytics', 'listings'] as const).map(tab => (
+ <button
+ key={tab}
+ onClick={() => setActiveTab(tab)}
+ className={`pb-3 text-xs font-semibold transition-colors ${activeTab === tab ? 'border-b-2 border-white text-white' : 'text-neutral-500 hover:text-neutral-300'}`}
+ >
+ {tab === 'analytics' ? 'Overview & Analytics' : 'My Listings'}
+ </button>
+ ))}
+ </div>
+
+ {/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ ANALYTICS TAB ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ */}
+ {activeTab === 'analytics' && (
+ <div className="space-y-10">
+
+ {/* ΓöÇΓöÇ Section 1: KPI Row (6 cards ΓåÆ 2 rows of 3) ΓöÇΓöÇ */}
+ <div>
+ <SectionTitle>Key Metrics</SectionTitle>
+ <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+ <KpiCard icon="solar:wallet-money-linear" label="Total Earned" value="Γé╣4,75,000" sub="Net of Wregals commission" iconColor="text-green-400" trend={18} onClick={() => handleKpiClick('Total Earned')} />
+ <KpiCard icon="solar:tag-horizontal-linear" label="Total Listings" value="24" sub="4 Live ┬╖ 18 Ended ┬╖ 2 Drafts" iconColor="text-blue-400" trend={4} onClick={() => handleKpiClick('Total Listings')} />
+ <KpiCard icon="solar:users-group-linear" label="Total Bidders" value="347" sub="Across all listings" iconColor="text-purple-400" trend={22} onClick={() => handleKpiClick('Total Bidders')} />
+ </div>
+ <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+ <KpiCard icon="solar:hourglass-linear" label="Avg. Time-to-Sell" value="3.2 Days" sub="Historical average" iconColor="text-yellow-400" trend={-8} onClick={() => handleKpiClick('Avg. Time-to-Sell')} />
+ <KpiCard icon="solar:refresh-circle-linear" label="Return Rate" value="0.0%" sub="0 disputed transactions" iconColor="text-red-400" onClick={() => handleKpiClick('Return Rate')} />
+ <KpiCard icon="solar:graph-up-linear" label="Avg. Bid Increment" value="Γé╣8,450" sub="Per bid placed" iconColor="text-emerald-400" trend={12} onClick={() => handleKpiClick('Avg. Bid Increment')} />
+ </div>
+ {/* Promotion KPIs */}
+ <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+ <KpiCard icon="solar:stars-line-duotone" label="Active Promotions" value="2" sub="1 Ribbon ┬╖ 1 Popup" iconColor="text-pink-400" trend={100} onClick={() => handleKpiClick('Active Promotions')} />
+ <KpiCard icon="solar:eye-linear" label="Total Impressions" value="23,600" sub="This week via promotions" iconColor="text-indigo-400" trend={34} onClick={() => handleKpiClick('Total Impressions')} />
+ <KpiCard icon="solar:cursor-linear" label="Promo Clicks" value="1,690" sub="Ribbon + Popup combined" iconColor="text-fuchsia-400" trend={28} onClick={() => handleKpiClick('Promo Clicks')} />
+ <KpiCard icon="solar:percent-linear" label="Avg. Promo CTR" value="7.2%" sub="Above industry average" iconColor="text-cyan-400" trend={15} onClick={() => handleKpiClick('Avg. Promo CTR')} />
+ </div>
+ {/* Definition Detail Panel Modal */}
+ {activeKpi && <KpiDetailPanel metric={activeKpi} onClose={() => setActiveKpi(null)} />}
+ </div>
+
+ {/* ΓöÇΓöÇ Section 2: Revenue + Bid Velocity (Area Charts) ΓöÇΓöÇ */}
+ <div>
+ <SectionTitle>Weekly Performance</SectionTitle>
+ <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+ {/* Bid Velocity */}
+ <div className="bg-[#0d0d0d] border border-white/5 p-6 rounded-sm">
+ <div className="flex justify-between items-start mb-6">
+ <div>
+ <h3 className="text-sm font-semibold text-white">Bid Velocity</h3>
+ <p className="text-xs text-neutral-500 mt-1">Bids placed per day this week</p>
+ </div>
+ <span className="text-xl font-semibold text-white tracking-tight">+60</span>
+ </div>
+ <div className="h-56">
+ <ResponsiveContainer width="100%" height="100%">
+ <AreaChart data={weeklyData}>
+ <defs>
+ <linearGradient id="bidGrad" x1="0" y1="0" x2="0" y2="1">
+ <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
+ <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.0} />
+ </linearGradient>
+ </defs>
+ <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.02)" vertical={false} />
+ <XAxis dataKey="day" stroke="#525252" fontSize={11} tickLine={false} axisLine={false} />
+ <YAxis stroke="#525252" fontSize={11} tickLine={false} axisLine={false} />
+ <Tooltip content={<CustomTooltip />} cursor={{ stroke: 'rgba(255,255,255,0.1)', strokeWidth: 1, strokeDasharray: '4 4' }} />
+ <Area type="linear" dataKey="bids" name="Bids" stroke="#60a5fa" strokeWidth={3} fill="url(#bidGrad)" dot={false} activeDot={{ r: 5, fill: '#fff', strokeWidth: 0 }} />
+ </AreaChart>
+ </ResponsiveContainer>
+ </div>
+ </div>
+
+ {/* Revenue Growth */}
+ <div className="bg-[#0d0d0d] border border-white/5 p-6 rounded-sm">
+ <div className="flex justify-between items-start mb-6">
+ <div>
+ <h3 className="text-sm font-semibold text-white">Revenue Trajectory</h3>
+ <p className="text-xs text-neutral-500 mt-1">Cumulative highest bids this week</p>
+ </div>
+ <span className="text-xl font-semibold text-white tracking-tight">Γé╣1.2L</span>
+ </div>
+ <div className="h-56">
+ <ResponsiveContainer width="100%" height="100%">
+ <AreaChart data={weeklyData}>
+ <defs>
+ <linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1">
+ <stop offset="5%" stopColor="#10b981" stopOpacity={0.25} />
+ <stop offset="95%" stopColor="#10b981" stopOpacity={0.0} />
+ </linearGradient>
+ </defs>
+ <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.02)" vertical={false} />
+ <XAxis dataKey="day" stroke="#525252" fontSize={11} tickLine={false} axisLine={false} />
+ <YAxis stroke="#525252" fontSize={11} tickLine={false} axisLine={false} tickFormatter={v => `Γé╣${v / 1000}k`} />
+ <Tooltip content={<CustomTooltip prefix="Γé╣" />} cursor={{ stroke: 'rgba(255,255,255,0.1)', strokeWidth: 1, strokeDasharray: '4 4' }} />
+ <Area type="linear" dataKey="revenue" name="Revenue" stroke="#34d399" strokeWidth={3} fill="url(#revGrad)" dot={false} activeDot={{ r: 5, fill: '#fff', strokeWidth: 0 }} />
+ </AreaChart>
+ </ResponsiveContainer>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ {/* ΓöÇΓöÇ Section 3: Monthly Earnings Bar + Views/Watchers Line ΓöÇΓöÇ */}
+ <div>
+ <SectionTitle>Monthly Overview & Listings</SectionTitle>
+ <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+ {/* Monthly Earnings Bar */}
+ <div className="bg-[#0d0d0d] border border-white/5 p-6 rounded-sm flex flex-col">
+ <h3 className="text-sm font-semibold text-white mb-6">Monthly Earnings</h3>
+ <div className="flex-1 min-h-[250px]">
+ <ResponsiveContainer width="100%" height="100%">
+ <BarChart data={monthlyData} barSize={20}>
+ <defs>
+ <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+ <stop offset="0%" stopColor="#60a5fa" stopOpacity={1} />
+ <stop offset="100%" stopColor="#2563eb" stopOpacity={0.8} />
+ </linearGradient>
+ </defs>
+ <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.02)" vertical={false} />
+ <XAxis dataKey="month" stroke="#525252" fontSize={11} tickLine={false} axisLine={false} />
+ <YAxis stroke="#525252" fontSize={11} tickLine={false} axisLine={false} tickCount={8} tickFormatter={v => `Γé╣${v / 1000}k`} />
+ <Tooltip content={<CustomTooltip prefix="Γé╣" />} cursor={{ fill: 'rgba(255,255,255,0.03)' }} />
+ <Bar dataKey="earnings" name="Earnings" fill="url(#barGrad)" radius={[4, 4, 0, 0]} />
+ </BarChart>
+ </ResponsiveContainer>
+ </div>
+ </div>
+
+ {/* Top Listings Table */}
+ <div className="bg-[#0d0d0d] border border-white/5 p-6 rounded-sm">
+ <h3 className="text-sm font-semibold text-white mb-5">Top Performing Listings</h3>
+ <div className="overflow-x-auto">
+ <table className="w-full text-xs">
+ <thead>
+ <tr className="border-b border-white/5">
+ <th className="text-left text-[10px] tracking-widest uppercase text-neutral-600 pb-3 font-normal">Item</th>
+ <th className="text-center text-[10px] tracking-widest uppercase text-neutral-600 pb-3 font-normal">Bids</th>
+ <th className="text-center text-[10px] tracking-widest uppercase text-neutral-600 pb-3 font-normal">Highest</th>
+ <th className="text-center text-[10px] tracking-widest uppercase text-neutral-600 pb-3 font-normal">Conv.</th>
+ <th className="text-center text-[10px] tracking-widest uppercase text-neutral-600 pb-3 font-normal">Status</th>
+ </tr>
+ </thead>
+ <tbody>
+ {topListings.map((l, i) => (
+ <tr 
+ key={i} 
+ onClick={() => navigate(`/auction/${l.id}`)}
+ className="border-b border-white/[0.03] hover:bg-white/[0.015] transition-colors cursor-pointer"
+ >
+ <td className="py-3 pr-4">
+ <div>
+ <p className="text-white/80 line-clamp-1 font-light">{l.name}</p>
+ <p className="text-[10px] text-neutral-600 mt-0.5">{l.category}</p>
+ </div>
+ </td>
+ <td className="text-center py-3 text-neutral-300">{l.bids}</td>
+ <td className="text-center py-3 text-white font-semibold">{fmt(l.highestBid)}</td>
+ <td className="text-center py-3">
+ <span className="text-green-400">{l.conversion}</span>
+ </td>
+ <td className="text-center py-3">
+ <span className={`px-2 py-0.5 rounded text-[9px] tracking-widest uppercase font-semibold
+ ${l.status === 'Live' ? 'bg-green-400/10 text-green-400' : l.status === 'Draft' ? 'bg-blue-400/10 text-blue-400' : 'bg-white/5 text-neutral-500'}`}>
+ {l.status}
+ </span>
+ </td>
+ </tr>
+ ))}
+ </tbody>
+ </table>
+ </div>
+ </div>
+
+ </div>
+ </div>
+
+ {/* ΓöÇΓöÇ Section 4: Category Pie + Promotion Engagement Trend ΓöÇΓöÇ */}
+ <div>
+ <SectionTitle>Engagement Breakdown</SectionTitle>
+ <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+
+ {/* Promotion Engagement Trend ΓÇö replaces Health Radar */}
+ <div className="bg-[#0d0d0d] border border-white/5 p-6 rounded-sm flex flex-col">
+ <div className="flex justify-between items-start mb-6">
+ <div>
+ <h3 className="text-sm font-semibold text-white">Promotion Engagement</h3>
+ <p className="text-xs text-neutral-500 mt-1">Clicks via Ribbon, Popup &amp; Organic this week</p>
+ </div>
+ <div className="flex items-center gap-3 text-[9px] tracking-widest uppercase">
+ <span className="flex items-center gap-1"><span className="w-2 h-0.5 bg-[#f472b6] inline-block rounded" /> Ribbon</span>
+ <span className="flex items-center gap-1"><span className="w-2 h-0.5 bg-[#60a5fa] inline-block rounded" /> Popup</span>
+ <span className="flex items-center gap-1"><span className="w-2 h-0.5 bg-[#4ade80] inline-block rounded" /> Organic</span>
+ </div>
+ </div>
+ <div className="flex-1 min-h-[250px]">
+ <ResponsiveContainer width="100%" height="100%">
+ <LineChart data={promotionEngagementData}>
+ <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.02)" vertical={false} />
+ <XAxis dataKey="day" stroke="#404040" fontSize={11} tickLine={false} axisLine={false} />
+ <YAxis stroke="#404040" fontSize={11} tickLine={false} axisLine={false} />
+ <Tooltip content={<CustomTooltip />} cursor={{ stroke: 'rgba(255,255,255,0.05)', strokeWidth: 20 }} />
+ <Line type="linear" dataKey="ribbon" name="Ribbon" stroke="#f472b6" strokeWidth={3} dot={false} activeDot={{ r: 5, fill: '#fff', strokeWidth: 0 }} />
+ <Line type="linear" dataKey="popup" name="Popup" stroke="#60a5fa" strokeWidth={3} dot={false} activeDot={{ r: 5, fill: '#fff', strokeWidth: 0 }} />
+ <Line type="linear" dataKey="organic" name="Organic" stroke="#4ade80" strokeWidth={3} strokeDasharray="4 4" dot={false} activeDot={{ r: 5, fill: '#fff', strokeWidth: 0 }} />
+ </LineChart>
+ </ResponsiveContainer>
+ </div>
+ </div>
+
+ {/* Monthly Impressions vs Clicks Bar Chart */}
+ <div className="bg-[#0d0d0d] border border-white/5 p-6 rounded-sm flex flex-col">
+ <div className="flex justify-between items-start mb-6">
+ <div>
+ <h3 className="text-sm font-semibold text-white">Monthly Promo Reach</h3>
+ <p className="text-xs text-neutral-500 mt-1">Total impressions &amp; clicks from promotions</p>
+ </div>
+ <div className="flex items-center gap-3 text-[9px] tracking-widest uppercase">
+ <span className="flex items-center gap-1"><span className="w-2 h-2 bg-[#f472b6]/70 inline-block rounded-sm" /> Impressions</span>
+ <span className="flex items-center gap-1"><span className="w-2 h-2 bg-[#3b82f6]/90 inline-block rounded-sm" /> Clicks</span>
+ </div>
+ </div>
+ <div className="flex-1 min-h-[250px]">
+ <ResponsiveContainer width="100%" height="100%">
+ <BarChart data={monthlyPromoData} barGap={6} barSize={10}>
+ <defs>
+ <linearGradient id="promoImp" x1="0" y1="0" x2="0" y2="1">
+ <stop offset="0%" stopColor="#f472b6" stopOpacity={1} />
+ <stop offset="100%" stopColor="#db2777" stopOpacity={0.8} />
+ </linearGradient>
+ <linearGradient id="promoClick" x1="0" y1="0" x2="0" y2="1">
+ <stop offset="0%" stopColor="#60a5fa" stopOpacity={1} />
+ <stop offset="100%" stopColor="#2563eb" stopOpacity={0.8} />
+ </linearGradient>
+ </defs>
+ <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.02)" vertical={false} />
+ <XAxis dataKey="month" stroke="#525252" fontSize={11} tickLine={false} axisLine={false} />
+ <YAxis stroke="#525252" fontSize={11} tickLine={false} axisLine={false} tickFormatter={v => `Γé╣${v / 1000}k`} />
+ <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.03)' }} />
+ <Bar dataKey="impressions" name="Impressions" fill="url(#promoImp)" radius={[4, 4, 0, 0]} />
+ <Bar dataKey="clicks" name="Clicks" fill="url(#promoClick)" radius={[4, 4, 0, 0]} />
+ </BarChart>
+ </ResponsiveContainer>
+ </div>
+ </div>
+
+ </div>
+ </div>
+
+ </div>
+ )}
+
+ {/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ MY LISTINGS TAB ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ */}
+ {activeTab === 'listings' && (
+ <div className="space-y-6">
+ <div className="flex justify-between items-center bg-[#0d0d0d] border border-white/5 px-6 py-4 rounded-sm">
+ <h2 className="text-[11px] tracking-widest uppercase text-neutral-400">All Listings</h2>
+ <div className="flex gap-4">
+ <span className="text-[10px] text-neutral-500 font-semibold tracking-wide flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-500" /> Live</span>
+ <span className="text-[10px] text-neutral-500 font-semibold tracking-wide flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-blue-500" /> Draft</span>
+ <span className="text-[10px] text-neutral-500 font-semibold tracking-wide flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-red-500" /> Ended</span>
+ </div>
+ </div>
+ <div className="grid grid-cols-1 gap-4">
+ {mockListings.map(listing => (
+ <div key={listing.id} className="bg-[#0d0d0d] border border-white/5 rounded-sm p-5 flex flex-col md:flex-row gap-6 items-center hover:border-white/10 transition-colors">
+ <img src={listing.image_url} alt={listing.item_name} className="w-full md:w-28 h-28 object-cover rounded-sm grayscale hover:grayscale-0 transition-all flex-shrink-0" />
+ <div className="flex-1 space-y-2 text-center md:text-left">
+ <div className="flex items-center justify-center md:justify-start gap-2">
+ <span className={`w-2 h-2 rounded-full ${listing.status === 'Live' ? 'bg-green-500 animate-pulse' : listing.status === 'Draft' ? 'bg-blue-500' : 'bg-neutral-600'}`} />
+ <span className="text-[10px] text-neutral-500 font-semibold tracking-wide">{listing.status}</span>
+ </div>
+ <h3 className="text-base font-[300] line-clamp-2 leading-snug">{listing.item_name}</h3>
+ <div className="flex items-center justify-center md:justify-start gap-4 text-[11px] text-neutral-500">
+ <span>{listing.unique_bidders} Bidders</span>
+ <span>┬╖</span>
+ <span>{listing.bids_placed} Bids</span>
+ </div>
+ </div>
+ <div className="flex-1 mt-4 sm:mt-0 sm:text-right">
+ <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1.5 font-semibold">Highest Bid</p>
+ <p className="text-xl text-white">{listing.current_bid > 0 ? fmt(listing.current_bid) : 'ΓÇö'}</p>
+ </div>
+ <div className="flex flex-col items-center md:items-end gap-2 w-full md:w-auto">
+ {listing.status === 'Live' && <button className="mt-2 w-full md:w-auto border border-white/20 px-5 py-2 text-[10px] font-semibold tracking-wide hover:bg-white hover:text-black transition-colors">Manage Live</button>}
+ {listing.status === 'Draft' && <button className="mt-2 w-full md:w-auto bg-white text-black px-5 py-2 text-[10px] font-semibold tracking-wide font-bold hover:bg-neutral-200 transition-colors">Publish</button>}
+ {listing.status === 'Ended' && <button className="mt-2 w-full md:w-auto border border-white/20 px-5 py-2 text-[10px] font-semibold tracking-wide hover:bg-white hover:text-black transition-colors">View Results</button>}
+ </div>
+ </div>
+ ))}
+ </div>
+ </div>
+ )}
+ {/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ MODALS ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ */}
+ {isPromoteModalOpen && (
+ <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 md:p-6 bg-black/80 backdrop-blur-sm overflow-y-auto">
+ <div className="bg-[#0a0a0a] border border-white/10 w-full max-w-2xl rounded-sm p-6 relative flex flex-col my-auto max-h-[90vh]">
+ <button
+ onClick={() => { setIsPromoteModalOpen(false); setSelectedPromoListing(null); setSelectedPromoType(null); }}
+ className="absolute top-6 right-6 text-neutral-500 hover:text-white transition-colors"
+ >
+ <IIcon icon="solar:close-circle-linear" width="24" />
+ </button>
+ <h2 className="text-xl font-[300] tracking-wider uppercase mb-1 text-white">Promote Your Listing</h2>
+ <p className="text-sm text-neutral-400 mb-6 font-light">Select a listing and choose a promotion strategy to significantly boost visibility and bids.</p>
+
+ <div className="flex-1 overflow-y-auto pr-2 space-y-6 custom-scrollbar">
+ {/* Step 1: Select Listing */}
+ <div>
+ <SectionTitle>1. Select Listing</SectionTitle>
+ <div className="grid grid-cols-1 gap-3">
+ {mockListings.filter(l => l.status === 'Live' || l.status === 'Draft').map(listing => (
+ <div 
+ key={listing.id}
+ onClick={() => setSelectedPromoListing(listing.id)}
+ className={`p-3 border rounded-sm flex items-center gap-4 cursor-pointer transition-colors ${selectedPromoListing === listing.id ? 'border-blue-500 bg-white/5' : 'border-white/10 hover:border-white/30 bg-[#0d0d0d]'}`}
+ >
+ <img src={listing.image_url} alt="" className="w-12 h-12 object-cover rounded-sm grayscale" />
+ <div className="flex-1">
+ <p className="text-sm line-clamp-1">{listing.item_name}</p>
+ <p className="text-[10px] text-neutral-500 mt-0.5">{listing.status} ┬╖ Current Bid: {listing.current_bid ? fmt(listing.current_bid) : 'None'}</p>
+ </div>
+ {selectedPromoListing === listing.id && (
+ <IIcon icon="solar:check-circle-bold" width="20" className="text-blue-400" />
+ )}
+ </div>
+ ))}
+ </div>
+ </div>
+
+ {/* Step 2: Select Promotion Type */}
+ {selectedPromoListing && (
+ <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+ <SectionTitle>2. Select Promotion Type</SectionTitle>
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+ {/* Option 1: Ribbon */}
+ <div 
+ onClick={() => setSelectedPromoType('ribbon')}
+ className={`p-4 border rounded-sm cursor-pointer transition-colors ${selectedPromoType === 'ribbon' ? 'border-blue-500 bg-white/5' : 'border-white/10 hover:border-white/30 bg-[#0d0d0d]'}`}
+ >
+ <div className="flex justify-between items-start mb-3">
+ <div className={`p-2 rounded flex items-center justify-center ${selectedPromoType === 'ribbon' ? 'bg-white/5' : 'bg-white/5'}`}>
+ <IIcon icon="solar:stars-line-duotone" width="24" className={selectedPromoType === 'ribbon' ? 'text-blue-400' : 'text-neutral-400'} />
+ </div>
+ {selectedPromoType === 'ribbon' && <IIcon icon="solar:check-circle-bold" width="20" className="text-blue-400" />}
+ </div>
+ <h4 className="font-semibold text-sm mb-1 text-white">Promotion Ribbon</h4>
+ <p className="text-[11px] text-neutral-400 font-light leading-relaxed mb-1">Your listing appears in the scrolling featured ribbon on the homepage globally.</p>
+ </div>
+
+ {/* Option 2: Popup */}
+ <div 
+ onClick={() => setSelectedPromoType('popup')}
+ className={`p-4 border rounded-sm cursor-pointer transition-colors ${selectedPromoType === 'popup' ? 'border-blue-500 bg-white/5' : 'border-white/10 hover:border-white/30 bg-[#0d0d0d]'}`}
+ >
+ <div className="flex justify-between items-start mb-3">
+ <div className={`p-2 rounded flex items-center justify-center ${selectedPromoType === 'popup' ? 'bg-white/5' : 'bg-white/5'}`}>
+ <IIcon icon="solar:monitor-smartphone-linear" width="24" className={selectedPromoType === 'popup' ? 'text-blue-400' : 'text-neutral-400'} />
+ </div>
+ {selectedPromoType === 'popup' && <IIcon icon="solar:check-circle-bold" width="20" className="text-blue-400" />}
+ </div>
+ <h4 className="font-semibold text-sm mb-1 text-white">Login Pop-up</h4>
+ <p className="text-[11px] text-neutral-400 font-light leading-relaxed mb-1">A dedicated pop-up showcases your listing when target buyers open the app.</p>
+ </div>
+ </div>
+ </div>
+ )}
+ </div>
+
+ {/* Footer */}
+ <div className="mt-8 pt-4 border-t border-white/10 flex justify-end gap-3 shrink-0">
+ <button 
+ onClick={() => { setIsPromoteModalOpen(false); setSelectedPromoListing(null); setSelectedPromoType(null); }}
+ className="px-5 py-2.5 text-xs tracking-widest uppercase font-semibold text-neutral-400 hover:text-white transition-colors"
+ >
+ Cancel
+ </button>
+ <button 
+ disabled={!selectedPromoListing || !selectedPromoType}
+ onClick={() => {
+ alert('Promotion started successfully!');
+ setIsPromoteModalOpen(false);
+ setSelectedPromoListing(null);
+ setSelectedPromoType(null);
+ }}
+ className="bg-white text-black px-6 py-2.5 text-xs tracking-widest uppercase font-bold hover:bg-neutral-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+ >
+ Pay & Promote
+ </button>
+ </div>
+ </div>
+ </div>
+ )}
+ </div>
+ );
+}

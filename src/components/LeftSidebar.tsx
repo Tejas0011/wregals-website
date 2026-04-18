@@ -1,4 +1,4 @@
-// @ts-nocheck
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import IIcon from './IIcon';
 
@@ -22,6 +22,18 @@ const CATEGORIES = [
 export default function LeftSidebar() {
   const location = useLocation();
   const currentPath = location.pathname;
+
+  const [balance, setBalance] = useState<number>(50000);
+
+  useEffect(() => {
+    const fetchBalance = () => {
+      const savedBalance = localStorage.getItem('dummyWalletBalance');
+      if (savedBalance) setBalance(Number(savedBalance));
+    };
+    fetchBalance();
+    const interval = setInterval(fetchBalance, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const isActive = (path: string) => {
     if (path === '/') return currentPath === '/';
@@ -70,7 +82,7 @@ export default function LeftSidebar() {
 
       <div className="hh-ls-wallet">
         <div className="hh-lw-label">My Wallet</div>
-        <div className="hh-lw-value">₹50,000</div>
+        <div className="hh-lw-value">₹{balance.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</div>
         <Link to="/wallet">
           <button className="hh-lw-btn">Add Funds</button>
         </Link>

@@ -18,7 +18,7 @@ const hrs = (n: number) => new Date(now + n * 60 * 60 * 1000);
 const AUCTIONS = [
  // Sports
  {
- id: 's1', title: 'Match-Worn 2023 World Cup Jersey — Signed',
+ id: 's1', title: 'Match-Worn 2023 World Cup Jersey - Signed',
  lot: '#0847', provenance: 'Virat Kohli · Authenticated by BCCI',
  category: 'Sports', seller: 'Virat Kohli', sellerId: 'vk',
  image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1470&auto=format&fit=crop',
@@ -26,14 +26,14 @@ const AUCTIONS = [
  isCharity: true, ngoName: 'CRY India', charityPercent: 75, causeTag: 'Children',
  },
  {
- id: 's2', title: '2011 World Cup Winning Gloves — Match Worn',
+ id: 's2', title: '2011 World Cup Winning Gloves - Match Worn',
  lot: '#0841', provenance: 'MS Dhoni · Authenticated by BCCI',
  category: 'Sports', seller: 'MS Dhoni', sellerId: 'msd',
  image: 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=1470&auto=format&fit=crop',
  currentBid: 240000, minIncrement: 5000, bidCount: 47, endsAt: mins(112), status: 'ending-soon',
  },
  {
- id: 's3', title: 'IPL 2023 Match-Used Cricket Bat — Season Signed',
+ id: 's3', title: 'IPL 2023 Match-Used Cricket Bat - Season Signed',
  lot: '#0848', provenance: 'Hardik Pandya · Mumbai Indians',
  category: 'Sports', seller: 'Hardik Pandya', sellerId: 'hp',
  image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1473&auto=format&fit=crop',
@@ -41,21 +41,21 @@ const AUCTIONS = [
  },
  // Cinema
  {
- id: 'c1', title: 'Rocky Aur Rani Custom Jacket — Film Set Piece',
+ id: 'c1', title: 'Rocky Aur Rani Custom Jacket - Film Set Piece',
  lot: '#0852', provenance: 'Ranveer Singh · Dharma Productions',
  category: 'Cinema', seller: 'Ranveer Singh', sellerId: 'rs',
  image: 'https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?q=80&w=1470&auto=format&fit=crop',
  currentBid: 42000, minIncrement: 1500, bidCount: 12, endsAt: mins(23), status: 'ending-soon',
  },
  {
- id: 'c2', title: 'Hand-woven Banarasi Saree — Met Gala Afterparty',
+ id: 'c2', title: 'Hand-woven Banarasi Saree - Met Gala Afterparty',
  lot: '#0894', provenance: 'Priyanka Chopra Jonas',
  category: 'Cinema', seller: 'Priyanka Chopra', sellerId: 'pc',
  image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=1470&auto=format&fit=crop',
  currentBid: 192000, minIncrement: 3000, bidCount: 54, endsAt: hrs(1), status: 'live',
  },
  {
- id: 'c3', title: 'Original"Don" Movie Script Page — Signed',
+ id: 'c3', title: 'Original"Don" Movie Script Page - Signed',
  lot: '#0901', provenance: 'Amitabh Bachchan · Personal Collection',
  category: 'Cinema', seller: 'Amitabh Bachchan', sellerId: 'amitabh',
  image: 'https://images.unsplash.com/photo-1585644141249-141a54a7c030?q=80&w=1472&auto=format&fit=crop',
@@ -63,14 +63,14 @@ const AUCTIONS = [
  },
  // Music
  {
- id: 'm1', title: 'Signed Custom Performance Jacket — Sanak Tour',
+ id: 'm1', title: 'Signed Custom Performance Jacket - Sanak Tour',
  lot: '#0872', provenance: 'Badshah · Stage Worn',
  category: 'Musicians & Artists', seller: 'Badshah', sellerId: 'badshah',
  image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1470&auto=format&fit=crop',
  currentBid: 38900, minIncrement: 1100, bidCount: 19, endsAt: hrs(8), status: 'live',
  },
  {
- id: 'm2', title: 'Custom Red Stratocaster Guitar — Studio Sessions',
+ id: 'm2', title: 'Custom Red Stratocaster Guitar - Studio Sessions',
  lot: '#0880', provenance: 'A.R. Rahman · Verified Studio Gear',
  category: 'Musicians & Artists', seller: 'A.R. Rahman', sellerId: 'arr',
  image: 'https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=1587&auto=format&fit=crop',
@@ -78,7 +78,7 @@ const AUCTIONS = [
  },
  // Creators
  {
- id: 'cr1', title: 'First 1M Subscribers Golden Play Button — Signed Custom Shell',
+ id: 'cr1', title: 'First 1M Subscribers Golden Play Button - Signed Custom Shell',
  lot: '#0921', provenance: 'Bhuvan Bam · BB Ki Vines',
  category: 'Creators', seller: 'Bhuvan Bam', sellerId: 'bb',
  image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1548&auto=format&fit=crop',
@@ -181,7 +181,7 @@ export default function BrowseCategory({ user, walletBalance = 0, onSignInClick 
 
  return (
  <section className="hh-root">
- {/* ─── Use same grid as home page — LHS sidebar + content ─── */}
+ {/* ─── Use same grid as home page - LHS sidebar + content ─── */}
  <div style={{
  display: 'grid',
  gridTemplateColumns: '270px 1fr',
@@ -264,7 +264,7 @@ export default function BrowseCategory({ user, walletBalance = 0, onSignInClick 
  </p>
  </div>
 
- {/* Auction grid — styled as cards */}
+ {/* Auction grid - styled as cards */}
  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', padding: '16px 28px' }}>
  {filtered.length === 0 ? (
  <div style={{ padding: '80px 28px', textAlign: 'center', gridColumn: 'span 2' }}>
@@ -286,7 +286,7 @@ export default function BrowseCategory({ user, walletBalance = 0, onSignInClick 
  onClick={() => setBidItem(auction)}
  style={{ border: '1px solid var(--hh-line)', borderRadius: '12px', paddingBottom: '16px' }}
  >
- {/* Header — seller info */}
+ {/* Header - seller info */}
  <div className="hh-p-header">
  <div className="hh-p-seller">
  <Link

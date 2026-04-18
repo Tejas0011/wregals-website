@@ -81,7 +81,7 @@ function App() {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  // Step-1 form state — lifted here so it survives navigation to/from Step 2
+  // Step-1 form state - lifted here so it survives navigation to/from Step 2
   const [profileName, setProfileName] = useState('');
   const [profilePhone, setProfilePhone] = useState('');
   const [profileCountry, setProfileCountry] = useState('');
@@ -133,9 +133,33 @@ function App() {
     return () => subscription.unsubscribe();
   }, []);
 
+  const [walletBalance, setWalletBalance] = useState(50000);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const savedBalance = localStorage.getItem('dummyWalletBalance');
+      if (savedBalance) {
+        setWalletBalance(Number(savedBalance));
+      }
+    };
+    
+    // Initial fetch
+    handleStorageChange();
+    
+    // Listen for cross-tab changes
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Periodically poll for changes within the same tab for simple reactivity
+    const interval = setInterval(handleStorageChange, 1000);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
     <div className="bg-[#0C0C0D] selection:bg-white selection:text-black text-white min-h-screen">
-      {/* Profile Setup — shown on first login */}
+      {/* Profile Setup - shown on first login */}
       {showProfileSetup && user && setupStep === 1 && (
         <ProfileSetup
           user={user}
@@ -170,7 +194,7 @@ function App() {
             <img src="/wregals-text-logo.png" alt="WREGALS" className="h-32 w-auto object-contain" />
           </Link>
 
-          {/* Global Search — centered */}
+          {/* Global Search - centered */}
           <div className="hidden md:flex flex-1 justify-center px-8">
             <GlobalSearch />
           </div>
@@ -181,14 +205,14 @@ function App() {
           <div className="hidden md:flex items-center gap-6">
             {user ? (
               <div className="relative group/user">
-                {/* Trigger — user avatar or generic icon */}
+                {/* Trigger - user avatar or generic icon */}
                 <button className="flex items-center justify-center text-neutral-400 hover:text-white transition-colors outline-none h-10 px-2">
                   <IIcon icon="lucide:menu" width="28" stroke-width="1.2" />
                 </button>
 
                 {/* Dropdown panel */}
                 <div className="user-dropdown">
-                  {/* Header — name + email */}
+                  {/* Header - name + email */}
                   <div className="user-dropdown-header">
                     <div className="user-dropdown-avatar flex items-center justify-center text-neutral-400">
                       <IIcon icon="solar:user-rounded-bold" width="40" />
@@ -368,7 +392,7 @@ function App() {
       {/* Auth Modal */}
       <AuthModal isOpen={authOpen} onClose={() => setAuthOpen(false)} />
 
-      {/* AI Chatbot — visible immediately */}
+      {/* AI Chatbot - visible immediately */}
       <AIChatbot visible={true} user={user} onSignInClick={() => setAuthOpen(true)} />
 
       {/* Wallet Modal */}
@@ -382,10 +406,10 @@ function App() {
         <Route path="/categories" element={<AllCategories />} />
         <Route path="/celebrity/:id" element={<CelebrityProfile />} />
         <Route path="/browse/:category" element={
-          <BrowseCategory user={user} walletBalance={50000} onSignInClick={() => setAuthOpen(true)} />
+          <BrowseCategory user={user} walletBalance={walletBalance} onSignInClick={() => setAuthOpen(true)} />
         } />
         <Route path="/auctions/live" element={
-          <LiveAuctions user={user} walletBalance={50000} onSignInClick={() => setAuthOpen(true)} />
+          <HomeHero />
         } />
         <Route path="/auctions/upcoming" element={
           <UpcomingAuctions user={user} onSignInClick={() => setAuthOpen(true)} />
@@ -411,14 +435,14 @@ function App() {
         <Route path="/gallery" element={
           <Gallery user={user} onSignInClick={() => setAuthOpen(true)} />
         } />
-        <Route path="/social" element={
+        <Route path="/" element={
           <Social user={user} onSignInClick={() => setAuthOpen(true)} />
         } />
         <Route path="/profile" element={
           <MyProfile user={user} onSignInClick={() => setAuthOpen(true)} />
         } />
         <Route path="/wallet" element={
-          <WalletPage user={user} onSignInClick={() => setAuthOpen(true)} />
+          <WalletPage user={user} onSignInClick={() => setAuthOpen(true)} onAddFundsClick={() => setWalletOpen(true)} />
         } />
         <Route path="/my-bids" element={
           <MyBids user={user} onSignInClick={() => setAuthOpen(true)} />

@@ -2,23 +2,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import IIcon from '../components/IIcon';
-import Footer from '../components/Footer';
 import ShareSheet from '../components/ShareSheet';
 import Logo from '../components/Logo';
+import LeftSidebar from '../components/LeftSidebar';
 
-/* ─── Mock data ─────────────────────────────────────────────────────────── */
-const CREATORS = [
- { id: 'rs', name: 'Rohit Shetty', handle: '@rohitshetty', role: 'Film Director', initials: 'RS', followers: '142k', posts: 14 },
- { id: 'dp', name: 'Deepika Padukone', handle: '@deepikapadukone', role: 'Actor & Collector', initials: 'DP', followers: '389k', posts: 8 },
- { id: 'vk', name: 'Virat Kohli', handle: '@viratkohli', role: 'Cricketer', initials: 'VK', followers: '512k', posts: 11 },
-];
-
-const TRENDING_LOTS = [
- { label: 'Trending · Collectibles', title: '2011 World Cup Jersey', posts: '4.2k bids', time: 'Opens in 6 days' },
- { label: 'Live Now · Jewellery', title: 'Cartier Diamond — Cannes 2018', posts: '₹87.5L current bid', time: '2d 14h left' },
- { label: 'Trending · Cinema', title: 'Singham Director Chair', posts: '₹4.75L hammer', time: 'Sold' },
-];
-
+import RightSidebar from '../components/RightSidebar';
+import { HomeFeedSkeleton } from '../components/SkeletonScreens';
 const POSTS_FYP = [
  {
  id: 'p1', creatorId: 'vk', name: 'Virat Kohli', handle: '@viratkohli', initials: 'VK', role: 'Cricketer', time: '2h',
@@ -29,9 +18,9 @@ const POSTS_FYP = [
  },
  {
  id: 'p2', creatorId: 'dp', name: 'Deepika Padukone', handle: '@deepikapadukone', initials: 'DP', role: 'Actor & Collector', time: '5h',
- text:"The Cartier necklace I wore to the Cannes premiere in 2018 has been authenticated by Cartier Geneva. Every piece I list has a story — this one carries four years of memory. Opening reserve: ₹85L.",
+ text:"The Cartier necklace I wore to the Cannes premiere in 2018 has been authenticated by Cartier Geneva. Every piece I list has a story - this one carries four years of memory. Opening reserve: ₹85L.",
  image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=1974&auto=format&fit=crop',
- auctionCard: { lotTitle: 'Cartier Diamond Necklace — Cannes 2018', lotNum: 'Lot #CRT-DP18', bid: '₹87,50,000', time: '2d 14h', status: 'live' },
+ auctionCard: { lotTitle: 'Cartier Diamond Necklace - Cannes 2018', lotNum: 'Lot #CRT-DP18', bid: '₹87,50,000', time: '2d 14h', status: 'live' },
  likes: 9231, reshares: 1102,
  },
  {
@@ -43,13 +32,13 @@ const POSTS_FYP = [
  },
  {
  id: 'p4', creatorId: 'vk', name: 'Virat Kohli', handle: '@viratkohli', initials: 'VK', role: 'Cricketer', time: '2d',
- text:"I get asked all the time — why auction instead of donate? Because auction creates a transaction with meaning. The buyer knows the value. The price becomes part of the legacy. That's what WREGALS is built for.",
+ text:"I get asked all the time - why auction instead of donate? Because auction creates a transaction with meaning. The buyer knows the value. The price becomes part of the legacy. That's what WREGALS is built for.",
  image: null, auctionCard: null,
  likes: 6644, reshares: 882,
  },
  {
  id: 'p5', creatorId: 'dp', name: 'Deepika Padukone', handle: '@deepikapadukone', initials: 'DP', role: 'Actor & Collector', time: '3d',
- text:"Behind the scenes from our verification session with the WREGALS provenance team. Every detail — stitching, clasp, hallmark — documented and uploaded to the lot record. This is what authentic looks like.",
+ text:"Behind the scenes from our verification session with the WREGALS provenance team. Every detail - stitching, clasp, hallmark - documented and uploaded to the lot record. This is what authentic looks like.",
  image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=1974&auto=format&fit=crop',
  auctionCard: null,
  likes: 5503, reshares: 477,
@@ -91,73 +80,72 @@ function AuctionCard({ card }) {
 }
 
 /* ─── Post card ───────────────────────────────────────────────────────── */
-function PostCard({ post, liked, reshared, shareOpen, onLike, onReshare, onShare }) {
+function PostCard({ post, liked, reshared, shareOpen, isFollowed, onFollow, onLike, onReshare, onShare }) {
  const [lc, setLc] = useState(post.likes);
  const [rc, setRc] = useState(post.reshares);
- const fmt = (n) => n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
+ const fmt = (n: number) => n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
 
  return (
- <article className="flex gap-3 px-4 py-4 border-b border-white/5 hover:bg-white/[0.02] transition-colors cursor-pointer">
- {/* Avatar */}
- <Link to={`/celebrity/${post.creatorId}`} className="flex-shrink-0 w-10 h-10 rounded-full border border-white/20 bg-white/5 flex items-center justify-center hover:opacity-80 transition-opacity" onClick={e => e.stopPropagation()}>
- <span className="text-xs text-blue-400">{post.initials}</span>
+ <article className="flex flex-col gap-3 px-5 py-5 bg-[#0E0E0E] rounded-xl border border-white/10 hover:border-white/20 transition-colors cursor-pointer mb-6 mx-6">
+ {/* Header */}
+ <div className="flex gap-3">
+ <Link to={`/celebrity/${post.creatorId}`} className="flex-shrink-0 w-11 h-11 rounded-full border border-white/20 bg-white/5 flex items-center justify-center hover:opacity-80 transition-opacity" onClick={e => e.stopPropagation()}>
+ <span className="text-xs font-bold text-blue-400">{post.initials}</span>
  </Link>
 
- <div className="flex-1 min-w-0">
+ <div className="flex-1 min-w-0 flex flex-col justify-center">
  {/* Name row */}
- <div className="flex items-center gap-1.5 flex-wrap mb-1">
+ <div className="flex items-center gap-1.5 flex-wrap mb-0.5">
  <Link to={`/celebrity/${post.creatorId}`} className="text-sm font-bold text-white hover:underline" onClick={e => e.stopPropagation()}>{post.name}</Link>
  <IIcon icon="solar:verified-check-bold" width="14" class="text-blue-400" />
- <span className="text-sm text-neutral-600">{post.handle}</span>
- <span className="text-neutral-700">·</span>
- <span className="text-sm text-neutral-600">{post.time}</span>
+ </div>
+ <div className="flex items-center gap-1.5">
+ <span className="text-xs text-neutral-500">{post.handle}</span>
+ <span className="text-neutral-700 text-xs">·</span>
+ <span className="text-xs text-neutral-500">{post.time}</span>
+ </div>
+ </div>
+ <div className="flex items-center gap-3">
+  <button onClick={(e) => { e.stopPropagation(); onFollow(post.creatorId); }}
+  className={`text-[11px] font-bold px-4 py-1.5 border transition-all flex-shrink-0 tracking-wide rounded-full ${isFollowed ? 'border-white/20 text-white hover:border-red-400/50 hover:text-red-400' : 'bg-white text-black hover:bg-neutral-200 border-white'}`}>
+  {isFollowed ? 'Following' : 'Follow'}
+  </button>
+  <button className="text-neutral-500 hover:text-white px-2">···</button>
+ </div>
  </div>
 
  {/* Text */}
- <p className="text-sm text-neutral-200 leading-relaxed mb-3">{post.text}</p>
+ <p className="text-sm text-neutral-200 leading-relaxed mt-2.5 mb-2">{post.text}</p>
 
  {/* Image */}
  {post.image && (
- <div className="w-full aspect-[16/9] overflow-hidden bg-[#111] mb-3">
- <img src={post.image} alt="" className="w-full h-full object-cover" />
+ <div className="w-full rounded-lg overflow-hidden border border-white/5 bg-[#111] mb-2 mt-2">
+ <img src={post.image} alt="" className="w-full h-auto object-contain max-h-[500px]" />
  </div>
  )}
 
  {/* Auction card */}
- {post.auctionCard && <AuctionCard card={post.auctionCard} />}
+ {post.auctionCard && <div className="mt-2 mb-2"><AuctionCard card={post.auctionCard} /></div>}
 
  {/* Actions */}
- <div className="flex items-center justify-between mt-3 max-w-xs">
+ <div className="flex items-center gap-6 mt-3 pt-3 border-t border-white/5">
  {/* Like */}
  <button onClick={(e) => { e.stopPropagation(); setLc(l => liked ? l - 1 : l + 1); onLike(post.id); }}
- className="flex items-center gap-1.5 text-xs group transition-colors text-neutral-400 hover:text-white">
- <span className="w-8 h-8 flex items-center justify-center transition-colors">
- <svg viewBox="0 0 24 24" fill={liked ? '#ffffff' : 'none'} stroke={liked ? '#ffffff' : 'currentColor'} width="17" height="17" style={{ transition: 'fill 0.18s, stroke 0.18s' }}>
+ className="flex items-center gap-2 text-xs font-bold group transition-colors text-neutral-500 hover:text-white">
+ <svg viewBox="0 0 24 24" fill={liked ? '#ffffff' : 'none'} stroke={liked ? '#ffffff' : 'currentColor'} width="18" height="18" style={{ transition: 'fill 0.18s, stroke 0.18s' }}>
  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
  </svg>
- </span>
  <span>{fmt(lc)}</span>
- </button>
-
- {/* Reshare */}
- <button onClick={() => { setRc(r => reshared ? r - 1 : r + 1); onReshare(post.id); }}
- className={`flex items-center gap-1.5 text-xs group transition-colors ${reshared ? 'text-white' : 'text-neutral-600 hover:text-white'}`}>
- <span className="w-8 h-8 flex items-center justify-center group-hover:bg-white/10 transition-colors">
- <IIcon icon="solar:reorder-linear" width="17" />
- </span>
- <span>{fmt(rc)}</span>
  </button>
 
  {/* Share */}
  <div className="relative">
  <button onClick={() => onShare(post.id)}
- className="flex items-center gap-1.5 text-xs text-neutral-600 hover:text-sky-400 group transition-colors">
- <span className="w-8 h-8 flex items-center justify-center group-hover:bg-sky-400/10 transition-colors">
- <IIcon icon="solar:share-linear" width="17" />
- </span>
+ className="flex items-center gap-2 text-xs font-bold text-neutral-500 hover:text-sky-400 group transition-colors">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="18" height="18"><polyline points="17 1 21 5 17 9" /><path d="M3 11V9a4 4 0 0 1 4-4h14" /><polyline points="7 23 3 19 7 15" /><path d="M21 13v2a4 4 0 0 1-4 4H3" /></svg>
+ <span>Share</span>
  </button>
  {shareOpen === post.id && <ShareSheet url={`https://wregals.com/social/${post.id}`} onClose={() => onShare(null)} className="absolute bottom-10 right-0" />}
- </div>
  </div>
  </div>
  </article>
@@ -173,8 +161,13 @@ export default function Social({ user, onSignInClick }: SocialProps) {
  const [reshared, setReshared] = useState<Set<string>>(new Set());
  const [shareOpen, setShareOpen] = useState<string | null>(null);
  const [followed, setFollowed] = useState<Set<string>>(new Set());
+ const [loading, setLoading] = useState(true);
  const navigate = useNavigate();
 
+ useEffect(() => {
+   const t = setTimeout(() => setLoading(false), 1200);
+   return () => clearTimeout(t);
+ }, []);
  const toggleLike = (id: string) => setLiked(s => { const n = new Set(s); n.has(id) ? n.delete(id) : n.add(id); return n; });
  const toggleReshare = (id: string) => setReshared(s => { const n = new Set(s); n.has(id) ? n.delete(id) : n.add(id); return n; });
  const toggleFollow = (id: string) => setFollowed(s => { const n = new Set(s); n.has(id) ? n.delete(id) : n.add(id); return n; });
@@ -191,82 +184,37 @@ export default function Social({ user, onSignInClick }: SocialProps) {
  { icon: 'solar:user-circle-linear', iconActive: 'solar:user-circle-bold', label: 'Profile', to: '#' },
  ];
 
- return (
- <div className="bg-[#3D0808] min-h-screen text-white">
- {/* Mobile top nav */}
- <nav className="fixed top-0 w-full z-50 bg-[#3D0808]/90 backdrop-blur-md border-b border-white/5 md:hidden">
- <div className="px-4 h-14 flex items-center justify-between">
- <Link to="/"><img src="/wregals-text-logo.png" alt="WREGALS" className="h-18 w-auto object-contain" /></Link>
- <span className="text-xs tracking-widest uppercase text-blue-400">Social</span>
- {!user && <button onClick={onSignInClick} className="text-xs border border-white/20 px-3 py-1.5 hover:bg-white hover:text-black transition-all">Sign In</button>}
- </div>
- </nav>
+  if (loading) return <HomeFeedSkeleton />;
 
- {/* Three-column layout */}
- <div className="max-w-[1280px] mx-auto flex min-h-screen">
+  return (
+    <section className="hh-root">
+      {/* ─── 3-COLUMN LAYOUT ─────────────────────── */}
+      <div className="hh-layout">
+        {/* ── LEFT SIDEBAR ── */}
+        <LeftSidebar />
 
- {/* ── LEFT SIDEBAR ── */}
- <aside className="hidden md:flex flex-col w-64 xl:w-72 flex-shrink-0 sticky top-0 h-screen px-3 py-4 border-r border-white/5">
- {/* Logo */}
- <Link to="/" className="mb-6 px-3 pt-2 block">
- <img src="/wregals-text-logo.png" alt="WREGALS" className="h-24 w-auto object-contain" />
- </Link>
-
- {/* Nav items */}
- <nav className="flex flex-col gap-1 flex-1">
- {NAV_ITEMS.map(item => (
- <Link key={item.label} to={item.to}
- className={`flex items-center gap-4 px-4 py-3 transition-all group ${item.active ? 'text-white font-bold' : 'text-neutral-400 hover:text-white hover:bg-white/5'}`}>
- <IIcon icon={item.active ? item.iconActive : item.icon} width="22" />
- <span className="text-lg">{item.label}</span>
- </Link>
- ))}
- </nav>
-
- {/* User pill at bottom */}
- {user ? (
- <div className="flex items-center gap-3 px-4 py-3 hover:bg-white/5 cursor-pointer transition-colors mt-4 border border-white/5">
- <div className="w-9 h-9 rounded-full border border-white/20 bg-white/5 flex items-center justify-center flex-shrink-0">
- <span className="text-xs text-blue-400">{(user.user_metadata?.full_name || user.email || 'U')[0].toUpperCase()}</span>
- </div>
- <div className="flex-1 min-w-0">
- <p className="text-sm font-semibold text-white truncate">{user.user_metadata?.full_name || user.email?.split('@')[0]}</p>
- <p className="text-xs text-neutral-600 truncate">@{user.email?.split('@')[0]}</p>
- </div>
- <IIcon icon="solar:menu-dots-bold" width="16" class="text-neutral-600" />
- </div>
- ) : (
- <button onClick={onSignInClick} className="mt-4 w-full py-3 bg-white text-black text-sm font-bold hover:bg-neutral-200 transition-colors font-semibold tracking-wide">
- Sign In
- </button>
- )}
- </aside>
-
- {/* ── CENTER FEED ── */}
- <main className="flex-1 min-w-0 border-r border-white/5 mt-14 md:mt-0">
- {/* Sticky header */}
- <div className="sticky top-0 z-30 bg-[#3D0808]/80 backdrop-blur-md border-b border-white/5">
- <div className="px-4 py-3 hidden md:flex items-center gap-3">
- <img src="/wregals-text-logo.png" alt="W" className="h-14 w-auto object-contain opacity-60" />
- <h1 className="font-bold text-lg text-white">Social</h1>
- </div>
- {/* Tabs */}
- <div className="flex border-b border-white/5">
- {[{ id: 'foryou', label: 'For You' }, { id: 'following', label: 'Following' }].map(t => (
- <button key={t.id} onClick={() => setTab(t.id as any)}
- className={`flex-1 h-12 text-sm font-semibold transition-colors relative ${tab === t.id ? 'text-white' : 'text-neutral-600 hover:text-neutral-300 hover:bg-white/5'}`}>
- {t.label}
- {tab === t.id && <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-14 h-0.5 bg-white" />}
- </button>
- ))}
- </div>
- </div>
+        {/* ── CENTER FEED ── */}
+        <div className="hh-feed">
+  {/* Sticky header */}
+  <div className="sticky top-[120px] z-30 bg-[#111111]/90 backdrop-blur-md mb-6 rounded-xl overflow-hidden shadow-lg mx-6 mt-6 border border-white/10">
+    <div className="flex">
+      {[{ id: 'foryou', label: 'For You' }, { id: 'following', label: 'Following' }].map(t => (
+        <button key={t.id} onClick={() => setTab(t.id as any)}
+          className={`flex-1 h-14 text-sm font-bold transition-colors relative ${tab === t.id ? 'text-white' : 'text-neutral-500 hover:text-neutral-300'}`}>
+          {t.label}
+          {tab === t.id && <span className="absolute bottom-0 left-8 right-8 h-0.5 bg-white rounded-t-full" />}
+        </button>
+      ))}
+    </div>
+  </div>
 
  {/* Posts */}
  <div>
  {posts.map(post => (
  <PostCard key={post.id} post={post}
  liked={liked.has(post.id)} reshared={reshared.has(post.id)} shareOpen={shareOpen}
+ isFollowed={followed.has(post.creatorId)}
+ onFollow={toggleFollow}
  onLike={toggleLike} onReshare={toggleReshare} onShare={toggleShare} />
  ))}
  {posts.length === 0 && (
@@ -278,77 +226,15 @@ export default function Social({ user, onSignInClick }: SocialProps) {
  )}
  </div>
  
- {/* Inject Footer inside the center feed column */}
- <Footer />
- </main>
+  {/* Footer removed for infinite scroll */}
+  </div>
 
- {/* ── RIGHT SIDEBAR ── */}
- <aside className="hidden lg:flex flex-col w-80 xl:w-96 flex-shrink-0 px-4 py-4 sticky top-0 h-screen overflow-y-auto">
- {/* Search bar */}
- <div className="flex items-center gap-3 bg-[#111] border border-white/10 px-4 py-2.5 mb-5 mt-2">
- <IIcon icon="solar:magnifer-linear" width="15" class="text-neutral-500" />
- <span className="text-sm text-neutral-600">Search creators & lots</span>
- </div>
+  {/* ── RIGHT SIDEBAR ── */}
+  <div className="hh-rsidebar">
+    <RightSidebar followed={followed} toggleFollow={toggleFollow} />
+  </div>
 
- {/* Live Lots card */}
- <div className="bg-[#0C0C0C] border border-white/5 overflow-hidden mb-4 flex-shrink-0">
- <div className="px-4 py-3 border-b border-white/5 flex items-center gap-2">
- <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
- <h3 className="font-bold text-white text-sm">Live Drops</h3>
- </div>
- {TRENDING_LOTS.map((t, i) => (
- <div key={i} className="px-4 py-3 hover:bg-white/5 transition-colors border-b border-white/5 last:border-0 cursor-pointer">
- <p className="text-[10px] text-neutral-600 mb-0.5 font-semibold tracking-wide">{t.label}</p>
- <p className="text-sm font-semibold text-white mb-0.5">{t.title}</p>
- <p className="text-xs text-neutral-500">{t.posts} · {t.time}</p>
- </div>
- ))}
- <Link to="/auctions/live" className="block px-4 py-3 text-sm text-white hover:bg-white/5 transition-colors">
- Show all live auctions →
- </Link>
- </div>
-
- {/* Who to follow */}
- <div className="bg-[#0C0C0C] border border-white/5 overflow-hidden mb-4 flex-1 flex flex-col">
- <div className="px-4 py-3 border-b border-white/5">
- <h3 className="font-bold text-white text-sm">Verified Creators</h3>
- </div>
- <div className="flex-1 overflow-y-auto">{CREATORS.map(c => (
- <div key={c.id} className="flex items-center gap-3 px-4 py-3 hover:bg-white/5 transition-colors border-b border-white/5 last:border-0">
- <Link to={`/celebrity/${c.id}`} className="w-9 h-9 rounded-full border border-white/20 bg-white/5 flex items-center justify-center flex-shrink-0 hover:opacity-80 transition-opacity">
- <span className="text-xs text-blue-400">{c.initials}</span>
- </Link>
- <div className="flex-1 min-w-0">
- <div className="flex items-center gap-1">
- <Link to={`/celebrity/${c.id}`} className="text-sm font-semibold text-white truncate hover:underline">{c.name}</Link>
- <IIcon icon="solar:verified-check-bold" width="12" class="text-blue-400 flex-shrink-0" />
- </div>
- <p className="text-xs text-neutral-600 truncate">{c.handle}</p>
- </div>
- <button onClick={() => toggleFollow(c.id)}
- className={`text-xs font-semibold px-4 py-1.5 border transition-all flex-shrink-0 font-semibold tracking-wide ${followed.has(c.id)
- ? 'border-white/20 text-white hover:border-red-400/50 hover:text-red-400'
- : 'bg-white text-black hover:bg-neutral-200'
- }`}>
- {followed.has(c.id) ? 'Following' : 'Follow'}
- </button>
- </div>
- ))}</div>
- </div>
-
- {/* Policy note */}
- <div className="bg-[#0C0C0C] border border-white/5 px-4 py-4 flex-shrink-0">
- <div className="flex items-center gap-2 mb-2">
- <IIcon icon="solar:shield-check-linear" width="14" class="text-blue-400" />
- <span className="text-xs font-bold text-blue-400 font-semibold tracking-wide">Broadcast Policy</span>
- </div>
- <p className="text-xs text-neutral-600 leading-relaxed flex items-center gap-1.5 flex-wrap">
- Only verified creators post. No public comments in Phase 1. Content is auction-centric and editorially reviewed by <Logo height="h-3.5" />.
- </p>
- </div>
- </aside>
-
- </div>
- </div>
- );
+  </div>
+  </section>
+  );
 }

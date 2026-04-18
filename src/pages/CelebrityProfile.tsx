@@ -13,17 +13,17 @@ const CELEBRITIES: Record<string, any> = {
     followers: '24.1M', lotsListed: 14, totalBids: 1847,
     bio: 'One of the greatest batsmen of all time, Virat Kohli brings authenticated match-worn gear and personal memorabilia straight to fans through Wregals.',
     posts: [
-      { id: 'vkp1', type: 'image', caption: 'World Cup 2023 — what a journey 🏆', likes: 142300, bg: '#1e3a8a' },
+      { id: 'vkp1', type: 'image', caption: 'World Cup 2023 - what a journey 🏆', likes: 142300, bg: '#1e3a8a' },
       { id: 'vkp2', type: 'video', caption: 'Match-day routine from the dressing room', likes: 98700, bg: '#1e306a' },
-      { id: 'vkp3', type: 'image', caption: 'Signed bat for auction — check the link!', likes: 67400, bg: '#172d5c' },
+      { id: 'vkp3', type: 'image', caption: 'Signed bat for auction - check the link!', likes: 67400, bg: '#172d5c' },
       { id: 'vkp4', type: 'image', caption: 'Training hard for the next series', likes: 54200, bg: '#1e2e50' },
-      { id: 'vkp5', type: 'video', caption: 'Behind the scenes — RCB 2022', likes: 43100, bg: '#1c2d4e' },
+      { id: 'vkp5', type: 'video', caption: 'Behind the scenes - RCB 2022', likes: 43100, bg: '#1c2d4e' },
       { id: 'vkp6', type: 'image', caption: 'Gloves from the 2019 World Cup final', likes: 38900, bg: '#1a2b48' },
     ],
     lots: [
-      { id: 'vk1', title: 'Match-Worn 2023 World Cup Jersey — Signed', lot: '#0847', currentBid: 84000, minIncrement: 1000, bidCount: 23, status: 'live' },
-      { id: 'vk2', title: 'Signed Training Bat — RCB Season 2022', lot: '#0853', currentBid: 47000, minIncrement: 500, bidCount: 11, status: 'live' },
-      { id: 'vk3', title: 'Personal Batting Gloves — Test Series 2023', lot: '#0861', currentBid: 31000, minIncrement: 500, bidCount: 8, status: 'ending-soon' },
+      { id: 'vk1', title: 'Match-Worn 2023 World Cup Jersey - Signed', lot: '#0847', currentBid: 84000, minIncrement: 1000, bidCount: 23, status: 'live' },
+      { id: 'vk2', title: 'Signed Training Bat - RCB Season 2022', lot: '#0853', currentBid: 47000, minIncrement: 500, bidCount: 11, status: 'live' },
+      { id: 'vk3', title: 'Personal Batting Gloves - Test Series 2023', lot: '#0861', currentBid: 31000, minIncrement: 500, bidCount: 8, status: 'ending-soon' },
     ],
   },
   msd: {
@@ -32,41 +32,41 @@ const CELEBRITIES: Record<string, any> = {
     followers: '18.7M', lotsListed: 9, totalBids: 2341,
     bio: "MS Dhoni, India's most celebrated captain, auctions rare match-worn equipment and personal memorabilia exclusively through Wregals.",
     posts: [
-      { id: 'msdp1', type: 'image', caption: '2011 — a night I will never forget', likes: 201000, bg: '#1d4ed8' },
+      { id: 'msdp1', type: 'image', caption: '2011 - a night I will never forget', likes: 201000, bg: '#1d4ed8' },
       { id: 'msdp2', type: 'video', caption: 'Helicopter shot training session', likes: 88200, bg: '#1a44c0' },
-      { id: 'msdp3', type: 'image', caption: 'Gloves from the WC final — now on auction', likes: 72100, bg: '#183aa8' },
+      { id: 'msdp3', type: 'image', caption: 'Gloves from the WC final - now on auction', likes: 72100, bg: '#183aa8' },
       { id: 'msdp4', type: 'image', caption: 'CSK forever', likes: 65400, bg: '#163090' },
     ],
     lots: [
-      { id: 'msd1', title: '2011 World Cup Winning Gloves — Match Worn', lot: '#0841', currentBid: 240000, minIncrement: 5000, bidCount: 47, status: 'ending-soon' },
-      { id: 'msd2', title: 'Signed Helmet — IPL Final 2023', lot: '#0862', currentBid: 95000, minIncrement: 2000, bidCount: 19, status: 'live' },
+      { id: 'msd1', title: '2011 World Cup Winning Gloves - Match Worn', lot: '#0841', currentBid: 240000, minIncrement: 5000, bidCount: 47, status: 'ending-soon' },
+      { id: 'msd2', title: 'Signed Helmet - IPL Final 2023', lot: '#0862', currentBid: 95000, minIncrement: 2000, bidCount: 19, status: 'live' },
     ],
   },
   hp: {
     name: 'Hardik Pandya', handle: '@hardik.pandya',
     initials: 'HP', avatarBg: '#1e3a8a',
     followers: '12.2M', lotsListed: 6, totalBids: 892,
-    bio: 'Hardik Pandya brings exclusive IPL and international match-used items to collectors through Wregals — authenticated and direct.',
+    bio: 'Hardik Pandya brings exclusive IPL and international match-used items to collectors through Wregals - authenticated and direct.',
     posts: [
-      { id: 'hpp1', type: 'image', caption: 'IPL 2023 — best season yet', likes: 54200, bg: '#1e3a8a' },
+      { id: 'hpp1', type: 'image', caption: 'IPL 2023 - best season yet', likes: 54200, bg: '#1e3a8a' },
       { id: 'hpp2', type: 'video', caption: 'Pre-match warmup at Wankhede', likes: 38100, bg: '#1a3070' },
     ],
     lots: [
-      { id: 'hp1', title: 'IPL 2023 Match-Used Cricket Bat — Season Signed', lot: '#0848', currentBid: 118500, minIncrement: 1500, bidCount: 31, status: 'live' },
+      { id: 'hp1', title: 'IPL 2023 Match-Used Cricket Bat - Season Signed', lot: '#0848', currentBid: 118500, minIncrement: 1500, bidCount: 31, status: 'live' },
     ],
   },
   rs: {
     name: 'Ranveer Singh', handle: '@ranveersingh',
     initials: 'RS', avatarBg: '#881337',
     followers: '31.4M', lotsListed: 11, totalBids: 1203,
-    bio: 'Ranveer Singh — known for his iconic on-screen style — offers one-of-a-kind film costumes, signed collectibles, and personal fashion pieces.',
+    bio: 'Ranveer Singh - known for his iconic on-screen style - offers one-of-a-kind film costumes, signed collectibles, and personal fashion pieces.',
     posts: [
-      { id: 'rsp1', type: 'image', caption: 'Rocky Aur Rani — behind the scenes', likes: 213000, bg: '#881337' },
+      { id: 'rsp1', type: 'image', caption: 'Rocky Aur Rani - behind the scenes', likes: 213000, bg: '#881337' },
       { id: 'rsp2', type: 'video', caption: 'This jacket is now up for auction!', likes: 89000, bg: '#7a1030' },
       { id: 'rsp3', type: 'image', caption: 'Film set vibes with the crew', likes: 64200, bg: '#6b0e28' },
     ],
     lots: [
-      { id: 'rs1', title: 'Rocky Aur Rani Custom Jacket — Film Set Piece', lot: '#0852', currentBid: 42000, minIncrement: 1500, bidCount: 12, status: 'ending-soon' },
+      { id: 'rs1', title: 'Rocky Aur Rani Custom Jacket - Film Set Piece', lot: '#0852', currentBid: 42000, minIncrement: 1500, bidCount: 12, status: 'ending-soon' },
     ],
   },
   ab: {
@@ -75,8 +75,8 @@ const CELEBRITIES: Record<string, any> = {
     followers: '28.9M', lotsListed: 8, totalBids: 976,
     bio: 'Alia Bhatt shares her most iconic film looks and personal wardrobe pieces with fans through verified Wregals auctions.',
     posts: [
-      { id: 'abp1', type: 'image', caption: 'Shooting for the cover — loved every moment', likes: 187000, bg: '#9f1239' },
-      { id: 'abp2', type: 'image', caption: 'Ganga — a film I hold closest to heart', likes: 102300, bg: '#8b0f30' },
+      { id: 'abp1', type: 'image', caption: 'Shooting for the cover - loved every moment', likes: 187000, bg: '#9f1239' },
+      { id: 'abp2', type: 'image', caption: 'Ganga - a film I hold closest to heart', likes: 102300, bg: '#8b0f30' },
     ],
     lots: [],
   },
@@ -86,24 +86,24 @@ const CELEBRITIES: Record<string, any> = {
     followers: '42.1M', lotsListed: 7, totalBids: 1567,
     bio: 'Global icon Priyanka Chopra Jonas lists exclusive film wardrobe pieces, Met Gala looks, and signed memorabilia through Wregals.',
     posts: [
-      { id: 'pcp1', type: 'image', caption: 'Met Gala 2024 — thank you NYC', likes: 341000, bg: '#be185d' },
-      { id: 'pcp2', type: 'video', caption: 'This saree has a story — watch to find out', likes: 124000, bg: '#a81652' },
+      { id: 'pcp1', type: 'image', caption: 'Met Gala 2024 - thank you NYC', likes: 341000, bg: '#be185d' },
+      { id: 'pcp2', type: 'video', caption: 'This saree has a story - watch to find out', likes: 124000, bg: '#a81652' },
     ],
     lots: [
-      { id: 'pc1', title: 'Hand-woven Banarasi Saree — Met Gala Afterparty', lot: '#0894', currentBid: 192000, minIncrement: 3000, bidCount: 54, status: 'live' },
+      { id: 'pc1', title: 'Hand-woven Banarasi Saree - Met Gala Afterparty', lot: '#0894', currentBid: 192000, minIncrement: 3000, bidCount: 54, status: 'live' },
     ],
   },
   amitabh: {
     name: 'Amitabh Bachchan', handle: '@amitabhbachchan',
     initials: 'AB', avatarBg: '#b45309',
     followers: '59.3M', lotsListed: 5, totalBids: 3412,
-    bio: 'The legend himself — Amitabh Bachchan shares iconic film props, original scripts, and career memorabilia for devoted collectors.',
+    bio: 'The legend himself - Amitabh Bachchan shares iconic film props, original scripts, and career memorabilia for devoted collectors.',
     posts: [
-      { id: 'amp1', type: 'image', caption: "50 years in cinema — grateful for every frame", likes: 528000, bg: '#b45309' },
-      { id: 'amp2', type: 'image', caption: 'Original Don script — now on auction', likes: 213400, bg: '#9a4508' },
+      { id: 'amp1', type: 'image', caption: "50 years in cinema - grateful for every frame", likes: 528000, bg: '#b45309' },
+      { id: 'amp2', type: 'image', caption: 'Original Don script - now on auction', likes: 213400, bg: '#9a4508' },
     ],
     lots: [
-      { id: 'am1', title: 'Original "Don" Movie Script Page — Signed', lot: '#0901', currentBid: 65000, minIncrement: 2000, bidCount: 18, status: 'live' },
+      { id: 'am1', title: 'Original "Don" Movie Script Page - Signed', lot: '#0901', currentBid: 65000, minIncrement: 2000, bidCount: 18, status: 'live' },
     ],
   },
   badshah: {
@@ -112,11 +112,11 @@ const CELEBRITIES: Record<string, any> = {
     followers: '14.8M', lotsListed: 7, totalBids: 643,
     bio: 'Badshah brings stage-worn jackets, tour collectibles, and signed merch straight to fans and collectors through verified Wregals auctions.',
     posts: [
-      { id: 'bdp1', type: 'video', caption: 'Sanak Tour — this jacket was on me the whole night', likes: 98300, bg: '#5b21b6' },
+      { id: 'bdp1', type: 'video', caption: 'Sanak Tour - this jacket was on me the whole night', likes: 98300, bg: '#5b21b6' },
       { id: 'bdp2', type: 'image', caption: 'Studio vibes at 2am', likes: 54100, bg: '#4c1d96' },
     ],
     lots: [
-      { id: 'bd1', title: 'Signed Custom Performance Jacket — Sanak Tour', lot: '#0872', currentBid: 38900, minIncrement: 1100, bidCount: 19, status: 'live' },
+      { id: 'bd1', title: 'Signed Custom Performance Jacket - Sanak Tour', lot: '#0872', currentBid: 38900, minIncrement: 1100, bidCount: 19, status: 'live' },
     ],
   },
   arr: {
@@ -125,11 +125,11 @@ const CELEBRITIES: Record<string, any> = {
     followers: '22.5M', lotsListed: 4, totalBids: 1124,
     bio: 'Oscar-winning composer A.R. Rahman lists studio instruments, signed scores, and rare performance memorabilia for music lovers.',
     posts: [
-      { id: 'arp1', type: 'image', caption: 'This guitar has been with me for 20 years — up for auction', likes: 187200, bg: '#4c1d95' },
-      { id: 'arp2', type: 'video', caption: 'Composing at 3am — magic hours', likes: 98700, bg: '#40187e' },
+      { id: 'arp1', type: 'image', caption: 'This guitar has been with me for 20 years - up for auction', likes: 187200, bg: '#4c1d95' },
+      { id: 'arp2', type: 'video', caption: 'Composing at 3am - magic hours', likes: 98700, bg: '#40187e' },
     ],
     lots: [
-      { id: 'ar1', title: 'Custom Red Stratocaster Guitar — Studio Sessions', lot: '#0880', currentBid: 550000, minIncrement: 10000, bidCount: 78, status: 'live' },
+      { id: 'ar1', title: 'Custom Red Stratocaster Guitar - Studio Sessions', lot: '#0880', currentBid: 550000, minIncrement: 10000, bidCount: 78, status: 'live' },
     ],
   },
   bb: {
@@ -138,11 +138,11 @@ const CELEBRITIES: Record<string, any> = {
     followers: '9.7M', lotsListed: 5, totalBids: 532,
     bio: "Bhuvan Bam, India's most-loved YouTuber, lists milestone-moment items and personal collectibles for his dedicated fan community.",
     posts: [
-      { id: 'bbp1', type: 'image', caption: '1 million — the beginning of everything', likes: 221000, bg: '#065f46' },
+      { id: 'bbp1', type: 'image', caption: '1 million - the beginning of everything', likes: 221000, bg: '#065f46' },
       { id: 'bbp2', type: 'video', caption: 'The golden play button auction is LIVE', likes: 87300, bg: '#054d39' },
     ],
     lots: [
-      { id: 'bb1', title: 'First 1M Subscribers Golden Play Button — Signed Custom Shell', lot: '#0921', currentBid: 125000, minIncrement: 3000, bidCount: 45, status: 'ending-soon' },
+      { id: 'bb1', title: 'First 1M Subscribers Golden Play Button - Signed Custom Shell', lot: '#0921', currentBid: 125000, minIncrement: 3000, bidCount: 45, status: 'ending-soon' },
     ],
   },
   nc: {
@@ -151,7 +151,7 @@ const CELEBRITIES: Record<string, any> = {
     followers: '7.3M', lotsListed: 3, totalBids: 287,
     bio: 'Olympic gold medalist Neeraj Chopra auctions competition javelins, race bibs, and official Olympics memorabilia through Wregals.',
     posts: [
-      { id: 'ncp1', type: 'image', caption: 'Tokyo 2020 — gold for India', likes: 312000, bg: '#78350f' },
+      { id: 'ncp1', type: 'image', caption: 'Tokyo 2020 - gold for India', likes: 312000, bg: '#78350f' },
     ],
     lots: [],
   },
@@ -161,7 +161,7 @@ const CELEBRITIES: Record<string, any> = {
     followers: '5.1M', lotsListed: 4, totalBids: 198,
     bio: 'Two-time Olympic medalist PV Sindhu lists her match rackets, signed shuttles, and championship memorabilia through Wregals.',
     posts: [
-      { id: 'pvp1', type: 'image', caption: 'Silver at Tokyo — every match a memory', likes: 142000, bg: '#92400e' },
+      { id: 'pvp1', type: 'image', caption: 'Silver at Tokyo - every match a memory', likes: 142000, bg: '#92400e' },
     ],
     lots: [],
   },

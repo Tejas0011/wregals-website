@@ -59,21 +59,29 @@ export default function BidModal({ isOpen, onClose, item, user, walletBalance = 
 
     if (!isOpen || !item) return null;
 
-    // Synthesize data for the modal
-    const current = fmt(item.currentBid);
-    const minBidNum = item.currentBid + item.minIncrement;
-    const nextBid = fmt(minBidNum);
-    const depositNum = Math.ceil(minBidNum * 0.1);
-    const deposit = fmt(depositNum);
+    // Synthesize data for the modal - dynamically update based on new bids
+    const baseCurrentBid = item.currentBid;
+    const highestLocalBid = localBids.length > 0 ? Math.max(...localBids.map(b => Number(b.amt))) : 0;
+    const actualCurrentBid = Math.max(baseCurrentBid, highestLocalBid);
     
-    const starting = fmt(Math.ceil(item.currentBid * 0.4)); // dummy calculation
+    const current = fmt(actualCurrentBid);
+    const minBidNum = actualCurrentBid + item.minIncrement;
+    const nextBid = fmt(minBidNum);
+    const minRequired = Math.ceil(minBidNum * 0.1);   // minimum 10% needed to even place the bid
+    const freezeNum = Math.min(walletBalance, minBidNum); // freeze as much as possible up to full bid
+    const depositNum = freezeNum;  // what actually gets deducted from wallet
+    const deposit = fmt(depositNum);
+    const isPartialFreeze = walletBalance < minBidNum; // user can't cover full bid
+    const remainingAfterWin = isPartialFreeze ? minBidNum - walletBalance : 0; // shortfall if they win
+    
+    const starting = fmt(Math.ceil(actualCurrentBid * 0.4)); // dummy calculation
     const isLive = item.status === 'live' || item.status === 'ending-soon';
     
     const sellerStr = item.seller || 'Anonymous Collector';
     const av = sellerStr.split(' ').map(w => w[0]).join('').substring(0, 2);
     const handle = `@${sellerStr.replace(/[^A-Za-z0-9]/g, '').toLowerCase()}`;
     
-    // Realistic live bidder feed — 20 most recent bids
+    // Realistic live bidder feed - 20 most recent bids
     const inc = item.minIncrement || Math.ceil(item.currentBid * 0.05);
     const bidders = [
         { av: 'RK', name: '@rajkumar_c'   },
@@ -97,16 +105,35 @@ export default function BidModal({ isOpen, onClose, item, user, walletBalance = 
         { av: 'PD', name: '@pooja_dx'     },
         { av: 'NK', name: '@nikhil_k7'    },
     ];
+    const [localBids, setLocalBids] = useState<any[]>([]);
+    useEffect(() => {
+        const fetchLocal = () => {
+            if (!item) return;
+            const b = JSON.parse(localStorage.getItem('dummyBids') || '[]');
+            setLocalBids(b.filter((x: any) => x.itemId === item.id).reverse());
+        }
+        fetchLocal();
+        const interval = setInterval(fetchLocal, 1000);
+        return () => clearInterval(interval);
+    }, [item]);
+
     const times = ['Just now', '1 min ago', '3 min ago', '5 min ago', '7 min ago', '9 min ago', '12 min ago', '15 min ago', '18 min ago', '22 min ago', '25 min ago', '28 min ago', '33 min ago', '37 min ago', '40 min ago', '45 min ago', '50 min ago', '55 min ago', '1h ago', '1h ago'];
-    const feed = bidders.map((b, i) => ({
+    const staticFeed = bidders.map((b, i) => ({
         av: b.av,
         name: b.name,
         time: times[i],
-        amt: fmt(item.currentBid - inc * i),
-        top: i === 0,
-    })).filter(f => !f.amt.includes('-'));
+        amt: baseCurrentBid - inc * i
+    }));
 
-    const watching = Math.floor(item.currentBid / 1000) % 500 + 40; // fake
+    const feed = [...localBids, ...staticFeed].map((f, i) => ({
+        av: f.av,
+        name: f.name,
+        time: i === 0 && localBids.length > 0 ? 'Just now' : f.time,
+        amt: typeof f.amt === 'string' ? f.amt : fmt(f.amt),
+        top: i === 0,
+    })).filter(f => typeof f.amt === 'string' ? !f.amt.includes('-') : true);
+
+    const watching = Math.floor(actualCurrentBid / 1000) % 500 + 40; // fake
     const cond = item.provenance ? 'Verified Authentic' : 'Excellent';
     const desc = item.provenance 
         ? `Fully authenticated item with documented provenance: ${item.provenance}. A truly premium collectible sourced directly for the Wregals platform.`
@@ -119,7 +146,7 @@ export default function BidModal({ isOpen, onClose, item, user, walletBalance = 
           <div className="hh-modal">
             <button className="hh-mr-close" onClick={onClose}>✕</button>
     
-            {/* LEFT — media */}
+            {/* LEFT - media */}
             <div className="hh-modal-left">
               <div className="hh-modal-media">
                 <div className="hh-mm-ph">{av}</div>
@@ -145,7 +172,7 @@ export default function BidModal({ isOpen, onClose, item, user, walletBalance = 
               </div>
             </div>
     
-            {/* RIGHT — auction panel */}
+            {/* RIGHT - auction panel */}
             <div className="hh-modal-right">
               <div className="hh-mr-seller">
                 <div className="hh-mr-seller-left">
@@ -164,7 +191,7 @@ export default function BidModal({ isOpen, onClose, item, user, walletBalance = 
                 <span className="hh-mr-dot" />
                 <span>{item.lot}</span>
                 <span className="hh-mr-dot" />
-                <span>{item.bidCount} bids</span>
+                <span>{item.bidCount + localBids.length} bids</span>
                 <span className="hh-mr-dot" />
                 <span>{watching} watching</span>
               </div>
@@ -189,7 +216,7 @@ export default function BidModal({ isOpen, onClose, item, user, walletBalance = 
                   <div className="hh-mbc">
                     <div className="hh-mbc-lbl">Current Bid</div>
                     <div className="hh-mbc-val">{current}</div>
-                    <div className="hh-mbc-sub">{item.bidCount} bids placed</div>
+                    <div className="hh-mbc-sub">{item.bidCount + localBids.length} bids placed</div>
                   </div>
                   <div className="hh-mbc">
                     <div className="hh-mbc-lbl">Starting Bid</div>
@@ -199,14 +226,14 @@ export default function BidModal({ isOpen, onClose, item, user, walletBalance = 
                 </div>
                 {secs > 0 ? (
                     <button className="hh-mr-place-btn" onClick={() => {
-                        if (walletBalance >= depositNum) {
+                        if (walletBalance >= minRequired) {
                             setStep('confirm');
                         } else {
                             setStep('no-funds');
                         }
                     }}>
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="17 11 12 6 7 11" /><line x1="12" y1="6" x2="12" y2="18" /></svg>
-                    Place Bid — {nextBid}
+                    Place Bid - {nextBid}
                     </button>
                 ) : (
                     <button className="hh-mr-place-btn" style={{ background: 'var(--hh-s3)', borderColor: 'var(--hh-line)', color: 'var(--hh-w4)', cursor: 'not-allowed' }}>
@@ -253,17 +280,26 @@ export default function BidModal({ isOpen, onClose, item, user, walletBalance = 
                           <div style={{ fontSize: 19, fontWeight: 700, color: 'var(--hh-w1)', letterSpacing: '-0.5px' }}>{fmt(minBidNum)}</div>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 12, borderTop: '1px solid var(--hh-line)', marginBottom: 10 }}>
-                          <div style={{ fontSize: 11, color: 'var(--hh-w3)' }}>Deposit (10%)</div>
+                          <div style={{ fontSize: 11, color: 'var(--hh-w3)' }}>{isPartialFreeze ? 'Frozen (full wallet)' : 'Frozen (full bid)'}</div>
                           <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--hh-green)' }}>{deposit}</div>
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                          <div style={{ fontSize: 11, color: 'var(--hh-w3)' }}>Wallet after bid</div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: isPartialFreeze ? 10 : 0 }}>
+                          <div style={{ fontSize: 11, color: 'var(--hh-w3)' }}>Wallet after freeze</div>
                           <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--hh-w2)' }}>{fmt(walletBalance - depositNum)}</div>
                         </div>
+                        {isPartialFreeze && (
+                          <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 10, borderTop: '1px solid var(--hh-line)' }}>
+                            <div style={{ fontSize: 11, color: 'var(--hh-amber)' }}>If you win, pay remaining</div>
+                            <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--hh-amber)' }}>{fmt(remainingAfterWin)}</div>
+                          </div>
+                        )}
                       </div>
 
                       <div style={{ fontSize: 11, color: 'var(--hh-w4)', textAlign: 'center', marginBottom: 20, lineHeight: 1.6 }}>
-                        By confirming, you agree to deposit {deposit} from your wallet. You can be outbid.
+                        {isPartialFreeze
+                          ? `Your entire wallet (${deposit}) will be frozen. If you win, pay the remaining ${fmt(remainingAfterWin)} within the deadline.`
+                          : `The full bid amount (${deposit}) will be frozen. Released immediately if you're outbid.`
+                        }
                       </div>
 
                       <div style={{ display: 'flex', gap: 10, width: '100%' }}>
@@ -277,8 +313,65 @@ export default function BidModal({ isOpen, onClose, item, user, walletBalance = 
                         >Cancel</button>
                         <button
                           onClick={() => {
+                            // 1. Build username from user session
+                            const baseName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'collector';
+                            const cleanName = baseName.replace(/\s+/g, '').toLowerCase();
+                            const rNum = String(Math.floor(Math.random() * 900000) + 100000);
+                            const handle = `@${cleanName}${rNum}`;
+                            const uav = baseName.substring(0, 2).toUpperCase();
+
+                            // 2. Normalize item fields - use the camelCase fields directly since they are already normalized by the parent
+                            const normalizedItem = {
+                                id: item.id,
+                                title: item.title,
+                                seller: item.seller || item.celebrity || 'Anonymous',
+                                currentBid: item.currentBid || item.current_bid || 0,
+                                minIncrement: item.minIncrement || item.bid_increment || 1000,
+                                bidCount: (item.bidCount || item.bid_count || 0) + localBids.length + 1,
+                                endsAt: item.endsAt || item.ends_at,
+                                provenance: item.provenance || '',
+                                category: item.category || 'Collectible',
+                                lot: item.lot || '#0000',
+                                image: item.image || item.images?.[0] || '',
+                                status: item.status || 'live',
+                            };
+
+                            // 3. Save to dummyBids
+                            const newBid = {
+                                id: Date.now().toString(),
+                                itemId: item.id,
+                                av: uav,
+                                name: handle,
+                                time: 'Just now',
+                                amt: minBidNum,
+                                itemData: normalizedItem,
+                            };
+                            const existing = JSON.parse(localStorage.getItem('dummyBids') || '[]');
+                            existing.push(newBid);
+                            localStorage.setItem('dummyBids', JSON.stringify(existing));
+                            
+                            // Force immediate leaderboard update in local UI
+                            setLocalBids(prev => [newBid, ...prev]);
+
+                            // 4. Deduct deposit from wallet and log transaction
+                            const currentBalance = Number(localStorage.getItem('dummyWalletBalance') || '50000');
+                            const newBalance = Math.max(0, currentBalance - depositNum);
+                            localStorage.setItem('dummyWalletBalance', newBalance.toString());
+
+                            // 5. Log bid deposit in wallet transaction history
+                            const bidTx = {
+                                id: 'TX-BID-' + Math.floor(Math.random() * 100000),
+                                type: 'blocked',
+                                amount: depositNum,
+                                date: new Date().toISOString().split('T')[0],
+                                note: `Bid Deposit - ${item.title || 'Auction Item'}`
+                            };
+                            const savedTxs = JSON.parse(localStorage.getItem('dummyWalletTransactions') || '[]');
+                            savedTxs.unshift(bidTx);
+                            localStorage.setItem('dummyWalletTransactions', JSON.stringify(savedTxs));
+
                             setStep('success');
-                            setTimeout(onClose, 1800);
+                            setTimeout(() => setStep('idle'), 3000);
                           }}
                           style={{
                             flex: 2, padding: '13px 0', borderRadius: 10,
@@ -288,7 +381,7 @@ export default function BidModal({ isOpen, onClose, item, user, walletBalance = 
                           }}
                         >
                           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="17 11 12 6 7 11" /><line x1="12" y1="6" x2="12" y2="18" /></svg>
-                          Confirm — {fmt(minBidNum)}
+                          Confirm - {fmt(minBidNum)}
                         </button>
                       </div>
                     </>
@@ -362,7 +455,7 @@ export default function BidModal({ isOpen, onClose, item, user, walletBalance = 
               <div className="hh-mr-feed">
                 <div className="hh-mrf-header">
                   <div className="hh-mrf-l"><LiveDot /> Live Bidding</div>
-                  <span className="hh-mrf-r">{item.bidCount} bids</span>
+                  <span className="hh-mrf-r">{item.bidCount + localBids.length} bids</span>
                 </div>
                 <div className="hh-mrf-list">
                   {feed.map((f, i) => (

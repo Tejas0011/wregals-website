@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import IIcon from './IIcon';
 
 // ──────────────────────────────────────────────────────────────
-// Search data — celebrities have avatarUrl, items do not
+// Search data - celebrities have avatarUrl, items do not
 // ──────────────────────────────────────────────────────────────
 const SEARCH_DATA = [
   // ── Celebrities ──────────────────────────────────
@@ -84,49 +84,49 @@ const SEARCH_DATA = [
   // ── Items ──────────────────────────────────────────
   {
     type: 'item', id: 'i1',
-    name: 'Match-Worn 2023 World Cup Jersey — Signed',
+    name: 'Match-Worn 2023 World Cup Jersey - Signed',
     category: 'Cricket · Lot #0847',
     href: '/browse/cricketers',
     price: '₹84,000',
   },
   {
     type: 'item', id: 'i2',
-    name: '2011 World Cup Winning Gloves — Match Worn',
+    name: '2011 World Cup Winning Gloves - Match Worn',
     category: 'Cricket · Lot #0841',
     href: '/browse/cricketers',
     price: '₹2,40,000',
   },
   {
     type: 'item', id: 'i3',
-    name: 'Rocky Aur Rani Custom Jacket — Film Set Piece',
+    name: 'Rocky Aur Rani Custom Jacket - Film Set Piece',
     category: 'Cinema · Lot #0852',
     href: '/browse/bollywood',
     price: '₹42,000',
   },
   {
     type: 'item', id: 'i4',
-    name: 'Hand-woven Banarasi Saree — Met Gala Afterparty',
+    name: 'Hand-woven Banarasi Saree - Met Gala Afterparty',
     category: 'Cinema · Lot #0894',
     href: '/browse/bollywood',
     price: '₹1,92,000',
   },
   {
     type: 'item', id: 'i5',
-    name: 'Signed Custom Performance Jacket — Sanak Tour',
+    name: 'Signed Custom Performance Jacket - Sanak Tour',
     category: 'Music · Lot #0872',
     href: '/browse/musicians',
     price: '₹38,900',
   },
   {
     type: 'item', id: 'i6',
-    name: 'IPL 2023 Match-Used Cricket Bat — Season Signed',
+    name: 'IPL 2023 Match-Used Cricket Bat - Season Signed',
     category: 'Cricket · Lot #0848',
     href: '/browse/cricketers',
     price: '₹1,18,500',
   },
   {
     type: 'item', id: 'i7',
-    name: 'Original "Don" Movie Script Page — Signed',
+    name: 'Original "Don" Movie Script Page - Signed',
     category: 'Cinema · Lot #0901',
     href: '/browse/bollywood',
     price: '₹65,000',
@@ -289,7 +289,7 @@ export default function GlobalSearch() {
                       onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.05)')}
                       onMouseLeave={e => (e.currentTarget.style.background = 'none')}
                     >
-                      {/* No photo for items — just an icon box */}
+                      {/* No photo for items - just an icon box */}
                       <div style={{
                         width: 36, height: 36, borderRadius: 8,
                         background: 'rgba(255,255,255,0.05)',

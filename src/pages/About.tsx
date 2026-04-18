@@ -54,7 +54,7 @@ const VALUES = [
  {
  icon: 'solar:hand-shake-linear',
  title: 'Institutional Settlement',
- desc: 'Escrow-backed settlement, liquidated damages clauses, and KYC verification — built for transactions that matter.',
+ desc: 'Escrow-backed settlement, liquidated damages clauses, and KYC verification - built for transactions that matter.',
  },
 ];
 
@@ -92,7 +92,7 @@ export default function About({ user, onSignInClick }: AboutPageProps) {
  <span className="text-neutral-500">A standard.</span>
  </h1>
  <p className="text-base md:text-lg text-neutral-400 leading-relaxed max-w-2xl">
- WREGALS is India's first capital-backed digital auction house — built for collectors, estates,
+ WREGALS is India's first capital-backed digital auction house - built for collectors, estates,
  and connoisseurs who expect more than a bid button. We bring institutional rigour to digital auctions:
  financially verified bidders, transparent price discovery, and escrow-backed settlement.
  </p>
@@ -122,7 +122,7 @@ export default function About({ user, onSignInClick }: AboutPageProps) {
  <div>
  <span className="text-[10px] font-semibold tracking-wide text-blue-400 mb-4 block">Our Mission</span>
  <h2 className="text-3xl font-semibold tracking-tight tracking-tight mb-8">
- <Logo height="h-10" /> is India's first capital-backed digital auction house — built for collectors, estates,
+ <Logo height="h-10" /> is India's first capital-backed digital auction house - built for collectors, estates,
  and high-value assets.
  </h2>
  <div className="flex-1 space-y-6 text-neutral-400 text-sm leading-relaxed">
@@ -130,8 +130,8 @@ export default function About({ user, onSignInClick }: AboutPageProps) {
  The global auction market is plagued by phantom bids, unsettled sales, and price manipulation. <Logo height="h-3.5" /> was built to fix that.
  </p>
  <p>
- By requiring every bidder to maintain 50% of their bid in their <Logo height="h-3.5" /> wallet — and enforcing a strict
- liquidated damages clause for defaults — we've created the most reliable transaction layer in the industry.
+ By requiring every bidder to maintain 50% of their bid in their <Logo height="h-3.5" /> wallet - and enforcing a strict
+ liquidated damages clause for defaults - we've created the most reliable transaction layer in the industry.
  </p>
  </div>
  </div>

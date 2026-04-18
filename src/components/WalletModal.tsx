@@ -10,25 +10,58 @@ interface WalletModalProps {
 }
 
 export default function WalletModal({ isOpen, onClose, user }: WalletModalProps) {
- const [balance, setBalance] = useState<number>(0);
- const [blocked, setBlocked] = useState<number>(0);
- const [depositAmount, setDepositAmount] = useState('');
- const [activeTab, setActiveTab] = useState<'overview' | 'deposit' | 'history'>('overview');
- const [loading, setLoading] = useState(true);
- const [transactions] = useState([
- // Placeholder transactions — replace with real Supabase query later
- { id: 1, type: 'deposit', amount: 50000, date: '2025-02-28', note: 'Wallet top-up' },
- { id: 2, type: 'blocked', amount: 25000, date: '2025-02-28', note: 'Bid on Lot #9921' },
- { id: 3, type: 'released', amount: 25000, date: '2025-02-27', note: 'Outbid on Lot #8492' },
- ]);
+  const [balance, setBalance] = useState<number>(0);
+  const [blocked, setBlocked] = useState<number>(0);
+  const [depositAmount, setDepositAmount] = useState('');
+  const [activeTab, setActiveTab] = useState<'overview' | 'deposit' | 'history'>('overview');
+  const [loading, setLoading] = useState(true);
+  const DEFAULT_TX = [
+  { id: '1', type: 'deposit', amount: 50000, date: '2025-02-28', note: 'Wallet top-up' },
+  { id: '2', type: 'blocked', amount: 25000, date: '2025-02-28', note: 'Bid on Lot #9921' },
+  { id: '3', type: 'released', amount: 25000, date: '2025-02-27', note: 'Outbid on Lot #8492' },
+  ];
+  
+  const [transactions, setTransactions] = useState(DEFAULT_TX);
 
- useEffect(() => {
- if (!isOpen || !user) return;
- // Fetch wallet from Supabase — placeholder for now
- setLoading(false);
- setBalance(50000);
- setBlocked(25000);
- }, [isOpen, user]);
+  useEffect(() => {
+  if (!isOpen) return;
+  setLoading(false);
+  const savedBalance = localStorage.getItem('dummyWalletBalance');
+  if (savedBalance) {
+    setBalance(Number(savedBalance));
+  } else {
+    setBalance(50000);
+    localStorage.setItem('dummyWalletBalance', '50000');
+  }
+  setBlocked(0); // Using 0 blocked for simple MVP testing
+
+  const savedTx = JSON.parse(localStorage.getItem('dummyWalletTransactions') || '[]');
+  setTransactions([...savedTx, ...DEFAULT_TX]);
+  }, [isOpen, user]);
+
+  const handleDeposit = () => {
+    if (!depositAmount || Number(depositAmount) < 1000) return;
+    const newBalance = balance + Number(depositAmount);
+    setBalance(newBalance);
+    localStorage.setItem('dummyWalletBalance', newBalance.toString());
+    
+    // Add to dummy history array
+    const newTx = {
+      id: 'TX-' + Math.floor(Math.random() * 10000), 
+      type: 'deposit', 
+      amount: Number(depositAmount), 
+      date: new Date().toISOString().split('T')[0], // yyyy-mm-dd
+      note: 'Wallet top-up'
+    };
+    const savedTx = JSON.parse(localStorage.getItem('dummyWalletTransactions') || '[]');
+    savedTx.unshift(newTx);
+    localStorage.setItem('dummyWalletTransactions', JSON.stringify(savedTx));
+    setTransactions([...savedTx, ...DEFAULT_TX]);
+    
+    setDepositAmount('');
+    setActiveTab('overview');
+    alert('Deposit successful (MVP bypass)!');
+  };
 
  if (!isOpen) return null;
 
@@ -70,15 +103,15 @@ export default function WalletModal({ isOpen, onClose, user }: WalletModalProps)
  <div className="grid grid-cols-3 gap-px bg-white/5 border-b border-white/5">
  <div className="bg-[#0E0E0E] px-4 py-5 text-center">
  <p className="text-[10px] font-semibold tracking-wide text-neutral-500 mb-1">Total</p>
- <p className="text-base text-white">{loading ? '—' : fmt(balance)}</p>
+ <p className="text-base text-white">{loading ? '...' : fmt(balance)}</p>
  </div>
  <div className="bg-[#0E0E0E] px-4 py-5 text-center border-x border-white/5">
  <p className="text-[10px] font-semibold tracking-wide text-neutral-500 mb-1">Blocked</p>
- <p className="text-base text-amber-400">{loading ? '—' : fmt(blocked)}</p>
+ <p className="text-base text-amber-400">{loading ? '...' : fmt(blocked)}</p>
  </div>
  <div className="bg-[#0E0E0E] px-4 py-5 text-center">
  <p className="text-[10px] font-semibold tracking-wide text-neutral-500 mb-1">Available</p>
- <p className="text-base text-emerald-400">{loading ? '—' : fmt(available)}</p>
+ <p className="text-base text-emerald-400">{loading ? '...' : fmt(available)}</p>
  </div>
  </div>
 
@@ -108,10 +141,10 @@ export default function WalletModal({ isOpen, onClose, user }: WalletModalProps)
  <p className="text-[10px] font-semibold tracking-wide text-neutral-500">Bidding Power</p>
  <p className="text-xs text-neutral-400 leading-relaxed">
  With your available balance of <span className="text-white">{fmt(available)}</span>, you can bid up to{' '}
- <span className="text-blue-400">{fmt(available * 2)}</span>.
+ <span className="text-blue-400">{fmt(available * 10)}</span>.
  </p>
  <p className="text-[10px] text-neutral-600">
- As per <Logo height="h-3" />'s capital-backing rule, 50% of any bid must be held in your wallet.
+ As per Wregals's capital-backing rule, 10% of any bid must be held in your wallet.
  </p>
  </div>
  <div className="bg-[#0A0A0A] border border-white/5 rounded-sm p-4 space-y-2">
@@ -164,12 +197,13 @@ export default function WalletModal({ isOpen, onClose, user }: WalletModalProps)
  />
  </div>
 
- <button
- disabled={!depositAmount || Number(depositAmount) < 1000}
- className="w-full py-3 text-xs font-semibold tracking-wide bg-white text-black font-semibold hover:bg-neutral-200 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
- >
- Proceed to Payment
- </button>
+  <button
+  onClick={handleDeposit}
+  disabled={!depositAmount || Number(depositAmount) < 1000}
+  className="w-full py-3 text-xs font-semibold tracking-wide bg-white text-black font-semibold hover:bg-neutral-200 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+  >
+  Proceed to Payment
+  </button>
  <p className="text-[10px] text-neutral-600 text-center">
  Payments are processed via secure gateway. Funds appear instantly.
  </p>
@@ -178,7 +212,7 @@ export default function WalletModal({ isOpen, onClose, user }: WalletModalProps)
 
  {/* History */}
  {activeTab === 'history' && (
- <div className="space-y-2">
+ <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
  {transactions.length === 0 ? (
  <p className="text-xs text-neutral-600 text-center py-8">No transactions yet.</p>
  ) : (

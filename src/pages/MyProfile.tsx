@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import AccountLayout from '../components/AccountLayout';
 import IIcon from '../components/IIcon';
 import { MyProfileSkeleton } from '../components/SkeletonScreens';
+import { supabase } from '../lib/supabase';
 
 interface MyProfileProps {
   user: any;
@@ -48,7 +49,7 @@ function EditableRow({ label, value, placeholder, type = 'text', verified }: any
       ) : (
         <div className="flex items-center gap-2">
           <p className={`text-sm font-medium ${saved ? 'text-white/90' : 'text-neutral-600 italic'}`}>
-            {saved || placeholder || '—'}
+            {saved || placeholder || 'n/a'}
           </p>
           {verified && <IIcon icon="solar:verified-check-bold" width="14" className="text-emerald-400" />}
         </div>
@@ -103,20 +104,76 @@ function KpiCard({ icon, label, value, color }: any) {
   );
 }
 
-/* ── Main ──────────────────────────────────────── */
+/* ── Main ──────────────────────────────────────────────────── */
 export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
-  const [bio, setBio] = useState('Passionate collector of authentic celebrity memorabilia and rare sporting artefacts. Always hunting for the next great find. 🏆');
+  const [bio, setBio] = useState('');
   const [editingBio, setEditingBio] = useState(false);
-  const [bioDraft, setBioDraft] = useState(bio);
+  const [bioDraft, setBioDraft] = useState('');
   const [loading, setLoading] = useState(true);
   const [addingAddress, setAddingAddress] = useState(false);
   const [addingPayment, setAddingPayment] = useState(false);
   const [newUpi, setNewUpi] = useState('');
+  const [stats, setStats] = useState({
+    walletBalance: 0,
+    activeBids: 0,
+    auctionsWon: 0,
+  });
+  const [upiId, setUpiId] = useState('');
 
   useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 1000);
-    return () => clearTimeout(t);
-  }, []);
+    if (!user) { setLoading(false); return; }
+    const fetchProfile = async () => {
+      setLoading(true);
+      // Fetch user profile
+      const { data: profile } = await supabase
+        .from('user_profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single();
+
+      if (profile) {
+        setBio(profile.bio || '');
+        setBioDraft(profile.bio || '');
+        setUpiId(profile.upi_id || '');
+        setStats(s => ({ ...s, walletBalance: profile.wallet_balance || 0 }));
+      }
+
+      // Count active bids (bids on live listings)
+      const { data: activeBidsData } = await supabase
+        .from('bids')
+        .select('listing_id, listings!inner(status)')
+        .eq('bidder_id', user.id)
+        .eq('listings.status', 'live');
+      
+      // Count auctions won (highest bid on ended listing)
+      const { data: wonData } = await supabase
+        .from('bids')
+        .select('listing_id, listings!inner(status, current_bid)')
+        .eq('bidder_id', user.id)
+        .eq('listings.status', 'ended');
+
+      const wonCount = wonData ? wonData.filter(b =>
+        b.listings?.current_bid === b.amount
+      ).length : 0;
+
+      setStats(s => ({
+        ...s,
+        activeBids: activeBidsData?.length || 0,
+        auctionsWon: wonCount,
+      }));
+
+      setLoading(false);
+    };
+    fetchProfile();
+  }, [user]);
+
+  const saveBio = async () => {
+    setBio(bioDraft);
+    setEditingBio(false);
+    if (user) {
+      await supabase.from('user_profiles').upsert({ id: user.id, bio: bioDraft }, { onConflict: 'id' });
+    }
+  };
 
   if (!user) {
     return (
@@ -186,14 +243,14 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
                     autoFocus
                   />
                   <div className="flex items-center gap-2">
-                    <button onClick={() => { setBio(bioDraft); setEditingBio(false); }} className="px-4 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-[10px] uppercase tracking-wider rounded-sm transition-colors">Save</button>
+                    <button onClick={saveBio} className="px-4 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-[10px] uppercase tracking-wider rounded-sm transition-colors">Save</button>
                     <button onClick={() => { setBioDraft(bio); setEditingBio(false); }} className="text-[10px] text-neutral-500 hover:text-white transition-colors">Cancel</button>
                     <span className="ml-auto text-[10px] text-neutral-600">{bioDraft.length}/180</span>
                   </div>
                 </div>
               ) : (
                 <div className="flex items-start gap-2 group/bio">
-                  <p className="text-sm text-neutral-400 font-light leading-relaxed max-w-md">"{bio}"</p>
+                  <p className="text-sm text-neutral-400 font-light leading-relaxed max-w-md">{bio ? `"${bio}"` : <span className="italic text-neutral-600">No bio yet - click to add one</span>}</p>
                   <button onClick={() => setEditingBio(true)} className="opacity-0 group-hover/bio:opacity-100 transition-opacity mt-0.5 text-blue-400/80 hover:text-blue-400">
                     <IIcon icon="solar:pen-linear" width="13" />
                   </button>
@@ -206,7 +263,7 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
                   <IIcon icon="solar:shield-check-bold" width="13" /> Verified Bidder
                 </div>
                 <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white/5 border border-white/10 text-[10px] font-semibold tracking-wide text-neutral-400">
-                  <IIcon icon="solar:calendar-linear" width="12" /> Member since 2024
+                  <IIcon icon="solar:calendar-linear" width="12" /> Member since {user?.created_at ? new Date(user.created_at).getFullYear() : '2024'}
                 </div>
                 <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white/5 border border-white/10 text-[10px] font-semibold tracking-wide text-neutral-400">
                   <IIcon icon="solar:map-point-linear" width="12" /> {user.user_metadata?.country || 'India'}
@@ -216,12 +273,12 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
           </div>
         </section>
 
-        {/* ── KPI Grid ── */}
+        {/* KPI Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <KpiCard icon="solar:wallet-bold" label="Wallet Balance" value="₹50,000" color="#3b82f6" />
-          <KpiCard icon="solar:hand-money-bold" label="Active Bids" value="3 Live" color="#4ade80" />
-          <KpiCard icon="solar:heart-bold" label="Watchlist" value="12 Items" color="#f472b6" />
-          <KpiCard icon="solar:box-bold" label="Collection" value="4 Won" color="#a78bfa" />
+          <KpiCard icon="solar:wallet-bold" label="Wallet Balance" value={`₹${stats.walletBalance.toLocaleString('en-IN')}`} color="#3b82f6" />
+          <KpiCard icon="solar:hand-money-bold" label="Active Bids" value={`${stats.activeBids} Live`} color="#4ade80" />
+          <KpiCard icon="solar:heart-bold" label="Watchlist" value="0" color="#f472b6" />
+          <KpiCard icon="solar:box-bold" label="Collection" value={`${stats.auctionsWon} Won`} color="#a78bfa" />
         </div>
 
         {/* ── Detail Panels ── */}
@@ -239,12 +296,12 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
               <div className="flex flex-col gap-3 h-full">
                 <div className="bg-white/[0.03] border border-white/5 rounded-lg p-4">
                   <div className="flex justify-between items-start mb-3">
-                    <span className="text-[10px] font-semibold tracking-wide text-white/90 bg-white/10 px-2 py-0.5 rounded-sm">Default Home</span>
+                    <span className="text-[10px] font-semibold tracking-wide text-white/90 bg-white/10 px-2 py-0.5 rounded-sm">Default Address</span>
                   </div>
                   <div className="space-y-0">
-                    <EditableRow label="Address Line 1" value="123 Marine Drive, Seaface Tower" placeholder="Plot / Building, Street" />
-                    <EditableRow label="Address Line 2" value="Apt 4B" placeholder="Flat, Floor, Landmark" />
-                    <EditableRow label="City / State / PIN" value="Mumbai, Maharashtra 400021" placeholder="City, State, PIN" />
+                    <EditableRow label="Address Line 1" value={user.user_metadata?.address_line1 || ''} placeholder="Plot / Building, Street" />
+                    <EditableRow label="Address Line 2" value={user.user_metadata?.address_line2 || ''} placeholder="Flat, Floor, Landmark" />
+                    <EditableRow label="City / State / PIN" value={user.user_metadata?.city_state_pin || ''} placeholder="City, State, PIN" />
                   </div>
                 </div>
                 {addingAddress ? (
@@ -268,17 +325,6 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
 
             <Panel title="Payment Methods">
               <div className="flex flex-col gap-3 h-full">
-                <div className="bg-gradient-to-br from-[#1e293b] to-[#0f172a] rounded-lg p-5 border border-white/10 relative overflow-hidden">
-                  <div className="absolute top-0 right-0 p-4 opacity-50">
-                    <IIcon icon="logos:visa" width="38" />
-                  </div>
-                  <IIcon icon="solar:sim-card-bold" width="30" className="text-white/60 mb-4 opacity-80" />
-                  <p className="text-lg font-medium tracking-widest text-white/90 mb-2">•••• •••• •••• 4242</p>
-                  <div className="flex justify-between items-center text-xs text-neutral-400">
-                    <span>{user.user_metadata?.full_name?.toUpperCase() || 'USER'}</span>
-                    <span>12/28</span>
-                  </div>
-                </div>
                 <div className="bg-white/[0.03] border border-white/5 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-3">
                     <div className="w-6 h-6 rounded-sm bg-[#5F259F]/20 border border-[#5F259F]/30 flex items-center justify-center">
@@ -286,7 +332,7 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
                     </div>
                     <span className="text-[10px] font-semibold tracking-wide text-neutral-400">UPI ID</span>
                   </div>
-                  <EditableRow label="Your UPI ID" value={user.user_metadata?.upi_id} placeholder="yourname@upi" />
+                  <EditableRow label="Your UPI ID" value={upiId} placeholder="yourname@upi" />
                 </div>
                 {addingPayment ? (
                   <div className="bg-white/[0.03] border border-white/10 rounded-lg p-4 space-y-2">
@@ -318,8 +364,8 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
                       <div className="w-4 h-4 bg-green-400 rounded-full absolute right-0.5 top-0.5 shadow-md" />
                     </div>
                   </div>
-                  <EditableRow label="Connected Account" value="Google Signed-In" placeholder="—" />
-                  <EditableRow label="Last Active" value="Today, 14:23 IST" placeholder="—" />
+                  <EditableRow label="Connected Account" value="Google Signed-In" placeholder="not set" />
+                  <EditableRow label="Last Active" value="Today, 14:23 IST" placeholder="not set" />
                 </div>
                 <button className="text-[10px] font-semibold tracking-wide text-neutral-400 hover:text-white transition-colors underline underline-offset-4">View all security events</button>
                 <div className="border-t border-white/5 pt-3 space-y-3 flex-1">

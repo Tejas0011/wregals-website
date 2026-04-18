@@ -7,7 +7,7 @@ const COVERAGE = [
  {
  outlet: 'The Economic Times',
  logo: 'ET',
- headline: '"WREGALS is building the Christie\'s of India — and doing it digitally first."',
+ headline: '"WREGALS is building the Christie\'s of India - and doing it digitally first."',
  date: 'Feb 2026',
  url: '#',
  },
@@ -21,7 +21,7 @@ const COVERAGE = [
  {
  outlet: 'Forbes India',
  logo: 'FI',
- headline: '"From Rolexes to Rajput artefacts — WREGALS is redefining India\'s luxury resale market."',
+ headline: '"From Rolexes to Rajput artefacts - WREGALS is redefining India\'s luxury resale market."',
  date: 'Dec 2025',
  url: '#',
  },
