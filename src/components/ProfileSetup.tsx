@@ -249,7 +249,7 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
                                     type="button"
                                     onClick={handleSendOtp}
                                     disabled={phone.length !== 10 || loading || otpLoading || (otpSent && timer > 0)}
-                                    className="px-4 py-3 bg-white hover:bg-neutral-200 text-[#0C0C0D] text-xs font-bold uppercase tracking-wider rounded-lg disabled:opacity-50 transition-colors whitespace-nowrap min-w-[120px]"
+                                    className="px-4 py-3 bg-white hover:bg-neutral-200 text-[#0C0C0D] text-xs font-bold uppercase tracking-wider disabled:opacity-50 transition-colors whitespace-nowrap min-w-[120px]"
                                 >
                                     {otpLoading && !otpSent ? 'Sending...' : (otpSent && timer > 0 ? `Resend ${timer}s` : 'Send OTP')}
                                 </button>
@@ -269,7 +269,7 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
                                             id={`ps-otp-${i}`}
                                             type="text"
                                             inputMode="numeric"
-                                            className="w-full h-12 text-center text-lg bg-[#0C0C0D] border border-white/10 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-[#3b82f6]/30 transition-all font-medium shadow-inner"
+                                            className="w-full h-12 text-center text-lg bg-[#0C0C0D] border border-white/10 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-[#3b82f6]/30 transition-all font-medium shadow-inner"
                                             value={digit}
                                             onChange={e => handleOtpChange(i, e.target.value)}
                                             onKeyDown={e => handleOtpKeyDown(i, e)}
@@ -290,7 +290,7 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
                                         type="button"
                                         onClick={handleVerifyOtp}
                                         disabled={otp.join('').length !== 6 || otpLoading}
-                                        className="px-5 py-2.5 bg-white hover:bg-neutral-200 text-[#0C0C0D] text-xs font-bold uppercase tracking-wider rounded-lg shrink-0 disabled:opacity-50 shadow-lg shadow-white/10"
+                                        className="px-5 py-2.5 bg-white hover:bg-neutral-200 text-[#0C0C0D] text-xs font-bold uppercase tracking-wider shrink-0 disabled:opacity-50 shadow-lg shadow-white/10"
                                     >
                                         {otpLoading ? 'Verifying...' : 'Verify Code'}
                                     </button>
