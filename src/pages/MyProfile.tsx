@@ -4,6 +4,7 @@ import AccountLayout from '../components/AccountLayout';
 import IIcon from '../components/IIcon';
 import { MyProfileSkeleton } from '../components/SkeletonScreens';
 import { supabase } from '../lib/supabase';
+import { useRazorpay } from '../hooks/useRazorpay';
 
 interface MyProfileProps {
   user: any;
@@ -113,12 +114,16 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
   const [addingAddress, setAddingAddress] = useState(false);
   const [addingPayment, setAddingPayment] = useState(false);
   const [newUpi, setNewUpi] = useState('');
+  const [showAddFunds, setShowAddFunds] = useState(false);
+  const [customAmount, setCustomAmount] = useState('');
+  const [fundLoading, setFundLoading] = useState(false);
   const [stats, setStats] = useState({
     walletBalance: 0,
     activeBids: 0,
     auctionsWon: 0,
   });
   const [upiId, setUpiId] = useState('');
+  const { openCheckout } = useRazorpay();
 
   useEffect(() => {
     if (!user) { setLoading(false); return; }
@@ -172,6 +177,33 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
     setEditingBio(false);
     if (user) {
       await supabase.from('user_profiles').upsert({ id: user.id, bio: bioDraft }, { onConflict: 'id' });
+    }
+  };
+
+  const handleAddFunds = async (amountInRupees: number) => {
+    setFundLoading(true);
+    try {
+      await openCheckout({
+        amount: amountInRupees * 100, // Razorpay expects paise
+        description: `Add ₹${amountInRupees.toLocaleString('en-IN')} to Wregals Wallet`,
+        prefillName: user?.user_metadata?.full_name,
+        prefillEmail: user?.email,
+        onSuccess: async (response) => {
+          // Update wallet balance in Supabase
+          const newBalance = stats.walletBalance + amountInRupees;
+          await supabase
+            .from('user_profiles')
+            .upsert({ id: user.id, wallet_balance: newBalance }, { onConflict: 'id' });
+          setStats(s => ({ ...s, walletBalance: newBalance }));
+          setShowAddFunds(false);
+          setCustomAmount('');
+        },
+        onFailure: (err) => {
+          console.error('Payment failed', err);
+        },
+      });
+    } finally {
+      setFundLoading(false);
     }
   };
 
@@ -275,11 +307,73 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
 
         {/* KPI Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <KpiCard icon="solar:wallet-bold" label="Wallet Balance" value={`₹${stats.walletBalance.toLocaleString('en-IN')}`} color="#3b82f6" />
+          {/* Wallet - special card with Add Funds */}
+          <div className="col-span-2 lg:col-span-1 bg-[#0d0d0d] border border-white/5 p-5 rounded-xl hover:border-white/10 transition-colors group flex flex-col gap-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-[10px] text-neutral-500 tracking-widest uppercase mb-1">Wallet Balance</p>
+                <p className="text-xl font-semibold tracking-tight text-white">₹{stats.walletBalance.toLocaleString('en-IN')}</p>
+              </div>
+              <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 text-blue-400 transition-transform group-hover:scale-110">
+                <IIcon icon="solar:wallet-bold" width="20" />
+              </div>
+            </div>
+            <button
+              onClick={() => setShowAddFunds(true)}
+              className="w-full py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-[10px] font-bold tracking-widest uppercase text-white transition-colors flex items-center justify-center gap-1.5"
+            >
+              <IIcon icon="solar:add-circle-bold" width="12" /> Add Funds
+            </button>
+          </div>
           <KpiCard icon="solar:hand-money-bold" label="Active Bids" value={`${stats.activeBids} Live`} color="#4ade80" />
           <KpiCard icon="solar:heart-bold" label="Watchlist" value="0" color="#f472b6" />
           <KpiCard icon="solar:box-bold" label="Collection" value={`${stats.auctionsWon} Won`} color="#a78bfa" />
         </div>
+
+        {/* Add Funds Modal */}
+        {showAddFunds && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={() => setShowAddFunds(false)}>
+            <div className="bg-[#111] border border-white/10 rounded-xl p-6 w-full max-w-sm mx-4 shadow-2xl" onClick={e => e.stopPropagation()}>
+              <div className="flex items-center justify-between mb-5">
+                <h3 className="text-base font-semibold text-white">Add Funds to Wallet</h3>
+                <button onClick={() => setShowAddFunds(false)} className="text-neutral-500 hover:text-white transition-colors">
+                  <IIcon icon="solar:close-circle-linear" width="20" />
+                </button>
+              </div>
+              <p className="text-xs text-neutral-500 mb-4">Select a preset amount or enter a custom value. Funds are available instantly after payment.</p>
+              <div className="grid grid-cols-3 gap-2 mb-4">
+                {[500, 1000, 2000, 5000, 10000, 25000].map(amt => (
+                  <button
+                    key={amt}
+                    disabled={fundLoading}
+                    onClick={() => handleAddFunds(amt)}
+                    className="py-2.5 border border-white/10 hover:border-white/30 hover:bg-white/5 text-xs font-semibold text-white transition-colors"
+                  >
+                    ₹{amt.toLocaleString('en-IN')}
+                  </button>
+                ))}
+              </div>
+              <div className="flex gap-2">
+                <input
+                  type="number"
+                  value={customAmount}
+                  onChange={e => setCustomAmount(e.target.value)}
+                  placeholder="Custom amount"
+                  min="100"
+                  className="flex-1 bg-[#0d0d0d] border border-white/10 focus:border-white/30 px-3 py-2.5 text-sm text-white outline-none placeholder:text-neutral-600"
+                />
+                <button
+                  disabled={fundLoading || !customAmount || Number(customAmount) < 100}
+                  onClick={() => handleAddFunds(Number(customAmount))}
+                  className="px-4 py-2.5 bg-white hover:bg-neutral-200 text-black text-xs font-bold uppercase tracking-wider disabled:opacity-40 transition-colors"
+                >
+                  {fundLoading ? '...' : 'Pay'}
+                </button>
+              </div>
+              <p className="text-[10px] text-neutral-600 mt-3 text-center">Min ₹100 · Secured by Razorpay</p>
+            </div>
+          </div>
+        )}
 
         {/* ── Detail Panels ── */}
         <div className="flex flex-col gap-6 max-w-4xl mx-auto w-full">
