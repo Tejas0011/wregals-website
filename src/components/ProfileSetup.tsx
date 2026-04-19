@@ -1,7 +1,16 @@
 // @ts-nocheck
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { RecaptchaVerifier, signInWithPhoneNumber, type ConfirmationResult } from 'firebase/auth';
+import { auth } from '../lib/firebase';
 import IIcon from './IIcon';
+
+declare global {
+    interface Window {
+        recaptchaVerifier: RecaptchaVerifier;
+        grecaptcha: any;
+    }
+}
 
 const HEARD_SOURCES = ['Instagram', 'LinkedIn', 'Twitter / X', 'Facebook', 'Friend / Referral', 'Google Search', 'Press / Media', 'Event', 'Other'];
 
@@ -35,6 +44,16 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
     const [otpError, setOtpError] = useState('');
     const [isPhoneVerified, setIsPhoneVerified] = useState(user?.user_metadata?.phone_verified || false);
     const [timer, setTimer] = useState(0);
+    const [confirmationResult, setConfirmationResult] = useState<ConfirmationResult | null>(null);
+
+    useEffect(() => {
+        if (!auth) return;
+        if (!window.recaptchaVerifier) {
+            window.recaptchaVerifier = new RecaptchaVerifier(auth, 'ps-recaptcha-container', {
+                'size': 'invisible',
+            });
+        }
+    }, []);
 
     const toggleSource = (src: string) =>
         setHeardSource(
@@ -57,31 +76,27 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
         setOtpError('');
 
         try {
-            const res = await fetch('/api/msg91/send-otp', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ mobile: sendMobile }),
-            });
+            if (!auth) throw new Error("Firebase not initialized. Add config to .env");
+            const appVerifier = window.recaptchaVerifier;
+            const confirmation = await signInWithPhoneNumber(auth, '+' + sendMobile, appVerifier);
+            setConfirmationResult(confirmation);
 
-            const data = await res.json();
             setOtpLoading(false);
-
-            if (res.ok) {
-                setOtpSent(true);
-                setOtpError('');
-                setTimer(45);
-                const int = setInterval(() => {
-                    setTimer(t => {
-                        if (t <= 1) clearInterval(int);
-                        return t - 1;
-                    });
-                }, 1000);
-            } else {
-                setOtpError(data.error || 'Failed to send OTP');
-            }
+            setOtpSent(true);
+            setOtpError('');
+            setTimer(45);
+            const int = setInterval(() => {
+                setTimer(t => {
+                    if (t <= 1) clearInterval(int);
+                    return t - 1;
+                });
+            }, 1000);
         } catch (err: any) {
             setOtpLoading(false);
-            setOtpError(err.message || 'Network error');
+            setOtpError(err.message || 'Failed to send OTP (Network or reCAPTCHA error)');
+            if (window.recaptchaVerifier) {
+                window.recaptchaVerifier.render().then(widgetId => window.grecaptcha?.reset(widgetId));
+            }
         }
     };
 
@@ -93,32 +108,19 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
             return;
         }
 
-        let sendMobile = phone.replace(/\D/g, '');
-        if (sendMobile.length === 10) sendMobile = '91' + sendMobile;
-
         setOtpLoading(true);
         setOtpError('');
 
         try {
-            const res = await fetch('/api/msg91/verify-otp', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ mobile: sendMobile, otp: otpCode, userId: user.id }),
-            });
-
-            const data = await res.json();
+            if (!confirmationResult) throw new Error("Session expired, please resend OTP");
+            await confirmationResult.confirm(otpCode);
+            
             setOtpLoading(false);
-
-            if (res.ok) {
-                setIsPhoneVerified(true);
-                setOtpError('');
-                await supabase.auth.refreshSession();
-            } else {
-                setOtpError(data.error || 'Invalid OTP');
-            }
+            setIsPhoneVerified(true);
+            setOtpError('');
         } catch (err: any) {
             setOtpLoading(false);
-            setOtpError(err.message || 'Verification failed');
+            setOtpError(err.message || 'Invalid OTP code');
         }
     };
 
@@ -211,6 +213,7 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
                 </div>
 
                 <form className="profile-setup-form" onSubmit={handleSubmit}>
+                    <div id="ps-recaptcha-container"></div>
                     {error && <div className="profile-setup-error">{error}</div>}
 
                     <div className="profile-setup-field">
