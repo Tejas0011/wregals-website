@@ -58,6 +58,13 @@ function App() {
   const [walletOpen, setWalletOpen] = useState(false);
   const [openNav, setOpenNav] = useState<'auctions' | 'company' | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [devNoticeDismissed, setDevNoticeDismissed] = useState(() =>
+    sessionStorage.getItem('devNoticeDismissed') === 'true'
+  );
+  const dismissDevNotice = () => {
+    sessionStorage.setItem('devNoticeDismissed', 'true');
+    setDevNoticeDismissed(true);
+  };
 
   const navRef = useRef<HTMLDivElement>(null);
   const navCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -159,6 +166,58 @@ function App() {
 
   return (
     <div className="bg-[#0C0C0D] selection:bg-white selection:text-black text-white min-h-screen">
+
+      {/* ── Dev Notice Banner ─────────────────────────────────────────────── */}
+      {!devNoticeDismissed && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 9999,
+            background: 'linear-gradient(90deg, #78350f 0%, #92400e 50%, #78350f 100%)',
+            borderBottom: '1px solid rgba(251,191,36,0.3)',
+            padding: '9px 16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '10px',
+            fontSize: '12px',
+            color: '#fef3c7',
+            letterSpacing: '0.01em',
+            lineHeight: '1.4',
+          }}
+        >
+          <span style={{ fontSize: '15px', flexShrink: 0 }}>🚧</span>
+          <span>
+            <strong style={{ color: '#fbbf24' }}>Development Preview</strong>
+            {' — '}
+            This website is currently under development. All names, numbers, listings, bids, and data shown are{' '}
+            <strong style={{ color: '#fbbf24' }}>100% fictional placeholders</strong>{' '}
+            used solely for design & testing purposes. We do not associate with, endorse, or promote any of the entities depicted.
+          </span>
+          <button
+            onClick={dismissDevNotice}
+            aria-label="Dismiss notice"
+            style={{
+              marginLeft: 'auto',
+              flexShrink: 0,
+              background: 'transparent',
+              border: 'none',
+              color: '#fbbf24',
+              cursor: 'pointer',
+              fontSize: '18px',
+              lineHeight: 1,
+              padding: '0 4px',
+              opacity: 0.8,
+            }}
+          >
+            ×
+          </button>
+        </div>
+      )}
+
       {/* Profile Setup - shown on first login */}
       {showProfileSetup && user && setupStep === 1 && (
         <ProfileSetup
@@ -186,7 +245,8 @@ function App() {
 
       {/* ── Global Navigation ────────────────────────────────────────────── */}
       <nav
-        className="fixed top-0 w-full z-[500] bg-[#0C0C0D] border-b border-white/5"
+        className="fixed w-full z-[500] bg-[#0C0C0D] border-b border-white/5"
+        style={{ top: devNoticeDismissed ? 0 : '46px', transition: 'top 0.25s ease' }}
       >
         <div className="w-full pl-5 pr-6 h-20 flex items-center justify-between">
           {/* Logo */}
