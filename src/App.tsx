@@ -58,13 +58,8 @@ function App() {
   const [walletOpen, setWalletOpen] = useState(false);
   const [openNav, setOpenNav] = useState<'auctions' | 'company' | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [devNoticeDismissed, setDevNoticeDismissed] = useState(() =>
-    sessionStorage.getItem('devNoticeDismissed') === 'true'
-  );
-  const dismissDevNotice = () => {
-    sessionStorage.setItem('devNoticeDismissed', 'true');
-    setDevNoticeDismissed(true);
-  };
+  const [devNoticeDismissed, setDevNoticeDismissed] = useState(false);
+  const dismissDevNotice = () => setDevNoticeDismissed(true);
 
   const navRef = useRef<HTMLDivElement>(null);
   const navCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -172,12 +167,12 @@ function App() {
         <div
           style={{
             position: 'fixed',
-            top: 0,
+            bottom: 0,
             left: 0,
             right: 0,
             zIndex: 9999,
             background: 'linear-gradient(90deg, #78350f 0%, #92400e 50%, #78350f 100%)',
-            borderBottom: '1px solid rgba(251,191,36,0.3)',
+            borderTop: '1px solid rgba(251,191,36,0.3)',
             padding: '9px 16px',
             display: 'flex',
             alignItems: 'center',
@@ -246,7 +241,7 @@ function App() {
       {/* ── Global Navigation ────────────────────────────────────────────── */}
       <nav
         className="fixed w-full z-[500] bg-[#0C0C0D] border-b border-white/5"
-        style={{ top: devNoticeDismissed ? 0 : '46px', transition: 'top 0.25s ease' }}
+        style={{ top: 0 }}
       >
         <div className="w-full pl-5 pr-6 h-20 flex items-center justify-between">
           {/* Logo */}
