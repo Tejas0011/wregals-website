@@ -187,11 +187,18 @@ export default function Social({ user, onSignInClick }: SocialProps) {
 
         {/* ── CENTER FEED ── */}
         <div className="hh-feed">
+  {/* Spacer so the gap isn't sticky */}
+  <div className="h-6" />
   {/* Sticky header */}
-  <div className="sticky top-[120px] z-30 bg-[#111111]/90 backdrop-blur-md mb-6 rounded-xl overflow-hidden shadow-lg mx-6 mt-6 border border-white/10">
+  <div className="sticky top-[108px] z-30 bg-[#111111] mb-6 rounded-xl overflow-hidden shadow-lg mx-6 border border-white/10">
     <div className="flex">
-      {[{ id: 'foryou', label: 'For You' }, { id: 'following', label: 'Following' }].map(t => (
-        <button key={t.id} onClick={() => setTab(t.id as any)}
+      {[{ id: 'foryou', label: 'Spotlight' }, { id: 'following', label: 'My Feed' }].map(t => (
+        <button key={t.id} onClick={() => {
+          setTab(t.id as any);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          const r = document.getElementById('root');
+          if (r) r.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
           className={`flex-1 h-14 text-sm font-bold transition-colors relative ${tab === t.id ? 'text-white' : 'text-neutral-500 hover:text-neutral-300'}`}>
           {t.label}
           {tab === t.id && <span className="absolute bottom-0 left-8 right-8 h-0.5 bg-white rounded-t-full" />}
