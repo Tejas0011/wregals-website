@@ -205,7 +205,7 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
                 <div className="profile-setup-container">
                     <form className="profile-setup-form" onSubmit={handleSubmit}>
                         <div className="profile-setup-brand">
-                            <img src="/wregals-text-logo.png" alt="WREGALS" className="w-64 md:w-80 h-auto object-contain mx-auto" />
+                            <img src="/wregals-text-logo.png" alt="WREGALS" className="w-48 md:w-56 h-auto object-contain mx-auto" />
                         </div>
 
                         <div className="profile-setup-steps">

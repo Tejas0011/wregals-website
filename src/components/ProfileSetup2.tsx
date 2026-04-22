@@ -90,148 +90,173 @@ export default function ProfileSetup2({ user, onComplete, onBack, onDismiss }: P
 
     return (
         <div className="profile-setup-overlay">
+            {/* Ambient slow-moving particles */}
+            <div className="ps-particles">
+                {[...Array(8)].map((_, i) => <div key={i} className={`ps-particle ps-particle-${i}`} />)}
+            </div>
+            
             <button className="profile-setup-close" onClick={onDismiss} aria-label="Close">
                 ×
             </button>
-            <div className="profile-setup-container profile-setup-container--compact">
-                {/* Wordmark */}
-                <div className="profile-setup-brand profile-setup-brand--compact">
-                    <img src="/wregals-text-logo.png" alt="WREGALS" className="h-32 w-auto object-contain" />
-                </div>
-
-                {/* Step indicator */}
-                <div className="profile-setup-steps profile-setup-steps--compact">
-                    <div className="profile-setup-step profile-setup-step--done">
-                        <span className="profile-setup-step-dot">✓</span>
-                        <span>Profile</span>
-                    </div>
-                    <div className="profile-setup-step-line" />
-                    <div className="profile-setup-step profile-setup-step--active">
-                        <span className="profile-setup-step-dot">2</span>
-                        <span>KYC Details</span>
+            <div className="profile-setup-layout">
+                {/* Left decorative panel */}
+                <div className="profile-setup-side profile-setup-side--left">
+                    <div className="ps-side-accent" />
+                    <div className="ps-side-ornament" />
+                    <div className="ps-side-dots">
+                        {[...Array(5)].map((_, i) => <div key={i} className="ps-side-dot" />)}
                     </div>
                 </div>
 
-                {/* Heading */}
-                <div className="profile-setup-heading-block profile-setup-heading-block--compact">
-                    <span className="profile-setup-eyebrow">Step 2 of 2</span>
-                    <h1 className="profile-setup-title">Address & KYC</h1>
-                    <p className="profile-setup-subtitle">
-                        Required for participating in auctions and completing transactions.
-                    </p>
-                </div>
+                {/* Center form panel */}
+                <div className="profile-setup-container profile-setup-container--compact">
+                    {/* Form encompasses everything now for solid dark card */}
+                    <form className="profile-setup-form profile-setup-form--compact" onSubmit={handleSubmit}>
+                        {/* Wordmark */}
+                        <div className="profile-setup-brand profile-setup-brand--compact">
+                            <img src="/wregals-text-logo.png" alt="WREGALS" className="w-64 md:w-80 h-auto object-contain mx-auto" />
+                        </div>
 
-                {/* Form */}
-                <form className="profile-setup-form profile-setup-form--compact" onSubmit={handleSubmit}>
-                    {error && <div className="profile-setup-error">{error}</div>}
+                        {/* Step indicator */}
+                        <div className="profile-setup-steps profile-setup-steps--compact">
+                            <div className="profile-setup-step profile-setup-step--done">
+                                <span className="profile-setup-step-dot">✓</span>
+                                <span>Profile</span>
+                            </div>
+                            <div className="profile-setup-step-line" />
+                            <div className="profile-setup-step profile-setup-step--active">
+                                <span className="profile-setup-step-dot">2</span>
+                                <span>KYC Details</span>
+                            </div>
+                        </div>
 
-                    {/* Address Line 1 */}
-                    <div className="profile-setup-field">
-                        <label className="profile-setup-label">Address Line 1</label>
-                        <input
-                            type="text"
-                            className="profile-setup-input"
-                            placeholder="House / Flat No., Street Name"
-                            value={addressLine1}
-                            onChange={e => setAddressLine1(e.target.value)}
-                            disabled={loading}
-                        />
-                    </div>
+                        {/* Heading */}
+                        <div className="profile-setup-heading-block profile-setup-heading-block--compact">
+                            <span className="profile-setup-eyebrow">Step 2 of 2</span>
+                            <h1 className="profile-setup-title">Address & KYC</h1>
+                            <p className="profile-setup-subtitle">
+                                Required for participating in auctions and completing transactions.
+                            </p>
+                        </div>
+                        {error && <div className="profile-setup-error">{error}</div>}
 
-                    {/* Address Line 2 */}
-                    <div className="profile-setup-field">
-                        <label className="profile-setup-label">
-                            Address Line 2 <span className="profile-setup-optional">(optional)</span>
-                        </label>
-                        <input
-                            type="text"
-                            className="profile-setup-input"
-                            placeholder="Landmark, Area"
-                            value={addressLine2}
-                            onChange={e => setAddressLine2(e.target.value)}
-                            disabled={loading}
-                        />
-                    </div>
-
-                    {/* City + State row */}
-                    <div className="profile-setup-row">
+                        {/* Address Line 1 */}
                         <div className="profile-setup-field">
-                            <label className="profile-setup-label">City</label>
+                            <label className="profile-setup-label">Address Line 1</label>
                             <input
                                 type="text"
                                 className="profile-setup-input"
-                                placeholder="Mumbai"
-                                value={city}
-                                onChange={e => setCity(e.target.value)}
+                                placeholder="House / Flat No., Street Name"
+                                value={addressLine1}
+                                onChange={e => setAddressLine1(e.target.value)}
                                 disabled={loading}
                             />
                         </div>
+
+                        {/* Address Line 2 */}
                         <div className="profile-setup-field">
-                            <label className="profile-setup-label">State</label>
-                            <CustomSelect
-                                value={state}
-                                onChange={setState}
-                                options={INDIAN_STATES}
-                                placeholder="Select state"
+                            <label className="profile-setup-label">
+                                Address Line 2 <span className="profile-setup-optional">(optional)</span>
+                            </label>
+                            <input
+                                type="text"
+                                className="profile-setup-input"
+                                placeholder="Landmark, Area"
+                                value={addressLine2}
+                                onChange={e => setAddressLine2(e.target.value)}
                                 disabled={loading}
                             />
                         </div>
-                    </div>
 
-                    {/* Pincode */}
-                    <div className="profile-setup-field">
-                        <label className="profile-setup-label">Pincode</label>
-                        <input
-                            type="text"
-                            className="profile-setup-input"
-                            placeholder="400001"
-                            maxLength={6}
-                            value={pincode}
-                            onChange={e => setPincode(e.target.value.replace(/\D/g, ''))}
-                            disabled={loading}
-                        />
-                    </div>
+                        {/* City + State row */}
+                        <div className="profile-setup-row">
+                            <div className="profile-setup-field">
+                                <label className="profile-setup-label">City</label>
+                                <input
+                                    type="text"
+                                    className="profile-setup-input"
+                                    placeholder="Mumbai"
+                                    value={city}
+                                    onChange={e => setCity(e.target.value)}
+                                    disabled={loading}
+                                />
+                            </div>
+                            <div className="profile-setup-field">
+                                <label className="profile-setup-label">State</label>
+                                <CustomSelect
+                                    value={state}
+                                    onChange={setState}
+                                    options={INDIAN_STATES}
+                                    placeholder="Select state"
+                                    disabled={loading}
+                                />
+                            </div>
+                        </div>
 
-                    {/* PAN Card */}
-                    <div className="profile-setup-field">
-                        <label className="profile-setup-label">PAN Card Number</label>
-                        <input
-                            type="text"
-                            className="profile-setup-input"
-                            placeholder="ABCDE1234F"
-                            maxLength={10}
-                            value={pan}
-                            onChange={e => setPan(e.target.value.toUpperCase())}
-                            disabled={loading}
-                            style={{ letterSpacing: '0.15em', fontFamily: 'monospace' }}
-                        />
-                        <span className="profile-setup-hint">10-character PAN as on your card</span>
-                    </div>
+                        {/* Pincode */}
+                        <div className="profile-setup-field">
+                            <label className="profile-setup-label">Pincode</label>
+                            <input
+                                type="text"
+                                className="profile-setup-input"
+                                placeholder="400001"
+                                maxLength={6}
+                                value={pincode}
+                                onChange={e => setPincode(e.target.value.replace(/\D/g, ''))}
+                                disabled={loading}
+                            />
+                        </div>
 
-                    {/* Actions */}
-                    <div className="profile-setup-actions">
-                        <button
-                            type="button"
-                            onClick={onBack}
-                            className="profile-setup-back-btn"
-                            disabled={loading}
-                        >
-                            ← Back
-                        </button>
-                        <button type="submit" className="profile-setup-submit profile-setup-submit--flex" disabled={loading}>
-                            {loading ? (
-                                <span className="auth-spinner auth-spinner--dark" />
-                            ) : (
-                                <IIcon icon="solar:arrow-right-linear" width="16" />
-                            )}
-                            {loading ? 'Saving…' : 'Enter Wregals'}
-                        </button>
-                    </div>
-                </form>
+                        {/* PAN Card */}
+                        <div className="profile-setup-field">
+                            <label className="profile-setup-label">PAN Card Number</label>
+                            <input
+                                type="text"
+                                className="profile-setup-input"
+                                placeholder="ABCDE1234F"
+                                maxLength={10}
+                                value={pan}
+                                onChange={e => setPan(e.target.value.toUpperCase())}
+                                disabled={loading}
+                                style={{ letterSpacing: '0.15em', fontFamily: 'monospace' }}
+                            />
+                            <span className="profile-setup-hint">10-character PAN as on your card</span>
+                        </div>
 
-                <p className="profile-setup-footer">
-                    Your PAN details are encrypted and stored securely.
-                </p>
+                        {/* Actions */}
+                        <div className="profile-setup-actions">
+                            <button
+                                type="button"
+                                onClick={onBack}
+                                className="profile-setup-back-btn"
+                                disabled={loading}
+                            >
+                                ← Back
+                            </button>
+                            <button type="submit" className="profile-setup-submit profile-setup-submit--flex" disabled={loading}>
+                                {loading ? (
+                                    <span className="auth-spinner auth-spinner--dark" />
+                                ) : (
+                                    <IIcon icon="solar:arrow-right-linear" width="16" />
+                                )}
+                                {loading ? 'Saving…' : 'Enter Wregals'}
+                            </button>
+                        </div>
+                        
+                        <p className="profile-setup-footer">
+                            Your PAN details are encrypted and stored securely.
+                        </p>
+                    </form>
+                </div>
+
+                {/* Right decorative panel */}
+                <div className="profile-setup-side profile-setup-side--right">
+                    <div className="ps-side-accent" />
+                    <div className="ps-side-ornament" />
+                    <div className="ps-side-dots">
+                        {[...Array(5)].map((_, i) => <div key={i} className="ps-side-dot" />)}
+                    </div>
+                </div>
             </div>
         </div>
     );
