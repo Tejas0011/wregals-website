@@ -184,167 +184,204 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
 
     return (
         <div className="profile-setup-overlay">
+            <div className="ps-particles">
+                {[...Array(13)].map((_, i) => <div key={i} className={`ps-particle ps-particle-${i}`} />)}
+            </div>
+            
             <button className="profile-setup-close" onClick={onDismiss} aria-label="Close">
                 ×
             </button>
-            <div className="profile-setup-container">
-                <div className="profile-setup-brand">
-                    <img src="/wregals-text-logo.png" alt="WREGALS" className="h-32 w-auto object-contain" />
-                </div>
-
-                <div className="profile-setup-steps">
-                    <div className="profile-setup-step profile-setup-step--active">
-                        <span className="profile-setup-step-dot">1</span>
-                        <span>Profile</span>
-                    </div>
-                    <div className="profile-setup-step-line" />
-                    <div className="profile-setup-step">
-                        <span className="profile-setup-step-dot">2</span>
-                        <span>KYC Details</span>
+            <div className="profile-setup-layout">
+                {/* Left decorative panel */}
+                <div className="profile-setup-side profile-setup-side--left">
+                    <div className="ps-side-accent" />
+                    <div className="ps-side-ornament" />
+                    <div className="ps-side-dots">
+                        {[...Array(5)].map((_, i) => <div key={i} className="ps-side-dot" />)}
                     </div>
                 </div>
 
-                <div className="profile-setup-heading-block">
-                    <span className="profile-setup-eyebrow">Step 1 of 2</span>
-                    <h1 className="profile-setup-title">Complete Your Profile</h1>
-                    <p className="profile-setup-subtitle">
-                        Tell us a little about yourself to personalise your experience.
-                    </p>
-                </div>
-
-                <form className="profile-setup-form" onSubmit={handleSubmit}>
-                    <div id="ps-recaptcha-container"></div>
-                    {error && <div className="profile-setup-error">{error}</div>}
-
-                    <div className="profile-setup-field">
-                        <label className="profile-setup-label">Full Name</label>
-                        <input
-                            type="text"
-                            className="profile-setup-input"
-                            placeholder="Your full name"
-                            value={displayName}
-                            onChange={e => setDisplayName(e.target.value)}
-                            disabled={loading}
-                        />
-                    </div>
-
-                    <div className="profile-setup-field">
-                        <label className="profile-setup-label flex items-center">
-                            Phone Number
-                            {isPhoneVerified && <span className="text-green-500 font-semibold ml-2 text-[10px] tracking-wide uppercase px-2 py-0.5 rounded bg-green-500/10 border border-green-500/20">✓ Verified</span>}
-                        </label>
-                        <div className="flex gap-2">
-                            <input
-                                type="tel"
-                                className={`profile-setup-input flex-1 ${isPhoneVerified ? 'opacity-70 cursor-not-allowed' : ''}`}
-                                placeholder="10-digit mobile number"
-                                value={phone}
-                                onChange={e => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
-                                maxLength={10}
-                                inputMode="numeric"
-                                disabled={loading || otpLoading || otpSent || isPhoneVerified}
-                            />
-                            {!isPhoneVerified && (
-                                <button
-                                    type="button"
-                                    onClick={handleSendOtp}
-                                    disabled={phone.length !== 10 || loading || otpLoading || (otpSent && timer > 0)}
-                                    className="px-4 py-3 bg-white hover:bg-neutral-200 text-[#0C0C0D] text-xs font-bold uppercase tracking-wider disabled:opacity-50 transition-colors whitespace-nowrap min-w-[120px]"
-                                >
-                                    {otpLoading && !otpSent ? 'Sending...' : (otpSent && timer > 0 ? `Resend ${timer}s` : 'Send OTP')}
-                                </button>
-                            )}
+                {/* Center form panel */}
+                <div className="profile-setup-container">
+                    <form className="profile-setup-form" onSubmit={handleSubmit}>
+                        <div className="profile-setup-brand">
+                            <img src="/wregals-text-logo.png" alt="WREGALS" className="w-64 md:w-80 h-auto object-contain mx-auto" />
                         </div>
-                        {otpError && <div className="text-red-400 text-xs mt-2 font-medium">{otpError}</div>}
 
-                        {/* Inline OTP Verification Layout */}
-                        {otpSent && !isPhoneVerified && (
-                            <div className="mt-3 p-4 bg-white/5 border border-white/10 rounded-xl relative overflow-hidden">
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#3b82f6]/5 to-transparent pointer-events-none" />
-                                <label className="block text-xs text-white/50 mb-3 uppercase tracking-wider font-semibold">Enter 6-Digit Code</label>
-                                <div className="flex gap-2 mb-4 justify-between">
-                                    {otp.map((digit, i) => (
-                                        <input
-                                            key={i}
-                                            id={`ps-otp-${i}`}
-                                            type="text"
-                                            inputMode="numeric"
-                                            className="w-full h-12 text-center text-lg bg-[#0C0C0D] border border-white/10 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-[#3b82f6]/30 transition-all font-medium shadow-inner"
-                                            value={digit}
-                                            onChange={e => handleOtpChange(i, e.target.value)}
-                                            onKeyDown={e => handleOtpKeyDown(i, e)}
-                                            disabled={otpLoading}
-                                        />
-                                    ))}
-                                </div>
-                                <div className="flex items-center justify-between">
+                        <div className="profile-setup-steps">
+                            <div className="profile-setup-step profile-setup-step--active">
+                                <span className="profile-setup-step-dot">1</span>
+                                <span>Profile</span>
+                            </div>
+                            <div className="profile-setup-step-line" />
+                            <div className="profile-setup-step">
+                                <span className="profile-setup-step-dot">2</span>
+                                <span>KYC Details</span>
+                            </div>
+                        </div>
+
+                        <div className="profile-setup-heading-block">
+                            <span className="profile-setup-eyebrow">Step 1 of 2</span>
+                            <h1 className="profile-setup-title">Complete Your Profile</h1>
+                            <p className="profile-setup-subtitle">
+                                Tell us a little about yourself to personalise your experience.
+                            </p>
+                        </div>
+                        <div id="ps-recaptcha-container"></div>
+                        {error && <div className="profile-setup-error">{error}</div>}
+
+                        <div className="profile-setup-field">
+                            <label className="profile-setup-label">Full Name</label>
+                            <input
+                                type="text"
+                                className="profile-setup-input"
+                                placeholder="Your full name"
+                                value={displayName}
+                                onChange={e => setDisplayName(e.target.value)}
+                                disabled={loading}
+                            />
+                        </div>
+
+                        <div className="profile-setup-field">
+                            <label className="profile-setup-label flex items-center">
+                                Phone Number
+                                {isPhoneVerified && <span className="text-green-500 font-semibold ml-2 text-[10px] tracking-wide uppercase px-2 py-0.5 rounded bg-green-500/10 border border-green-500/20">✓ Verified</span>}
+                            </label>
+                            <div className="flex gap-2 w-full">
+                                <input
+                                    type="tel"
+                                    className={`profile-setup-input flex-1 min-w-0 ${isPhoneVerified ? 'opacity-70 cursor-not-allowed' : ''}`}
+                                    placeholder="10-digit mobile number"
+                                    value={phone}
+                                    onChange={e => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
+                                    maxLength={10}
+                                    inputMode="numeric"
+                                    disabled={loading || otpLoading || otpSent || isPhoneVerified}
+                                />
+                                {!isPhoneVerified && !otpSent && (
+                                    <button
+                                        type="button"
+                                        onClick={handleSendOtp}
+                                        disabled={phone.length !== 10 || loading || otpLoading}
+                                        className="flex-1 min-w-0 flex justify-center items-center py-3 px-2 bg-white hover:bg-neutral-200 text-[#0C0C0D] text-[13px] font-bold uppercase tracking-[0.14em] disabled:opacity-50 transition-colors rounded-md"
+                                    >
+                                        <span className="truncate">{otpLoading ? 'Sending...' : 'Send OTP'}</span>
+                                    </button>
+                                )}
+                                {!isPhoneVerified && otpSent && (
+                                    <div className="flex-1 min-w-0 flex gap-1 items-stretch justify-between">
+                                        {otp.map((digit, i) => (
+                                            <input
+                                                key={i}
+                                                id={`ps-otp-${i}`}
+                                                type="text"
+                                                inputMode="numeric"
+                                                className="w-full text-center text-sm bg-[#0C0C0D] border border-white/10 text-white rounded-md focus:outline-none focus:border-[#D4AF37]/40 focus:ring-1 focus:ring-[#D4AF37]/20 transition-all font-medium shadow-inner disabled:opacity-50"
+                                                value={digit}
+                                                onChange={e => {
+                                                    handleOtpChange(i, e.target.value);
+                                                    if (i === 5 && e.target.value) {
+                                                        const newOtp = [...otp];
+                                                        newOtp[i] = e.target.value;
+                                                        if (newOtp.join('').length === 6) {
+                                                            setTimeout(() => handleVerifyOtp(), 0);
+                                                        }
+                                                    }
+                                                }}
+                                                onKeyDown={e => handleOtpKeyDown(i, e)}
+                                                disabled={otpLoading}
+                                            />
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                            
+                            {!isPhoneVerified && otpSent && (
+                                <div className="flex items-center justify-between mt-2 px-1">
                                     <button
                                         type="button"
                                         onClick={() => { setOtpSent(false); setOtp(['','','','','','']); setOtpError(''); }}
-                                        className="text-white/40 hover:text-white transition-colors text-[11px] font-medium tracking-wide uppercase"
+                                        className="text-white/40 hover:text-white transition-colors text-[10px] font-medium tracking-wide uppercase"
                                         disabled={otpLoading}
                                     >
                                         Change Number
                                     </button>
-                                    <button
-                                        type="button"
-                                        onClick={handleVerifyOtp}
-                                        disabled={otp.join('').length !== 6 || otpLoading}
-                                        className="px-5 py-2.5 bg-white hover:bg-neutral-200 text-[#0C0C0D] text-xs font-bold uppercase tracking-wider shrink-0 disabled:opacity-50 shadow-lg shadow-white/10"
-                                    >
-                                        {otpLoading ? 'Verifying...' : 'Verify Code'}
-                                    </button>
+                                    <div className="flex items-center gap-3">
+                                        {otpLoading && <span className="text-[#D4AF37] text-[10px] font-medium tracking-wide uppercase animate-pulse">Verifying...</span>}
+                                        {timer > 0 ? (
+                                            <span className="text-white/40 text-[10px] font-medium tracking-wide uppercase">Resend in {timer}s</span>
+                                        ) : (
+                                            <button
+                                                type="button"
+                                                onClick={handleSendOtp}
+                                                disabled={loading || otpLoading}
+                                                className="text-[#D4AF37] hover:text-[#b5952f] transition-colors text-[10px] font-bold tracking-wide uppercase disabled:opacity-50"
+                                            >
+                                                Resend OTP
+                                            </button>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="profile-setup-field">
-                        <label className="profile-setup-label">Country</label>
-                        <select
-                            className="profile-setup-input profile-setup-select"
-                            value={country}
-                            onChange={e => setCountry(e.target.value)}
-                            disabled={loading}
-                            required
-                        >
-                            <option value="" disabled>Select your country</option>
-                            {COUNTRIES.map(c => (
-                                <option key={c} value={c}>{c}</option>
-                            ))}
-                        </select>
-                    </div>
-
-                    <div className="profile-setup-field">
-                        <label className="profile-setup-label">Where did you hear about Wregals?</label>
-                        <div className="profile-setup-chips">
-                            {HEARD_SOURCES.map(src => (
-                                <button
-                                    key={src}
-                                    type="button"
-                                    onClick={() => toggleSource(src)}
-                                    disabled={loading}
-                                    className={`profile-setup-chip ${heardSource.includes(src) ? 'profile-setup-chip--active' : ''}`}
-                                >
-                                    {src}
-                                </button>
-                            ))}
+                            )}
+                            {otpError && <div className="text-red-400 text-xs mt-2 font-medium">{otpError}</div>}
                         </div>
+
+                        <div className="profile-setup-field">
+                            <label className="profile-setup-label">Country</label>
+                            <select
+                                className="profile-setup-input profile-setup-select"
+                                value={country}
+                                onChange={e => setCountry(e.target.value)}
+                                disabled={loading}
+                                required
+                            >
+                                <option value="" disabled>Select your country</option>
+                                {COUNTRIES.map(c => (
+                                    <option key={c} value={c}>{c}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="profile-setup-field">
+                            <label className="profile-setup-label">Where did you hear about Wregals?</label>
+                            <div className="profile-setup-chips">
+                                {HEARD_SOURCES.map(src => (
+                                    <button
+                                        key={src}
+                                        type="button"
+                                        onClick={() => toggleSource(src)}
+                                        disabled={loading}
+                                        className={`profile-setup-chip ${heardSource.includes(src) ? 'profile-setup-chip--active' : ''}`}
+                                    >
+                                        {src}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        <button type="submit" className="profile-setup-submit" disabled={loading || !isPhoneVerified}>
+                            {loading ? (
+                                <span className="auth-spinner auth-spinner--dark" />
+                            ) : (
+                                <IIcon icon="solar:arrow-right-linear" width="16" />
+                            )}
+                            {loading ? 'Saving…' : 'Continue'}
+                        </button>
+
+                        <p className="profile-setup-footer">
+                            You can update these details anytime from your profile.
+                        </p>
+                    </form>
+                </div>
+
+                {/* Right decorative panel */}
+                <div className="profile-setup-side profile-setup-side--right">
+                    <div className="ps-side-accent" />
+                    <div className="ps-side-ornament" />
+                    <div className="ps-side-dots">
+                        {[...Array(5)].map((_, i) => <div key={i} className="ps-side-dot" />)}
                     </div>
-
-                    <button type="submit" className="profile-setup-submit" disabled={loading || !isPhoneVerified}>
-                        {loading ? (
-                            <span className="auth-spinner auth-spinner--dark" />
-                        ) : (
-                            <IIcon icon="solar:arrow-right-linear" width="16" />
-                        )}
-                        {loading ? 'Saving…' : 'Continue'}
-                    </button>
-                </form>
-
-                <p className="profile-setup-footer">
-                    You can update these details anytime from your profile.
-                </p>
+                </div>
             </div>
         </div>
     );

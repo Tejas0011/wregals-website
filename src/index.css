@@ -786,128 +786,399 @@ a[href*="spline"] {
     color: rgba(255, 255, 255, 0.8);
 }
 
-/* ── Profile Setup Page ─────────────────────────────────── */
+/* ── Profile Setup Page — Premium Redesign ──────────────── */
+
+/* Slow organic background animation */
+@keyframes ps-bgDrift {
+    0%   { background-position: 0% 0%, 100% 100%, 50% 50%; }
+    25%  { background-position: 100% 0%, 0% 50%, 80% 20%; }
+    50%  { background-position: 100% 100%, 50% 0%, 20% 80%; }
+    75%  { background-position: 0% 100%, 100% 50%, 50% 20%; }
+    100% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+}
+
+@keyframes ps-grain {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-2%, -2%); }
+    30% { transform: translate(1%, -1%); }
+    50% { transform: translate(-1%, 2%); }
+    70% { transform: translate(2%, 1%); }
+    90% { transform: translate(-1%, -1%); }
+}
+
+@keyframes ps-fadeSlideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ps-fadeSlideIn {
+    from { opacity: 0; transform: translateX(-16px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes ps-lineGrow {
+    from { width: 0; }
+    to   { width: 48px; }
+}
+
+@keyframes ps-shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+@keyframes ps-pulseGlow {
+    0%, 100% { opacity: 0.4; }
+    50%      { opacity: 0.8; }
+}
+
 .profile-setup-overlay {
     position: fixed;
     inset: 0;
     z-index: 10000;
-    background: #000000;
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
-    padding: 16px;
+    overflow: hidden;
     animation: authOverlayIn 0.4s ease forwards;
+
+    /* Deep Navy Blue Base */
+    background-color: #060515;
+    background-image:
+        radial-gradient(ellipse 80% 60% at 15% 20%, rgba(20, 15, 60, 0.4) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 50% at 85% 75%, rgba(10, 10, 30, 0.3) 0%, transparent 55%);
+    background-size: 200% 200%, 200% 200%;
+    animation: authOverlayIn 0.4s ease forwards, ps-bgDrift 45s ease-in-out infinite;
+}
+
+/* Subtle film grain texture overlay */
+.profile-setup-overlay::before {
+    content: '';
+    position: absolute;
+    inset: -20%;
+    z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    animation: ps-grain 8s steps(10) infinite;
+    pointer-events: none;
+}
+
+/* Ambient glow to give depth */
+.profile-setup-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+        radial-gradient(circle 400px at 20% 80%, rgba(30, 40, 100, 0.05) 0%, transparent 70%),
+        radial-gradient(circle 350px at 80% 15%, rgba(40, 20, 80, 0.04) 0%, transparent 60%);
+    pointer-events: none;
+    animation: ps-pulseGlow 12s ease-in-out infinite alternate;
+}
+
+/* ── Ambient Floating Particles ──────────────────────── */
+.ps-particles {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
     overflow: hidden;
 }
 
-.profile-setup-container {
+.ps-particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: transparent;
+    border-radius: 50%;
+    opacity: 0;
+    animation: ps-floatObj 20s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.ps-particle::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1.5px;
+    height: 60px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.95) 50%, rgba(255, 255, 255, 0) 100%);
+    border-radius: 10px;
+}
+
+@keyframes ps-floatObj {
+    0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+    10% { opacity: 0.8; transform: translateY(90vh) scale(1); }
+    90% { opacity: 0.8; transform: translateY(10vh) scale(1); }
+    100% { transform: translateY(-10vh) scale(0.5); opacity: 0; }
+}
+
+.ps-particle-0 { left: 15%; animation-duration: 25s; animation-delay: 0s; width: 8px; height: 8px; }
+.ps-particle-1 { left: 85%; animation-duration: 22s; animation-delay: 4s; }
+.ps-particle-2 { left: 25%; animation-duration: 28s; animation-delay: 8s; width: 5px; height: 5px; }
+.ps-particle-3 { left: 70%; animation-duration: 30s; animation-delay: 12s; }
+.ps-particle-4 { left: 40%; animation-duration: 24s; animation-delay: 2s; width: 10px; height: 10px; }
+.ps-particle-5 { left: 60%; animation-duration: 26s; animation-delay: 16s; }
+.ps-particle-6 { left: 10%; animation-duration: 32s; animation-delay: 6s; }
+.ps-particle-7 { left: 90%; animation-duration: 27s; animation-delay: 10s; width: 7px; height: 7px; }
+.ps-particle-8 { left: 50%; animation-duration: 21s; animation-delay: 5s; width: 6px; height: 6px; }
+.ps-particle-9 { left: 80%; animation-duration: 29s; animation-delay: 14s; }
+.ps-particle-10 { left: 5%; animation-duration: 23s; animation-delay: 1s; width: 4px; height: 4px; }
+.ps-particle-11 { left: 95%; animation-duration: 26s; animation-delay: 9s; }
+.ps-particle-12 { left: 35%; animation-duration: 31s; animation-delay: 11s; width: 9px; height: 9px; }
+
+
+/* ── Full-Width Layout Container ──────────────────────── */
+.profile-setup-layout {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr minmax(480px, 680px) 1fr; /* Widened Center Column */
     width: 100%;
-    max-width: 640px;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ── Side Panels (decorative) ─────────────────────────── */
+.profile-setup-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 48px;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-setup-side--left {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.profile-setup-side--right {
+    align-items: flex-start;
+    text-align: left;
+}
+
+.ps-side-accent {
+    position: absolute;
+    width: 1px;
+    height: 40%;
+    top: 30%;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+.profile-setup-side--left .ps-side-accent {
+    right: 0;
+}
+
+.profile-setup-side--right .ps-side-accent {
+    left: 0;
+}
+
+.ps-side-tagline {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.15);
+    font-weight: 300;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    animation: ps-fadeSlideIn 1.2s 0.6s ease both;
+}
+
+.ps-side-ornament {
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 50%;
+    margin-top: 24px;
+    position: relative;
+    animation: ps-fadeSlideIn 1.2s 0.8s ease both;
+}
+
+.ps-side-ornament::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 50%;
+}
+
+.ps-side-dots {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 32px;
+    animation: ps-fadeSlideIn 1.2s 1s ease both;
+}
+
+.ps-side-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* ── Center Panel ─────────────────────────────────────── */
+.profile-setup-container {
+    position: relative;
+    width: 100%;
     max-height: 100vh;
     overflow-y: auto;
     scrollbar-width: none;
-    padding: 0;
+    padding: 2vh 32px 40px; /* Force it extremely close to the top edge */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    animation: ps-fadeSlideUp 0.7s 0.15s ease both;
+}
+
+.profile-setup-container::-webkit-scrollbar {
+    display: none;
 }
 
 .profile-setup-brand {
-    margin-bottom: 20px;
+    margin-top: -105px; /* Further pull the logo up heavily */
+    margin-bottom: 4px;
     display: flex;
     justify-content: center;
+    animation: ps-fadeSlideUp 0.6s 0.2s ease both;
+}
+
+.profile-setup-form > :empty {
+    display: none;
 }
 
 .profile-setup-heading-block {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     text-align: center;
+    animation: ps-fadeSlideUp 0.6s 0.3s ease both;
 }
 
 .profile-setup-eyebrow {
-    display: block;
+    display: inline-block;
     font-size: 9px;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: #ffffff;
-    margin-bottom: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 8px;
     font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    padding: 4px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.04);
 }
 
 .profile-setup-title {
     font-family: 'Inter', sans-serif;
-    font-size: 22px;
-    font-weight: 300;
+    font-size: 26px;
+    font-weight: 600;
     color: #ffffff;
-    margin: 0 0 4px;
-    letter-spacing: -0.01em;
+    margin: 0 0 6px;
+    letter-spacing: -0.04em;
+    line-height: 1.3;
 }
 
 .profile-setup-subtitle {
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.35);
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
     margin: 0;
     font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
 }
 
+/* ── Form Card ────────────────────────────────────────── */
 .profile-setup-form {
     display: flex;
     flex-direction: column;
-    gap: 18px;
-    background: #0E0E0E;
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 4px;
-    padding: 28px 36px;
+    gap: 12px;
+    background: #0d0c11; /* Solid dark, not transparent */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 24px 32px 250px 32px; /* Massive bottom padding jump! */
+    position: relative;
+    overflow: hidden;
+    animation: ps-fadeSlideUp 0.6s 0.4s ease both;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Subtle top shimmer line on form */
+.profile-setup-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.45) 30%,
+        rgba(255, 255, 255, 0.8) 50%,
+        rgba(255, 255, 255, 0.45) 70%,
+        transparent 100%);
+    background-size: 200% 100%;
+    animation: ps-shimmer 6s ease-in-out infinite;
 }
 
 .profile-setup-error {
     padding: 10px 14px;
-    border-radius: 2px;
+    border-radius: 6px;
     font-size: 11px;
-    background: rgba(192, 57, 43, 0.1);
-    border: 1px solid rgba(192, 57, 43, 0.3);
+    background: rgba(192, 57, 43, 0.08);
+    border: 1px solid rgba(192, 57, 43, 0.2);
     color: #e57368;
     font-family: 'Inter', sans-serif;
+    font-weight: 400;
 }
 
 .profile-setup-field {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .profile-setup-label {
     font-size: 10px;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.3);
     font-family: 'Inter', sans-serif;
+    font-weight: 500;
 }
 
 .profile-setup-optional {
     text-transform: none;
     letter-spacing: 0;
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.15);
     font-size: 9px;
+    font-weight: 400;
 }
 
 .profile-setup-input {
     width: 100%;
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 2px;
-    padding: 11px 14px;
-    font-size: 13px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 12px;
     color: #ffffff;
     font-family: 'Inter', sans-serif;
     outline: none;
-    transition: border-color 0.2s, background 0.2s;
+    transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
     box-sizing: border-box;
 }
 
 .profile-setup-input::placeholder {
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.15);
 }
 
 .profile-setup-input:focus {
-    border-color: rgba(212, 175, 55, 0.5);
-    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
 }
 
 .profile-setup-select {
@@ -915,14 +1186,14 @@ a[href*="spline"] {
     -webkit-appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='rgba(255,255,255,0.3)' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 32px;
+    background-position: right 14px center;
+    padding-right: 36px;
     cursor: pointer;
 }
 
 .profile-setup-select:invalid,
 .profile-setup-select[data-placeholder="true"] {
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.15);
 }
 
 .profile-setup-select option {
@@ -930,7 +1201,7 @@ a[href*="spline"] {
     color: #fff;
 }
 
-/* Interest chips */
+/* ── Interest Chips ───────────────────────────────────── */
 .profile-setup-chips {
     display: flex;
     flex-wrap: wrap;
@@ -938,75 +1209,101 @@ a[href*="spline"] {
 }
 
 .profile-setup-chip {
-    padding: 4px 10px;
+    padding: 6px 14px;
     font-size: 9px;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     font-family: 'Inter', sans-serif;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.4);
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.35);
     border-radius: 100px;
-    transition: all 0.2s;
+    transition: all 0.25s ease;
+    cursor: pointer;
 }
 
 .profile-setup-chip:hover {
-    border-color: rgba(255, 255, 255, 0.25);
-    color: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.65);
+    background: rgba(255, 255, 255, 0.04);
 }
 
 .profile-setup-chip--active {
-    background: rgba(212, 175, 55, 0.1);
-    border-color: rgba(212, 175, 55, 0.5);
-    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.04);
 }
 
-/* Submit button */
+/* ── Submit Button ────────────────────────────────────── */
 .profile-setup-submit {
-    margin-top: 2px;
+    margin-top: 12px;
+    margin-bottom: 8px; /* Extra breathing space at bottom edge */
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 10px 20px;
-    background: #ffffff;
-    color: #000;
-    font-size: 11px;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #e8e8e8 100%);
+    color: #0a0a0a;
+    font-size: 13px;
     font-family: 'Inter', sans-serif;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     font-weight: 700;
     border: none;
-    border-radius: 2px;
-    transition: opacity 0.2s, transform 0.2s;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-setup-submit::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(0, 0, 0, 0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .profile-setup-submit:hover:not(:disabled) {
-    opacity: 0.88;
     transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.profile-setup-submit:hover:not(:disabled)::after {
+    opacity: 1;
 }
 
 .profile-setup-submit:disabled {
-    opacity: 0.6;
+    opacity: 0.45;
+    cursor: not-allowed;
 }
 
 .profile-setup-footer {
     text-align: center;
-    font-size: 9px;
-    color: rgba(255, 255, 255, 0.15);
-    margin-top: 8px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 24px;
     font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    animation: ps-fadeSlideUp 0.6s 0.6s ease both;
 }
 
-/* Step indicator */
+/* ── Step Indicator ───────────────────────────────────── */
 .profile-setup-steps {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-top: -115px; /* Pull details block heavily up by another ~20% */
+    margin-bottom: 12px;
     gap: 0;
+    animation: ps-fadeSlideUp 0.6s 0.25s ease both;
 }
 
 .profile-setup-step {
@@ -1015,118 +1312,161 @@ a[href*="spline"] {
     align-items: center;
     gap: 8px;
     font-size: 10px;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.25);
+    color: rgba(255, 255, 255, 0.4);
     font-family: 'Inter', sans-serif;
     white-space: nowrap;
+    font-weight: 600;
+    transition: color 0.3s ease;
 }
 
 .profile-setup-step--active {
-    color: #3b82f6;
+    color: #ffffff;
 }
 
 .profile-setup-step--done {
-    color: rgba(212, 175, 55, 0.5);
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .profile-setup-step-dot {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.15);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 10px;
-    font-weight: 600;
+    font-weight: 700;
     flex-shrink: 0;
-    color: rgba(255, 255, 255, 0.25);
+    color: rgba(255, 255, 255, 0.4);
+    transition: all 0.3s ease;
 }
 
 .profile-setup-step--active .profile-setup-step-dot {
-    border-color: #3b82f6;
-    color: #3b82f6;
-    background: rgba(212, 175, 55, 0.08);
+    border-color: #ffffff;
+    color: #000000;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
 }
 
 .profile-setup-step--done .profile-setup-step-dot {
-    border-color: rgba(212, 175, 55, 0.4);
-    color: rgba(212, 175, 55, 0.6);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.6);
+    background: transparent;
 }
 
 .profile-setup-step-line {
     width: 48px;
     height: 1px;
-    background: rgba(255, 255, 255, 0.1);
-    margin: 0 12px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+    margin: 0 14px;
     flex-shrink: 0;
+    animation: ps-lineGrow 0.8s 0.4s ease both;
 }
 
-/* Two-column row layout */
+/* ── Two-Column Row Layout ────────────────────────────── */
 .profile-setup-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 14px;
 }
 
-/* Hint text under input */
+/* ── Hint Text ────────────────────────────────────────── */
 .profile-setup-hint {
     font-size: 10px;
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.15);
     font-family: 'Inter', sans-serif;
-    margin-top: 2px;
+    margin-top: 3px;
+    font-weight: 300;
 }
 
-/* Actions row (back + submit) */
+/* ── Actions Row (back + submit) ──────────────────────── */
 .profile-setup-actions {
     display: flex;
-    gap: 10px;
-    margin-top: 4px;
+    gap: 12px;
+    margin-top: 6px;
 }
 
 .profile-setup-back-btn {
-    padding: 12px 18px;
+    padding: 13px 20px;
     font-size: 11px;
     letter-spacing: 0.08em;
     font-family: 'Inter', sans-serif;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.4);
-    border-radius: 2px;
-    transition: background 0.15s, color 0.15s;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.35);
+    border-radius: 6px;
+    transition: all 0.25s ease;
     white-space: nowrap;
+    font-weight: 500;
 }
 
 .profile-setup-back-btn:hover {
-    color: rgba(255, 255, 255, 0.8);
-    background: rgba(255, 255, 255, 0.07);
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
 }
 
 .profile-setup-submit--flex {
     flex: 1;
 }
 
-/* ── Step-2 compact overrides (does NOT affect Step 1) ──── */
+/* ── Step-2 Compact Overrides ─────────────────────────── */
 .profile-setup-container--compact {
-    max-width: 560px;
+    min-width: 0; /* grid handles sizing */
 }
 
 .profile-setup-brand--compact {
-    margin-bottom: 10px;
+    margin-bottom: 16px;
 }
 
 .profile-setup-steps--compact {
-    margin-bottom: 10px;
+    margin-bottom: 16px;
 }
 
 .profile-setup-heading-block--compact {
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
 
 .profile-setup-form--compact {
-    gap: 12px;
-    padding: 20px 28px;
+    gap: 14px;
+    padding: 24px 30px;
+}
+
+/* ── Responsive: collapse side panels on smaller screens ── */
+@media (max-width: 1024px) {
+    .profile-setup-layout {
+        grid-template-columns: 1fr;
+    }
+    .profile-setup-side {
+        display: none;
+    }
+    .profile-setup-overlay {
+        padding: 16px;
+        align-items: center;
+        justify-content: center;
+    }
+    .profile-setup-container {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-setup-container {
+        padding: 24px 16px;
+    }
+    .profile-setup-form {
+        padding: 20px 18px;
+    }
+    .profile-setup-title {
+        font-size: 22px;
+    }
+    .profile-setup-row {
+        grid-template-columns: 1fr;
+    }
 }
 
 
