@@ -376,7 +376,7 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
         )}
 
         {/* ── Detail Panels ── */}
-        <div className="flex flex-col gap-6 max-w-4xl mx-auto w-full">
+        <div className="flex flex-col gap-6 w-full">
             <Panel title="Personal Details">
               <div>
                 <EditableRow label="Full Name" value={user.user_metadata?.full_name} placeholder="Enter your full name" />
