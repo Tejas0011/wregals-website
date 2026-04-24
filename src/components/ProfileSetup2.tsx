@@ -140,87 +140,89 @@ export default function ProfileSetup2({ user, onComplete, onBack, onDismiss }: P
                         </div>
                         {error && <div className="profile-setup-error">{error}</div>}
 
-                        {/* Address Line 1 */}
-                        <div className="profile-setup-field">
-                            <label className="profile-setup-label">Address Line 1</label>
-                            <input
-                                type="text"
-                                className="profile-setup-input"
-                                placeholder="House / Flat No., Street Name"
-                                value={addressLine1}
-                                onChange={e => setAddressLine1(e.target.value)}
-                                disabled={loading}
-                            />
-                        </div>
-
-                        {/* Address Line 2 */}
-                        <div className="profile-setup-field">
-                            <label className="profile-setup-label">
-                                Address Line 2 <span className="profile-setup-optional">(optional)</span>
-                            </label>
-                            <input
-                                type="text"
-                                className="profile-setup-input"
-                                placeholder="Landmark, Area"
-                                value={addressLine2}
-                                onChange={e => setAddressLine2(e.target.value)}
-                                disabled={loading}
-                            />
-                        </div>
-
-                        {/* City + State row */}
-                        <div className="profile-setup-row">
+                        <div className="profile-setup-scroll-area">
+                            {/* Address Line 1 */}
                             <div className="profile-setup-field">
-                                <label className="profile-setup-label">City</label>
+                                <label className="profile-setup-label">Address Line 1</label>
                                 <input
                                     type="text"
                                     className="profile-setup-input"
-                                    placeholder="Mumbai"
-                                    value={city}
-                                    onChange={e => setCity(e.target.value)}
+                                    placeholder="House / Flat No., Street Name"
+                                    value={addressLine1}
+                                    onChange={e => setAddressLine1(e.target.value)}
                                     disabled={loading}
                                 />
                             </div>
+
+                            {/* Address Line 2 */}
                             <div className="profile-setup-field">
-                                <label className="profile-setup-label">State</label>
-                                <CustomSelect
-                                    value={state}
-                                    onChange={setState}
-                                    options={INDIAN_STATES}
-                                    placeholder="Select state"
+                                <label className="profile-setup-label">
+                                    Address Line 2 <span className="profile-setup-optional">(optional)</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    className="profile-setup-input"
+                                    placeholder="Landmark, Area"
+                                    value={addressLine2}
+                                    onChange={e => setAddressLine2(e.target.value)}
                                     disabled={loading}
                                 />
                             </div>
-                        </div>
 
-                        {/* Pincode */}
-                        <div className="profile-setup-field">
-                            <label className="profile-setup-label">Pincode</label>
-                            <input
-                                type="text"
-                                className="profile-setup-input"
-                                placeholder="400001"
-                                maxLength={6}
-                                value={pincode}
-                                onChange={e => setPincode(e.target.value.replace(/\D/g, ''))}
-                                disabled={loading}
-                            />
-                        </div>
+                            {/* City + State row */}
+                            <div className="profile-setup-row">
+                                <div className="profile-setup-field">
+                                    <label className="profile-setup-label">City</label>
+                                    <input
+                                        type="text"
+                                        className="profile-setup-input"
+                                        placeholder="Mumbai"
+                                        value={city}
+                                        onChange={e => setCity(e.target.value)}
+                                        disabled={loading}
+                                    />
+                                </div>
+                                <div className="profile-setup-field">
+                                    <label className="profile-setup-label">State</label>
+                                    <CustomSelect
+                                        value={state}
+                                        onChange={setState}
+                                        options={INDIAN_STATES}
+                                        placeholder="Select state"
+                                        disabled={loading}
+                                    />
+                                </div>
+                            </div>
 
-                        {/* PAN Card */}
-                        <div className="profile-setup-field">
-                            <label className="profile-setup-label">PAN Card Number</label>
-                            <input
-                                type="text"
-                                className="profile-setup-input"
-                                placeholder="ABCDE1234F"
-                                maxLength={10}
-                                value={pan}
-                                onChange={e => setPan(e.target.value.toUpperCase())}
-                                disabled={loading}
-                                style={{ letterSpacing: '0.15em', fontFamily: 'monospace' }}
-                            />
-                            <span className="profile-setup-hint">10-character PAN as on your card</span>
+                            {/* Pincode */}
+                            <div className="profile-setup-field">
+                                <label className="profile-setup-label">Pincode</label>
+                                <input
+                                    type="text"
+                                    className="profile-setup-input"
+                                    placeholder="400001"
+                                    maxLength={6}
+                                    value={pincode}
+                                    onChange={e => setPincode(e.target.value.replace(/\D/g, ''))}
+                                    disabled={loading}
+                                />
+                            </div>
+
+                            {/* PAN Card */}
+                            <div className="profile-setup-field">
+                                <label className="profile-setup-label">PAN Card Number</label>
+                                <input
+                                    type="text"
+                                    className="profile-setup-input"
+                                    placeholder="ABCDE1234F"
+                                    maxLength={10}
+                                    value={pan}
+                                    onChange={e => setPan(e.target.value.toUpperCase())}
+                                    disabled={loading}
+                                    style={{ letterSpacing: '0.15em', fontFamily: 'monospace' }}
+                                />
+                                <span className="profile-setup-hint">10-character PAN as on your card</span>
+                            </div>
                         </div>
 
                         {/* Actions */}
