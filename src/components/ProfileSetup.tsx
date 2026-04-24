@@ -100,9 +100,11 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
         }
     };
 
-    const handleVerifyOtp = async (e?: React.FormEvent) => {
-        if (e) e.preventDefault();
-        const otpCode = otp.join('');
+    const handleVerifyOtp = async (eOrOtp?: React.FormEvent | string) => {
+        if (eOrOtp && typeof (eOrOtp as React.FormEvent).preventDefault === 'function') {
+            (eOrOtp as React.FormEvent).preventDefault();
+        }
+        const otpCode = typeof eOrOtp === 'string' ? eOrOtp : otp.join('');
         if (otpCode.length !== 6) {
             setOtpError('Please enter all 6 digits.');
             return;
@@ -284,7 +286,7 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
                                                         const newOtp = [...otp];
                                                         newOtp[i] = e.target.value;
                                                         if (newOtp.join('').length === 6) {
-                                                            setTimeout(() => handleVerifyOtp(), 0);
+                                                            setTimeout(() => handleVerifyOtp(newOtp.join('')), 0);
                                                         }
                                                     }
                                                 }}
