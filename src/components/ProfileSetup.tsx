@@ -122,7 +122,11 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
             setOtpError('');
         } catch (err: any) {
             setOtpLoading(false);
-            setOtpError(err.message || 'Invalid OTP code');
+            if (err?.code === 'auth/invalid-verification-code' || (err?.message && err.message.includes('invalid-verification-code'))) {
+                setOtpError('Incorrect OTP. Please try again.');
+            } else {
+                setOtpError(err.message || 'Invalid OTP code');
+            }
         }
     };
 
