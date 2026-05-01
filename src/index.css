@@ -1701,7 +1701,7 @@ a[href*="spline"] {
 /* ─── Animations ────────────────────────────────── */
 @keyframes hh-tickScroll {
   from { transform: translateX(0); }
-  to   { transform: translateX(-12.5%); }
+  to   { transform: translateX(calc(var(--set-width, -50%) * -1)); }
 }
 @keyframes hh-ld {
   0%,100% { opacity:1; transform:scale(1); }

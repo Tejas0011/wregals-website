@@ -631,7 +631,8 @@ export function PromoBidModal({ auctionKey, onClose, walletBalance = 50000 }: { 
 /* ─── PROMO RIBBON COMPONENT ────────────────────── */
 export default function PromoRibbon() {
   const [modalKey, setModalKey] = useState<string | null>(null);
-  const tickerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const setARef = useRef<HTMLDivElement>(null);
 
   const openModal = (key: string) => {
     setModalKey(key);
@@ -643,32 +644,55 @@ export default function PromoRibbon() {
     document.body.style.overflow = '';
   };
 
-  const pauseRibbon = () => { if (tickerRef.current) tickerRef.current.style.animationPlayState = 'paused'; };
-  const resumeRibbon = () => { if (tickerRef.current) tickerRef.current.style.animationPlayState = 'running'; };
+  const pauseRibbon = () => { if (trackRef.current) trackRef.current.style.animationPlayState = 'paused'; };
+  const resumeRibbon = () => { if (trackRef.current) trackRef.current.style.animationPlayState = 'running'; };
 
-  const allTicker = [];
-  for (let i = 0; i < 8; i++) {
-    allTicker.push(...tickerItems);
-  }
+  // Measure the exact pixel width of one set and set it as CSS variable
+  useEffect(() => {
+    const measure = () => {
+      if (setARef.current && trackRef.current) {
+        const setWidth = setARef.current.offsetWidth;
+        trackRef.current.style.setProperty('--set-width', `${setWidth}px`);
+      }
+    };
+    // Measure after fonts load and layout settles
+    measure();
+    window.addEventListener('resize', measure);
+    // Also re-measure after a short delay for font loading
+    const timer = setTimeout(measure, 500);
+    return () => {
+      window.removeEventListener('resize', measure);
+      clearTimeout(timer);
+    };
+  }, []);
+
+  const renderItems = (keyPrefix: string, ref?: React.Ref<HTMLDivElement>) => (
+    <div ref={ref} style={{ display: 'flex', flexShrink: 0 }}>
+      {tickerItems.map((item, i) => (
+        <div
+          key={`${keyPrefix}-${i}`}
+          className="hh-tick-item"
+          onClick={() => openModal(item.key)}
+          style={{ cursor: 'pointer' }}
+        >
+          {item.type === 'live' && <span className="hh-rdot" />}
+          <span className="hh-ti-name">{item.name}</span>
+          <span className="hh-ti-price">{item.price}</span>
+          <span className="hh-ti-up">↑</span>
+        </div>
+      ))}
+    </div>
+  );
 
   return (
     <>
       <div className="hh-ribbon">
         <div className="hh-ribbon-label">Promoted</div>
-        <div className="hh-ribbon-track" ref={tickerRef} onMouseEnter={pauseRibbon} onMouseLeave={resumeRibbon}>
-          {allTicker.map((item, i) => (
-            <div
-              key={i}
-              className="hh-tick-item"
-              onClick={() => openModal(item.key)}
-              style={{ cursor: 'pointer' }}
-            >
-              {item.type === 'live' && <span className="hh-rdot" />}
-              <span className="hh-ti-name">{item.name}</span>
-              <span className="hh-ti-price">{item.price}</span>
-              <span className="hh-ti-up">↑</span>
-            </div>
-          ))}
+        <div className="hh-ribbon-track" ref={trackRef} onMouseEnter={pauseRibbon} onMouseLeave={resumeRibbon}>
+          {/* Set A — measured for width */}
+          {renderItems('a', setARef)}
+          {/* Set B — seamless clone */}
+          {renderItems('b')}
         </div>
       </div>
       
