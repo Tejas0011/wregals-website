@@ -102,10 +102,6 @@ export default function ProfileSetup2({ user, onComplete, onBack, onDismiss }: P
                 {/* Left decorative panel */}
                 <div className="profile-setup-side profile-setup-side--left">
                     <div className="ps-side-accent" />
-                    <div className="ps-side-ornament" />
-                    <div className="ps-side-dots">
-                        {[...Array(5)].map((_, i) => <div key={i} className="ps-side-dot" />)}
-                    </div>
                 </div>
 
                 {/* Center form panel */}
@@ -114,7 +110,7 @@ export default function ProfileSetup2({ user, onComplete, onBack, onDismiss }: P
                     <form className="profile-setup-form profile-setup-form--compact" onSubmit={handleSubmit}>
                         {/* Wordmark */}
                         <div className="profile-setup-brand profile-setup-brand--compact">
-                            <img src="/wregals-text-logo.png" alt="WREGALS" className="w-48 md:w-56 h-auto object-contain mx-auto" />
+                            <img src="/wregals-text-logo.png" alt="WREGALS" className="w-72 md:w-80 h-auto object-contain mx-auto block" />
                         </div>
 
                         {/* Step indicator */}
@@ -252,10 +248,6 @@ export default function ProfileSetup2({ user, onComplete, onBack, onDismiss }: P
                 {/* Right decorative panel */}
                 <div className="profile-setup-side profile-setup-side--right">
                     <div className="ps-side-accent" />
-                    <div className="ps-side-ornament" />
-                    <div className="ps-side-dots">
-                        {[...Array(5)].map((_, i) => <div key={i} className="ps-side-dot" />)}
-                    </div>
                 </div>
             </div>
         </div>

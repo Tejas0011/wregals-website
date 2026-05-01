@@ -201,17 +201,13 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
                 {/* Left decorative panel */}
                 <div className="profile-setup-side profile-setup-side--left">
                     <div className="ps-side-accent" />
-                    <div className="ps-side-ornament" />
-                    <div className="ps-side-dots">
-                        {[...Array(5)].map((_, i) => <div key={i} className="ps-side-dot" />)}
-                    </div>
                 </div>
 
                 {/* Center form panel */}
                 <div className="profile-setup-container">
                     <form className="profile-setup-form" onSubmit={handleSubmit}>
                         <div className="profile-setup-brand">
-                            <img src="/wregals-text-logo.png" alt="WREGALS" className="w-48 md:w-56 h-auto object-contain mx-auto" />
+                            <img src="/wregals-text-logo.png" alt="WREGALS" className="w-72 md:w-80 h-auto object-contain mx-auto block" />
                         </div>
 
                         <div className="profile-setup-steps">
@@ -383,10 +379,6 @@ export default function ProfileSetup({ user, onNext, onDismiss, displayName, set
                 {/* Right decorative panel */}
                 <div className="profile-setup-side profile-setup-side--right">
                     <div className="ps-side-accent" />
-                    <div className="ps-side-ornament" />
-                    <div className="ps-side-dots">
-                        {[...Array(5)].map((_, i) => <div key={i} className="ps-side-dot" />)}
-                    </div>
                 </div>
             </div>
         </div>
