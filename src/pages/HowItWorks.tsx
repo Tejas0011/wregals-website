@@ -126,7 +126,7 @@ export default function HowItWorks({ user, onSignInClick }: HowItWorksProps) {
  </div>
  <div className="max-w-2xl">
  <span className="text-[10px] font-semibold tracking-wide text-blue-400 mb-4 block">Capital-Backed Auctions</span>
- <h1 className="text-4xl md:text-5xl font-semibold tracking-tight tracking-tight mb-6">
+ <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-6">
  Every bid is a<br />
  <span className="text-neutral-500">real commitment.</span>
  </h1>
@@ -158,7 +158,7 @@ export default function HowItWorks({ user, onSignInClick }: HowItWorksProps) {
  <section className="border-t border-white/5 py-24">
  <div className="max-w-7xl mx-auto px-6">
  <span className="text-[10px] font-semibold tracking-wide text-blue-400 mb-4 block">The Process</span>
- <h2 className="text-3xl font-semibold tracking-tight tracking-tight mb-16">Six steps, start to sale.</h2>
+ <h2 className="text-3xl font-semibold tracking-tight mb-16">Six steps, start to sale.</h2>
 
  <div className="space-y-0">
  {STEPS.map((step, i) => (
@@ -208,7 +208,7 @@ export default function HowItWorks({ user, onSignInClick }: HowItWorksProps) {
  <section className="border-t border-white/5 py-24 bg-[#0A0A0A]">
  <div className="max-w-7xl mx-auto px-6">
  <span className="text-[10px] font-semibold tracking-wide text-blue-400 mb-4 block">Got Questions?</span>
- <h2 className="text-3xl font-semibold tracking-tight tracking-tight mb-12">Frequently Asked Questions</h2>
+ <h2 className="text-3xl font-semibold tracking-tight mb-12">Frequently Asked Questions</h2>
 
  <div className="max-w-3xl space-y-3">
  {FAQS.map((faq, i) => (
@@ -237,7 +237,7 @@ export default function HowItWorks({ user, onSignInClick }: HowItWorksProps) {
  {/* ── CTA ── */}
  <section className="border-t border-white/5 py-24">
  <div className="max-w-7xl mx-auto px-6 text-center">
- <h2 className="text-3xl font-semibold tracking-tight tracking-tight mb-4">Ready to bid?</h2>
+ <h2 className="text-3xl font-semibold tracking-tight mb-4">Ready to bid?</h2>
  <p className="text-neutral-500 text-sm max-w-sm mx-auto mb-8">
  Create your verified account and fund your wallet to start bidding on exceptional lots.
  </p>

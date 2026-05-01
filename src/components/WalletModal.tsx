@@ -92,7 +92,7 @@ export default function WalletModal({ isOpen, onClose, user }: WalletModalProps)
  <div className="flex items-center justify-between px-6 py-5 border-b border-white/5">
  <div className="flex items-center gap-3">
  <IIcon icon="solar:wallet-linear" width="20" class="text-blue-400" />
- <h2 className="text-sm font-semibold font-semibold tracking-wide text-white">My Wallet</h2>
+ <h2 className="text-sm font-semibold tracking-wide text-white">My Wallet</h2>
  </div>
  <button onClick={onClose} className="text-neutral-500 hover:text-white transition-colors">
  <IIcon icon="solar:close-circle-linear" width="20" />

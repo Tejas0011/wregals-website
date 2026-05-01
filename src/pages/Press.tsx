@@ -83,7 +83,7 @@ export default function Press({ user, onSignInClick }: PressProps) {
  <span>/</span>
  <span className="text-blue-400">Press</span>
  </div>
- <h1 className="text-4xl md:text-5xl font-semibold tracking-tight tracking-tight mb-6">Press & Media</h1>
+ <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-6">Press & Media</h1>
  <p className="text-neutral-400 text-base max-w-xl leading-relaxed mb-8">
  For media enquiries, interview requests, or brand asset downloads, reach us at{' '}
  <a href="mailto:press@wregals.com" className="text-blue-400 hover:underline underline-offset-2">press@wregals.com</a>.
@@ -115,7 +115,7 @@ export default function Press({ user, onSignInClick }: PressProps) {
  {/* Coverage */}
  <section className="border-t border-white/5 py-16 bg-[#0A0A0A]">
  <div className="max-w-7xl mx-auto px-6">
- <h2 className="text-xl font-semibold tracking-tight tracking-tight text-neutral-300 mb-10">In The Press</h2>
+ <h2 className="text-xl font-semibold tracking-tight text-neutral-300 mb-10">In The Press</h2>
  <div className="grid md:grid-cols-2 gap-4">
  {COVERAGE.map(item => (
  <a key={item.outlet} href={item.url}
@@ -142,7 +142,7 @@ export default function Press({ user, onSignInClick }: PressProps) {
  <div className="max-w-7xl mx-auto px-6">
  <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
  <div>
- <h2 className="text-xl font-semibold tracking-tight tracking-tight text-neutral-300">Brand Assets</h2>
+ <h2 className="text-xl font-semibold tracking-tight text-neutral-300">Brand Assets</h2>
  <p className="text-xs text-neutral-500 mt-1">For editorial and news use only. Please read our brand guidelines before using.</p>
  </div>
  <a href="mailto:press@wregals.com?subject=Brand Assets Request"

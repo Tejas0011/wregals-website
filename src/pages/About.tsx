@@ -121,7 +121,7 @@ export default function About({ user, onSignInClick }: AboutPageProps) {
  <div className="grid md:grid-cols-2 gap-16 items-center">
  <div>
  <span className="text-[10px] font-semibold tracking-wide text-blue-400 mb-4 block">Our Mission</span>
- <h2 className="text-3xl font-semibold tracking-tight tracking-tight mb-8">
+ <h2 className="text-3xl font-semibold tracking-tight mb-8">
  <Logo height="h-10" /> is India's first capital-backed digital auction house - built for collectors, estates,
  and high-value assets.
  </h2>
@@ -156,7 +156,7 @@ export default function About({ user, onSignInClick }: AboutPageProps) {
  <section className="border-t border-white/5 py-24 bg-[#0A0A0A]">
  <div className="max-w-7xl mx-auto px-6">
  <span className="text-[10px] font-semibold tracking-wide text-blue-400 mb-4 block">Our Story</span>
- <h2 className="text-3xl font-semibold tracking-tight tracking-tight mb-16">How we got here</h2>
+ <h2 className="text-3xl font-semibold tracking-tight mb-16">How we got here</h2>
 
  <div className="relative">
  {/* Vertical line */}
@@ -188,7 +188,7 @@ export default function About({ user, onSignInClick }: AboutPageProps) {
  <section className="border-t border-white/5 py-24">
  <div className="max-w-7xl mx-auto px-6">
  <span className="text-[10px] font-semibold tracking-wide text-blue-400 mb-4 block">The Team</span>
- <h2 className="text-3xl font-semibold tracking-tight tracking-tight mb-12">The people behind the gavel</h2>
+ <h2 className="text-3xl font-semibold tracking-tight mb-12">The people behind the gavel</h2>
 
  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
  {TEAM.map(member => (
@@ -209,7 +209,7 @@ export default function About({ user, onSignInClick }: AboutPageProps) {
  {/* ── CONTACT CTA ───────────────────────────────────────────────────── */}
  <section className="border-t border-white/5 py-24 bg-[#0A0A0A]">
  <div className="max-w-7xl mx-auto px-6 text-center">
- <h2 className="text-3xl md:text-4xl font-semibold tracking-tight tracking-tight mb-4">Want to sell with us?</h2>
+ <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">Want to sell with us?</h2>
  <p className="text-neutral-500 text-sm max-w-md mx-auto mb-8">
  We work with estates, private collectors, and celebrity consignors. Apply to list your assets on WREGALS.
  </p>

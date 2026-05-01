@@ -99,7 +99,7 @@ export default function Careers({ user, onSignInClick }: CareersProps) {
             {/* Perks */}
             <section className="border-t border-white/5 py-16">
                 <div className="max-w-7xl mx-auto px-6">
-                    <h2 className="text-xl font-semibold tracking-tight tracking-tight mb-8 text-neutral-300 flex items-center gap-3">
+                    <h2 className="text-xl font-semibold tracking-tight mb-8 text-neutral-300 flex items-center gap-3">
                         Why <img src="/wregals-text-logo.png" alt="WREGALS" className="h-8 w-auto object-contain" />
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -122,7 +122,7 @@ export default function Careers({ user, onSignInClick }: CareersProps) {
             <section className="border-t border-white/5 py-16 bg-[#0A0A0A]">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
-                        <h2 className="text-xl font-semibold tracking-tight tracking-tight text-neutral-300">Open Roles</h2>
+                        <h2 className="text-xl font-semibold tracking-tight text-neutral-300">Open Roles</h2>
                         <div className="flex flex-wrap gap-2">
                             {DEPTS.map(d => (
                                 <button key={d} onClick={() => setDept(d)}

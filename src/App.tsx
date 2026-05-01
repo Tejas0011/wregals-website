@@ -283,7 +283,7 @@ function App() {
                   <div className="user-dropdown-divider" />
 
                   {/* Menu items */}
-                  {['seller@wregals.com', 'tejasvardhan873@gmail.com'].includes(user?.email) && (
+                  {(import.meta.env.VITE_ADMIN_EMAILS || '').split(',').map((e: string) => e.trim()).includes(user?.email) && (
                     <Link to="/seller/dashboard" className="user-dropdown-item w-full text-left text-white hover:text-neutral-300">
                       <IIcon icon="solar:graph-up-linear" width="16" />
                       Dashboard
