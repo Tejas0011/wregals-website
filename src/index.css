@@ -1424,7 +1424,7 @@ a[href*="spline"] {
     overflow-x: hidden;
     scrollbar-width: none;
     justify-content: flex-start;
-    padding-top: 0;
+    padding-top: 24px;
     padding-bottom: 32px;
 }
 
