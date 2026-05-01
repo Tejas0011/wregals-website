@@ -206,12 +206,7 @@ export default function GlobalSearch() {
             <IIcon icon="lucide:x" width={13} />
           </button>
         )}
-        <kbd style={{
-          fontSize: 11, color: 'rgba(255,255,255,0.2)',
-          background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)',
-          borderRadius: 6, padding: '3px 7px', fontFamily: 'inherit', flexShrink: 0,
-          display: query ? 'none' : 'block',
-        }}>⌘K</kbd>
+
       </div>
 
       {/* Dropdown */}

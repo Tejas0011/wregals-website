@@ -70,7 +70,7 @@ function AuctionCard({ card }) {
  </div>
  </div>
  {!isSold && (
- <Link to={isLive ? '/auctions/live' : '/auctions/upcoming'} className="flex-shrink-0 text-[10px] font-semibold tracking-wide border border-white/40 text-white px-3 py-1.5 hover:bg-white/10 transition-colors rounded-sm whitespace-nowrap">
+ <Link to='/auctions/live' className="flex-shrink-0 text-[10px] font-semibold tracking-wide border border-white/40 text-white px-3 py-1.5 hover:bg-white/10 transition-colors rounded-sm whitespace-nowrap">
  View Lot
  </Link>
  )}
@@ -188,9 +188,9 @@ export default function Social({ user, onSignInClick }: SocialProps) {
         {/* ── CENTER FEED ── */}
         <div className="hh-feed">
   {/* Spacer so the gap isn't sticky */}
-  <div className="h-6" />
+  <div className="h-2" />
   {/* Sticky header */}
-  <div className="sticky top-[108px] z-30 bg-[#111111] mb-6 rounded-xl overflow-hidden shadow-lg mx-6 border border-white/10">
+  <div className="sticky top-[108px] z-30 bg-[#111111] mb-3 rounded-xl overflow-hidden shadow-lg mx-6 border border-white/10">
     <div className="flex">
       {[{ id: 'foryou', label: 'Spotlight' }, { id: 'following', label: 'My Feed' }].map(t => (
         <button key={t.id} onClick={() => {
@@ -199,9 +199,8 @@ export default function Social({ user, onSignInClick }: SocialProps) {
           const r = document.getElementById('root');
           if (r) r.scrollTo({ top: 0, behavior: 'smooth' });
         }}
-          className={`flex-1 h-14 text-sm font-bold transition-colors relative ${tab === t.id ? 'text-white' : 'text-neutral-500 hover:text-neutral-300'}`}>
+          className={`flex-1 h-10 text-xs font-bold tracking-wide transition-all duration-200 relative ${tab === t.id ? 'bg-white text-black' : 'text-neutral-500 hover:text-neutral-300'}`}>
           {t.label}
-          {tab === t.id && <span className="absolute bottom-0 left-8 right-8 h-0.5 bg-white rounded-t-full" />}
         </button>
       ))}
     </div>

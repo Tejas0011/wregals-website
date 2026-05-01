@@ -8,7 +8,7 @@ import ProfileSetup from './components/ProfileSetup';
 import ProfileSetup2 from './components/ProfileSetup2';
 import WalletModal from './components/WalletModal';
 import LiveAuctions from './pages/LiveAuctions';
-import UpcomingAuctions from './pages/UpcomingAuctions';
+
 import AuctionResults from './pages/AuctionResults';
 import About from './pages/About';
 import Careers from './pages/Careers';
@@ -293,17 +293,17 @@ function App() {
                     <IIcon icon="solar:user-circle-linear" width="16" />
                     My Profile
                   </Link>
-                  <Link to="/wallet" className="user-dropdown-item w-full text-left">
-                    <IIcon icon="solar:wallet-linear" width="16" />
-                    Wallet
+                  <Link to="/watchlist" className="user-dropdown-item w-full text-left">
+                    <IIcon icon="solar:heart-linear" width="16" />
+                    Watchlist
                   </Link>
                   <Link to="/my-bids" className="user-dropdown-item w-full text-left">
                     <IIcon icon="mdi:gavel" width="16" />
                     My Bids
                   </Link>
-                  <Link to="/watchlist" className="user-dropdown-item w-full text-left">
-                    <IIcon icon="solar:heart-linear" width="16" />
-                    Watchlist
+                  <Link to="/wallet" className="user-dropdown-item w-full text-left">
+                    <IIcon icon="solar:wallet-linear" width="16" />
+                    Wallet
                   </Link>
                   <Link to="/notifications" className="user-dropdown-item w-full text-left">
                     <IIcon icon="solar:bell-linear" width="16" />
@@ -388,7 +388,7 @@ function App() {
               <p className="text-neutral-500 text-[11px] font-semibold">Auctions</p>
               <div className="flex flex-col space-y-3">
                 <Link to="/auctions/live" onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-white">Live Auctions</Link>
-                <Link to="/auctions/upcoming" onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-white">Upcoming Auctions</Link>
+
                 <Link to="/auctions/results" onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-white">Auction Results</Link>
               </div>
             </div>
@@ -466,9 +466,7 @@ function App() {
         <Route path="/auctions/live" element={
           <HomeHero />
         } />
-        <Route path="/auctions/upcoming" element={
-          <UpcomingAuctions user={user} onSignInClick={() => setAuthOpen(true)} />
-        } />
+
         <Route path="/auctions/results" element={
           <AuctionResults user={user} onSignInClick={() => setAuthOpen(true)} />
         } />

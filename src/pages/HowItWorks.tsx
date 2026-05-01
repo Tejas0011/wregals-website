@@ -246,9 +246,9 @@ export default function HowItWorks({ user, onSignInClick }: HowItWorksProps) {
  className="px-8 py-3.5 bg-white text-black text-xs font-semibold tracking-wide font-semibold hover:bg-neutral-200 transition-colors">
  Browse Live Auctions
  </Link>
- <Link to="/auctions/upcoming"
+ <Link to="/categories"
  className="px-8 py-3.5 border border-white/15 text-neutral-300 text-xs font-semibold tracking-wide hover:border-white hover:text-white transition-all">
- View Upcoming Lots
+ Browse Categories
  </Link>
  </div>
  </div>
