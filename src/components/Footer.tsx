@@ -17,21 +17,21 @@ export default function Footer() {
                     </div>
 
                     <div className="md:col-span-1">
-                        <h5 className="text-xs font-semibold font-semibold tracking-wide mb-6 text-white">Platform</h5>
+                        <h5 className="text-xs font-semibold tracking-wide mb-6 text-white">Platform</h5>
                         <ul className="space-y-4 text-xs text-neutral-500 font-light">
                             <li>
                                 <Link to="/about" className="transition-colors hover:text-white flex items-center gap-1.5">
                                     About <Logo height="h-6" />
                                 </Link>
                             </li>
-                            <li><Link to="/gallery" className="transition-colors hover:text-white">Celebrity Partners</Link></li>
+                            <li><Link to="/how-it-works" className="transition-colors hover:text-white">How It Works</Link></li>
                             <li><Link to="/careers" className="transition-colors hover:text-white">Careers</Link></li>
                             <li><Link to="/press" className="transition-colors hover:text-white">Press Room</Link></li>
                         </ul>
                     </div>
 
                     <div className="md:col-span-1">
-                        <h5 className="text-xs font-semibold font-semibold tracking-wide mb-6 text-white">Support</h5>
+                        <h5 className="text-xs font-semibold tracking-wide mb-6 text-white">Support</h5>
                         <ul className="space-y-4 text-xs text-neutral-500 font-light">
                             <li><Link to="/how-it-works" className="transition-colors hover:text-white">Trust & Safety</Link></li>
                             <li><Link to="/how-it-works" className="transition-colors hover:text-white">Authentication</Link></li>
@@ -41,7 +41,7 @@ export default function Footer() {
                     </div>
 
                     <div className="md:col-span-1">
-                        <h5 className="text-xs font-semibold font-semibold tracking-wide mb-6 text-white">Newsletter</h5>
+                        <h5 className="text-xs font-semibold tracking-wide mb-6 text-white">Newsletter</h5>
                         <div className="flex border-b pb-2 border-white/20">
                             <input type="email" placeholder="Email Address" className="bg-transparent w-full text-xs focus:outline-none placeholder:text-neutral-600 text-white" />
                             <button className="text-xs hover:text-blue-400 transition-colors text-white">JOIN</button>
@@ -51,7 +51,7 @@ export default function Footer() {
 
                 <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5">
                     <p className="text-[10px] uppercase tracking-wider text-neutral-600 flex items-center gap-1.5">
-                        © 2025 <Logo height="h-2.5" /> Inc. All rights reserved.
+                        © 2026 <Logo height="h-2.5" /> Inc. All rights reserved.
                     </p>
                     <div className="flex gap-6 mt-4 md:mt-0">
                         <a href="#" className="text-neutral-500 transition-colors hover:text-white">

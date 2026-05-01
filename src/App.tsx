@@ -9,13 +9,13 @@ import ProfileSetup2 from './components/ProfileSetup2';
 import WalletModal from './components/WalletModal';
 import LiveAuctions from './pages/LiveAuctions';
 
-import AuctionResults from './pages/AuctionResults';
+
 import About from './pages/About';
 import Careers from './pages/Careers';
 import Press from './pages/Press';
 import Contact from './pages/Contact';
 import HowItWorks from './pages/HowItWorks';
-import Gallery from './pages/Gallery';
+
 import Social from './pages/Social';
 import AIChatbot from './components/AIChatbot';
 import IIcon from './components/IIcon';
@@ -389,7 +389,7 @@ function App() {
               <div className="flex flex-col space-y-3">
                 <Link to="/auctions/live" onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-white">Live Auctions</Link>
 
-                <Link to="/auctions/results" onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-white">Auction Results</Link>
+
               </div>
             </div>
 
@@ -398,7 +398,7 @@ function App() {
               <p className="text-neutral-500 text-[11px] font-semibold">Explore</p>
               <div className="flex flex-col space-y-3">
                 <Link to="/how-it-works" onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-white">How It Works</Link>
-                <Link to="/gallery" onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-white">Gallery</Link>
+
               </div>
             </div>
 
@@ -467,9 +467,7 @@ function App() {
           <HomeHero />
         } />
 
-        <Route path="/auctions/results" element={
-          <AuctionResults user={user} onSignInClick={() => setAuthOpen(true)} />
-        } />
+
         <Route path="/about" element={
           <About user={user} onSignInClick={() => setAuthOpen(true)} />
         } />
@@ -485,9 +483,7 @@ function App() {
         <Route path="/how-it-works" element={
           <HowItWorks user={user} onSignInClick={() => setAuthOpen(true)} />
         } />
-        <Route path="/gallery" element={
-          <Gallery user={user} onSignInClick={() => setAuthOpen(true)} />
-        } />
+
         <Route path="/" element={
           <Social user={user} onSignInClick={() => setAuthOpen(true)} />
         } />
@@ -498,10 +494,10 @@ function App() {
           <WalletPage user={user} onSignInClick={() => setAuthOpen(true)} onAddFundsClick={() => setWalletOpen(true)} />
         } />
         <Route path="/my-bids" element={
-          <MyBids user={user} onSignInClick={() => setAuthOpen(true)} />
+          <MyBids user={user} walletBalance={walletBalance} onSignInClick={() => setAuthOpen(true)} />
         } />
         <Route path="/watchlist" element={
-          <Watchlist user={user} onSignInClick={() => setAuthOpen(true)} />
+          <Watchlist user={user} walletBalance={walletBalance} onSignInClick={() => setAuthOpen(true)} />
         } />
         <Route path="/notifications" element={
           <Notifications user={user} onSignInClick={() => setAuthOpen(true)} />
@@ -518,7 +514,14 @@ function App() {
         <Route path="/auction/:id" element={
           <SellerAuctionPage user={user} />
         } />
-        <Route path="/*" element={<HomeHero />} />
+        <Route path="/*" element={
+          <div className="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20">
+            <p className="text-[120px] font-bold tracking-tighter text-white/5 leading-none select-none">404</p>
+            <h1 className="text-2xl font-semibold tracking-tight text-white -mt-6 mb-3">Page not found</h1>
+            <p className="text-sm text-neutral-500 max-w-xs mb-8">The page you're looking for doesn't exist or has been moved.</p>
+            <Link to="/" className="px-8 py-3 bg-white text-black text-xs font-semibold tracking-wide hover:bg-neutral-200 transition-colors rounded-sm">Go Home</Link>
+          </div>
+        } />
       </Routes>
     </div>
   );

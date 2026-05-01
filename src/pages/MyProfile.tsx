@@ -459,7 +459,7 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
                     </div>
                   </div>
                   <EditableRow label="Connected Account" value="Google Signed-In" placeholder="not set" />
-                  <EditableRow label="Last Active" value="Today, 14:23 IST" placeholder="not set" />
+                  <EditableRow label="Last Active" value={`Today, ${new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Kolkata' })} IST`} placeholder="not set" />
                 </div>
                 <button className="text-[10px] font-semibold tracking-wide text-neutral-400 hover:text-white transition-colors underline underline-offset-4">View all security events</button>
                 <div className="border-t border-white/5 pt-3 space-y-3 flex-1">

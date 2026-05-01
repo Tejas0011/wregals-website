@@ -243,7 +243,7 @@ export default function HowItWorks({ user, onSignInClick }: HowItWorksProps) {
  </p>
  <div className="flex flex-col sm:flex-row gap-4 justify-center">
  <Link to="/auctions/live"
- className="px-8 py-3.5 bg-white text-black text-xs font-semibold tracking-wide font-semibold hover:bg-neutral-200 transition-colors">
+ className="px-8 py-3.5 bg-white text-black text-xs font-semibold tracking-wide hover:bg-neutral-200 transition-colors">
  Browse Live Auctions
  </Link>
  <Link to="/categories"

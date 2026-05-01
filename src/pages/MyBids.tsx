@@ -79,7 +79,7 @@ export default function MyBids({ user, walletBalance = 0, onSignInClick }: MyBid
         lot: b.itemData?.lot || '#0000',
         isFromStorage: true,
       }));
-      setActiveBids([...mapped, ...BIDS]);
+      setActiveBids(mapped.length > 0 ? mapped : BIDS);
     };
     fetchBids();
     const interval = setInterval(fetchBids, 1500);

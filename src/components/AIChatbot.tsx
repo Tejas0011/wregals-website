@@ -16,7 +16,7 @@ function buildSystemPrompt(user: any): string {
 PLATFORM OVERVIEW (share freely):
 - Wregals operates as an English Open Ascending Auction: bids are public, prices move only upward, and the highest valid bid at close wins.
 - Only KYC-verified, capital-backed participants may bid. Every item is authenticated before listing and physically inspected by Wregals before delivery.
-- Pages: Home (/), Live Auctions (/auctions/live), Auction Results (/auctions/results), How It Works (/how-it-works), Gallery (/gallery), Social (/social), About (/about), Careers (/careers), Press (/press), Contact (/contact).
+- Pages: Home / Feed (/), Live Auctions (/auctions/live), How It Works (/how-it-works), About (/about), Careers (/careers), Press (/press), Contact (/contact).
 
 AUCTION RULES (share freely):
 - Anti-sniping: Any bid placed in the final 5 minutes extends the timer by 5 minutes. Repeats indefinitely.

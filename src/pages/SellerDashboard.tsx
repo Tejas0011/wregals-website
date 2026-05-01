@@ -315,7 +315,6 @@ export default function SellerDashboard({ user }: SellerDashboardProps) {
             onClick={() => setIsPromoteModalOpen(true)}
             className="border border-white/20 text-white px-6 py-2.5 text-xs font-semibold hover:bg-white/5 transition-colors flex items-center justify-center gap-2 rounded-sm shadow-sm"
           >
-            <IIcon icon="solar:star-fall-linear" width="16" />
             Promote Listing
           </button>
           <button

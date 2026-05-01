@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import IIcon from './IIcon';
 
 const CREATORS = [
@@ -10,7 +11,12 @@ const CREATORS = [
 const TRENDING_LOTS = [
   { label: 'Trending · Collectibles', title: '2011 World Cup Jersey', posts: '4.2k bids', time: 'Opens in 6 days', link: '/celebrity/vk' },
   { label: 'Live Now · Jewellery', title: 'Cartier Diamond - Cannes 2018', posts: '₹87.5L current bid', time: '2d 14h left', link: '/auctions/live' },
-  { label: 'Trending · Cinema', title: 'Singham Director Chair', posts: '₹4.75L hammer', time: 'Sold', link: '/auctions/results' },
+  { label: 'Trending · Cinema', title: 'Singham Director Chair', posts: '₹4.75L hammer', time: 'Sold', link: '/auctions/live' },
+];
+
+const FALLBACK_BIDS = [
+  { av: 'HP', name: 'Hardik - IPL Bat', sub: 'Winning · your bid ₹1,20,000', green: true, key: 'hp' },
+  { av: 'VK', name: 'Kohli WC Jersey', sub: 'Outbid · your bid ₹80,000', green: false, key: 'vk' },
 ];
 
 interface RightSidebarProps {
@@ -20,6 +26,39 @@ interface RightSidebarProps {
 }
 
 export default function RightSidebar({ followed, toggleFollow, onRaise }: RightSidebarProps) {
+  const navigate = useNavigate();
+  const [activeBids, setActiveBids] = useState(FALLBACK_BIDS);
+
+  useEffect(() => {
+    const fetchBids = () => {
+      const bids = JSON.parse(localStorage.getItem('dummyBids') || '[]');
+      if (bids.length > 0) {
+        const latestMap = new Map();
+        bids.forEach((b: any) => {
+          if (!latestMap.has(b.itemId) || latestMap.get(b.itemId).amt < b.amt) {
+            latestMap.set(b.itemId, b);
+          }
+        });
+        const mapped = Array.from(latestMap.values()).slice(0, 3).map((b: any) => {
+          const title = b.itemData?.title || 'Unknown Item';
+          const seller = b.itemData?.seller || 'Auction';
+          const initials = seller.split(' ').map((w: string) => w[0]).join('').slice(0, 2);
+          return {
+            av: initials,
+            name: title.length > 22 ? title.slice(0, 22) + '…' : title,
+            sub: `Winning · your bid ₹${b.amt?.toLocaleString('en-IN') || '0'}`,
+            green: true,
+            key: b.itemId || 'item',
+          };
+        });
+        setActiveBids(mapped);
+      }
+    };
+    fetchBids();
+    const interval = setInterval(fetchBids, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="flex flex-col h-full w-full">
       
@@ -28,10 +67,7 @@ export default function RightSidebar({ followed, toggleFollow, onRaise }: RightS
         <div className="px-5 py-4 border-b border-white/5 flex items-center justify-between">
           <h3 className="font-bold text-neutral-400 text-[12px] uppercase tracking-wider">Your Active Bids</h3>
         </div>
-        {[
-          { av: 'HP', name: 'Hardik - IPL Bat', sub: 'Winning · your bid ₹1,20,000', green: true, key: 'hp' },
-          { av: 'VK', name: 'Kohli WC Jersey', sub: 'Outbid · your bid ₹80,000', green: false, key: 'vk' },
-        ].map((row, i) => (
+        {activeBids.map((row, i) => (
           <div key={i} className="flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors border-b border-white/5 last:border-0">
             <div className="w-10 h-10 rounded-full border border-white/20 bg-white/5 flex items-center justify-center flex-shrink-0">
               <span className="text-xs font-bold text-neutral-400">{row.av}</span>
@@ -43,7 +79,7 @@ export default function RightSidebar({ followed, toggleFollow, onRaise }: RightS
             <button
               onClick={() => {
                 if (onRaise) onRaise(row.key);
-                else window.location.href = '/auctions/live';
+                else navigate('/my-bids');
               }}
               className="text-[12px] font-bold px-4 py-1.5 border border-white bg-white text-black hover:bg-neutral-200 transition-all rounded-lg"
             >
