@@ -1040,8 +1040,8 @@ a[href*="spline"] {
 }
 
 .profile-setup-brand {
-    margin-top: -80px;
-    margin-bottom: -88px;
+    margin-top: -92px;
+    margin-bottom: -100px;
     display: flex;
     justify-content: center;
     animation: ps-fadeSlideUp 0.6s 0.2s ease both;
@@ -1433,8 +1433,8 @@ a[href*="spline"] {
 }
 
 .profile-setup-brand--compact {
-    margin-top: -80px;
-    margin-bottom: -88px;
+    margin-top: -92px;
+    margin-bottom: -100px;
 }
 
 .profile-setup-steps--compact {
