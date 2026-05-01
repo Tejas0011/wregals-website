@@ -9,9 +9,9 @@ interface NotificationsProps {
 }
 
 const BASE_NOTIFICATIONS = [
-  { id: 'n1', title: 'Outbid', message: 'Someone outbid you on the Sachin Tendulkar Signed Bat. Current high is now \u20b91,30,000.', time: '2 hours ago', type: 'alert', read: false },
+  { id: 'n1', title: 'Outbid', message: 'Someone outbid you on Virat Kohli\'s Match-Worn 2023 World Cup Jersey. Current high is now \u20b995,000.', time: '2 hours ago', type: 'alert', read: false },
   { id: 'n2', title: 'Deposit confirmed', message: 'Your \u20b950,000 deposit landed in your wallet. You\'re good to go.', time: 'Yesterday', type: 'info', read: true },
-  { id: 'n3', title: 'Auction starting soon', message: 'The Gold Collection auction goes live in 30 minutes. You saved it to your watchlist.', time: '2 days ago', type: 'info', read: true },
+  { id: 'n3', title: 'Auction starting soon', message: 'Hardik Pandya\'s IPL 2023 Match-Used Cricket Bat goes live in 30 minutes. You saved it to your watchlist.', time: '2 days ago', type: 'info', read: true },
 ];
 
 export default function Notifications({ user, onSignInClick }: NotificationsProps) {
