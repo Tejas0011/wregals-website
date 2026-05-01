@@ -114,7 +114,7 @@ export default function ProfileSetup2({ user, onComplete, onBack, onDismiss }: P
                     <form className="profile-setup-form profile-setup-form--compact" onSubmit={handleSubmit}>
                         {/* Wordmark */}
                         <div className="profile-setup-brand profile-setup-brand--compact">
-                            <img src="/wregals-text-logo.png" alt="WREGALS" className="w-64 md:w-80 h-auto object-contain mx-auto" />
+                            <img src="/wregals-text-logo.png" alt="WREGALS" className="w-48 md:w-56 h-auto object-contain mx-auto" />
                         </div>
 
                         {/* Step indicator */}
