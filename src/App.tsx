@@ -268,7 +268,7 @@ function App() {
                 {/* Dropdown panel */}
                 <div className="user-dropdown">
                   {/* Header - name + email */}
-                  <div className="user-dropdown-header">
+                  <Link to="/profile" className="user-dropdown-header" style={{ textDecoration: 'none', cursor: 'pointer' }}>
                     <div className="user-dropdown-avatar flex items-center justify-center text-neutral-400">
                       <IIcon icon="solar:user-rounded-bold" width="40" />
                     </div>
@@ -278,7 +278,7 @@ function App() {
                       </p>
                       <p className="user-dropdown-email">{user.email}</p>
                     </div>
-                  </div>
+                  </Link>
 
                   <div className="user-dropdown-divider" />
 
