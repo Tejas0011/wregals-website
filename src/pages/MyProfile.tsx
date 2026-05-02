@@ -80,8 +80,59 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
   if (loading) {
     return (
       <AccountLayout user={user} onSignInClick={onSignInClick} title="My Profile">
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 300 }}>
-          <div style={{ width: 24, height: 24, border: '2px solid rgba(255,255,255,0.1)', borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+        <div className="animate-pulse">
+          {/* Skeleton Header */}
+          <div style={{ padding: '40px 40px 32px', borderBottom: '1px solid var(--hh-line)', display: 'flex', alignItems: 'flex-start', gap: 28 }}>
+            <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(255,255,255,0.05)', flexShrink: 0 }} />
+            <div style={{ flex: 1 }}>
+              <div style={{ width: 160, height: 26, background: 'rgba(255,255,255,0.05)', borderRadius: 4, marginBottom: 8 }} />
+              <div style={{ width: 120, height: 14, background: 'rgba(255,255,255,0.03)', borderRadius: 4, marginBottom: 16 }} />
+              <div style={{ width: 320, height: 32, background: 'rgba(255,255,255,0.03)', borderRadius: 4, marginBottom: 24 }} />
+              <div style={{ display: 'flex', gap: 32, marginBottom: 20 }}>
+                {[1, 2, 3, 4].map(i => (
+                  <div key={i}>
+                    <div style={{ width: 30, height: 20, background: 'rgba(255,255,255,0.05)', borderRadius: 4, marginBottom: 6 }} />
+                    <div style={{ width: 60, height: 12, background: 'rgba(255,255,255,0.03)', borderRadius: 4 }} />
+                  </div>
+                ))}
+              </div>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <div style={{ width: 110, height: 24, background: 'rgba(255,255,255,0.04)', borderRadius: 3 }} />
+                <div style={{ width: 80, height: 24, background: 'rgba(255,255,255,0.04)', borderRadius: 3 }} />
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: 8, flexShrink: 0, marginLeft: 'auto' }}>
+              <div style={{ width: 100, height: 36, background: 'rgba(255,255,255,0.05)', borderRadius: 8 }} />
+              <div style={{ width: 80, height: 36, background: 'rgba(255,255,255,0.05)', borderRadius: 8 }} />
+            </div>
+          </div>
+
+          {/* Skeleton Tabs */}
+          <div style={{ borderBottom: '1px solid var(--hh-line)', display: 'flex', paddingLeft: 28, gap: 16, paddingTop: 12, paddingBottom: 12 }}>
+            <div style={{ width: 70, height: 16, background: 'rgba(255,255,255,0.05)', borderRadius: 4 }} />
+            <div style={{ width: 50, height: 16, background: 'rgba(255,255,255,0.05)', borderRadius: 4 }} />
+          </div>
+
+          {/* Skeleton Cards */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16, padding: '20px 32px' }}>
+            {[1, 2, 3, 4].map(i => (
+              <div key={i} style={{ border: '1px solid var(--hh-line)', borderRadius: 12, overflow: 'hidden', background: '#0d0d0d', height: 340 }}>
+                <div style={{ padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'rgba(255,255,255,0.05)' }} />
+                  <div>
+                    <div style={{ width: 100, height: 14, background: 'rgba(255,255,255,0.05)', borderRadius: 4, marginBottom: 4 }} />
+                    <div style={{ width: 60, height: 10, background: 'rgba(255,255,255,0.03)', borderRadius: 4 }} />
+                  </div>
+                </div>
+                <div style={{ width: '100%', aspectRatio: '16/9', background: 'rgba(255,255,255,0.02)' }} />
+                <div style={{ padding: '16px' }}>
+                  <div style={{ width: '80%', height: 16, background: 'rgba(255,255,255,0.05)', borderRadius: 4, marginBottom: 8 }} />
+                  <div style={{ width: '50%', height: 16, background: 'rgba(255,255,255,0.05)', borderRadius: 4, marginBottom: 16 }} />
+                  <div style={{ width: '100%', height: 36, background: 'rgba(255,255,255,0.04)', borderRadius: 6 }} />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </AccountLayout>
     );
