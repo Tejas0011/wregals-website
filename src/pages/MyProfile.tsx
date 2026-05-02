@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import LeftSidebar from '../components/LeftSidebar';
+import AccountLayout from '../components/AccountLayout';
 import IIcon from '../components/IIcon';
 import ShareSheet from '../components/ShareSheet';
 import { supabase } from '../lib/supabase';
@@ -63,19 +63,14 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
 
   if (!user) {
     return (
-      <section className="hh-root">
-        <div style={{ display: 'grid', gridTemplateColumns: '270px 1fr', maxWidth: '100%', padding: 'calc(80px + 0px) 12px 0', gap: 0, alignItems: 'start' }}>
-          <LeftSidebar />
-          <div style={{ borderLeft: '1px solid var(--hh-line)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ textAlign: 'center', padding: 40 }}>
-              <IIcon icon="solar:user-circle-linear" width="48" className="mx-auto mb-4 text-neutral-600" />
-              <h2 style={{ fontSize: 18, fontWeight: 600, color: '#fff', marginBottom: 8 }}>Sign in to view your profile</h2>
-              <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginBottom: 24 }}>You need to be logged in to manage your account.</p>
-              <button onClick={onSignInClick} style={{ padding: '10px 28px', background: '#fff', color: '#000', border: 'none', fontSize: 12, fontWeight: 700, letterSpacing: '0.06em', cursor: 'pointer' }}>Sign In Now</button>
-            </div>
-          </div>
+      <AccountLayout user={user} onSignInClick={onSignInClick} title="My Profile">
+        <div style={{ textAlign: 'center', padding: 40 }}>
+          <IIcon icon="solar:user-circle-linear" width="48" className="mx-auto mb-4 text-neutral-600" />
+          <h2 style={{ fontSize: 18, fontWeight: 600, color: '#fff', marginBottom: 8 }}>Sign in to view your profile</h2>
+          <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginBottom: 24 }}>You need to be logged in to manage your account.</p>
+          <button onClick={onSignInClick} style={{ padding: '10px 28px', background: '#fff', color: '#000', border: 'none', fontSize: 12, fontWeight: 700, letterSpacing: '0.06em', cursor: 'pointer' }}>Sign In Now</button>
         </div>
-      </section>
+      </AccountLayout>
     );
   }
 
@@ -84,14 +79,11 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
 
   if (loading) {
     return (
-      <section className="hh-root">
-        <div style={{ display: 'grid', gridTemplateColumns: '270px 1fr', maxWidth: '100%', padding: 'calc(80px + 0px) 12px 0', gap: 0, alignItems: 'start' }}>
-          <LeftSidebar />
-          <div style={{ borderLeft: '1px solid var(--hh-line)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ width: 24, height: 24, border: '2px solid rgba(255,255,255,0.1)', borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
-          </div>
+      <AccountLayout user={user} onSignInClick={onSignInClick} title="My Profile">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 300 }}>
+          <div style={{ width: 24, height: 24, border: '2px solid rgba(255,255,255,0.1)', borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
         </div>
-      </section>
+      </AccountLayout>
     );
   }
 
@@ -102,10 +94,8 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
   });
 
   return (
-    <section className="hh-root">
-      <div style={{ display: 'grid', gridTemplateColumns: '270px 1fr', maxWidth: '100%', padding: 'calc(80px + 0px) 12px 0', gap: 0, alignItems: 'start' }}>
-        <LeftSidebar />
-        <div style={{ borderLeft: '1px solid var(--hh-line)', minHeight: '100vh', paddingBottom: 64 }}>
+    <AccountLayout user={user} onSignInClick={onSignInClick} title="My Profile">
+      <div>
 
           {/* ── Profile Header ─────────────────────────────── */}
           <div style={{ padding: '40px 40px 32px', borderBottom: '1px solid var(--hh-line)', display: 'flex', alignItems: 'flex-start', gap: 28 }}>
@@ -319,6 +309,6 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
           )}
         </div>
       </div>
-    </section>
+    </AccountLayout>
   );
 }

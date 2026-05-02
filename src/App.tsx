@@ -276,7 +276,6 @@ function App() {
                       <p className="user-dropdown-name">
                         {user.user_metadata?.full_name || user.email?.split('@')[0]}
                       </p>
-                      <p className="user-dropdown-email">{user.email}</p>
                     </div>
                   </Link>
 
