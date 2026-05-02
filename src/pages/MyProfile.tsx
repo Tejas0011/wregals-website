@@ -308,7 +308,6 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
             </div>
           )}
         </div>
-      </div>
     </AccountLayout>
   );
 }
