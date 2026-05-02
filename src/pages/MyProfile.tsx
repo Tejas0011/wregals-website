@@ -175,7 +175,7 @@ export default function MyProfile({ user, onSignInClick }: MyProfileProps) {
             </div>
 
             {/* CTA Buttons */}
-            <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
+            <div style={{ display: 'flex', gap: 8, flexShrink: 0, marginLeft: 'auto', alignSelf: 'flex-start' }}>
               <Link to="/settings" style={{ textDecoration: 'none' }}>
                 <button style={{ padding: '9px 18px', borderRadius: 8, fontSize: 12, fontWeight: 600, background: '#fff', color: '#000', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}>
                   <IIcon icon="solar:pen-linear" width="13" /> Edit Profile
