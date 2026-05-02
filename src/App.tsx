@@ -288,10 +288,7 @@ function App() {
                       Dashboard
                     </Link>
                   )}
-                  <Link to="/profile" className="user-dropdown-item w-full text-left">
-                    <IIcon icon="solar:user-circle-linear" width="16" />
-                    My Profile
-                  </Link>
+
                   <Link to="/watchlist" className="user-dropdown-item w-full text-left">
                     <IIcon icon="solar:heart-linear" width="16" />
                     Watchlist
