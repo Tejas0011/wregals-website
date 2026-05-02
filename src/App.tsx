@@ -245,9 +245,9 @@ function App() {
       >
         <div className="w-full pl-5 pr-6 h-20 flex items-center justify-between">
           {/* Logo */}
-          <Link to="/">
+          <a href="/" onClick={(e) => { e.preventDefault(); window.location.href = '/'; }}>
             <img src="/wregals-text-logo.png" alt="WREGALS" className="h-32 w-auto object-contain" />
-          </Link>
+          </a>
 
           {/* Global Search - centered */}
           <div className="hidden md:flex flex-1 justify-center px-8">

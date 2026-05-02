@@ -841,11 +841,11 @@ a[href*="spline"] {
     overflow: hidden;
     animation: authOverlayIn 0.4s ease forwards;
 
-    /* Deep Navy Blue Base */
-    background-color: #060515;
+    /* Blackish Grey Base */
+    background-color: #0e0e10;
     background-image:
-        radial-gradient(ellipse 80% 60% at 15% 20%, rgba(20, 15, 60, 0.4) 0%, transparent 60%),
-        radial-gradient(ellipse 70% 50% at 85% 75%, rgba(10, 10, 30, 0.3) 0%, transparent 55%);
+        radial-gradient(ellipse 80% 60% at 15% 20%, rgba(25, 25, 30, 0.5) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 50% at 85% 75%, rgba(18, 18, 22, 0.4) 0%, transparent 55%);
     background-size: 200% 200%, 200% 200%;
     animation: authOverlayIn 0.4s ease forwards, ps-bgDrift 45s ease-in-out infinite;
 }
@@ -882,6 +882,19 @@ a[href*="spline"] {
     z-index: 1;
     pointer-events: none;
     overflow: hidden;
+}
+
+.ps-particles::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.105) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.105) 1px, transparent 1px);
+    background-size: 60px 60px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 70%);
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 70%);
 }
 
 .ps-particle {
@@ -960,11 +973,7 @@ a[href*="spline"] {
 }
 
 .ps-side-accent {
-    position: absolute;
-    width: 1px;
-    height: 40%;
-    top: 30%;
-    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.1), transparent);
+    display: none;
 }
 
 .profile-setup-side--left .ps-side-accent {
@@ -1111,18 +1120,21 @@ a[href*="spline"] {
 .profile-setup-form::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.45) 30%,
-        rgba(255, 255, 255, 0.8) 50%,
-        rgba(255, 255, 255, 0.45) 70%,
-        transparent 100%);
+    inset: -1px;
+    border-radius: 13px;
+    padding: 1px;
+    background: radial-gradient(
+        ellipse 50% 80px at 50% 0%, 
+        rgba(255, 255, 255, 0.9) 0%, 
+        rgba(255, 255, 255, 0.4) 40%, 
+        transparent 100%
+    );
     background-size: 200% 100%;
     animation: ps-shimmer 6s ease-in-out infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
 }
 
 .profile-setup-error {
